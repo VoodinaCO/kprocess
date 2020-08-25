@@ -1,0 +1,714 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:behaviors="clr-namespace:KProcess.Ksmed.Presentation.Core.Behaviors"
+                    xmlns:converters="clr-namespace:KProcess.Ksmed.Presentation.Core.Converters"
+                    xmlns:core="clr-namespace:KProcess.Ksmed.Presentation.Core"
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                    xmlns:hd="clr-namespace:DlhSoft.Windows.Controls;assembly=DlhSoft.HierarchicalData.LightWPF.Controls"
+                    xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                    xmlns:local="clr-namespace:KProcess.Ksmed.Presentation.Core.Controls"
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                    xmlns:pdgcconverters="clr-namespace:DlhSoft.Windows.Converters;assembly=DlhSoft.ProjectData.GanttChart.LightWPF.Controls"
+                    mc:Ignorable="d">
+
+    <!--
+        CONVERTERS
+    -->
+
+    <k:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    <k:NegatedBooleanConverter x:Key="NegatedBooleanConverter" />
+    <k:NegatedBooleanToVisibilityConverter x:Key="NegatedBooleanToVisibilityConverter" />
+    <k:VisibilityToBooleanConverter x:Key="VisibilityToBooleanConverter" />
+    <converters:AreEqualToVisibilityConverter x:Key="AreEqualToVisibilityConverter" />
+    <k:NotNullToVisibilityConverter x:Key="NotNullToVisibilityConverter" />
+    <converters:TicksToStringConverter x:Key="TicksToStringConverter" />
+    <pdgcconverters:DateTimeStringConverter x:Key="DateTimeStringConverter" />
+    <converters:GanttTicksToDateTimeConverter x:Key="GanttTicksToDateTimeConverter" />
+    <converters:RatioToPercentConverter x:Key="RatioToPercentConverter" />
+    <converters:ActionRefListToLabelsConverter x:Key="ActionRefListToLabelsConverter" />
+
+    <!--
+        Styles par défaut, insensibles au thème
+    -->
+
+    <Style x:Key="DataGridCellSingleClickEditStyle"
+           BasedOn="{StaticResource baseDataGridCellStyle}"
+           TargetType="{x:Type DataGridCell}">
+        <Setter Property="behaviors:DataGridCellSingleClickEditAction.Attach" Value="true" />
+        <Setter Property="IsEnabled" Value="{Binding DataContext.IsReadOnly, Converter={k:NegatedBooleanConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=hd:DataTreeGrid}}" />
+    </Style>
+
+    <Style x:Key="KGanttChartDataGridCellSingleClickEditStyle"
+           BasedOn="{StaticResource baseDataGridCellStyle}"
+           TargetType="{x:Type DataGridCell}">
+        <Setter Property="behaviors:DataGridCellSingleClickEditAction.Attach" Value="true" />
+        <Setter Property="IsEnabled" Value="{Binding DataContext.IsReadOnly, Converter={k:NegatedBooleanConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=hd:DataTreeGrid}}" />
+    </Style>
+
+    <Style x:Key="DataGridCellPredecessorsSingleClickEditStyle"
+           BasedOn="{StaticResource baseDataGridCellPredecessorsStyle}"
+           TargetType="{x:Type DataGridCell}">
+        <Setter Property="behaviors:DataGridCellSingleClickEditAction.Attach" Value="true" />
+        <Setter Property="BorderBrush" Value="{Binding Action, Converter={converters:PredecessorsToBorderBrushConverter}}" />
+        <Setter Property="BorderThickness" Value="{Binding Action, Converter={converters:PredecessorsToBorderThicknessConverter}}" />
+        <Setter Property="IsEnabled" Value="{Binding DataContext.IsReadOnly, Converter={k:NegatedBooleanConverter}, RelativeSource={RelativeSource FindAncestor, AncestorType=hd:DataTreeGrid}}" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Action, Converter={converters:AllPredecessorsConverter}}" Value="false">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <TextBlock Foreground="White">
+                            <!--<Run Text="This value has been overriden in current scenario." FontStyle="Italic"/>-->
+                            <!--<LineBreak />-->
+                            <Run FontStyle="Italic" Text="{k:Localize Common_OverrideHighlight_OriginalValueFrom}" />
+                            <Run FontWeight="Bold" Text="{Binding Action.Original.Scenario.Label, Mode=OneWay}" />
+                            <Run FontStyle="Italic" Text=":" />
+                            <LineBreak />
+                            <Run FontSize="14"
+                                 FontWeight="Bold"
+                                 Text="{Binding Action, Mode=OneWay, Converter={converters:OriginalPredecessorsToTooltipConverter}}" />
+                        </TextBlock>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <!--  Styles pour grille du gantt  -->
+    <DataTemplate x:Key="TaskCellTemplate">
+        <local:KActionOverrideHighlighter KAction="{Binding Action}" KActionPropertyPath="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridCell}, Path=Column.(core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue)}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Rectangle Grid.Column="0" Width="{Binding Path=IndentationWidth}" />
+                <Border Grid.Column="1" Width="16">
+                    <ToggleButton ClickMode="Press"
+                                  IsChecked="{Binding IsExpanded, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Template="{Binding DataTreeGrid.ExpanderTemplate}"
+                                  Visibility="{Binding ExpanderVisibility, FallbackValue=Collapsed}" />
+                </Border>
+                <TextBlock Grid.Column="2"
+                           VerticalAlignment="Center"
+                           behaviors:TextBoxAutoTooltip.Attach="true"
+                           Text="{Binding Content}" />
+            </Grid>
+        </local:KActionOverrideHighlighter>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FeaturedCellTemplate">
+        <local:KActionOverrideHighlighter x:Name="layoutRoot"
+                                          KAction="{Binding Action}"
+                                          KActionDisplayConverter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridCell}, Path=Column.(core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter), Mode=OneTime}"
+                                          KActionPropertyPath="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridCell}, Path=Column.(core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue), Mode=OneTime}"
+                                          KActionPropertyPathDisplay="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridCell}, Path=Column.(core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay), Mode=OneTime}">
+            <TextBlock x:Name="presenter"
+                       Margin="2,0"
+                       VerticalAlignment="Center"
+                       behaviors:TextBoxAutoTooltip.Attach="true"
+                       core:KDataGridTemplating.TextBinding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridCell}, Path=Column.(core:KDataGridFeatures.Binding).Value}" />
+        </local:KActionOverrideHighlighter>
+        <DataTemplate.Triggers>
+            <MultiDataTrigger>
+                <!--  GanttGridVisibleWhenViewWBSTextBlockStyle  -->
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridCell}, Path=Column.(core:KDataGridFeatures.CellVisibleWhenViewWBSTextBlock), Mode=OneTime}" Value="true" />
+                    <Condition Binding="{Binding IsGroup}" Value="true" />
+                    <Condition Binding="{k:UCBinding DataContext.View}" Value="Resource" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="layoutRoot" Property="Visibility" Value="Collapsed" />
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <!--  GanttGridVisibleWhenNotGroupTextBlockStyle  -->
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=DataGridCell}, Path=Column.(core:KDataGridFeatures.CellVisibleWhenNotGroup), Mode=OneTime}" Value="true" />
+                    <Condition Binding="{Binding IsGroup}" Value="true" />
+                </MultiDataTrigger.Conditions>
+                <Setter TargetName="layoutRoot" Property="Visibility" Value="Collapsed" />
+            </MultiDataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+    <Style x:Key="GanttGridVisibleWhenNotGroupTextBlockStyle"
+           BasedOn="{StaticResource DataGridTextColumnDefaultElementStyle}"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="2,0" />
+        <Setter Property="Visibility" Value="{Binding IsGroup, Converter={StaticResource NegatedBooleanToVisibilityConverter}}" />
+    </Style>
+
+    <Style x:Key="GanttGridVisibleWhenNotGroupTextBoxStyle"
+           BasedOn="{StaticResource DataGridTextColumnDefaultEditingElementStyle}"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Visibility" Value="{Binding IsGroup, Converter={StaticResource NegatedBooleanToVisibilityConverter}}" />
+    </Style>
+
+    <Style x:Key="GanttGridVisibleWhenNotGroupCheckBoxElementStyle"
+           BasedOn="{StaticResource DataGridCheckBoxColumnDefaultElementStyle}"
+           TargetType="{x:Type CheckBox}">
+        <Setter Property="Margin" Value="2,0" />
+        <Setter Property="Visibility" Value="{Binding IsGroup, Converter={StaticResource NegatedBooleanToVisibilityConverter}}" />
+    </Style>
+
+    <Style x:Key="GanttGridVisibleWhenNotGroupCheckBoxEditingStyle"
+           BasedOn="{StaticResource DataGridCheckBoxColumnDefaultEditingElementStyle}"
+           TargetType="{x:Type CheckBox}">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Visibility" Value="{Binding IsGroup, Converter={StaticResource NegatedBooleanToVisibilityConverter}}" />
+    </Style>
+
+    <Style x:Key="GanttGridVisibleWhenViewWBSTextBlockStyle"
+           BasedOn="{StaticResource DataGridTextColumnDefaultElementStyle}"
+           TargetType="{x:Type TextBlock}">
+        <Setter Property="Margin" Value="2,0" />
+        <Style.Triggers>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding IsGroup}" Value="true" />
+                    <Condition Binding="{k:UCBinding DataContext.View}" Value="Resource" />
+                </MultiDataTrigger.Conditions>
+                <Setter Property="Visibility" Value="Collapsed" />
+            </MultiDataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="separatorVerticalStyle" TargetType="Separator">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Separator">
+                    <Border Width="2"
+                            BorderBrush="#DD000000"
+                            BorderThickness="1,0,0,0">
+                        <Rectangle Width="1"
+                                   Fill="#55FFFFFF"
+                                   StrokeThickness="0" />
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="menuListboxItemStyle" TargetType="{x:Type ListBoxItem}">
+        <Setter Property="Foreground" Value="#70FFFFFF" />
+        <Setter Property="FontFamily" Value="{StaticResource SegoeWPFontFamily}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="10,2,6,2" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+        <Setter Property="VerticalContentAlignment" Value="Top" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                    <Grid Background="{TemplateBinding Background}">
+                        <Rectangle x:Name="MouseOverElement"
+                                   Fill="{StaticResource MouseOverSelectionBrush}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0"
+                                   RadiusX="5"
+                                   RadiusY="5" />
+                        <Rectangle x:Name="SelectedElement"
+                                   Fill="{StaticResource InputSelectionBrush}"
+                                   IsHitTestVisible="False"
+                                   Opacity="0"
+                                   RadiusX="5"
+                                   RadiusY="5" />
+
+                        <DockPanel Margin="{TemplateBinding Padding}">
+                            <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                        </DockPanel>
+                        <Rectangle x:Name="FocusVisualElement"
+                                   Margin="2"
+                                   IsHitTestVisible="False"
+                                   Opacity="0"
+                                   RadiusX="1"
+                                   RadiusY="1"
+                                   Stroke="{StaticResource FocusVisualBrush}"
+                                   StrokeDashArray="2"
+                                   StrokeThickness="{StaticResource FocusVisualStrokeThickness}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="contentPresenter"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.35"
+                                                         Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="SelectionStates">
+                                <VisualState x:Name="Unselected" />
+                                <VisualState x:Name="Selected" />
+                                <VisualState x:Name="SelectedUnfocused" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualElement"
+                                                         Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                         To="1"
+                                                         Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="LayoutStates">
+                                <VisualState x:Name="AfterLoaded" />
+                                <VisualState x:Name="BeforeLoaded" />
+                                <VisualState x:Name="BeforeUnloaded" />
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="ValidationStates">
+                                <VisualState x:Name="Valid" />
+                                <VisualState x:Name="InvalidUnfocused" />
+                                <VisualState x:Name="InvalidFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="true">
+                            <Setter Property="Foreground" Value="White" />
+                            <Setter Property="FontWeight" Value="SemiBold" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsMouseOver" Value="true" />
+                                <Condition Property="IsSelected" Value="False" />
+                            </MultiTrigger.Conditions>
+                            <Setter Property="Foreground" Value="{StaticResource MouseOverSelectionBrush}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding}" Value="|">
+                <Setter Property="IsEnabled" Value="False" />
+                <Setter Property="VerticalAlignment" Value="Stretch" />
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                            <Separator Height="Auto"
+                                       Margin="6,-4,4,-4"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Stretch"
+                                       Style="{StaticResource separatorVerticalStyle}" />
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="menuListboxStyle" TargetType="{x:Type ListBox}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="ItemContainerStyle" Value="{StaticResource menuListboxItemStyle}" />
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="KeyboardNavigation.TabNavigation" Value="Once" />
+        <Setter Property="FontSize" Value="{StaticResource Heading4FontSize}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ListBox}">
+                    <Border Margin="0"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="3">
+                        <ScrollViewer x:Name="ScrollViewer"
+                                      Margin="0"
+                                      Padding="0"
+                                      Background="Transparent"
+                                      BorderBrush="Transparent"
+                                      BorderThickness="0"
+                                      KeyboardNavigation.TabNavigation="{Binding (KeyboardNavigation.TabNavigation), RelativeSource={RelativeSource TemplatedParent}}">
+                            <!--<StackPanel Orientation="Horizontal" IsItemsHost="True" />-->
+                            <ItemsPresenter />
+                        </ScrollViewer>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="menuTabControlStyle"
+           BasedOn="{StaticResource baseTabControlStyle}"
+           TargetType="{x:Type TabControl}">
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ItemContainerStyle">
+            <Setter.Value>
+                <Style BasedOn="{StaticResource baseTabItemStyle}" TargetType="{x:Type TabItem}">
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="BorderThickness" Value="0" />
+
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Grid x:Name="Root"
+                                      Margin="0,0,3,0"
+                                      d:DesignHeight="214"
+                                      d:DesignWidth="223.82">
+                                    <Border x:Name="border"
+                                            Width="Auto"
+                                            Padding="{TemplateBinding Padding}"
+                                            HorizontalAlignment="Left"
+                                            Background="{TemplateBinding Background}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="2.5,2.5,0,0">
+                                        <ContentPresenter x:Name="HeaderTopSelected"
+                                                          HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                          VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+                                                          ContentSource="Header"
+                                                          RecognizesAccessKey="True"
+                                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                                          TextElement.FontFamily="{StaticResource SegoeWPFontFamily}"
+                                                          TextElement.FontSize="{StaticResource Heading4FontSize}"
+                                                          TextElement.FontWeight="Normal"
+                                                          TextElement.Foreground="#70FFFFFF" />
+                                    </Border>
+                                    <VisualStateManager.VisualStateGroups>
+                                        <VisualStateGroup x:Name="CommonStates">
+                                            <VisualStateGroup.Transitions>
+                                                <VisualTransition GeneratedDuration="00:00:00.1" />
+                                            </VisualStateGroup.Transitions>
+                                            <VisualState x:Name="Normal" />
+                                            <VisualState x:Name="MouseOver" />
+                                            <VisualState x:Name="Disabled" />
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="SelectionStates">
+                                            <VisualState x:Name="Unselected" />
+                                        </VisualStateGroup>
+                                        <VisualStateGroup x:Name="FocusStates">
+                                            <VisualState x:Name="Focused" />
+                                            <VisualState x:Name="Unfocused" />
+                                        </VisualStateGroup>
+                                    </VisualStateManager.VisualStateGroups>
+                                </Grid>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="Selector.IsSelected" Value="True">
+                                        <Setter Property="Panel.ZIndex" Value="1" />
+                                        <Setter TargetName="HeaderTopSelected" Property="TextElement.Foreground" Value="White" />
+                                        <Setter TargetName="HeaderTopSelected" Property="TextElement.FontWeight" Value="SemiBold" />
+                                    </Trigger>
+                                    <MultiTrigger>
+                                        <MultiTrigger.Conditions>
+                                            <Condition Property="IsMouseOver" Value="true" />
+                                            <Condition Property="IsSelected" Value="False" />
+                                        </MultiTrigger.Conditions>
+                                        <Setter TargetName="HeaderTopSelected" Property="TextElement.Foreground" Value="{StaticResource MouseOverSelectionBrush}" />
+                                    </MultiTrigger>
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+
+                </Style>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="SummaryDefaultCellTemplate">
+        <Grid>
+            <ContentControl Margin="2,0"
+                            HorizontalAlignment="{Binding HorizontalAlignment, Mode=OneTime}"
+                            Content="{Binding Content, Mode=OneTime}"
+                            FontWeight="{Binding FontWeight, Mode=OneTime}" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="SummaryLockedCellTemplate">
+        <Image Width="16"
+               Height="16"
+               Margin="2,0,0,0"
+               Source="pack://siteoforigin:,,,/Resources/Images/lock32.png"
+               Visibility="{Binding IsLocked, Converter={StaticResource BooleanToVisibilityConverter}}" />
+    </DataTemplate>
+
+    <Style x:Key="ExtBarActionsSmall" TargetType="{x:Type ItemsControl}">
+        <Setter Property="ItemsSource" Value="{Binding ExtBarActions}" />
+        <Setter Property="ItemsPanel">
+            <Setter.Value>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Button Command="{Binding Action}"
+                            Style="{StaticResource ButtonFillSmallStyle}"
+                            ToolTip="{Binding Label}">
+                        <Image Width="16"
+                               Height="16"
+                               Source="{Binding SmallIconUri}" />
+                    </Button>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ExtBarActionsLarge" TargetType="{x:Type ItemsControl}">
+        <Setter Property="ItemsSource" Value="{Binding ExtBarActions}" />
+        <Setter Property="ItemTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Button Command="{Binding Action}"
+                            Style="{StaticResource ButtonLeftStyleBase}"
+                            ToolTip="{Binding Label}">
+                        <Image Width="32"
+                               Height="32"
+                               Source="{Binding LargeIconUri}" />
+                    </Button>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ActivationStatusTextBlockStyle" TargetType="{x:Type TextBlock}">
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Text" Value="{Binding Status}" />
+        <Setter Property="Margin" Value="8" />
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding LicenseStatus}" Value="Expired">
+                <Setter Property="Foreground" Value="{StaticResource ErrorBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding LicenseStatus}" Value="MachineHashMismatch">
+                <Setter Property="Foreground" Value="{StaticResource ErrorBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding LicenseStatus}" Value="NotFound">
+                <Setter Property="Foreground" Value="{StaticResource ErrorBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding LicenseStatus}" Value="Invalid">
+                <Setter Property="Foreground" Value="{StaticResource ErrorBrush}" />
+            </DataTrigger>
+            <DataTrigger Binding="{Binding LicenseStatus}" Value="InternalError">
+                <Setter Property="Foreground" Value="{StaticResource ErrorBrush}" />
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="TwoLinesScrollingTextBox"
+           BasedOn="{StaticResource baseTextBoxStyle}"
+           TargetType="{x:Type TextBox}">
+        <Setter Property="AcceptsReturn" Value="true" />
+        <Setter Property="MaxHeight" Value="38" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Auto" />
+    </Style>
+
+    <!--  Styles Custom Grid Splitter  -->
+
+
+    <Style x:Key="horizontalCustomGridSplitterStyle" TargetType="{x:Type local:CustomGridSplitter}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="IsTabStop" Value="true" />
+        <Setter Property="PreviewStyle">
+            <Setter.Value>
+                <Style TargetType="Control">
+                    <Setter Property="Background" Value="#FF868686" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Control">
+                                <Grid x:Name="Root" Opacity=".5">
+                                    <Rectangle Fill="{TemplateBinding Background}" />
+                                    <Grid x:Name="HorizontalTemplate" Height="2" />
+                                    <Grid x:Name="VerticalTemplate"
+                                          Width="2"
+                                          Visibility="Collapsed" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CustomGridSplitter}">
+                    <Grid x:Name="Root"
+                          d:DesignHeight="208.333"
+                          d:DesignWidth="346"
+                          Background="{TemplateBinding Background}"
+                          IsHitTestVisible="{TemplateBinding IsEnabled}">
+                        <Grid x:Name="HorizontalTemplate"
+                              Height="2"
+                              Margin="{TemplateBinding Padding}">
+                            <Rectangle Height="1" VerticalAlignment="Top">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Offset="0" Color="#00000000" />
+                                        <GradientStop Offset="0.2" Color="#80000000" />
+                                        <GradientStop Offset="0.8" Color="#80000000" />
+                                        <GradientStop Offset="1" Color="#00000000" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Height="1" Margin="0,1,0,0">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                        <GradientStop Offset="0" Color="#00FFFFFF" />
+                                        <GradientStop Offset="0.2" Color="#80FFFFFF" />
+                                        <GradientStop Offset="0.8" Color="#80FFFFFF" />
+                                        <GradientStop Offset="1" Color="#00FFFFFF" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        <Rectangle x:Name="FocusVisualElement"
+                                   Margin="1"
+                                   IsHitTestVisible="False"
+                                   Opacity="0"
+                                   RadiusX="1"
+                                   RadiusY="1"
+                                   Stroke="{StaticResource FocusVisualBrush}"
+                                   StrokeThickness="{StaticResource FocusVisualStrokeThickness}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Root"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.5"
+                                                         Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualElement"
+                                                         Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                         To="1"
+                                                         Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="verticalCustomGridSplitterStyle" TargetType="{x:Type local:CustomGridSplitter}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="IsTabStop" Value="true" />
+        <Setter Property="PreviewStyle">
+            <Setter.Value>
+                <Style TargetType="Control">
+                    <Setter Property="Background" Value="#FF868686" />
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="Control">
+                                <Grid x:Name="Root" Opacity=".5">
+                                    <Rectangle Fill="{TemplateBinding Background}" />
+                                    <Grid x:Name="HorizontalTemplate" Height="2" />
+                                    <Grid x:Name="VerticalTemplate"
+                                          Width="2"
+                                          Visibility="Collapsed" />
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type local:CustomGridSplitter}">
+                    <Grid x:Name="Root"
+                          d:DesignHeight="208.333"
+                          d:DesignWidth="346"
+                          Background="{TemplateBinding Background}"
+                          IsHitTestVisible="{TemplateBinding IsEnabled}">
+                        <Grid x:Name="VerticalTemplate"
+                              Width="2"
+                              Margin="{TemplateBinding Padding}">
+                            <Rectangle Width="1" HorizontalAlignment="Left">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="#00000000" />
+                                        <GradientStop Offset="0.2" Color="#80000000" />
+                                        <GradientStop Offset="0.8" Color="#80000000" />
+                                        <GradientStop Offset="1" Color="#00000000" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle Width="1" Margin="1,0,0,0">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                        <GradientStop Offset="0" Color="#00FFFFFF" />
+                                        <GradientStop Offset="0.2" Color="#80FFFFFF" />
+                                        <GradientStop Offset="0.8" Color="#80FFFFFF" />
+                                        <GradientStop Offset="1" Color="#00FFFFFF" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Grid>
+                        <Rectangle x:Name="FocusVisualElement"
+                                   Margin="1"
+                                   IsHitTestVisible="False"
+                                   Opacity="0"
+                                   RadiusX="1"
+                                   RadiusY="1"
+                                   Stroke="{StaticResource FocusVisualBrush}"
+                                   StrokeThickness="{StaticResource FocusVisualStrokeThickness}" />
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="MouseOver" />
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Root"
+                                                         Storyboard.TargetProperty="Opacity"
+                                                         To="0.5"
+                                                         Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualStateGroup.Transitions>
+                                    <VisualTransition GeneratedDuration="0" />
+                                </VisualStateGroup.Transitions>
+                                <VisualState x:Name="Focused">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="FocusVisualElement"
+                                                         Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                         To="1"
+                                                         Duration="0" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

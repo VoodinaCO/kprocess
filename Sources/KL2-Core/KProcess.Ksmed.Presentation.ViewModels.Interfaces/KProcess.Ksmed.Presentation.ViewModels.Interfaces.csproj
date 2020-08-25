@@ -1,0 +1,198 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7F137000-D591-489D-B4F6-68DC74BDCE9B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KProcess.Ksmed.Presentation.ViewModels.Interfaces</RootNamespace>
+    <AssemblyName>KProcess.Ksmed.Presentation.ViewModels.Interfaces</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
+    <Compile Include="Admin\IBackupRestoreViewModel.cs" />
+    <Compile Include="Admin\Referentials\IAdminSkillsViewModel.cs" />
+    <Compile Include="Admin\Referentials\IAdminMultiReferentialsViewModels.cs" />
+    <Compile Include="Common\CustomFieldLabel.cs" />
+    <Compile Include="Common\CustomFieldsLabels.cs" />
+    <Compile Include="Common\ReferentialsGroupSort.cs" />
+    <Compile Include="Common\ReferentialsSort.cs" />
+    <Compile Include="Gantt\ActionGanttItem.cs" />
+    <Compile Include="Gantt\ActionGridItem.cs" />
+    <Compile Include="Gantt\GanttGridViewContainer.cs" />
+    <Compile Include="Gantt\IESFilter.cs" />
+    <Compile Include="Gantt\Interfaces\IActionItem.cs" />
+    <Compile Include="Gantt\Interfaces\IGridItem.cs" />
+    <Compile Include="Gantt\Interfaces\IReferentialItem.cs" />
+    <Compile Include="Gantt\ReferentialGanttItem.cs" />
+    <Compile Include="Gantt\ReferentialGridItem.cs" />
+    <Compile Include="Gantt\ResourceLoad.cs" />
+    <Compile Include="IAboutViewModel.cs" />
+    <Compile Include="IAcquireViewModel.cs" />
+    <Compile Include="IActivationFrameViewModel.cs" />
+    <Compile Include="IActivationViewModel.cs" />
+    <Compile Include="Admin\Referentials\IAdminReferentialsViewModel.cs" />
+    <Compile Include="IAnalyzeAcquireViewModel.cs" />
+    <Compile Include="IAnalyzeBuildViewModel.cs" />
+    <Compile Include="IAnalyzeRestitutionViewModel.cs" />
+    <Compile Include="IAnalyzeSimulateViewModel.cs" />
+    <Compile Include="Admin\Referentials\IAdminActionCategoriesViewModel.cs" />
+    <Compile Include="Admin\Referentials\IAdminSubReferentialViewModel.cs" />
+    <Compile Include="Admin\Referentials\IAdminEquipmentsViewModel.cs" />
+    <Compile Include="Admin\IApplicationUsersViewModel.cs" />
+    <Compile Include="Admin\Referentials\IAdminOperatorsViewModel.cs" />
+    <Compile Include="IAuthenticationViewModel.cs" />
+    <Compile Include="IBuildViewModel.cs" />
+    <Compile Include="IExtensionsConfigurationViewModel.cs" />
+    <Compile Include="IGanttGridViewModel.cs" />
+    <Compile Include="IMainWindowViewModel.cs" />
+    <Compile Include="IPrepareMembersViewModel.cs" />
+    <Compile Include="IPrepareProjectsViewModel.cs" />
+    <Compile Include="IPrepareReferentialsViewModel.cs" />
+    <Compile Include="IPublishSummaryViewModel.cs" />
+    <Compile Include="IPublishFormatViewModel.cs" />
+    <Compile Include="IPublishVideosViewModel.cs" />
+    <Compile Include="IPublishScenarioViewModel.cs" />
+    <Compile Include="IPrepareScenariosViewModel.cs" />
+    <Compile Include="IPrepareVideosViewModel.cs" />
+    <Compile Include="IReferentialMergeViewModel.cs" />
+    <Compile Include="IWizardViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionRef7ViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionRef6ViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionRef5ViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionRef2ViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionRef4ViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionOccupationViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionRef3ViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionSolutionsViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionRef1ViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionViewByResourceViewModel.cs" />
+    <Compile Include="Restitution\IRestitutionViewModel.cs" />
+    <Compile Include="ISimulateViewModel.cs" />
+    <Compile Include="Restitution\ISubRestitutionViewModel.cs" />
+    <Compile Include="IValidateAcquireViewModel.cs" />
+    <Compile Include="IValidateBuildViewModel.cs" />
+    <Compile Include="IValidateRestitutionViewModel.cs" />
+    <Compile Include="IValidateSimulateViewModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Restitution\SolutionWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DlhSoft.HierarchicalData.LightWPF.Controls\DlhSoft.HierarchicalData.LightWPF.Controls.csproj">
+      <Project>{22912E86-C4F7-4920-8167-3D67DBB3CBA1}</Project>
+      <Name>DlhSoft.HierarchicalData.LightWPF.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DlhSoft.ProjectData.GanttChart.LightWPF.Controls\DlhSoft.ProjectData.GanttChart.LightWPF.Controls.csproj">
+      <Project>{17CF2D11-BA9D-4BCF-A0EC-47C3B06D6F5F}</Project>
+      <Name>DlhSoft.ProjectData.GanttChart.LightWPF.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41A8FD16-8AA1-48F2-AC75-CB27FFEEA2A4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5D4074AA-F569-4C2A-AC8F-A486C382BFD7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579C-1C1B-4B94-B14C-52AB369AEEBA}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Business\KProcess.Ksmed.Business.csproj">
+      <Project>{A53F3357-B177-4C21-BC01-89C173694B4E}</Project>
+      <Name>KProcess.Ksmed.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Presentation.Core\KProcess.Ksmed.Presentation.Core.csproj">
+      <Project>{0E402448-C15A-4C79-BEE0-5E76309639C2}</Project>
+      <Name>KProcess.Ksmed.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Presentation.Windows\KProcess.Presentation.Windows.csproj">
+      <Project>{BA24ABBC-FE81-40B3-AB48-5E33C8FC542F}</Project>
+      <Name>KProcess.Presentation.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Shared.WPF">
+      <Version>17.1.0.50</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Tools.WPF">
+      <Version>17.1.0.50</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

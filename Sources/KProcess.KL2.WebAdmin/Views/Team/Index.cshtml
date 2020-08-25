@@ -1,0 +1,214 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Teams;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model TeamsViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Index";
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "TeamName", direction = "Ascending" });
+}
+
+<style>
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+
+    .e-listview:not(.e-list-template) .e-list-item {
+        height: auto !important;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Grid("Teams")
+                    .Height("100%").Width("100%")
+                    .DataSource(ds => ds.Json(Model.TeamViewModel.ToArray()).UpdateUrl(Url.Action("UpdateTeam")).InsertUrl(Url.Action("InsertTeam")).RemoveUrl(Url.Action("DeleteTeam")).Adaptor("RemoteSaveAdaptor"))
+                    .EditSettings(edit => { edit.AllowAdding(true).AllowDeleting(true).AllowEditing(true).ShowConfirmDialog(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog).Template("#template"); })
+                    .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                    .AllowPaging()
+                    .PageSettings(p => p.PageSize(25))
+                    .Locale(ejLanguageCode)
+                    //Excel export
+                    .AllowExcelExport()
+                    .AllowTextWrap()
+                    .AllowFiltering()
+                    .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                    .EnableHover()
+                    .Toolbar(new List<string>() { "Add", "Edit", "Delete", "ExcelExport" })
+                    .ToolbarClick("toolbarClick")
+                    .AllowSorting()
+                    .SortSettings(sort => sort.Columns(cols))
+                    .Columns(col =>
+                    {
+                        col.Field("TeamId").IsPrimaryKey(true).HeaderText("Team Id").Visible(false).Width(15).Add();
+                        col.Field("TeamName").HeaderText(LocalizedStrings.GetString("Team")).ValidationRules(new { required = true }).Width("200").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                        col.Field("Fullname").HeaderText(LocalizedStrings.GetString("Operators")).Width("200").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                    })
+                    .ActionBegin("actionBegin")
+                    .ActionComplete("actionComplete")
+                    .ActionFailure("actionFailure")
+                    .QueryCellInfo("gridQueryCellInfo")
+                    .RowSelecting("onSelectingCheck")
+                    .Render()
+        )
+    </div>
+</div>
+
+<script id="template" type="text/template">
+    <div id="dialogTemp">
+    </div>
+</script>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Administration")" + "/" + "@LocalizedStrings.GetString("TeamManagement")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function toolbarClick(args) {
+        if ((args.item.properties.id == "Teams_delete" || args.item.properties.id == "Teams_edit") && this.getSelectedRecords().length == 0) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (args.item.properties.id) {
+                case "Teams_delete":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                    break;
+                case "Teams_edit":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                    break;
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if (args.item.id === 'Teams_excelexport') {
+            var gridObj = document.getElementById("Teams").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "Teams.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Fullname") {
+            var fullname = args.data["Fullname"];
+            args.cell.innerText = String(fullname).replace(/\,/g, ', ');
+        }
+    }
+
+    function actionFailure(args) {
+        var msg = "";
+        if (args.hasOwnProperty("error")) {
+            msg = args.error[0].error.statusText;
+        }
+        if (args.length > 0) {
+            msg = args[0].error.statusText;
+        }
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        this.cancel = true;
+    }
+
+    function actionBegin(args) {
+        if (args.requestType === "save") {
+            //Users save
+            var userList = document.getElementById('Fullname').ej2_instances[0];
+            var selectedItems = userList.getSelectedItems();
+            var users = [];
+            for (var i = 0; i < selectedItems.data.length; i++) {
+                users[i] = selectedItems.data[i].UserId;
+            }
+            args.data['Fullname'] = users.join();
+        }
+    }
+    function actionComplete(args) {
+        if (args.requestType === 'beginEdit') {
+            var spinner = ej.popups.createSpinner({ target: args.dialog.element });
+            ej.popups.showSpinner(args.dialog.element);
+            args.dialog.header = "@LocalizedStrings.GetString("TeamEditHeader") " + args.rowData.TeamName;
+            args.dialog.width = "auto";
+            args.dialog.headerEle.style.width = "auto";
+            var ajax = new ej.base.Ajax({
+                url: "@Url.Action("GetTeam", "Team")", //render the partial view
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ value: args.rowData })
+            });
+            ajax.send().then(function (data) {
+                $('#dialogTemp').html(data); //Render the edit form with selected record
+                args.form.elements.TeamName.focus();
+                ej.popups.hideSpinner(args.dialog.element);
+            }).catch(function (xhr) {
+                console.log(xhr);
+                ej.popups.hideSpinner(args.dialog.element);
+                location.reload();
+            });
+            args.form.addEventListener('keyup', function (e) {
+                this.ej2_instances[0].validate(e.target.name);
+            });
+        } else if (args.requestType === 'add') {
+            var spinner = ej.popups.createSpinner({ target: args.dialog.element });
+            ej.popups.showSpinner(args.dialog.element);
+            args.dialog.header = "@LocalizedStrings.GetString("Common_NewRecordHeader")";
+            args.dialog.width = "auto";
+            args.dialog.headerEle.style.width = "auto";
+            var ajax = new ej.base.Ajax({
+                url: "@Url.Action("GetTeam", "Team")", //render the partial view
+                type: "POST",
+                contentType: "application/json",
+            });
+            ajax.send().then(function (data) {
+                $('#dialogTemp').html(data); //Render the edit form with selected record
+                args.form.elements.TeamName.focus();
+                ej.popups.hideSpinner(args.dialog.element);
+            }).catch(function (xhr) {
+                console.log(xhr);
+                ej.popups.hideSpinner(args.dialog.element);
+                location.reload();
+            });
+            args.form.addEventListener('keyup', function (e) {
+                this.ej2_instances[0].validate(e.target.name);
+            });
+        }
+    }
+
+</script>
+
+@Html.EJS().ScriptManager()

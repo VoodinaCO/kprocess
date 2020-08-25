@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="ac778f6d-6e78-4f97-a0a9-a54a44a93cde" name="CreerUnNouveauProjet" linkedPackageId="c1bdd80b-2bc2-4f3b-b92d-5a4c82777ebd" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="f0b8f5db-fd87-416a-98e7-eaaf9a63048d">
+      <elementDefinition Id="e09dc7c8-7a17-4bf3-bf67-c2ef773cabce" />
+      <body>Créer un nouveau projet KSMED
+</body>
+    </comment>
+  </ownedCommentsInternal>
+  <referencesInternal>
+    <reference Id="0de17e86-8524-479f-81b8-e07eae032602" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$61" tag="Work Item Reference" />
+  </referencesInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="829a68ca-ab78-492f-b304-da0918192194" name="CreerUnNouveauProjet" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="08d65d70-d104-4d73-b1a4-9ee40c95e67c" />
+        <nodes>
+          <initialNode Id="5c47a48e-cec3-4ab5-b9d2-b676f40426e7" name="Initial1" isLeaf="false">
+            <elementDefinition Id="574bd60d-d632-4af4-bdd1-a6870eea3808" />
+            <flowNodeTargets>
+              <controlFlow Id="c4054846-30bd-4c1d-8ce5-0e927783d327" isLeaf="false">
+                <opaqueActionMoniker Id="1ac165cc-1101-4d90-9442-f9ff5389cf61" LastKnownName="Renseigner les infos du projets" />
+                <elementDefinition Id="d0fc3f7d-c58a-4884-8acd-df52abef7828" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="1ac165cc-1101-4d90-9442-f9ff5389cf61" name="Renseigner les infos du projets" isLeaf="false">
+            <elementDefinition Id="7656f020-6ccb-4270-875e-a55647346412" />
+            <flowNodeTargets>
+              <controlFlow Id="1e959569-4f3e-4b4d-a626-350625e87ba0" isLeaf="false">
+                <opaqueActionMoniker Id="cd0ae6f0-5152-474b-948d-6b42e71178f9" LastKnownName="Associer des vidéos" />
+                <elementDefinition Id="fcb2d827-f042-4815-9730-b40a1b3323a1" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="cd0ae6f0-5152-474b-948d-6b42e71178f9" name="Associer des vidéos" isLeaf="false">
+            <elementDefinition Id="7c457be7-610d-4e9d-b9a6-31f3c940b315" />
+            <flowNodeTargets>
+              <controlFlow Id="f3aa19de-c69c-4553-a8eb-d3f449e183dd" isLeaf="false">
+                <decisionNodeMoniker Id="f57810dc-1946-466f-9a44-563bf3c46d2c" LastKnownName="Decision1" />
+                <elementDefinition Id="b504d6f4-5ae4-45c8-b630-9a395254f655" />
+              </controlFlow>
+              <controlFlow Id="24160f30-f4c0-4f3b-8e5b-00e40f07f27c" isLeaf="false">
+                <opaqueActionMoniker Id="906e3e3a-a44c-42b2-a231-40f763e85876" LastKnownName="Ajouter des utilisateurs" />
+                <elementDefinition Id="c5c6c641-e305-4c01-a2a7-e609c8da6223" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="906e3e3a-a44c-42b2-a231-40f763e85876" name="Ajouter des utilisateurs" isLeaf="false">
+            <elementDefinition Id="3809da34-63c0-42d3-9d9a-b60944a8690b" />
+            <flowNodeTargets>
+              <controlFlow Id="be03e4c8-fa8e-44e3-bc50-972ef71d287c" isLeaf="false">
+                <opaqueActionMoniker Id="179e4977-4882-40a6-95e8-aed41da949f5" LastKnownName="Attribuer un rôle" />
+                <elementDefinition Id="c1fdcdd7-6c98-4564-b239-263a77ba3ea2" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="683cd960-1605-4a85-89d4-dc192581204a" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="3c434664-e9e4-4470-8dec-56fedb2f47c1" LastKnownName="Projet Prêt pour phase d'analyse" />
+                <elementDefinition Id="2a5755ad-8b57-42b3-b2c4-63edaca77d81" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <decisionNode Id="f57810dc-1946-466f-9a44-563bf3c46d2c" name="Decision1" isLeaf="false">
+            <description>Nature ?</description>
+            <elementDefinition Id="900a5aa8-1cd3-4ea2-813b-ff79a471031b" />
+            <flowNodeTargets>
+              <controlFlow Id="0f864375-298d-4bd0-a007-18160181a930" guard="si POV sélectionné" isLeaf="false">
+                <opaqueActionMoniker Id="27c6c63e-c054-4483-9005-6baab05ee09c" LastKnownName="Définir une ressource par défaut" />
+                <elementDefinition Id="5f4a9955-7022-4077-9d24-e7e00c34ce7d" />
+              </controlFlow>
+              <controlFlow Id="eae866a2-a6ab-474e-a9c0-72b49cc27e4b" guard="Si VSM" isLeaf="false">
+                <opaqueActionMoniker Id="cd0ae6f0-5152-474b-948d-6b42e71178f9" LastKnownName="Associer des vidéos" />
+                <elementDefinition Id="3e48930f-312a-4f30-86d7-702214d175a2" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="27c6c63e-c054-4483-9005-6baab05ee09c" name="Définir une ressource par défaut" isLeaf="false">
+            <elementDefinition Id="8faa1f9e-92bb-4a1b-8ce4-82e22d335fcb" />
+            <flowNodeTargets>
+              <controlFlow Id="2ccc1b65-f006-4841-830f-198eb56800df" isLeaf="false">
+                <opaqueActionMoniker Id="cd0ae6f0-5152-474b-948d-6b42e71178f9" LastKnownName="Associer des vidéos" />
+                <elementDefinition Id="3ae957d2-b16c-4d5e-837b-326a472df7dc" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="179e4977-4882-40a6-95e8-aed41da949f5" name="Attribuer un rôle" isLeaf="false">
+            <elementDefinition Id="caf26d02-ef45-4f63-8e2b-4fddb76b270c" />
+          </opaqueAction>
+          <activityFinalNode Id="7ed319fe-4df1-498e-af46-d91facd5a1f3" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="9b4a1536-fc82-496c-b6a9-8daaf36a9131" />
+          </activityFinalNode>
+          <objectNode Id="3c434664-e9e4-4470-8dec-56fedb2f47c1" name="Projet Prêt pour phase d'analyse" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="351d729d-0cdc-4171-aab2-87518794bc52" />
+            <objectFlowTargets>
+              <objectFlow Id="7eb242b0-a232-42aa-9166-df004a503ee2" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <activityFinalNodeMoniker Id="7ed319fe-4df1-498e-af46-d91facd5a1f3" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="0e610e7a-5a8b-440a-9611-33a42576ffe8" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger Id="8ee1f525-6f8c-4ad5-9b78-eae1cb5e26e0" name="2147483647" value="2147483647">
+                <elementDefinition Id="97559a72-36ed-45a7-b5bf-dd8e39903057" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="c1bdd80b-2bc2-4f3b-b92d-5a4c82777ebd" name="KProcess.KSmed.Modelisation">
+    <elementDefinition Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab" />
+    <profileInstances>
+      <packageHasProfileInstances Id="893704ce-acf5-4cb7-ac6b-7dd6e91df9b1">
+        <profileInstance Id="59da8f22-f5b2-40a1-8f68-9e9604ae6170" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="2422eafc-82e3-4c89-a14c-18c5830dca9e">
+        <profileInstance Id="fd2cf7f9-2306-4c44-a112-f1453a70c84e" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

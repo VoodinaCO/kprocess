@@ -1,0 +1,162 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="bootstrap.min.css">
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+</head>
+<body>
+    <div class="text-center panel panel-default">
+        <div class="panel-body">
+            <h1>Compte-rendu d'audit - @DateTime.Now.ToShortDateString()</h1>
+        </div>
+    </div>
+    <div style="margin-left:45px;margin-right:45px;">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-2">
+                    Inspection auditée
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.ProcessLabel
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-2">
+                    Audité
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.AuditeeName
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-2">
+                    Equipe
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @string.Join(", ", Model.Teams)
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-2">
+                    Situation audité
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @{
+                        if (Model.AuditeeHasTenured == true)
+                        {
+                            if (Model.AuditeeTenured.Value == true)
+                            {
+                                @:Titulaire
+                            }
+                            else
+                            {
+                                @:Intérimaire
+                            }
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-2">
+                    Auditeur
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.AuditorName
+                </div>
+            </div>
+            <div class="col-md-6">
+
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-12 panel panel-primary">
+                <h3 class="text-center panel-heading">Bilan audit</h3>
+                <table class="table table-striped panel-body">
+                    <thead>
+                        <tr>
+                            <th class="col-md-4 text-center">Questions</th>
+                            <th class="col-md-4 text-center">Résultat (OK/NOK)</th>
+                            <th class="col-md-4 text-center">Commentaire</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var audit in Model.AuditItemsViewModel)
+                        {
+                            <tr class="text-center">
+                                <td>@audit.Question</td>
+                                @{if (audit.HasResult == true)
+                                    {
+                                        if (audit.Result == true)
+                                        {
+                                            @:
+                                            <td class="success">OK</td>
+                                        }
+                                        else
+                                        {
+                                            @:
+                                            <td class="danger">NOK</td>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        @:
+                                        <td></td>
+                                    }
+                                }
+                                <td>@audit.Comment</td>
+                            </tr>
+                                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-12 panel panel-info">
+                <h3 class="text-center panel-heading">Bilan inspection</h3>
+                <table class="table table-striped panel-body">
+                    <thead>
+                        <tr>
+                            <th class="col-md-4 text-center">Type d'étiquette</th>
+                            <th class="col-md-4 text-center">Commentaire</th>
+                            <th class="col-md-4 text-center">Photo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @{
+                            foreach (var anomaly in Model.AnomaliesViewModel)
+                            {
+                                <tr>
+                                    <td style="background-color:@anomaly.TypeColor;">@anomaly.TypeLabel</td>
+                                    <td>@anomaly.Comment</td>
+                                    <td>
+                                        @if (anomaly.HasPhoto)
+                                        {
+                                            <img src="@anomaly.Photo" style="max-height: 272px; max-width: 272px; height: auto; width: auto;" />
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

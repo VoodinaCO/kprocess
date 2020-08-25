@@ -1,0 +1,237 @@
+﻿<UserControl x:Class="Kprocess.KL2.TabletClient.Views.Audit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+             xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+             xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+             xmlns:core="clr-namespace:Kprocess.KL2.TabletClient.Core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:linq="clr-namespace:Syncfusion.Data;assembly=Syncfusion.Data.WPF"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sfGrid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:views="clr-namespace:Kprocess.KL2.TabletClient.Views"
+             d:DesignHeight="668"
+             d:DesignWidth="1278"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <sys:Double x:Key="NumberColumnWidth">150</sys:Double>
+        <sys:Double x:Key="QueryColumnWidth">440</sys:Double>
+        <sys:Double x:Key="OkColumnWidth">100</sys:Double>
+        <sys:Double x:Key="CommentColumnWidth">440</sys:Double>
+
+        <converter:LabelStyleSelectorWithTriggers x:Key="LabelStyleSelectorWithTriggers" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Button Margin="10,10,0,2"
+                    HorizontalAlignment="Left"
+                    MahApps:ButtonHelper.PreserveTextCase="True"
+                    Command="{Binding AddAnomalyCommand}"
+                    TextElement.FontSize="20">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Width="22"
+                                                Height="22"
+                                                VerticalAlignment="Center"
+                                                Kind="Camera" />
+                    <TextBlock Margin="5,0,5,0"
+                               VerticalAlignment="Center"
+                               Text="{k:Localize Inspection_Add_Anomaly}" />
+                </StackPanel>
+            </Button>
+            <MahApps:Badged HorizontalAlignment="Left"
+                            Badge="{Binding LinkedAnomalies.Count, Mode=OneWay, FallbackValue=0}"
+                            BadgeBackground="Red"
+                            BadgePlacementMode="BottomRight">
+                <MahApps:Badged HorizontalAlignment="Left"
+                                Badge="{Binding OutsidedAnomalies.Count, Mode=OneWay, FallbackValue=0, Converter={converter:AnomalyHorsMAConverter}}"
+                                BadgeBackground="Orange"
+                                BadgePlacementMode="TopRight">
+                    <Button Margin="10,2,0,2"
+                            Command="{Binding ShowAnomaliesCommand}"
+                            TextElement.FontSize="20">
+                        <StackPanel Orientation="Horizontal">
+                            <iconPacks:PackIconMaterial Width="22"
+                                                        Height="22"
+                                                        VerticalAlignment="Center"
+                                                        Kind="Alert" />
+                            <TextBlock Margin="5,0,5,0"
+                                       VerticalAlignment="Center"
+                                       Text="{k:Localize Inspection_See_Anomaly}" />
+                        </StackPanel>
+                    </Button>
+                </MahApps:Badged>
+            </MahApps:Badged>
+        </StackPanel>
+
+        <!--  Nom de l'audit  -->
+        <Grid Grid.Row="0" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       HorizontalAlignment="Center"
+                       FontSize="30"
+                       Text="{Binding Publication.Process.Label}"
+                       TextWrapping="Wrap" />
+            <Button Grid.Row="1"
+                    HorizontalAlignment="Center"
+                    Command="{Binding ShowInspectionCommand}"
+                    TextElement.FontSize="20">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Width="22"
+                                                Height="22"
+                                                VerticalAlignment="Center"
+                                                Kind="CheckboxMarkedOutline" />
+                    <TextBlock Margin="5,0,5,0"
+                               VerticalAlignment="Center"
+                               Text="{k:Localize See_The_Inspection}" />
+                </StackPanel>
+            </Button>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{k:Localize Start_Date_Audit}"
+                   FontSize="20" />
+            <Label Grid.Row="1"
+                   Margin="0,0,0,2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding StartDate}"
+                   FontSize="15" />
+        </Grid>
+
+        <sfGrid:SfDataGrid x:Name="DataGrid"
+                           Grid.Row="1"
+                           Grid.ColumnSpan="3"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           AllowDraggingColumns="False"
+                           AllowEditing="True"
+                           AllowResizingColumns="False"
+                           AllowSorting="False"
+                           AutoGenerateColumns="False"
+                           FontSize="20"
+                           HeaderRowHeight="35"
+                           HideEmptyGridViewDefinition="True"
+                           ItemsSource="{Binding Audit.AuditItems}"
+                           ItemsSourceChanged="DataGrid_ItemsSourceChanged"
+                           LiveDataUpdateMode="AllowDataShaping"
+                           Loaded="DataGrid_Loaded"
+                           RowHeight="{Binding DefaultRowHeight, RelativeSource={RelativeSource FindAncestor, AncestorType=views:Audit}}"
+                           SelectedItem="{Binding AuditItem}"
+                           SelectionMode="None">
+            <i:Interaction.Behaviors>
+                <behaviors:CustomColumnSizerBehavior />
+                <behaviors:SyncSfDataGridBehavior />
+            </i:Interaction.Behaviors>
+            <sfGrid:SfDataGrid.SortComparers>
+                <linq:SortComparer Comparer="{core:WBSComparer}" PropertyName="Number" />
+            </sfGrid:SfDataGrid.SortComparers>
+            <sfGrid:SfDataGrid.Columns>
+                <sfGrid:GridTextColumn x:Name="ColumnNumber"
+                                       Width="{StaticResource NumberColumnWidth}"
+                                       Padding="10,0"
+                                       HeaderText="{k:Localize Number_Label}"
+                                       IsReadOnly="True"
+                                       MappingName="Number" />
+                <sfGrid:GridTextColumn x:Name="ColumnQuery"
+                                       Width="{StaticResource QueryColumnWidth}"
+                                       Padding="10,0"
+                                       HeaderText="{k:Localize Question_Label}"
+                                       IsReadOnly="True"
+                                       MappingName="SurveyItem.Query"
+                                       TextWrapping="Wrap" />
+                <sfGrid:GridTemplateColumn Width="{StaticResource OkColumnWidth}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           CellStyle="{StaticResource AuditOkGridCellStyle}"
+                                           HeaderText="{k:Localize Common_OK}"
+                                           MappingName="IsOk" />
+                <sfGrid:GridTemplateColumn Width="{StaticResource OkColumnWidth}"
+                                           CellStyle="{StaticResource AuditNotOkGridCellStyle}"
+                                           HeaderText="{k:Localize Common_NOK}"
+                                           MappingName="IsNotOk" />
+                <sfGrid:GridTextColumn x:Name="ColumnComment"
+                                       Width="{StaticResource CommentColumnWidth}"
+                                       CellStyle="{StaticResource AuditCommentGridCellStyle}"
+                                       HeaderText="{k:Localize View_RestitutionSolutions_Columns_Comments}"
+                                       IsReadOnly="True"
+                                       MappingName="Comment"
+                                       TextWrapping="Wrap" />
+            </sfGrid:SfDataGrid.Columns>
+        </sfGrid:SfDataGrid>
+
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Margin="10"
+                HorizontalAlignment="Left"
+                Command="{Binding ReturnCommand}"
+                TextElement.FontSize="20"
+                Visibility="{Binding ShowSleepAction, Converter={converter:InvertBoolToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Width="22"
+                                            Height="22"
+                                            VerticalAlignment="Center"
+                                            Kind="ArrowLeftBold" />
+                <TextBlock Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="{k:Localize Common_Return}" />
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Command="{Binding SleepCommand}"
+                TextElement.FontSize="20"
+                Visibility="{Binding ShowSleepAction, Converter={converter:BoolToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Width="20"
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            Kind="Pause" />
+                <TextBlock Margin="5,0"
+                           VerticalAlignment="Center"
+                           Text="{k:Localize Pause_Audit_Return_Menu}" />
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Command="{Binding ValidateCommand}"
+                TextElement.FontSize="20"
+                Visibility="{Binding ShowValidateAction, Converter={converter:BoolToVisibilityConverter}}">
+            <TextBlock Margin="5,0"
+                       VerticalAlignment="Center"
+                       Text="{k:Localize Common_Validate_Audit}" />
+        </Button>
+    </Grid>
+</UserControl>

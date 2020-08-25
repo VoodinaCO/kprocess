@@ -1,0 +1,27 @@
+﻿<views:InstallScreen x:Class="KProcess.KL2.SetupUI.Views.Licence"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:app="clr-namespace:KProcess.KL2.SetupUI"
+                     xmlns:views="clr-namespace:KProcess.KL2.SetupUI.Views"
+                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                     mc:Ignorable="d" 
+                     d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{app:Localization LicenseAgreement_Title}" TextWrapping="Wrap" FontWeight="Bold" Margin="0,0,0,20"/>
+        <TextBlock Grid.Row="1" Text="{app:Localization LicenseAgreement_Description}" TextWrapping="Wrap"/>
+        <FlowDocumentScrollViewer Grid.Row="2" Margin="0,20" x:Name="licenseReader"/>
+        <Button Grid.Row="2" Content="{iconPacks:Material Printer}" Width="32" Height="32"
+                VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,-32,16,0" Click="Button_Click"/>
+        <CheckBox Grid.Row="3" Margin="0,2" Content="{app:Localization LicenseAgreement_LicenseAcceptedCheckBox}" IsChecked="{Binding LicenseAccepted}"/>
+        <CheckBox Grid.Row="4" Margin="0,2" Content="{app:Localization LicenseAgreement_SendReportCheckBox}" IsChecked="{Binding SendReportAccepted}"/>
+    </Grid>
+</views:InstallScreen>

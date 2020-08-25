@@ -1,0 +1,227 @@
+@using KProcess.KL2.WebAdmin.Models.Survey;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model SurveyViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "QuestionnaireItems";
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div>
+        <button type="button" class="btn bg-light-blue btn-flat" onclick="LoadPartial('@Url.Action("Index", "Questionnaire", new { partial = true })', '#pageContainer')">
+            <i class="fa fa-angle-double-left"></i> @LocalizedStrings.GetString("Back")
+        </button>
+    </div>
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Grid("SurveyItems")
+            .Height("100%").Width("100%")
+            .DataSource(ds => ds.Json(Model.SurveyItems.ToArray())
+                .UpdateUrl(Url.Action("UpdateSurveyItem"))
+                .InsertUrl(Url.Action("InsertSurveyItem"))
+                .RemoveUrl(Url.Action("DeleteSurveyItem"))
+                .Adaptor("RemoteSaveAdaptor")
+                .Headers(new object[] { new { SurveyId = Model.SurveyId } }))
+            .EditSettings(edit =>
+            {
+                edit.AllowAdding(true)
+                    .AllowDeleting(true)
+                    .AllowEditing(true)
+                    .ShowConfirmDialog(true)
+                    .ShowDeleteConfirmDialog(true)
+                    .Mode(Syncfusion.EJ2.Grids.EditMode.Dialog);
+            })
+            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+            .AllowPaging()
+            .PageSettings(p => p.PageSize(25))
+            .Locale(ejLanguageCode)
+            //Excel export
+            .AllowExcelExport()
+            .AllowTextWrap()
+            .AllowFiltering()
+            .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+            .EnableHover()
+            .AllowSelection()
+            .AllowRowDragAndDrop()
+            .RowDrop("onDrop")
+            .RowDropSettings(new Syncfusion.EJ2.Grids.GridRowDropSettings() { TargetID = "SurveyItems" })
+            .Toolbar(new List<string>() { "Add", "Edit", "Delete", "ExcelExport" })
+            .ToolbarClick("toolbarClick")
+            .Columns(col =>
+            {
+                col.Field("SurveyId").HeaderText("Id").Visible(false).IsIdentity(true).Width(5).Add();
+                col.Field("Number").IsPrimaryKey(true).IsIdentity(true).HeaderText(LocalizedStrings.GetString("QuestionnaireNumber")/*"Position"*/).DefaultValue((Model.SurveyItems.Count + 1).ToString()).Width(30).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Query").HeaderText(LocalizedStrings.GetString("Question")/*"Question"*/).ValidationRules(new { required = true }).AllowFiltering(false).Width(200).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+            })
+            //.ActionBegin("actionBegin")
+            .ActionComplete("actionComplete")
+            .ActionFailure("actionFailure")
+            .RowSelecting("onSelectingCheck")
+            .Render()
+        )
+    </div>
+</div>
+
+<script id="template" type="text/template">
+    <div class="row">
+        <input data-role="none" hidden="hidden" id="SurveyId" name="SurveyId" value="@Model.SurveyId" e-value="SurveyId" class="e-field e-ejinputtext valid" style="width:100%" />
+        <div class="col-md-2">
+            <label>@LocalizedStrings.GetString("QuestionnaireNumber")@*Position*@</label>
+        </div>
+        <div class="col-md-10">
+            <input data-role="none" id="Number" type="number" disabled="disabled" name="Number" value="{{if Number != ""}}{{:Number}}{{else}}@(Model.SurveyItems.Count + 1){{/if}}" e-value="Number" class="number e-field e-ejinputtext valid e-read-only" style="width:30%;" />
+        </div>
+    </div>
+    <div class="row">
+        <br />
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <label>@LocalizedStrings.GetString("Question")@*Question*@</label>
+        </div>
+        <div class="col-md-10">
+            <input data-role="none" id="Query" name="Query" value="{{:Query}}" e-value="Query" class="query e-field e-ejinputtext valid" style="width:100%" />
+        </div>
+    </div>
+    <br />
+</script>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Audit")" + "/" + "@LocalizedStrings.GetString("Web_Menu_Surveys")" + "/" + "@Html.Raw(Model.Name)");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function toolbarClick(args) {
+        if ((args.item.properties.id == "SurveyItems_delete" || args.item.properties.id == "SurveyItems_edit") && this.getSelectedRecords().length == 0) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (args.item.properties.id) {
+                case "SurveyItems_delete":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                    break;
+                case "SurveyItems_edit":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                    break;
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if (args.item.id === 'SurveyItems_excelexport') {
+            var gridObj = document.getElementById("SurveyItems").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "SurveyItems.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+    function actionFailure(args) {
+        var str = "";
+        if (args.hasOwnProperty("error")) {
+            str = args.error[0].error.statusText;
+        }
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: str, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        this.cancel = true;
+    }
+    function actionBegin(args) {
+        if (args.requestType === "add") {
+            args.data.SurveyId = @Model.SurveyId;
+        }
+        //if (args.requestType == "save")
+        //    this.element.ejWaitingPopup("hide");
+        //if (args.requestType == "delete")
+        //{
+        //    args.model.dataSource.dataSource.headers = [];
+        //    args.model.dataSource.dataSource.headers.push({ "SurveyId": args.data.SurveyId });
+        //}
+
+    }
+    function actionComplete(args) {
+        var type = args.requestType;
+        var action = args.action;
+        var name = @Html.Raw(Json.Encode(Model.Name));
+        //if (type == 'delete') {
+        //    args.model.dataSource.dataSource.headers = [];//to avoid headers value to be interfered with other actions, emptied the Headers
+        //}
+        if (type == "beginEdit") {
+            //Set dialog of Edit mode title
+            args.dialog.header = "@Html.Raw(LocalizedStrings.GetString("QuestionnaireItemEditHeader"))"/*"Modifier un élément de questionnaire"*/ + " " + name;
+            args.dialog.width = "auto";
+            args.dialog.headerEle.style.width = "auto";
+            //$(".number").css('text-align', 'center');
+            //$(".query").css('text-align', 'left');
+        }
+        if (type == "add") {
+            //Set dialog of Add mode title
+            args.dialog.header = "@Html.Raw(LocalizedStrings.GetString("Common_NewRecordHeader"))";
+            args.dialog.width = "auto";
+            args.dialog.headerEle.style.width = "auto";
+            //$(".number").css('text-align', 'center');
+            //$(".number").prop('disabled', 'disabled');
+            //$(".query").css('text-align', 'left');
+        }
+        if (type == 'save' || type == 'delete' || (type == 'refresh' && action == 'rowReordering')) {
+            LoadPartial('/Questionnaire/Detail/' + @Model.SurveyId + '?partial=true', '#pageContainer');
+        }
+    }
+    function onDrop(args) {
+        //send ajax post
+        var toSend = { 'changed': args.data, 'dropIndex': args.dropIndex };
+        var ajax = new ej.base.Ajax({
+            url: "/Questionnaire/RowDropHandler",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(toSend)
+        });
+        ajax.send().then(function (data) {
+            LoadPartial('/Questionnaire/Detail/' + @Model.SurveyId + '?partial=true', '#pageContainer');
+        }).catch(function (xhr) {
+            console.log(xhr);
+        });
+    }
+</script>
+
+@Html.EJS().ScriptManager()

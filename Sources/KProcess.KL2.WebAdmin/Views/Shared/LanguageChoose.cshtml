@@ -1,0 +1,55 @@
+﻿@using KProcess.KL2.WebAdmin.Models;
+@using KProcess.KL2.Languages;
+
+@model LanguageChoose
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    .CurrentLanguageDdl {
+        border-bottom: none !important;
+        vertical-align: baseline !important;
+        margin-bottom: 0px !important;
+    }
+</style>
+
+@(Html.EJS().DropDownList("CurrentLanguage")
+                            .Value(Model.CurrentLanguageCode)
+                            .DataSource(u => u.Url(Url.Action("GetLanguages", "Home"))
+                            .Adaptor("UrlAdaptor"))
+                            .Placeholder(LocalizedStrings.GetString("Common_SelectLanguage"))
+                            .Fields(df => df.Text("Label")
+                                .Value("LanguageCode"))
+                            .CssClass("CurrentLanguageDdl text-gray-600")
+                            .Change("CurrentLanguageChange")
+                            .ItemTemplate("<div class='d-flex bd-highlight'>" +
+                            "<div class='p-2 flex-grow-1 bd-highlight' style='display:inline-block;'>${Label}</div> <div class='p-2 bd-highlight' style='display:inline-block;'><img src='${FlagPath}' style='height: 15px; width: 18px;'></div>" +
+                            "</div>")
+                            .ValueTemplate("<div class='d-flex bd-highlight'>" +
+                            "<div class='p-2 flex-grow-1 bd-highlight' style='display:inline-block;'>${Label}</div> <div class='p-2 bd-highlight' style='display:inline-block;'><img src='${FlagPath}' style='height: 15px; width: 18px;'></div>" +
+                            "</div>")
+                            .Width("220")
+                            .PopupWidth("250")
+                            .Render()
+)
+
+<script>
+    function CurrentLanguageChange(args) {
+        var ajax = new ej.base.Ajax({
+            url: "@Url.Action("ChangeCurrentLanguage", "Home")", //render the partial view
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ languageCode: args.value })
+        });
+        ajax.send().then(function (data) {
+            location.reload();
+        }).catch(function (xhr) {
+            console.log(xhr);
+            location.reload();
+        });
+    }
+</script>
+
+@Html.EJS().ScriptManager()

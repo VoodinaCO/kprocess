@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <Property Id="RefProperty_KsmedSearch" Value="1" />
+    <PropertyRef Id="KSMEDROOTDIR"/>
+    <Condition Message="!(loc.KsmedNotInstalled)">Installed OR KSMEDROOTDIR</Condition>
+	</Fragment>
+</Wix>

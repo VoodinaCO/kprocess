@@ -1,0 +1,386 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using System.Web.Mvc.Html;
+@using Syncfusion.JavaScript;
+@using Syncfusion.EJ2.Buttons;
+@using KProcess.KL2.Languages;
+
+@model VideoViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    .form-horizontal .control-label {
+        padding-top: unset
+    }
+
+    .e-control.e-chip-list .e-chip {
+        height: 40px;
+        width: 40px;
+        padding: unset;
+    }
+
+    .e-control.e-chip-list .e-chip .e-chip-icon {
+        height: 30px;
+        width: 30px;
+        margin: 2px;
+    }
+
+    .horizontalCenter {
+        background-image: url('@Url.Content("~/Content/img/Align-Horizontal-Center.svg")');
+        marging: 0px;
+        padding: 0px;
+    }
+
+    .horizontalLeft {
+        background-image: url('@Url.Content("~/Content/img/Align-Horizontal-Left.svg")');
+        marging: 0px;
+        padding: 0px;
+    }
+
+    .horizontalRight {
+        background-image: url('@Url.Content("~/Content/img/Align-Horizontal-Right.svg")');
+        marging: 0px;
+        padding: 0px;
+    }
+
+    .verticalBottom {
+        background-image: url('@Url.Content("~/Content/img/Align-Vertical-Bottom.svg")');
+        marging: 0px;
+        padding: 0px;
+    }
+
+    .verticalCenter {
+        background-image: url('@Url.Content("~/Content/img/Align-Vertical-Center.svg")');
+        marging: 0px;
+        padding: 0px;
+    }
+
+    .verticalTop {
+        background-image: url('@Url.Content("~/Content/img/Align-Vertical-Top.svg")');
+        marging: 0px;
+        padding: 0px;
+    }
+
+    .topMargin {
+        margin-top: 10px;
+    }
+
+    .form-label {
+        display: flex;
+        align-items: center;
+    }
+
+    .form-value {
+        margin-left: 10px;
+    }
+
+    .e-card-content > div > .e-control-wrapper.e-numeric {
+        width: unset;
+    }
+
+    .e-control.e-chip-list .e-chip {
+        padding: 0px;
+    }
+</style>
+
+<div style="height: 100%; overflow: auto;">
+    <form class="form-horizontal" role="form" style="display: flex; flex-direction: column;">
+        <div class="e-card topMargin">
+            <div class="e-card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title">Paramètres de l'export vidéo</div>
+                </div>
+            </div>
+            <div class="e-card-content" style="display: flex; flex-direction: column;">
+                <div>
+                    <label for="cbVideoExport" style="width: 200px;">@LocalizedStrings.GetString("View_Documentation_ActivateVideoExport")</label>
+                    @(Html.EJS().SwitchFor(m => m.cbVideoExport)
+                        .Change("toggleExport")
+                        .Render()
+                    )
+                </div>
+                <div>
+                    <label for="cbSlowMotion" style="width: 200px;">@LocalizedStrings.GetString("View_Documentation_SlowMotion")</label>
+                    @(Html.EJS().SwitchFor(m => m.cbSlowMotion)
+                        .Change("toggleSlowMotion")
+                        .Render()
+                    )
+                </div>
+                <div>
+                    <label for="cbWatermarking" style="width: 200px;">@LocalizedStrings.GetString("View_Documentation_WaterMarking")</label>
+                    @(Html.EJS().SwitchFor(m => m.cbWatermarking)
+                        .Change("toggleWatermarking")
+                        .Render()
+                    )
+                </div>
+            </div>
+        </div>
+
+        <div class="e-card topMargin" id="slowMotionMember">
+            <div class="e-card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title">Paramètres du slowmotion</div>
+                </div>
+            </div>
+            <div class="e-card-content" style="display: flex; flex-direction: column;">
+                <div style="display: flex; flex-direction: row;">
+                    <div class="form-label">
+                        <span>@LocalizedStrings.GetString("View_Documentation_DurationMini")</span>
+                    </div>
+                    @(Html.EJS().NumericTextBoxFor(m => m.tbSlowDuration)
+                        .Format("n")
+                        .Min(1)
+                        .Change("onFieldChange")
+                        .CssClass("form-value")
+                        .Width(140)
+                        .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-width: 0px; max-width: 140px;" })
+                        .Render()
+                    )
+                </div>
+            </div>
+        </div>
+
+        <div class="e-card topMargin" id="watermarkingMember">
+            <div class="e-card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title">Paramètres du watermarking</div>
+                </div>
+            </div>
+            <div class="e-card-content" style="display: flex; flex-direction: column;">
+                <div style="display: flex; flex-direction: row;">
+                    <div class="form-label">
+                        <span>@LocalizedStrings.GetString("View_Documentation_WaterMarkingText")</span>
+                    </div>
+                    @(Html.EJS().TextBoxFor(m => m.tbWatermarkText)
+                        .Placeholder(LocalizedStrings.GetString("View_Documentation_WaterMarking_CompanyName"))
+                        .CssClass("form-value")
+                        .Change("onFieldChange")
+                        .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-width: 0px;" })
+                        .Render()
+                    )
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="form-label">
+                        <span>@LocalizedStrings.GetString("View_Documentation_VerticalAlignement")</span>
+                    </div>
+                    @(Html.EJS().ChipList("verticalAlign")
+                        .Selection(Selection.Single)
+                        .Chips(chip =>
+                        {
+                            foreach (var vAlign in Model.VerticalAlignments)
+                                chip.LeadingIconCss(vAlign.Icon)
+                                    .Add();
+                        })
+                        .SelectedChips(Model.VerticalAlignments.IndexOf(Model.VerticalAlignments.Single(v => v.Value == Model.verticalAlign)))
+                        .Click("onFieldChange")
+                        .CssClass("form-value")
+                        .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-width: 0px;" })
+                        .Render()
+                    )
+                </div>
+                <div style="display: flex; flex-direction: row;">
+                    <div class="form-label">
+                        <span>@LocalizedStrings.GetString("View_Documentation_HorizontalAlignement")</span>
+                    </div>
+                    @(Html.EJS().ChipList("horizontalAlign")
+                        .Selection(Syncfusion.EJ2.Buttons.Selection.Single)
+                        .Chips(chip =>
+                        {
+                            foreach (var hAlign in Model.HorizontalAlignments)
+                                chip.LeadingIconCss(hAlign.Icon)
+                                    .Add();
+                        })
+                        .SelectedChips(Model.HorizontalAlignments.IndexOf(Model.HorizontalAlignments.Single(v => v.Value == Model.horizontalAlign)))
+                        .Click("onFieldChange")
+                        .CssClass("form-value")
+                        .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-width: 0px;" })
+                        .Render()
+                    )
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    docReady(function () {
+        addTitlesToChips();
+        initVariables();
+
+        leaveFunction = localLeaveFunction;
+        cancelFunction = localCancelFunction;
+        saveAsDraftFunction = localSaveAsDraftFunction;
+        setHeader('/Documentation/DocumentationHeader', { processName: "@Html.Raw(ViewBag.ProcessName)", projectName: "@Html.Raw(ViewBag.ProjectName)" });
+        updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+        updateWizardButtonsStates({ previous: true, cancel: false, saveasdraft: false, next: true });
+    });
+
+    // Save state
+    function localLeaveFunction() {
+        var hasError = false;
+
+        $.ajax({
+            url: '/Documentation/UpdateDocumentationVideos',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                ActiveVideoExport: document.getElementById('cbVideoExport').ej2_instances[0].checked,
+                SlowMotion: document.getElementById('cbSlowMotion').ej2_instances[0].checked,
+                SlowMotionDuration: document.getElementById('tbSlowDuration').ej2_instances[0].value,
+                WaterMarking: document.getElementById('cbWatermarking').ej2_instances[0].checked,
+                WaterMarkingText: document.getElementById('tbWatermarkText').ej2_instances[0].value,
+                WaterMarkingVAlign: document.getElementById('verticalAlign').getElementsByClassName('e-active')[0].attributes.formvalue.value,
+                WaterMarkingHAlign: document.getElementById('horizontalAlign').getElementsByClassName('e-active')[0].attributes.formvalue.value
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+
+        $.ajax({
+            url: '/Documentation/SaveDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify(documentationStates.draft, function replacer(key, value) { return value}),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+                documentationStates.documentationDraftId = documentationStates.draft.DocumentationDraftId;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+        saveDocumentationStates();
+
+        return !hasError;
+    }
+
+    function localCancelFunction() {
+        setIsRefreshing(true);
+        docTabSelected();
+        setIsRefreshing(false);
+    }
+
+    function localSaveAsDraftFunction() {
+        var targetElement = $('#pageContainer')[0];
+        var spinner = ej.popups.createSpinner({ target: targetElement });
+        ej.popups.showSpinner(targetElement);
+
+        // Save states
+        var success = localLeaveFunction();
+
+        if (success === true) {
+            document.getElementById('toast_container').ej2_instances[0].show({ content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraft")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+            setHasChanged(false);
+        }
+        else {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@(LocalizedStrings.GetString("Common_Error"))", content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraftError")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+
+        ej.popups.hideSpinner(targetElement);
+    }
+
+    function initVariables() {
+        toggleExport({ checked: @(Model.cbVideoExport ? "true" : "false") });
+        toggleSlowMotion({ checked: @(Model.cbSlowMotion ? "true" : "false") });
+        toggleWatermarking({ checked: @(Model.cbWatermarking ? "true" : "false") });
+    }
+
+    function toggleExport(args) {
+        if (args.checked === true) {
+            document.getElementById('cbSlowMotion').ej2_instances[0].disabled = false;
+            document.getElementById('cbWatermarking').ej2_instances[0].disabled = false;
+
+            if (document.getElementById('cbSlowMotion').ej2_instances[0].checked == true) {
+                document.getElementById('slowMotionMember').style.display = 'block';
+            }
+            if (document.getElementById('cbWatermarking').ej2_instances[0].checked == true) {
+                document.getElementById('watermarkingMember').style.display = 'block';
+            }
+        }
+        else {
+            document.getElementById('cbSlowMotion').ej2_instances[0].disabled = true;
+            document.getElementById('cbWatermarking').ej2_instances[0].disabled = true;
+            document.getElementById('slowMotionMember').style.display = 'none';
+            document.getElementById('watermarkingMember').style.display = 'none';
+        }
+        setHasChanged(true);
+    }
+
+    function toggleSlowMotion(args) {
+        if (args.checked === true) {
+            document.getElementById('slowMotionMember').style.display = 'block';
+        }
+        else {
+            document.getElementById('slowMotionMember').style.display = 'none';
+        }
+        setHasChanged(true);
+    }
+
+    function toggleWatermarking(args) {
+        if (args.checked === true) {
+            document.getElementById('watermarkingMember').style.display = 'block';
+            setTimeout(addTitlesToChips, 0);
+        }
+        else {
+            document.getElementById('watermarkingMember').style.display = 'none';
+        }
+        setHasChanged(true);
+    }
+
+    function addTitlesToChips() {
+        var vChildren = document.getElementById('verticalAlign').ej2_instances[0].element.children;
+        vChildren[0].setAttribute("formValue", 0);
+        vChildren[0].setAttribute("name", "verticalAlignField");
+        vChildren[0].setAttribute("title", "@LocalizedStrings.GetString("View_Documentation_VerticalAlignementTop")");
+        vChildren[0].onclick = onChipClick;
+        vChildren[1].setAttribute("formValue", 1);
+        vChildren[1].setAttribute("name", "verticalAlignField");
+        vChildren[1].setAttribute("title", "@LocalizedStrings.GetString("View_Documentation_VerticalAlignementCenter")");
+        vChildren[1].onclick = onChipClick;
+        vChildren[2].setAttribute("formValue", 2);
+        vChildren[2].setAttribute("name", "verticalAlignField");
+        vChildren[2].setAttribute("title", "@LocalizedStrings.GetString("View_Documentation_VerticalAlignementBottom")");
+        vChildren[2].onclick = onChipClick;
+        var hChildren = document.getElementById('horizontalAlign').ej2_instances[0].element.children;
+        hChildren[0].setAttribute("formValue", 0);
+        hChildren[0].setAttribute("name", "horizontalAlignField");
+        hChildren[0].setAttribute("title", "@LocalizedStrings.GetString("View_Documentation_HorizontalAlignementLeft")");
+        hChildren[0].onclick = onChipClick;
+        hChildren[1].setAttribute("formValue", 2);
+        hChildren[1].setAttribute("name", "horizontalAlignField");
+        hChildren[1].setAttribute("title", "@LocalizedStrings.GetString("View_Documentation_HorizontalAlignementCenter")");
+        hChildren[1].onclick = onChipClick;
+        hChildren[2].setAttribute("formValue", 1);
+        hChildren[2].setAttribute("name", "horizontalAlignField");
+        hChildren[2].setAttribute("title", "@LocalizedStrings.GetString("View_Documentation_HorizontalAlignementRight")");
+        hChildren[2].onclick = onChipClick;
+    }
+
+    function setHasChanged(value) {
+        updateWizardButtonsStates({ cancel: value, saveasdraft: value });
+    }
+
+    function onFieldChange(args) {
+        setHasChanged(true);
+    }
+
+    function onChipClick(args) {
+        if (args.srcElement.classList.contains("e-active") || args.srcElement.parentElement.classList.contains("e-active")) {
+            args.preventDefault();
+            args.stopPropagation();
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

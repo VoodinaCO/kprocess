@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="DlhSoft.Windows.Controls.DependencyLinePresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:app="clr-namespace:DlhSoft"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" IsTabStop="False"
+             xmlns:converters="clr-namespace:DlhSoft.Windows.Converters">
+  <UserControl.Resources>
+    <converters:NegatedBooleanConverter x:Key="NegatedBooleanConverter" />
+  </UserControl.Resources>
+  <ContentControl Name="ContentControl" IsTabStop="false" Content="{Binding}" ContentTemplate="{Binding GanttChartView.DependencyLineTemplate}">
+    <ContentControl.ContextMenu>
+      <ContextMenu>
+        <MenuItem Name="DeleteContextMenuItem" Header="{app:Localization Core_Gantt_DeleteLink}" Click="DeleteContextMenuItem_Click" 
+                  IsEnabled="{Binding GanttChartView.IsReadOnly, Converter={StaticResource NegatedBooleanConverter}}"/>
+      </ContextMenu>
+    </ContentControl.ContextMenu>
+  </ContentControl>
+
+</UserControl>

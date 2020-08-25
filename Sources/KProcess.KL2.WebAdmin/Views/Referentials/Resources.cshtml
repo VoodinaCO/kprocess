@@ -1,0 +1,112 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Referentials;
+
+@model ReferentialsViewModel
+
+<div style="display: flex; flex-direction: column; height: 100%">
+    <div>
+        @(Html.EJS().Tab("ResourcesTab")
+            .Items(builder =>
+            {
+                foreach (var refs in Model.Referentials.Where(r => r.isResource == true).OrderBy(r => r.refId))
+                {
+                    builder.Header(header => header.Text(refs.Label))
+                        .CssClass(refs.refId.ToString())
+                        .Add();
+                }
+            })
+            .Selected("resourceTabSelected")
+            .Render()
+        )
+    </div>
+    <div id="ressourcesTabContainer" style="flex: 1;">
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    docReady(function () {
+        if (sessionStorage.getItem("isRefreshing") == "true") {
+            var location = JSON.parse(sessionStorage.getItem('location'));
+            var params = {};
+            location[0].action.split('?')[1].split('&').forEach(function (p) {
+                params[p.split('=')[0]] = p.split('=')[1];
+            });
+            var resTabs = document.getElementById('ResourcesTab').ej2_instances[0];
+            var indexToSelect = 0;
+            var classToSelect = "";
+            switch (refId) {
+                case 1:
+                    classToSelect = "Operator";
+                    break;
+                case 2:
+                    classToSelect = "Equipment";
+                    break;
+            }
+            for (var i = 0; i < resTabs.items.length; i++) {
+                if (resTabs.items[i].cssClass == classToSelect) {
+                    indexToSelect = i;
+                    break;
+                }
+            }
+            if (resTabs.selectedItem == indexToSelect) {
+                loadResourceTab(resTabs.items[indexToSelect].cssClass);
+            } else {
+                resTabs.select(indexToSelect);
+            }
+        } else {
+            if (refId != 1 && refId != 2)
+                refId = 1;
+            if (refId === 1 || refId === 2) {
+                LoadPartial('/Referentials/Referentials?refId=' + refId, '#ressourcesTabContainer', null, null, -1);
+                setLocationRefId(refId.toString());
+                var resTabs = document.getElementById('ResourcesTab').ej2_instances[0];
+                var indexToSelect = 0;
+                var classToSelect = "";
+                switch (refId) {
+                    case 1:
+                        classToSelect = "Operator";
+                        break;
+                    case 2:
+                        classToSelect = "Equipment";
+                        break;
+                }
+                for (var i = 0; i < resTabs.items.length; i++) {
+                    if (resTabs.items[i].cssClass == classToSelect) {
+                        indexToSelect = i;
+                        break;
+                    }
+                }
+                if (resTabs.selectedItem == indexToSelect) {
+                    loadResourceTab(resTabs.items[indexToSelect].cssClass);
+                } else {
+                    resTabs.select(indexToSelect);
+                }
+            }
+            setIsRefreshing(false);
+        }
+    });
+
+    function loadResourceTab(classRef) {
+        if (classRef == 'Operator') {
+            LoadPartial('/Referentials/Referentials?refId=1', '#ressourcesTabContainer', null, null, -1);
+            setLocationRefId("1");
+        } else if (classRef == 'Equipment') {
+            LoadPartial('/Referentials/Referentials?refId=2', '#ressourcesTabContainer', null, null, -1);
+            setLocationRefId("2");
+        }
+        setIsRefreshing(false);
+    }
+
+    function resourceTabSelected(args) {
+        if (args.selectedItem.classList.contains('Operator')) {
+            LoadPartial('/Referentials/Referentials?refId=1', '#ressourcesTabContainer', null, null, -1);
+            setLocationRefId("1");
+        } else if (args.selectedItem.classList.contains('Equipment')) {
+            LoadPartial('/Referentials/Referentials?refId=2', '#ressourcesTabContainer', null, null, -1);
+            setLocationRefId("2");
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()
+

@@ -1,0 +1,17 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Paragraph>
+        KL2® IS A TRADEMARK OF K-PROCESS.<LineBreak />
+        THIS SOFTWARE (KL2®) HAS BEEN PURCHASED ON BEHALF OF A SINGLE LEGAL ENTITY (FOR EXAMPLE, YOUR EMPLOYER). YOU HAVE THE AUTHORIZATION OF THIS ENTITY TO INSTALL AND/OR USE THE SOFTWARE UNDER THE TERMS OF THE LICENSE AGREEMENT BETWEEN THIS ENTITY AND K-PROCESS.</Paragraph>
+    <Paragraph Padding="5"
+               BorderBrush="White"
+               BorderThickness="1">
+        OTHERWISE, DO NOT INSTALL, DO NOT ACTIVATE OR DO NOT USE THE SOFTWARE.<LineBreak />
+        IF, WITHOUT SUCH AUTHORIZATION, YOU ACTIVATE AND/OR USE THE SOFTWARE, YOU WILL BE EXPOSED, ON THE PART OF K-PROCESS, OF PROSECUTIONS SUBJECT TO JURISDICTION OF THE COMPETENT COURTS OF FRANCE</Paragraph>
+    <Paragraph>
+        K-PROCESS<LineBreak />
+        151, ROUTE DU CROZAT<LineBreak />
+        38630 CORBELIN<LineBreak />
+        FRANCE<LineBreak />
+        <Hyperlink>KL2Suite@k-process.com</Hyperlink>
+    </Paragraph>
+</FlowDocument>

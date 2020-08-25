@@ -1,0 +1,187 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "twitter-bootstrap@4.3.1",
+      "destination": "Content/twitter-bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "css/bootstrap.min.css",
+        "js/bootstrap.min.js.map",
+        "css/bootstrap.min.css.map"
+      ]
+    },
+    {
+      "library": "jquery@3.4.1",
+      "destination": "Content/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "library": "font-awesome@5.9.0",
+      "destination": "Content/font-awesome/",
+      "files": [
+        "css/all.min.css",
+        "webfonts/fa-brands-400.eot",
+        "webfonts/fa-brands-400.svg",
+        "webfonts/fa-brands-400.ttf",
+        "webfonts/fa-brands-400.woff",
+        "webfonts/fa-brands-400.woff2",
+        "webfonts/fa-regular-400.eot",
+        "webfonts/fa-regular-400.svg",
+        "webfonts/fa-regular-400.ttf",
+        "webfonts/fa-regular-400.woff",
+        "webfonts/fa-regular-400.woff2",
+        "webfonts/fa-solid-900.eot",
+        "webfonts/fa-solid-900.svg",
+        "webfonts/fa-solid-900.ttf",
+        "webfonts/fa-solid-900.woff",
+        "webfonts/fa-solid-900.woff2"
+      ]
+    },
+    {
+      "library": "jquery-easing@1.4.1",
+      "destination": "Content/jquery-easing/",
+      "files": [
+        "jquery.easing.min.js"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "cldr-segments-modern@35.1.0",
+      "destination": "Scripts/cldr-data/",
+      "files": [
+        "segments/de/suppressions.json",
+        "segments/el/suppressions.json",
+        "segments/en/suppressions.json",
+        "segments/en-US-POSIX/suppressions.json",
+        "segments/es/suppressions.json",
+        "segments/fr/suppressions.json",
+        "segments/pt/suppressions.json",
+        "segments/root/suppressions.json"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "cldr-core@35.1.0",
+      "destination": "Scripts/cldr-data/",
+      "files": [
+        "supplemental/aliases.json",
+        "supplemental/calendarData.json",
+        "supplemental/calendarPreferenceData.json",
+        "supplemental/characterFallbacks.json",
+        "supplemental/codeMappings.json",
+        "supplemental/currencyData.json",
+        "supplemental/dayPeriods.json",
+        "supplemental/gender.json",
+        "supplemental/languageData.json",
+        "supplemental/languageGroups.json",
+        "supplemental/languageMatching.json",
+        "supplemental/likelySubtags.json",
+        "supplemental/measurementData.json",
+        "supplemental/metaZones.json",
+        "supplemental/numberingSystems.json",
+        "supplemental/ordinals.json",
+        "supplemental/parentLocales.json",
+        "supplemental/plurals.json",
+        "supplemental/primaryZones.json",
+        "supplemental/references.json",
+        "supplemental/territoryContainment.json",
+        "supplemental/territoryInfo.json",
+        "supplemental/timeData.json",
+        "supplemental/unitPreferenceData.json",
+        "supplemental/weekData.json",
+        "supplemental/windowsZones.json",
+        "availableLocales.json",
+        "defaultContent.json",
+        "scriptMetadata.json"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "cldr-data@35.1.0",
+      "destination": "Scripts/cldr-data/",
+      "files": [
+        "DCO.md",
+        "index.js",
+        "index.min.js",
+        "install.js",
+        "install.min.js",
+        "LICENSE",
+        "package.json",
+        "README.md",
+        "urls.json"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "cldr-numbers-modern@35.1.0",
+      "destination": "Scripts/cldr-data/",
+      "files": [
+        "main/de/currencies.json",
+        "main/de/numbers.json",
+        "main/el/currencies.json",
+        "main/el/numbers.json",
+        "main/en/currencies.json",
+        "main/en/numbers.json",
+        "main/en-US-POSIX/currencies.json",
+        "main/en-US-POSIX/numbers.json",
+        "main/es/currencies.json",
+        "main/es/numbers.json",
+        "main/fr/currencies.json",
+        "main/fr/numbers.json",
+        "main/pl/currencies.json",
+        "main/pl/numbers.json",
+        "main/pt/currencies.json",
+        "main/pt/numbers.json",
+        "main/root/currencies.json",
+        "main/root/numbers.json"
+      ]
+    },
+    {
+      "provider": "jsdelivr",
+      "library": "cldr-dates-modern@35.1.0",
+      "destination": "Scripts/cldr-data/",
+      "files": [
+        "main/fr/ca-generic.json",
+        "main/fr/ca-gregorian.json",
+        "main/fr/dateFields.json",
+        "main/fr/timeZoneNames.json",
+        "main/de/ca-generic.json",
+        "main/de/ca-gregorian.json",
+        "main/de/dateFields.json",
+        "main/de/timeZoneNames.json",
+        "main/el/ca-generic.json",
+        "main/el/ca-gregorian.json",
+        "main/el/dateFields.json",
+        "main/el/timeZoneNames.json",
+        "main/en/ca-generic.json",
+        "main/en/ca-gregorian.json",
+        "main/en/dateFields.json",
+        "main/en/timeZoneNames.json",
+        "main/en-US-POSIX/ca-generic.json",
+        "main/en-US-POSIX/ca-gregorian.json",
+        "main/en-US-POSIX/dateFields.json",
+        "main/en-US-POSIX/timeZoneNames.json",
+        "main/es/ca-generic.json",
+        "main/es/ca-gregorian.json",
+        "main/es/dateFields.json",
+        "main/es/timeZoneNames.json",
+        "main/pl/ca-generic.json",
+        "main/pl/ca-gregorian.json",
+        "main/pl/dateFields.json",
+        "main/pl/timeZoneNames.json",
+        "main/pt/ca-generic.json",
+        "main/pt/ca-gregorian.json",
+        "main/pt/dateFields.json",
+        "main/pt/timeZoneNames.json",
+        "main/root/ca-generic.json",
+        "main/root/ca-gregorian.json",
+        "main/root/dateFields.json",
+        "main/root/timeZoneNames.json"
+      ]
+    }
+  ]
+}

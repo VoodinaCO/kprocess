@@ -1,0 +1,17 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,9600,4800" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FFD52B1E">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,0L2400,0 2499,99 7101,99 7200,0 9600,0 9600,4800 7200,4800 7101,4701 2499,4701 2400,4800 0,4800z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M2400,0L7200,0 7200,4800 2400,4800z M4890,4430L4845,3567A95,95,0,0,1,4956,3469L5815,3620 5699,3300A65,65,0,0,1,5719,3227L6660,2465 6448,2366A65,65,0,0,1,6414,2287L6600,1715 6058,1830A65,65,0,0,1,5985,1792L5880,1545 5457,1999A65,65,0,0,1,5346,1942L5550,890 5223,1079A65,65,0,0,1,5132,1052L4800,400 4468,1052A65,65,0,0,1,4377,1079L4050,890 4254,1942A65,65,0,0,1,4143,1999L3720,1545 3615,1792A65,65,0,0,1,3542,1830L3000,1715 3186,2287A65,65,0,0,1,3152,2366L2940,2465 3881,3227A65,65,0,0,1,3901,3300L3785,3620 4644,3469A95,95,0,0,1,4755,3567L4710,4430z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+  </DrawingGroup>
+</DrawingGroup>

@@ -1,0 +1,28 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using KProcess.KL2.Languages;
+
+@model HeaderModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    .breadcrumb {
+        background: initial;
+        margin-bottom: initial;
+        font-size: 16px;
+    }
+
+    .breadcrumb > a {
+        color: inherit;
+    }
+</style>
+
+<div class="box-header with-border">
+    <ol class="breadcrumb">
+        <li style="margin-right: 10px;"><a><img style="width: 1.5em; margin-right: 10px;" src="~/Content/process.png" /> @LocalizedStrings.GetString("View_Documentation_Process"): @Model.Process / @LocalizedStrings.GetString("View_Documentation_ProjectPublication"): @Model.Project</a></li>
+    </ol>
+</div>
+
+@Html.EJS().ScriptManager()

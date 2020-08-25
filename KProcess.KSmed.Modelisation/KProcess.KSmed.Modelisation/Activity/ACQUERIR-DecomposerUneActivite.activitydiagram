@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="677445bf-3007-4fa9-ad35-fac4ef406287" name="ACQUERIR-DecomposerUneActivite" linkedPackageId="a0a24431-cc8f-487c-8a5b-4228edf0f394" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="77bd7944-4c95-4fa4-920a-32eb56d4c583">
+      <elementDefinition Id="7b812987-87b9-4ad5-9e21-b14076c2115b" />
+      <body>ANALYSER
+Etape de décomposition</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="de9680df-f4a6-4f76-a1a0-b39f63f2ee8a" name="ACQUERIR-DecomposerUneActivite" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="096d3480-ed1f-469a-844e-2e3ea4ce2f61" />
+        <nodes>
+          <initialNode Id="ca48b7d6-86d1-41b9-a266-47ec2af19f0a" name="Initial1" isLeaf="false">
+            <elementDefinition Id="7b8e258c-a6cc-4ce9-b617-064c7d1f2312" />
+          </initialNode>
+          <opaqueAction Id="746d2451-1435-44a6-9093-e70c749da142" name="Décomposition" isLeaf="false">
+            <elementDefinition Id="419b05e6-e284-41a4-9f5b-649d09225e40" />
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="a0a24431-cc8f-487c-8a5b-4228edf0f394" name="KProcess.KSmed.Modelisation">
+    <elementDefinition Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab" />
+    <profileInstances>
+      <packageHasProfileInstances Id="70323f33-00a0-44c3-82c9-cb4444815dc2">
+        <profileInstance Id="21b1f79a-33de-43be-a2d8-a0ed784da48c" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="a16de3c8-061e-4516-b084-cac51a959ed9">
+        <profileInstance Id="6081b3e1-ba13-4ca4-b86c-d4fc2721d8ff" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

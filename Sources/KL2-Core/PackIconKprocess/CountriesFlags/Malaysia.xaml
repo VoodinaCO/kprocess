@@ -1,0 +1,82 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,2800,1400" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing x:Name="red" Brush="#FFCC0001">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,2800,1400" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="white" Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup Transform="1,0,0,1,0,-200">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,0,-400">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,0,-600">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,0,-800">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,0,-1000">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,0,-1200">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <GeometryDrawing x:Name="blue" Brush="#FF010066">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,1400,800" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="path4945" Brush="#FFFFCC00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M576,100C409.85356,100 275,234.40553 275,400 275,565.59446 409.85356,699.99999 576,700 636.02725,700 691.95466,682.43566 738.92693,652.21675 711.57383,661.65623 682.2175,666.81914 651.65599,666.81914 504.3291,666.81915 384.75944,547.64674 384.75944,400.80929 384.75944,253.97184 504.32908,134.79944 651.65599,134.79944 684.21403,134.79944 715.40185,140.61419 744.2578,151.26671 696.21698,118.90999 638.30493,100 576,100z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="path4959">
+      <GeometryDrawing.Brush>
+        <SolidColorBrush Color="#FFFFCC00" Opacity="1" Transform="1.2737922,0,0,1.2422928,-89.4427,-29.478379" />
+      </GeometryDrawing.Brush>
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Transform="1.2737922,0,0,1.2422928,-89.4427,-29.478379" Figures="M914.28574,471.42858L814.74817,418.17806 844.17832,527.16068 777.60261,435.99589 756.83247,546.9551 736.40474,435.93234 669.5481,526.89131 699.31432,418.00001 599.61295,470.94319 673.67755,385.75059 560.87853,390.19195 664.57212,345.5715 561.01668,300.63137 673.80146,305.42069 600.00003,220.00001 699.53759,273.25053 670.10745,164.26791 736.68316,255.4327 757.4533,144.47349 777.88103,255.49624 844.73767,164.53728 814.97145,273.42858 914.67282,220.4854 840.60822,305.67799 953.40723,301.23664 849.71365,345.85709 953.26909,390.79722 840.48431,386.0079z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1300,2800,100" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+  </DrawingGroup>
+</DrawingGroup>

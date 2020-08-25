@@ -1,0 +1,95 @@
+﻿<MahApps:MetroWindow x:Class="KProcess.KL2.Tablet.SetupUI.UninstallView"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                     xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                     xmlns:Views="clr-namespace:KProcess.KL2.Tablet.SetupUI.Views"
+                     xmlns:app="clr-namespace:KProcess.KL2.Tablet.SetupUI"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     Width="800"
+                     Height="600"
+                     Dialog:DialogParticipation.Register="{Binding Path=(app:UninstallViewModel.Instance)}"
+                     DataContext="{Binding Path=(app:UninstallViewModel.Instance)}"
+                     ResizeMode="NoResize"
+                     ShowTitleBar="False"
+                     WindowStartupLocation="CenterScreen"
+                     mc:Ignorable="d">
+    <MahApps:MetroWindow.Resources>
+        <ResourceDictionary Source="Resources.xaml" />
+    </MahApps:MetroWindow.Resources>
+    <DockPanel>
+        <Grid Margin="15" DockPanel.Dock="Top">
+            <StackPanel Orientation="Horizontal">
+                <Image Width="48"
+                       Height="48"
+                       Source="/KProcess.KL2.Tablet.SetupUI;component/Resources/kl2_FieldService.png" />
+                <TextBlock Margin="10,0"
+                           FontSize="32"
+                           FontWeight="Bold">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{app:LaunchActionToTitleConverter}">
+                            <Binding Path="launchAction" Source="{x:Static app:ManagedBA.Instance}" />
+                            <Binding Path="(app:LocalizationExt.CurrentLanguage)" />
+                            <Binding Path="(app:LocalizationExt.ProductName)" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </StackPanel>
+            <TextBlock Margin="10"
+                       HorizontalAlignment="Right"
+                       Text="{Binding Path=(app:LocalizationExt.ProductVersion)}" />
+        </Grid>
+        <Grid Margin="15,10,15,20" DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Orientation="Horizontal">
+                <!--<Button Content="{iconPacks:PackIconMaterial Help, Width=16, Height=16}" Style="{DynamicResource MetroCircleButtonStyle}" Width="32" Height="32"/>-->
+                <ComboBox ItemsSource="{x:Static app:LocalizationExt.AvailableLanguages}" SelectedItem="{Binding Path=(app:LocalizationExt.CurrentLanguage)}" />
+            </StackPanel>
+            <StackPanel Grid.Column="2"
+                        DataContext="{Binding ElementName=tabControl, Path=SelectedContent}"
+                        Orientation="Horizontal">
+                <Button Width="90"
+                        Margin="5,0"
+                        Command="{Binding UninstallButtonCommand}"
+                        Visibility="{Binding UninstallButtonVisibility}">
+                    <Button.Content>
+                        <MultiBinding Converter="{app:LaunchActionToButtonContentConverter}">
+                            <Binding Path="launchAction" Source="{x:Static app:ManagedBA.Instance}" />
+                            <Binding Path="(app:LocalizationExt.CurrentLanguage)" />
+                        </MultiBinding>
+                    </Button.Content>
+                </Button>
+                <Button Width="90"
+                        Margin="20,0"
+                        Command="{Binding CancelButtonCommand}"
+                        Content="{app:Localization CancelButton}"
+                        Visibility="{Binding CancelButtonVisibility}" />
+                <Button Width="90"
+                        Margin="20,0"
+                        Command="{Binding ExitButtonCommand}"
+                        Content="{app:Localization ExitButton}"
+                        Visibility="{Binding ExitButtonVisibility}" />
+            </StackPanel>
+        </Grid>
+        <TabControl x:Name="tabControl"
+                    MahApps:TabControlHelper.Underlined="None"
+                    SelectedIndex="{Binding SelectedIndexScreen}"
+                    SelectedItem="{Binding SelectedScreen}">
+            <TabItem>
+                <Views:Uninstall Margin="15" />
+            </TabItem>
+            <TabItem>
+                <Views:UninstallProgress Margin="15" />
+            </TabItem>
+            <TabItem>
+                <Views:UninstallFinish Margin="15" />
+            </TabItem>
+        </TabControl>
+    </DockPanel>
+</MahApps:MetroWindow>

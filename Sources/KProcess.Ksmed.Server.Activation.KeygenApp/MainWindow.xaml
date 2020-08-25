@@ -1,0 +1,197 @@
+﻿<Window x:Class="KProcess.Ksmed.Server.Activation.KeygenApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converter="clr-namespace:KProcess.Ksmed.Server.Activation.KeygenApp"
+        Title="Ksmed Keygen" Height="615.298" Width="924"
+        Loaded="Window_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="33" />
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel  Grid.Row="0" Orientation="Horizontal"  Margin="5">
+            <TextBlock  Margin="10,4,4,4" TextWrapping="Wrap" Text="Dernière version :" />
+            <TextBlock x:Name="tbxVersion"  Margin="10,4,4,4" TextWrapping="Wrap" Text="2.8.2" FontWeight="Bold" />
+        </StackPanel>
+
+        <TabControl Grid.Row="1"  Margin="0,0,0,0">
+            <TabItem Header="Génération des clés">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" MinWidth="231" />
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="119*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Image Grid.Column="2" Source="Resources/ksmed.png" Grid.RowSpan="4" HorizontalAlignment="Right" Margin="0,0,0,29" Width="159"/>
+
+                    <TextBlock Margin="4" Grid.Row="2" TextWrapping="Wrap" Text="Informations à remplir par K-process :" FontWeight="Bold" Grid.ColumnSpan="2" />
+
+                    <TextBlock Margin="10,4,4,4" Grid.Row="3" TextWrapping="Wrap" Text="Client" />
+                    <Button x:Name="btRefreshCustomers"  Margin="10,4,4,4" Height="22" Width="22" Grid.Row="3" Grid.Column="1" Click="btRefreshCustomers_Click">
+                        <Image Source="Resources/refresh.png"></Image>
+                    </Button>
+                    <ComboBox x:Name="cbClient" Grid.Column="2"   Margin="4" Grid.Row="3" SelectionChanged="cbClient_SelectionChanged"  />
+                    <TextBlock Margin="10,4,4,4" Grid.Row="4" TextWrapping="Wrap" Text="Jours d'essai (0 pour infini)" />
+                    <TextBox x:Name="tbTrialDays" Grid.ColumnSpan="2" Grid.Column="1" Margin="4" Grid.Row="4" PreviewTextInput="tbTrialDays_PreviewTextInput" DataObject.Pasting="tbTrialDays_Pasting"/>
+                    <TextBlock Margin="10,4,4,4" Grid.Row="5" TextWrapping="Wrap" Text="Identifiant Client (max 6 caractères)" />
+                    <TextBox x:Name="tbClientID" IsEnabled="True" Grid.ColumnSpan="2" Grid.Column="1" Margin="4" Grid.Row="5" MaxLength="6" />
+
+                    <TextBlock Margin="4" Grid.Row="6" TextWrapping="Wrap" Text="Informations fournies par le client :" FontWeight="Bold" Grid.ColumnSpan="2" />
+                    <TextBlock Margin="10,4,4,4" Grid.Row="7" TextWrapping="Wrap" Text="Nom d'utilisateur" />
+                    <TextBox x:Name="tbUsername" IsEnabled="True" Grid.ColumnSpan="2" Grid.Column="1" Margin="4" Grid.Row="7" />
+                    <TextBlock Margin="10,4,4,4" Grid.Row="8" TextWrapping="Wrap" Text="Société" />
+                    <TextBox x:Name="tbCompany" IsEnabled="True" Grid.ColumnSpan="2" Grid.Column="1" Margin="4" Grid.Row="8" />
+                    <TextBlock Margin="10,4,4,4" Grid.Row="9" TextWrapping="Wrap" Text="Adresse e-mail" />
+                    <TextBox x:Name="tbEmail" IsEnabled="True" Grid.ColumnSpan="2" Grid.Column="1" Margin="4" Grid.Row="9" />
+                    <TextBlock Margin="10,4,4,4" Grid.Row="10" TextWrapping="Wrap" Text="Numéro machine" />
+                    <TextBox x:Name="tbMachinehash" IsEnabled="True" Grid.ColumnSpan="2" Grid.Column="1" Margin="4" Grid.Row="10" />
+                    <TextBlock Margin="10,4,4,4" Grid.Row="11" TextWrapping="Wrap" Text="Fonctionnalités" />
+                    <ComboBox x:Name="comboFeatures" Grid.ColumnSpan="2" Grid.Row="11" Grid.Column="1" Margin="4" SelectedIndex="0" ItemsSource="{Binding Features}" DisplayMemberPath="Text" />
+
+
+                    <Button x:Name="btnGenerate" Content="Générer" Margin="0,4,4,0" Grid.Row="12" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Width="100" Height="25" Click="btnGenerate_Click" Grid.ColumnSpan="2" />
+                    <Button x:Name="btnClear" Content="Vider les champs" Margin="4,4,0,0" Grid.Row="12" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Height="25" Click="btnClear_Click" />
+                </Grid>
+            </TabItem>
+            <TabItem Header="Mails par user">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+
+                    <ListBox Name="lb_clients" HorizontalContentAlignment="Stretch" SelectionMode="Single">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="50"/>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="150" />
+                                    </Grid.ColumnDefinitions>
+                                    <!--<CheckBox Grid.Column="0"></CheckBox>-->
+                                    <TextBlock Grid.Column="0" Text="{Binding User.Name}" TextAlignment="Left" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Company.Name}" TextAlignment="Left"/>
+                                    <TextBlock Grid.Column="2" Text="{Binding User.Other.VersionKL2}" TextAlignment="Center">
+                                        <TextBlock.Background>
+                                            <MultiBinding Converter="{converter:VersionToBrushConverter}">
+                                                <Binding Path="User.Other.VersionKL2"></Binding>
+                                                <Binding Path="Text" ElementName="tbxVersion"></Binding>
+                                            </MultiBinding>
+                                        </TextBlock.Background>
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="3" Text="{Binding User.Other.Language}" />
+                                    <TextBlock Grid.Column="4" Text="{Binding LicenseExpirationDate,  StringFormat='dd/MM/yyy'}" >
+                                        <TextBlock.Background>
+                                            <MultiBinding Converter="{converter:RenewalDateToBrushConverter}">
+                                                <Binding Path="LicenseExpirationDate"></Binding>
+                                            </MultiBinding>
+                                        </TextBlock.Background>
+                                    </TextBlock>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Margin="5">
+                        <Button x:Name="btnGenerateMail" Content="Mail d'install" Margin="0,4,20,0"  VerticalAlignment="Center" Width="100" Height="25" Click="btnGenerateMail_Click" Grid.ColumnSpan="1" />
+                        <Button x:Name="btnGenerateUpdateMail" Content="Mail d'update" Margin="0,4,20,0"   VerticalAlignment="Center" Width="100" Height="25" Click="btnGenerateUpdateMail_Click" Grid.ColumnSpan="1" />
+                    </StackPanel>
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Mails par société">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+
+                    <ListBox Name="lb_societe" HorizontalContentAlignment="Stretch" SelectionMode="Single" SelectionChanged="lb_societe_SelectionChanged">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="150" />
+                                    </Grid.ColumnDefinitions>
+                                    <!--<CheckBox Grid.Column="0"></CheckBox>-->
+                                    <TextBlock Grid.Column="0" Text="{Binding Company.Name}" TextAlignment="Left"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Company.Other.VersionKL2}" TextAlignment="Center">
+                                        <TextBlock.Background>
+                                            <MultiBinding Converter="{converter:VersionToBrushConverter}">
+                                                <Binding Path="Company.Other.VersionKL2"></Binding>
+                                                <Binding Path="Text" ElementName="tbxVersion"></Binding>
+                                            </MultiBinding>
+                                        </TextBlock.Background>
+                                    </TextBlock>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <GridSplitter Grid.Column="1"  Width="5" HorizontalAlignment="Stretch"></GridSplitter>
+                    <ListBox Grid.Column="2" Name="lb_userPerCompany" HorizontalContentAlignment="Stretch">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="100"/>
+                                        <ColumnDefinition Width="50"/>                                        
+                                    </Grid.ColumnDefinitions>
+                                    <!--<CheckBox Grid.Column="0"></CheckBox>-->
+                                    <TextBlock Grid.Column="0" Text="{Binding Name}" TextAlignment="Left"/>
+                                    <TextBlock Grid.Column="1" Text="{Binding Other.VersionKL2}" TextAlignment="Center" >
+                                    <TextBlock.Background>
+                                        <MultiBinding Converter="{converter:VersionToBrushConverter}">
+                                            <Binding Path="Other.VersionKL2"></Binding>
+                                            <Binding Path="Text" ElementName="tbxVersion"></Binding>
+                                        </MultiBinding>
+                                    </TextBlock.Background>
+                                    </TextBlock>
+                                    <TextBlock Grid.Column="2" Text="{Binding Other.Language}" TextAlignment="Center" />
+                                    
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <StackPanel  Grid.Row="1" Orientation="Horizontal" Margin="5">
+                        <Button x:Name="btnGenerateUpdateMailCompany" Content="Mail d'update" Margin="0,4,20,0"   VerticalAlignment="Center" Width="100" Height="25" Click="btnGenerateUpdateMailCompany_Click" Grid.ColumnSpan="1" />
+                        <TextBlock Text="Warning: On ne retrouve ici que les users cochés updated." VerticalAlignment="center" FontSize="16" FontWeight="Bold"/>
+                    </StackPanel>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>

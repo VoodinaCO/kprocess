@@ -1,0 +1,41 @@
+﻿@using KProcess.KL2.Languages;
+
+@{    
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    #confirmDelete {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="row">
+    <div class="col">
+        @LocalizedStrings.GetString("Common_Message_SureToDelete")
+    </div>
+</div>
+<div class="row" style="margin-top:20px;">
+    <div class="col">
+        @(Html.EJS().Button("cancelDelete")
+            .Content(LocalizedStrings.GetString("Common_Cancel"))
+            .CssClass("float-right")
+            .HtmlAttributes(new Dictionary<string, object> { ["onclick"] = "crudDialogObj.hide();" })
+            .Render()
+        )
+        @(Html.EJS().Button("confirmDelete")
+            .Content(LocalizedStrings.GetString("Common_Yes"))
+            .CssClass("float-right e-warning")
+            .HtmlAttributes(new Dictionary<string, object> { ["onclick"] = $"deleteTask({ViewBag.TreeId},{ViewBag.PublishMode});" })
+            .Render()
+        )
+    </div>
+</div>
+
+<script>
+    docReady(function () {
+        document.getElementById('crudDialog').querySelector('.e-footer-content').style.display = "none";
+    });
+</script>
+
+@Html.EJS().ScriptManager()

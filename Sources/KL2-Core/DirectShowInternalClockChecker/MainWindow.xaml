@@ -1,0 +1,50 @@
+﻿<Window x:Class="DirectShowInternalClockChecker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:f="http://schemas.kprocess.com/xaml/framework"
+        Title="MainWindow" Height="700" Width="1000">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="Videos" Text="Videos Folder" Grid.Row="0" Grid.ColumnSpan="2" Margin="8" />
+        
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Lancer" Margin="8" Click="Button_Click_1" />
+
+        <StackPanel Grid.Column="1" Grid.Row="2" Margin="8">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Fichier :" />
+                <TextBlock x:Name="File" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Debut vidéo :" />
+                <TextBlock x:Name="VideoStart" />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Fin vidéo :" />
+                <TextBlock x:Name="VideoEnd"  />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Début :" />
+                <TextBlock x:Name="Start"  />
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Fin :" />
+                <TextBlock x:Name="End"  />
+            </StackPanel>
+        </StackPanel>
+
+        <TextBox x:Name="log" IsReadOnly="True" Grid.Row="2" Grid.RowSpan="2" Margin="8" />
+
+        <f:KMiniPlayer x:Name="miniPlayer" Grid.Row="3" Grid.Column="1" Margin="8" />
+
+    </Grid>
+</Window>

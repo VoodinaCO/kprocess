@@ -1,0 +1,529 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using KProcess.Ksmed.Models;
+@using KProcess.KL2.Languages;
+
+@model SummaryViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    var versioningList = new List<object>
+{
+        new { IsMajor = true, Label = LocalizedStrings.GetString("Common_VersioningMajor") },
+        new { IsMajor = false, Label = LocalizedStrings.GetString("Common_VersioningMinor") }
+    };
+    var ddlValueVersionTemplate = "${if(IsMajor)}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span><b>${Label}</b></span>" +
+                            "<span class='ml-auto'><span class='majorVersion'><i class='fas fa-exclamation-triangle'></i></span></span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${else}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span>${Label}</span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${/if}";
+    var ddlItemVersionTemplate = "${if(IsMajor)}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span><b>${Label}</b></span>" +
+                            "<span class='ml-auto'><a data-toggle='tooltip' title='" + LocalizedStrings.GetString("VersionMajorWarning") + "'><i class='fas fa-exclamation-triangle'></i></a></span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${else}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span>${Label}</span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${/if}";
+}
+
+<style>
+    e-majorWarning:before {
+        content: '\e607';
+    }
+
+    #SummaryModeTab > .e-content,
+    #SummaryModeTab > .e-content > .e-item.e-active,
+    #SummaryModeTab > .e-content > .e-item.e-active > #TrainingSummaryTabContent,
+    #SummaryModeTab > .e-content > .e-item.e-active > #EvaluationSummaryTabContent,
+    #SummaryModeTab > .e-content > .e-item.e-active > #InspectionSummaryTabContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #TrainingReleaseNote_toolbar_wrapper,
+    #EvaluationReleaseNote_toolbar_wrapper,
+    #InspectionReleaseNote_toolbar_wrapper {
+        margin-top: -11px;
+    }
+</style>
+
+@(Html.EJS().Tab("SummaryModeTab")
+    .Items(builder =>
+    {
+        if (Model.PublishForTraining)
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_TrainingLabel")))
+                .CssClass("training")
+                .Content("#TrainingSummaryTabContent")
+                .Add();
+        if (Model.PublishForEvaluation)
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_EvaluationLabel")))
+                .CssClass("evaluation")
+                .Content("#EvaluationSummaryTabContent")
+                .Add();
+        if (Model.PublishForInspection)
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_InspectionLabel")))
+                .CssClass("inspection")
+                .Content("#InspectionSummaryTabContent")
+                .Add();
+    })
+    .Selected("tabSelected")
+    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+    .Render()
+)
+
+@if (Model.PublishForTraining)
+{
+    <div id="TrainingSummaryTabContent" style="display: none">
+        <form class="form-horizontal" role="form" style="flex: 1; min-height: 0px; display: flex; flex-direction: column;padding:10px;">
+            <h4>@LocalizedStrings.GetString("View_Documentation_TrainingSummaryLabel")</h4>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="TrainingVersioning" class="control-label">@LocalizedStrings.GetString("View_Documentation_TypeOfVersion")</label>
+                    <div>
+                        <div id="SummaryForTraining">
+                            @(Html.EJS().DropDownList("TrainingVersioning")
+                            .DataSource((IEnumerable<object>)versioningList)
+                            .Fields(fields =>
+                            {
+                                fields.Text("Label")
+                                    .Value("IsMajor");
+                            })
+                            .Value(Model.TrainingVersioningIsMajor)
+                            .ItemTemplate(ddlItemVersionTemplate)
+                            .ValueTemplate("${if(IsMajor)}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span><b>${Label}</b></span>" +
+                            "<span class='ml-auto'><span class='majorWarningTraining'><i class='fas fa-exclamation-triangle'></i></span></span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${else}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span>${Label}</span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${/if}")
+                            .Select("refreshTrainingVersion")
+                            .Created("onCreated")
+                            .Close("onClose")
+                            .Enabled(ViewBag.TrainingMinorVersion != ViewBag.TrainingMajorVersion)
+                            .Render()
+                        )
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="TrainingVersioning" class="control-label col-sm-2">@LocalizedStrings.GetString("View_Documentation_Version")</label>
+                    <div class="col-sm-6" style="padding-top: 7px">
+                        <span id="TrainingVersion">@(Model.TrainingVersioningIsMajor ? ViewBag.TrainingMajorVersion : ViewBag.TrainingMinorVersion)</span>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+                <label for="TrainingVersioning" class="control-label">@LocalizedStrings.GetString("View_Documentation_ReleaseNotes")</label>
+                @(Html.EJS().RichTextEditor("TrainingReleaseNote")
+                    .Height("100%")
+                    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+                    .Value(Model.TrainingReleaseNote)
+                    .Created("created")
+                    .Change("onFieldChange")
+                    .CssClass("insideTab")
+                    .Render()
+                )
+            </div>
+        </form>
+    </div>
+}
+@if (Model.PublishForEvaluation)
+{
+    <div id="EvaluationSummaryTabContent" style="display: none">
+        <form class="form-horizontal" role="form" style="flex: 1; min-height: 0px; display: flex; flex-direction: column;padding:10px;">
+            <h4>@LocalizedStrings.GetString("View_Documentation_EvaluationSummaryLabel")</h4>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="TrainingVersioning" class="control-label">@LocalizedStrings.GetString("View_Documentation_TypeOfVersion")</label>
+                    <div>
+                        @(Html.EJS().DropDownList("EvaluationVersioning")
+                        .DataSource((IEnumerable<object>)versioningList)
+                        .Fields(fields =>
+                        {
+                            fields.Text("Label")
+                                .Value("IsMajor");
+                        })
+                        .Value(Model.EvaluationVersioningIsMajor)
+                        .ItemTemplate(ddlItemVersionTemplate)
+                        .ValueTemplate("${if(IsMajor)}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span><b>${Label}</b></span>" +
+                            "<span class='ml-auto'><span class='majorWarningEvaluation'><i class='fas fa-exclamation-triangle'></i></span></span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${else}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span>${Label}</span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${/if}")
+                        .Select("refreshEvaluationVersion")
+                        .Created("onCreated")
+                        .Close("onClose")
+                        .Enabled(ViewBag.EvaluationMinorVersion != ViewBag.EvaluationMajorVersion)
+                        .Render()
+                    )
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="TrainingVersioning" class="control-label col-sm-2">@LocalizedStrings.GetString("View_Documentation_Version")</label>
+                    <div class="col-sm-6" style="padding-top: 7px">
+                        <span id="EvaluationVersion">@(Model.EvaluationVersioningIsMajor ? ViewBag.EvaluationMajorVersion : ViewBag.EvaluationMinorVersion)</span>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+                <label for="TrainingVersioning" class="control-label">@LocalizedStrings.GetString("View_Documentation_ReleaseNotes")</label>
+                @(Html.EJS().RichTextEditor("EvaluationReleaseNote")
+                    .Height("100%")
+                    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+                    .Value(Model.EvaluationReleaseNote)
+                    .Created("created")
+                    .Change("onFieldChange")
+                    .CssClass("insideTab")
+                    .Render()
+                )
+            </div>
+        </form>
+    </div>
+}
+@if (Model.PublishForInspection)
+{
+    <div id="InspectionSummaryTabContent" style="display: none">
+        <form class="form-horizontal" role="form" style="flex: 1; min-height: 0px; display: flex; flex-direction: column;padding:10px;">
+            <h4>@LocalizedStrings.GetString("View_Documentation_InspectionSummaryLabel")</h4>
+            <div class="form-group row">
+                <div class="col-sm-6">
+                    <label for="TrainingVersioning" class="control-label">@LocalizedStrings.GetString("View_Documentation_TypeOfVersion")</label>
+                    <div>
+                        @(Html.EJS().DropDownList("InspectionVersioning")
+                        .DataSource((IEnumerable<object>)versioningList)
+                        .Fields(fields =>
+                        {
+                            fields.Text("Label")
+                                .Value("IsMajor");
+                        })
+                        .Value(Model.InspectionVersioningIsMajor)
+                        .ItemTemplate(ddlItemVersionTemplate)
+                        .ValueTemplate("${if(IsMajor)}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span><b>${Label}</b></span>" +
+                            "<span class='ml-auto'><span class='majorWarningInspection'><i class='fas fa-exclamation-triangle'></i></span></span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${else}" +
+                            "<div class='container'>" +
+                            "<span class='row'>" +
+                            "<span>${Label}</span>" +
+                            "</span>" +
+                            "</div>" +
+                            "${/if}")
+                        .Select("refreshInspectionVersion")
+                        .Created("onCreated")
+                        .Close("onClose")
+                        .Enabled(ViewBag.InspectionMinorVersion != ViewBag.InspectionMajorVersion)
+                        .Render()
+                    )
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <label for="TrainingVersioning" class="control-label col-sm-2">@LocalizedStrings.GetString("View_Documentation_Version")</label>
+                    <div class="col-sm-6" style="padding-top: 7px">
+                        <span id="InspectionVersion">@(Model.InspectionVersioningIsMajor ? ViewBag.InspectionMajorVersion : ViewBag.InspectionMinorVersion)</span>
+                    </div>
+                </div>
+            </div>
+            <div style="flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+                <label for="TrainingVersioning" class="control-label">@LocalizedStrings.GetString("View_Documentation_ReleaseNotes")</label>
+                @(Html.EJS().RichTextEditor("InspectionReleaseNote")
+                    .Height("100%")
+                    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+                    .Value(Model.InspectionReleaseNote)
+                    .Created("created")
+                    .Change("onFieldChange")
+                    .CssClass("insideTab")
+                    .Render()
+                )
+            </div>
+        </form>
+    </div>
+}
+
+<script>
+    var versionMajorWarning = "@LocalizedStrings.GetString("VersionMajorWarning")";
+
+    docReady(function () {
+        if (document.getElementById("TrainingReleaseNote")) {
+            document.getElementById("TrainingReleaseNote").ej2_instances[0].refresh();
+        }
+        if (document.getElementById("EvaluationReleaseNote")) {
+            document.getElementById("EvaluationReleaseNote").ej2_instances[0].refresh();
+        }
+        if (document.getElementById("InspectionReleaseNote")) {
+            document.getElementById("InspectionReleaseNote").ej2_instances[0].refresh();
+        }
+        document.getElementById("SummaryModeTab").ej2_instances[0].refresh();
+
+        leaveFunction = localLeaveFunction;
+        cancelFunction = localCancelFunction;
+        saveAsDraftFunction = localSaveAsDraftFunction;
+        setHeader('/Documentation/DocumentationHeader', { processName: "@Html.Raw(ViewBag.ProcessName)", projectName: "@Html.Raw(ViewBag.ProjectName)" });
+        updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: false, publish: true });
+        updateWizardButtonsStates({ previous: true, cancel: false, saveasdraft: false, publish: true });
+
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+
+    function onCreated() {
+        var caller = this;
+        var tooltipContent = document.createElement("div");
+        tooltipContent.innerHTML = versionMajorWarning;
+        var tooltip = new ej.popups.Tooltip({
+            content: tooltipContent
+        });
+        if(caller.element.id == "TrainingVersioning")
+            tooltip.appendTo('.majorWarningTraining');
+        if (caller.element.id == "EvaluationVersioning")
+            tooltip.appendTo(".majorWarningEvaluation");
+        if (caller.element.id == "InspectionVersioning")
+            tooltip.appendTo(".majorWarningInspection");
+    }
+
+    function onClose() {
+        defineMajorWarningTooltip(this);
+    }
+
+    function defineMajorWarningTooltip(args) {
+        var majorWarning = ""
+        if (args.element.id == "TrainingVersioning") {
+            majorWarning = '.majorWarningTraining';
+        }
+        if (args.element.id == "EvaluationVersioning") {
+            majorWarning = '.majorWarningEvaluation';
+        }
+        if (args.element.id == "InspectionVersioning") {
+            majorWarning = '.majorWarningInspection';
+        }
+        if (majorWarning != "" && $(majorWarning).length != 0) {
+            var tooltipContent = document.createElement("div");
+            tooltipContent.innerHTML = versionMajorWarning;
+            var tooltip = new ej.popups.Tooltip({
+                content: tooltipContent
+            });
+            tooltip.appendTo(majorWarning);
+        }
+    }
+
+    // Save state
+    function localLeaveFunction() {
+        var hasError = false;
+
+        var trainingIsMajor = false;
+        var evaluationIsMajor = false;
+        var inspectionIsMajor = false;
+        var trainingReleaseNotes = null;
+        var evaluationReleaseNotes = null;
+        var inspectionReleaseNotes = null;
+        if (documentationStates.publishForTraining === true) {
+            trainingIsMajor = document.getElementById("TrainingVersioning").ej2_instances[0].itemData.IsMajor;
+            trainingReleaseNotes = document.getElementById('TrainingReleaseNote').ej2_instances[0].value;
+        }
+        if (documentationStates.publishForEvaluation === true) {
+            evaluationIsMajor = document.getElementById("EvaluationVersioning").ej2_instances[0].itemData.IsMajor;
+            evaluationReleaseNotes = document.getElementById('EvaluationReleaseNote').ej2_instances[0].value;
+        }
+        if (documentationStates.publishForInspection === true) {
+            inspectionIsMajor = document.getElementById("InspectionVersioning").ej2_instances[0].itemData.IsMajor;
+            inspectionReleaseNotes = document.getElementById('InspectionReleaseNote').ej2_instances[0].value;
+        }
+
+        $.ajax({
+            url: '/Documentation/UpdateDocumentationReleaseNotes',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                IsMajor: trainingIsMajor,
+                ReleaseNotes: trainingReleaseNotes,
+                PublishMode: @((int)PublishModeEnum.Formation)
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+            },
+            error: function () {
+            }
+        });
+        $.ajax({
+            url: '/Documentation/UpdateDocumentationReleaseNotes',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                IsMajor: evaluationIsMajor,
+                ReleaseNotes: evaluationReleaseNotes,
+                PublishMode: @((int)PublishModeEnum.Evaluation)
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+        $.ajax({
+            url: '/Documentation/UpdateDocumentationReleaseNotes',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                IsMajor: inspectionIsMajor,
+                ReleaseNotes: inspectionReleaseNotes,
+                PublishMode: @((int)PublishModeEnum.Inspection)
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+
+        $.ajax({
+            url: '/Documentation/SaveDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify(documentationStates.draft, function replacer(key, value) { return value}),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+                documentationStates.documentationDraftId = documentationStates.draft.DocumentationDraftId;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+        saveDocumentationStates();
+
+        return !hasError;
+    }
+
+    function localCancelFunction() {
+        setIsRefreshing(true);
+        docTabSelected();
+        setIsRefreshing(false);
+    }
+
+    function localSaveAsDraftFunction() {
+        var targetElement = $('#pageContainer')[0];
+        var spinner = ej.popups.createSpinner({ target: targetElement });
+        ej.popups.showSpinner(targetElement);
+
+        // Save states
+        var success = localLeaveFunction();
+
+        if (success === true) {
+            document.getElementById('toast_container').ej2_instances[0].show({ content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraft")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+            setHasChanged(false);
+        }
+        else {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@(LocalizedStrings.GetString("Common_Error"))", content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraftError")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+
+        ej.popups.hideSpinner(targetElement);
+    }
+
+    function created() { // Triggered after the Rich Text Editor component created
+        this.refresh(); // Focus on RTE content
+    }
+
+    function refreshTrainingVersion(args) {
+        version = document.getElementById("TrainingVersion");
+        if (args.itemData.IsMajor) {
+            version.innerHTML = "@ViewBag.TrainingMajorVersion";
+        } else {
+            version.innerHTML = "@ViewBag.TrainingMinorVersion";
+        }
+        setHasChanged(true);
+    }
+
+    function refreshEvaluationVersion(args) {
+        version = document.getElementById("EvaluationVersion");
+        if (args.itemData.IsMajor) {
+            version.innerHTML = "@ViewBag.EvaluationMajorVersion";
+        } else {
+            version.innerHTML = "@ViewBag.EvaluationMinorVersion";
+        }
+        setHasChanged(true);
+    }
+
+    function refreshInspectionVersion(args) {
+        version = document.getElementById("InspectionVersion");
+        if (args.itemData.IsMajor) {
+            version.innerHTML = "@ViewBag.InspectionMajorVersion";
+        } else {
+            version.innerHTML = "@ViewBag.InspectionMinorVersion";
+        }
+        setHasChanged(true);
+    }
+
+    function tabSelected(args) {
+        if (args.selectedItem.classList.contains('training')) {
+            setTimeout(function () {
+                document.getElementById("TrainingReleaseNote").ej2_instances[0].refresh();
+            }, 10);
+        } else if (args.selectedItem.classList.contains('evaluation')) {
+            setTimeout(function () {
+                document.getElementById("EvaluationReleaseNote").ej2_instances[0].refresh();
+            }, 10);
+        } else if (args.selectedItem.classList.contains('inspection')) {
+            setTimeout(function () {
+                document.getElementById("InspectionReleaseNote").ej2_instances[0].refresh();
+            }, 10);
+        }
+    }
+
+    function setHasChanged(value) {
+        updateWizardButtonsStates({ cancel: value, saveasdraft: value });
+    }
+
+    function onFieldChange(args) {
+        setHasChanged(true);
+    }
+</script>
+
+@Html.EJS().ScriptManager()

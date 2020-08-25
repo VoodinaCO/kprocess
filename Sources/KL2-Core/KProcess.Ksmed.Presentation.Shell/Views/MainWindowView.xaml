@@ -1,0 +1,579 @@
+<Window x:Class="KProcess.Ksmed.Presentation.Shell.MainWindowView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:core="http://schemas.kprocess.com/xaml/core"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:k="http://schemas.kprocess.com/xaml/framework"
+        xmlns:local="clr-namespace:KProcess.Ksmed.Presentation.Shell"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:shell="http://schemas.microsoft.com/winfx/2006/xaml/presentation/shell"
+        xmlns:view="clr-namespace:KProcess.Ksmed.Presentation.Shell"
+        xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+        Title="{Binding WindowTitle, FallbackValue=''}"
+        Width="{Binding Converter={core:TaskbarWidthConverter}}"
+        Height="{Binding Converter={core:TaskbarHeightConverter}}"
+        MinWidth="{Binding Converter={core:TaskbarWidthConverter}}"
+        MinHeight="{Binding Converter={core:TaskbarHeightConverter}}"
+        d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,
+                                         Type={x:Type vm:MainWindowViewModel}}"
+        Icon="/Resources/kl2_VideoAnalyst.ico"
+        Style="{DynamicResource ChromelessWindowStyle}"
+        mc:Ignorable="d">
+    <Window.Resources>
+
+        <Style x:Key="menuItemStyle" TargetType="{x:Type core:MenuItem}">
+            <Setter Property="Foreground" Value="#70FFFFFF" />
+            <Setter Property="FontSize" Value="{StaticResource Heading3FontSize}" />
+            <Setter Property="FontFamily" Value="{StaticResource SegoeWPFontFamily}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Padding" Value="10,2,6,2" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+            <Setter Property="Command" Value="{k:AncestorBinding DataContext.MenuNavigateCommand, {x:Type Window}}" />
+            <Setter Property="SeparatorVisibility" Value="{Binding SeparatorVisibility}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type core:MenuItem}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Rectangle x:Name="MouseOverElement"
+                                       Fill="{StaticResource MouseOverSelectionBrush}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0"
+                                       RadiusX="5"
+                                       RadiusY="5" />
+                            <Rectangle x:Name="SelectedElement"
+                                       Fill="{StaticResource InputSelectionBrush}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0"
+                                       RadiusX="5"
+                                       RadiusY="5" />
+
+                            <DockPanel Margin="{TemplateBinding Padding}">
+                                <TextBlock Margin="0,0,6,0"
+                                           HorizontalAlignment="Right"
+                                           VerticalAlignment="Center"
+                                           Text="&gt;"
+                                           Visibility="{TemplateBinding SeparatorVisibility}" />
+                                <ContentPresenter x:Name="contentPresenter" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                            </DockPanel>
+                            <Rectangle x:Name="FocusVisualElement"
+                                       Margin="2"
+                                       IsHitTestVisible="False"
+                                       Opacity="0"
+                                       RadiusX="1"
+                                       RadiusY="1"
+                                       Stroke="{StaticResource FocusVisualBrush}"
+                                       StrokeDashArray="2"
+                                       StrokeThickness="{StaticResource FocusVisualStrokeThickness}" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected" />
+                                    <VisualState x:Name="SelectedUnfocused" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="FocusVisualElement"
+                                                             Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                             To="1"
+                                                             Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="LayoutStates">
+                                    <VisualState x:Name="AfterLoaded" />
+                                    <VisualState x:Name="BeforeLoaded" />
+                                    <VisualState x:Name="BeforeUnloaded" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ValidationStates">
+                                    <VisualState x:Name="Valid" />
+                                    <VisualState x:Name="InvalidUnfocused" />
+                                    <VisualState x:Name="InvalidFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter Property="Foreground">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                            <GradientStop Color="#FF97B813" />
+                                            <GradientStop Offset="1" Color="#FF75A10A" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="FontWeight" Value="SemiBold" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                    <Condition Property="IsSelected" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="{StaticResource MouseOverSelectionBrush}" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="submenuItemStyle" TargetType="{x:Type core:MenuItem}">
+            <Setter Property="Foreground" Value="#AAFFFFFF" />
+            <Setter Property="FontSize" Value="{StaticResource Heading4FontSize}" />
+            <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />
+            <Setter Property="FontWeight" Value="Normal" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="Padding" Value="10,2" />
+            <Setter Property="Margin" Value="4,0" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="Local" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+            <Setter Property="Command" Value="{k:AncestorBinding DataContext.MenuNavigateCommand, {x:Type Window}}" />
+            <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type core:MenuItem}">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Rectangle x:Name="MouseOverElement"
+                                       Fill="{StaticResource MouseOverSelectionBrush}"
+                                       IsHitTestVisible="False"
+                                       Opacity="0"
+                                       RadiusX="5"
+                                       RadiusY="5" />
+                            <Rectangle x:Name="SelectedElement"
+                                       Height="2"
+                                       Margin="10,0,10,1"
+                                       VerticalAlignment="Bottom"
+                                       IsHitTestVisible="False"
+                                       Opacity="0">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop Color="#FF97B813" />
+                                        <GradientStop Offset="1" Color="#FF75A10A" />
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                                <Rectangle.Effect>
+                                    <DropShadowEffect ShadowDepth="0" Color="White" />
+                                </Rectangle.Effect>
+                            </Rectangle>
+                            <ContentPresenter x:Name="contentPresenter"
+                                              Margin="{TemplateBinding Padding}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                            <Rectangle x:Name="FocusVisualElement"
+                                       Margin="2"
+                                       IsHitTestVisible="False"
+                                       Opacity="0"
+                                       RadiusX="1"
+                                       RadiusY="1"
+                                       Stroke="{StaticResource FocusVisualBrush}"
+                                       StrokeDashArray="2"
+                                       StrokeThickness="{StaticResource FocusVisualStrokeThickness}" />
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="SelectionStates">
+                                    <VisualState x:Name="Unselected" />
+                                    <VisualState x:Name="Selected" />
+                                    <VisualState x:Name="SelectedUnfocused" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetName="FocusVisualElement"
+                                                             Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                             To="1"
+                                                             Duration="0" />
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="LayoutStates">
+                                    <VisualState x:Name="AfterLoaded" />
+                                    <VisualState x:Name="BeforeLoaded" />
+                                    <VisualState x:Name="BeforeUnloaded" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="ValidationStates">
+                                    <VisualState x:Name="Valid" />
+                                    <VisualState x:Name="InvalidUnfocused" />
+                                    <VisualState x:Name="InvalidFocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="contentPresenter" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="10"
+                                                          ShadowDepth="0"
+                                                          Color="White" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter TargetName="SelectedElement" Property="Opacity" Value="0" />
+                                <Setter Property="Foreground" Value="White" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="contentPresenter" Property="Opacity" Value="0.5" />
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver" Value="true" />
+                                    <Condition Property="IsSelected" Value="False" />
+                                </MultiTrigger.Conditions>
+                                <Setter Property="Foreground" Value="{StaticResource MouseOverSelectionBrush}" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="VerticalContentAlignment" Value="Top" />
+        </Style>
+
+        <Style x:Key="menuStyle" TargetType="{x:Type core:Menu}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="ItemContainerStyle" Value="{StaticResource menuItemStyle}" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="Once" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type core:Menu}">
+                        <Border Margin="0"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="3">
+                            <ScrollViewer x:Name="ScrollViewer"
+                                          Margin="0"
+                                          Padding="0"
+                                          Background="Transparent"
+                                          BorderBrush="Transparent"
+                                          BorderThickness="0"
+                                          KeyboardNavigation.TabNavigation="{Binding (KeyboardNavigation.TabNavigation), RelativeSource={RelativeSource TemplatedParent}}">
+                                <StackPanel IsItemsHost="True" Orientation="Horizontal" />
+                            </ScrollViewer>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
+        <Style x:Key="ToggleButtonVolumeStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Foreground" Value="{StaticResource ControlForeground}" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Grid x:Name="Root">
+                            <Border x:Name="Unmuted">
+                                <Border.Background>
+                                    <DrawingBrush>
+                                        <DrawingBrush.Drawing>
+                                            <GeometryDrawing Brush="{StaticResource ColorAccentHighlightBrush}" Geometry="F1 M 839.416,601.168L 833.378,607.206L 828.849,607.206L 829.521,606.953C 828.734,606.955 828.097,607.602 828.095,608.402L 828.849,608.716L 828.849,614.753L 828.095,614.198C 828.097,614.997 828.734,615.645 829.521,615.647L 828.849,616.263L 833.378,616.263L 839.416,622.301L 839.104,621.911C 839.299,622.2 839.689,622.273 839.973,622.075C 840.198,621.918 840.297,621.632 840.218,621.367L 840.925,620.791L 840.925,601.168L 840.218,601.234C 840.318,600.898 840.132,600.543 839.802,600.441C 839.541,600.36 839.258,600.461 839.104,600.69L 839.416,601.168 Z M 839.416,619.282L 833.378,614.753L 828.849,614.753L 828.849,608.716L 833.378,608.716L 839.416,602.678L 839.416,619.282 Z M 843.944,605.697L 843.922,605.623C 845.635,606.993 846.635,609.085 846.636,611.3C 846.635,613.489 845.659,615.56 843.979,616.932L 843.944,616.263L 843.944,617.772L 844.382,617.529C 846.256,616.022 847.348,613.728 847.349,611.3C 847.348,608.87 846.254,606.575 844.38,605.067L 843.944,605.697 Z M 846.963,602.678L 845.453,602.678L 846.205,602.84C 848.731,604.899 850.201,608.01 850.202,611.3C 850.199,614.682 848.644,617.869 845.996,619.919L 845.453,619.282L 846.963,620.791L 846.401,620.52C 849.244,618.335 850.915,614.922 850.915,611.3C 850.917,607.794 849.354,604.477 846.665,602.28L 846.963,602.678 Z M 842.434,607.206L 840.925,608.716L 841.644,608.42C 842.539,609.099 843.067,610.165 843.07,611.3C 843.069,612.294 842.663,613.244 841.949,613.924L 842.434,613.244L 842.434,614.753L 842.358,614.531C 843.264,613.709 843.783,612.534 843.783,611.3C 843.782,609.945 843.158,608.669 842.097,607.85L 842.434,607.206 Z " />
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Border.Background>
+                            </Border>
+                            <Border x:Name="Muted" Visibility="Collapsed">
+                                <Border.Background>
+                                    <DrawingBrush>
+                                        <DrawingBrush.Drawing>
+                                            <GeometryDrawing Brush="{StaticResource ColorAccentHighlightBrush}" Geometry="F1 M 796.68,580.972L 799.699,579.462L 795.17,574.934L 799.699,571.915L 796.68,568.896L 793.661,573.424L 789.133,568.896L 787.623,571.915L 790.642,574.934L 787.623,579.462L 789.133,580.972L 793.661,577.953L 796.68,580.972 Z M 789.133,576.443L 789.133,573.424L 787.623,571.915L 787.623,577.953L 781.585,573.424L 777.057,573.424L 777.057,567.387L 781.585,567.387L 787.623,561.349L 787.623,570.405L 789.133,568.896L 789.133,559.839L 788.425,559.905C 788.526,559.569 788.34,559.214 788.01,559.112C 787.748,559.031 787.466,559.132 787.312,559.361L 787.623,559.839L 781.585,565.877L 777.057,565.877L 777.729,565.623C 776.942,565.626 776.305,566.273 776.302,567.073L 777.057,567.387L 777.057,573.424L 776.302,572.869C 776.305,573.668 776.942,574.316 777.729,574.318L 777.057,574.934L 781.585,574.934L 786.114,579.462L 789.133,576.443 Z " />
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Border.Background>
+                            </Border>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualStateGroup.Transitions>
+                                        <VisualTransition GeneratedDuration="0:0:0.1" />
+                                        <VisualTransition To="Pressed" />
+                                        <VisualTransition From="Pressed" />
+                                    </VisualStateGroup.Transitions>
+                                    <VisualState x:Name="Normal" />
+                                    <VisualState x:Name="MouseOver" />
+                                    <VisualState x:Name="Disabled" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="CheckStates">
+                                    <VisualState x:Name="Checked">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Muted" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="Unmuted" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Unchecked" />
+                                    <VisualState x:Name="Indeterminate" />
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Focused" />
+                                    <VisualState x:Name="Unfocused" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="{x:Static k:Shortcuts.Save}" Command="{Binding ShortcutSaveCommand}" />
+        <KeyBinding Key="{x:Static k:Shortcuts.Cancel}" Command="{Binding ShortcutCancelCommand}" />
+        <KeyBinding Key="{x:Static k:Shortcuts.Add}" Command="{Binding ShortcutAddCommand}" />
+        <KeyBinding Key="{x:Static k:Shortcuts.Delete}" Command="{Binding ShortcutDeleteCommand}" />
+        <KeyBinding Key="{x:Static k:Shortcuts.PlayerPlayPlause}" Command="{Binding ShortCutPlayerPlayPause}" />
+        <KeyBinding Key="{x:Static k:Shortcuts.PlayerStepBackward}" Command="{Binding ShortCutPlayerStepBackward}" />
+        <KeyBinding Key="{x:Static k:Shortcuts.PlayerStepForward}" Command="{Binding ShortCutPlayerStepForward}" />
+        <KeyBinding Key="{x:Static k:Shortcuts.PlayerToggleScreenMode}" Command="{Binding ShortCutPlayerToggleScreenMode}" />
+    </Window.InputBindings>
+
+    <i:Interaction.Behaviors>
+        <core:ViewHandleBehavior />
+    </i:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+            <RowDefinition Height="8" />
+        </Grid.RowDefinitions>
+        <StackPanel Margin="18,0,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                    Orientation="Horizontal">
+            <Button Width="32"
+                    Height="32"
+                    Margin="0,0,8,0"
+                    Padding="0"
+                    Content="ABCD"
+                    Style="{StaticResource ButtonTopBackStyle}"
+                    Visibility="{Binding BackButtonVisibility}" />
+            <TextBlock Margin="0,4,4,4"
+                       VerticalAlignment="Center"
+                       FontWeight="SemiBold"
+                       Foreground="#FFF0F0F0"
+                       IsHitTestVisible="False"
+                       Style="{DynamicResource Heading3}"
+                       Text="{Binding Title}"
+                       TextWrapping="Wrap" />
+        </StackPanel>
+        <StackPanel Grid.Row="0"
+                    Margin="0,4,80,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Center"
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                        Orientation="Horizontal"
+                        TextElement.FontSize="{StaticResource NormalFontSize}">
+                <!--<Button Style="{StaticResource ButtonSyncStyle}"/>-->
+                <Button Command="{Binding AdministrationCommand}"
+                        Content="{Binding AdministrationLabel}"
+                        Style="{DynamicResource HyperlinkButtonStyle}" />
+                <TextBlock VerticalAlignment="Top"
+                           Foreground="{DynamicResource ColorAccentHighlightBrush}"
+                           Text="|"
+                           TextWrapping="Wrap"
+                           Visibility="Collapsed" />
+                <Button Content="{Binding SettingsLabel}"
+                        Style="{DynamicResource HyperlinkButtonStyle}"
+                        Visibility="Collapsed" />
+                <TextBlock VerticalAlignment="Top"
+                           Foreground="{DynamicResource ColorAccentHighlightBrush}"
+                           Text="|"
+                           TextWrapping="Wrap" />
+                <Button x:Name="GetAllLogsButton"
+                        Command="{Binding GetAllLogsCommand}"
+                        Content="{k:Localize Common_GetLogs}"
+                        Style="{DynamicResource HyperlinkButtonStyle}"
+                        Visibility="{Binding Path=IsEnabled, RelativeSource={RelativeSource Self}, Mode=OneWay, Converter={k:BooleanToVisibilityConverter}}" />
+                <TextBlock VerticalAlignment="Top"
+                           Foreground="{DynamicResource ColorAccentHighlightBrush}"
+                           Text="|"
+                           TextWrapping="Wrap"
+                           Visibility="{Binding Path=IsEnabled, ElementName=GetAllLogsButton, Mode=OneWay, Converter={k:BooleanToVisibilityConverter}}" />
+                <Button Command="{Binding ExtensionsCommand}"
+                        Content="{Binding ExtensionsLabel}"
+                        Style="{DynamicResource HyperlinkButtonStyle}" />
+                <TextBlock VerticalAlignment="Top"
+                           Foreground="{DynamicResource ColorAccentHighlightBrush}"
+                           Text="|"
+                           TextWrapping="Wrap" />
+                <Button Command="{Binding HelpCommand}"
+                        Content="{Binding HelpLabel}"
+                        Style="{DynamicResource HyperlinkButtonStyle}" />
+                <TextBlock VerticalAlignment="Top"
+                           Foreground="{DynamicResource ColorAccentHighlightBrush}"
+                           Text="|"
+                           TextWrapping="Wrap" />
+                <Button Command="{Binding AboutCommand}"
+                        Content="{Binding AboutLabel}"
+                        Style="{DynamicResource HyperlinkButtonStyle}" />
+            </StackPanel>
+            <StackPanel Width="150"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                        Orientation="Vertical">
+                <Button HorizontalContentAlignment="Right"
+                        VerticalContentAlignment="Center"
+                        Content="{Binding CurrentUserName}"
+                        FontWeight="SemiBold"
+                        IsEnabled="False"
+                        Style="{DynamicResource HyperlinkButtonStyle}"
+                        TextElement.FontSize="{StaticResource DefaultFontSize}"
+                        Visibility="{Binding IsRunningReadOnlyVersion, Converter={StaticResource NegatedBooleanToVisibilityConverter}}" />
+                <Button HorizontalAlignment="Right"
+                        HorizontalContentAlignment="Right"
+                        VerticalContentAlignment="Center"
+                        Command="{Binding DisconnectCommand}"
+                        Content="{Binding DisconnectLabel}"
+                        Style="{DynamicResource HyperlinkButtonStyle}"
+                        TextElement.FontSize="{StaticResource NormalFontSize}"
+                        Visibility="{Binding IsRunningReadOnlyVersion, Converter={StaticResource NegatedBooleanToVisibilityConverter}}" />
+            </StackPanel>
+            <ToggleButton Width="20"
+                          Height="20"
+                          Margin="5,0"
+                          shell:WindowChrome.IsHitTestVisibleInChrome="True"
+                          IsChecked="{Binding Source={x:Static local:LocalSettings.Instance}, Path=Mute, Mode=TwoWay}"
+                          Style="{DynamicResource ToggleButtonVolumeStyle}" />
+        </StackPanel>
+        <core:Menu Grid.Row="1"
+                   Margin="8,-2,8,4"
+                   DisplayMemberPath="Label"
+                   ItemsSource="{Binding MenuItems}"
+                   Style="{DynamicResource menuStyle}" />
+        <core:Menu Grid.Row="2"
+                   Margin="4,-2,160,0"
+                   DisplayMemberPath="Label"
+                   ItemContainerStyle="{StaticResource submenuItemStyle}"
+                   ItemsSource="{Binding CurrentMenuItem.SubItems}"
+                   Style="{DynamicResource menuStyle}" />
+        <ComboBox Grid.Row="2"
+                  MinWidth="150"
+                  Margin="0,0,5,0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  IsEnabled="{Binding IsScenarioPickerEnabled}"
+                  ItemsSource="{Binding Scenarios}"
+                  SelectedItem="{Binding CurrentScenario}"
+                  Visibility="{Binding ScenariosPickerVisibility}">
+            <ComboBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource comboBoxItemStyleBase}" TargetType="{x:Type ComboBoxItem}">
+                    <Setter Property="IsEnabled" Value="{Binding IsEnabled}" />
+                </Style>
+            </ComboBox.ItemContainerStyle>
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Label}" />
+                        <Image Width="16"
+                               Height="16"
+                               Margin="2,0,0,0"
+                               Source="pack://siteoforigin:,,,/Resources/Images/lock32.png">
+                            <Image.Visibility>
+                                <MultiBinding Converter="{core:ScenarioStateToVisibilityConverter}">
+                                    <Binding />
+                                    <Binding Path="DataContext.Scenarios" RelativeSource="{RelativeSource FindAncestor, AncestorType=view:MainWindowView}" />
+                                </MultiBinding>
+                            </Image.Visibility>
+                        </Image>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <core:NotificationBar Grid.Row="1"
+                              Grid.RowSpan="2"
+                              Margin="0,4,0,0"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Top"
+                              ItemsSource="{Binding Notifications}"
+                              SelectedItem="{Binding SelectedNotification}">
+            <core:NotificationBar.ItemContainerStyle>
+                <Style BasedOn="{StaticResource NotificationBarItemBaseStyle}" TargetType="{x:Type core:NotificationBarItem}">
+                    <Setter Property="Header" Value="{Binding Title}" />
+                    <Setter Property="Content" Value="{Binding Content}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </core:NotificationBar.ItemContainerStyle>
+        </core:NotificationBar>
+        <ContentPresenter Grid.Row="3"
+                          Margin="8,20,8,0"
+                          Content="{Binding CurrentView}" />
+        <Rectangle Grid.Row="0"
+                   Grid.RowSpan="3"
+                   Width="13"
+                   Margin="0,0,0,-4"
+                   HorizontalAlignment="Left"
+                   Stroke="Black"
+                   StrokeThickness="0">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Color="#FF97B813" />
+                    <GradientStop Offset="1" Color="#FF75A10A" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+        <Rectangle Grid.Row="0"
+                   Grid.RowSpan="3"
+                   Width="1"
+                   Margin="13,0,0,-4"
+                   HorizontalAlignment="Left"
+                   Fill="#FF9CC21F"
+                   Stroke="Black"
+                   StrokeThickness="0"
+                   Visibility="Collapsed" />
+        <Grid x:Name="HorizontalTemplate"
+              Grid.Row="3"
+              Height="2"
+              Margin="0,4,0,0"
+              VerticalAlignment="Top">
+            <Rectangle Height="1" VerticalAlignment="Top">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0" Color="#FF75A10A" />
+                        <GradientStop Offset="0.8" Color="#FF75A10A" />
+                        <GradientStop Offset="1" Color="#0075A10A" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Height="1" Margin="0,1,0,0">
+                <Rectangle.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                        <GradientStop Offset="0" Color="#80000000" />
+                        <GradientStop Offset="0.2" Color="#80000000" />
+                        <GradientStop Offset="0.8" Color="#80000000" />
+                        <GradientStop Offset="1" Color="#00000000" />
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+        </Grid>
+    </Grid>
+</Window>

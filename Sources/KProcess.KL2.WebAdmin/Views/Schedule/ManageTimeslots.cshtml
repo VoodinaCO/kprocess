@@ -1,0 +1,486 @@
+@using KProcess.KL2.WebAdmin.Models.Inspection;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model List<TimeslotViewModel>
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "ManageTimeslots";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "DisplayOrder", direction = "Ascending" });
+}
+
+<style>
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+
+    .filterBar {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Grid("Timeslots")
+            .Height("100%").Width("100%")
+            .DataSource(ds => ds.Json(Model.ToArray()).UpdateUrl(Url.Action("UpdateTimeslot")).InsertUrl(Url.Action("InsertTimeslot")).RemoveUrl(Url.Action("DeleteTimeslot")).Adaptor("RemoteSaveAdaptor"))
+            .EditSettings(edit => { edit.AllowAdding(true).AllowDeleting(true).AllowEditing(true).ShowConfirmDialog(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog); })
+            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+            //.AllowPaging()
+            //.PageSettings(p => p.PageSize(25))
+            .AllowSorting()
+            .SortSettings(sort => sort.Columns(cols))
+            .Locale(ejLanguageCode)
+            //Excel export
+            .AllowExcelExport()
+            .ExcelQueryCellInfo("excelQueryCellInfo")
+            .AllowTextWrap()
+            .AllowFiltering()
+            .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+            .EnableHover()
+            .Toolbar(new List<string>() { "Add", "Edit", "Delete", "ExcelExport" })
+            .ToolbarClick("toolbarClick")
+            .AllowRowDragAndDrop()
+            .RowDrop("onDrop")
+            .RowDropSettings(new Syncfusion.EJ2.Grids.GridRowDropSettings() { TargetID = "Timeslots" })
+            .Columns(col =>
+            {
+                col.Field("TimeslotId").IsPrimaryKey(true)
+                    .HeaderText("TimeslotId")
+                    .Visible(false)
+                    .Add();
+                col.Field("Label")
+                    .HeaderText(LocalizedStrings.GetString("View_AdminReferentials_Label"))
+                    .ValidationRules(new { required = true })
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("StartTime")
+                    .HeaderText(LocalizedStrings.GetString("Web_StartTime"))
+                    .ValidationRules(new { required = true })
+                    .Template("${StartTimeString}")
+                    .Edit(new { create = "createStart", read = "readStart", destroy = "destroyStart", write = "writeStart" })
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("EndTime")
+                    .HeaderText(LocalizedStrings.GetString("Web_EndTime"))
+                    .ValidationRules(new { required = true })
+                    .Template("${EndTimeString}")
+                    .Edit(new { create = "createEnd", read = "readEnd", destroy = "destroyEnd", write = "writeEnd" })
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("IsAllDay")
+                    .EditType("booleanedit")
+                    .Edit(new { create = "createIsAllDay", read = "readIsAllDay", destroy = "destroyIsAllDay", write = "writeIsAllDay" })
+                    .Visible(false)
+                    .Add();
+                col.Field("Color")
+                    .HeaderText(LocalizedStrings.GetString("Web_TimeslotColor"))
+                    .EditType("colorpickeredit")
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Edit(new { create = "createColor", read = "readColor", destroy = "destroyColor", write = "writeColor" })
+                    .AllowFiltering(false)
+                    .Add();
+                col.Field("DisplayOrder")
+                    .HeaderText(LocalizedStrings.GetString("Web_DisplayOrder"))
+                    .AllowEditing(false)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("Description")
+                    .HeaderText(LocalizedStrings.GetString("Web_TimeslotDescription"))
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .AllowFiltering(false)
+                    .Add();
+            })
+            .ActionBegin("actionBegin")
+            .ActionComplete("actionComplete")
+            .QueryCellInfo("gridQueryCellInfo")
+            .DataBound("gridDataBound")
+            .RowSelecting("onSelectingCheck")
+            .Render()
+        )
+    </div>
+</div>
+
+<script>
+    //StartTime edit template
+    var elemStart;
+    var dObjStart;
+    function createStart(args) {
+        elemStart = document.createElement('input');
+        return elemStart;
+    }
+    function writeStart(args) {
+        var timeStringValue = args.rowData[args.column.field];
+        dObjStart = new ej.calendars.TimePicker({
+            placeholder: '@LocalizedStrings.GetString("SelectTime")',
+            value: new Date('01/01/2019 ' + timeStringValue),
+            // sets the format property to display the time value in 24 hours format.
+            format: 'HH:mm',
+            allowEdit: false,
+            // specify the interval value.
+            step: 30
+        });
+        dObjStart.appendTo(elemStart);
+    }
+
+    function destroyStart() {
+        dObjStart.destroy();
+    }
+    function readStart(args) {
+        return dObjStart.value;
+    }
+</script>
+
+<script>
+    //EndTime edit template
+    var elemEnd;
+    var dObjEnd;
+    function createEnd(args) {
+        elemEnd = document.createElement('input');
+        return elemEnd;
+    }
+    function writeEnd(args) {
+        var timeStringValue = args.rowData[args.column.field];
+        dObjEnd = new ej.calendars.TimePicker({
+            placeholder: '@LocalizedStrings.GetString("SelectTime")',
+            value: new Date('01/01/2019 ' + timeStringValue),
+            // sets the format property to display the time value in 24 hours format.
+            format: 'HH:mm',
+            allowEdit: false,
+            // specify the interval value.
+            step: 30
+        });
+        dObjEnd.appendTo(elemEnd);
+    }
+
+    function destroyEnd() {
+        dObjEnd.destroy();
+    }
+    function readEnd(args) {
+        return dObjEnd.value;
+    }
+</script>
+
+<script>
+    //Color edit template
+    var elemColor;
+    var dObjColor;
+    function createColor(args) {
+        elemColor = document.createElement('input');
+        return elemColor;
+    }
+    function writeColor(args) {
+        var colorValue = args.rowData[args.column.field];
+        dObjColor = new ej.inputs.ColorPicker({
+            value: colorValue,
+            locale: "@Html.Raw(ejLanguageCode)"
+        });
+        dObjColor.appendTo(elemColor);
+    }
+
+    function destroyColor() {
+        dObjColor.destroy();
+    }
+    function readColor(args) {
+        return dObjColor.value;
+    }
+</script>
+<script>
+    //IsAllDay edit template
+    var elemIsAllDay;
+    var dObjIsAllDay;
+    function createIsAllDay(args) {
+        elemIsAllDay = document.createElement('input');
+        return elemIsAllDay;
+    }
+    function writeIsAllDay(args) {
+        var IsAllDayValue = args.rowData[args.column.field];
+        dObjIsAllDay = new ej.buttons.CheckBox({
+            label: 'All day',
+            cssClass: 'e-primary',
+            checked: IsAllDayValue,
+            change: function (a) { allDayClick(a); }
+        });
+        if (IsAllDayValue == true) {
+            var startTimeObj = document.getElementById('TimeslotsStartTime').ej2_instances[0];
+            var endTimeObj = document.getElementById('TimeslotsEndTime').ej2_instances[0];
+            startTimeObj.value = new Date('01/01/2019 00:00');
+            endTimeObj.value = new Date('01/01/2019 00:00');
+            startTimeObj.enabled = false;
+            endTimeObj.enabled = false;
+        }
+        dObjIsAllDay.appendTo(elemIsAllDay);
+    }
+
+    function destroyIsAllDay() {
+        if (dObjIsAllDay != undefined || dObjIsAllDay != null) {
+            if(dObjIsAllDay.IsDestroyed == false)
+                dObjIsAllDay.destroy();
+        }   
+    }
+    function readIsAllDay(args) {
+        return dObjIsAllDay.value;
+    }
+
+    function allDayClick(args) {
+        if (args.checked == true) {
+            var startTimeObj = document.getElementById('TimeslotsStartTime').ej2_instances[0];
+            var endTimeObj = document.getElementById('TimeslotsEndTime').ej2_instances[0];
+            startTimeObj.value = new Date('01/01/2019 00:00');
+            endTimeObj.value = new Date('01/01/2019 00:00');
+            startTimeObj.enabled = false;
+            endTimeObj.enabled = false;
+        }
+        else {
+            var startTimeObj = document.getElementById('TimeslotsStartTime').ej2_instances[0];
+            var endTimeObj = document.getElementById('TimeslotsEndTime').ej2_instances[0];
+            startTimeObj.value = null;
+            endTimeObj.value = null;
+            startTimeObj.enabled = true;
+            endTimeObj.enabled = true;
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Administration")" + "/" + "@LocalizedStrings.GetString("Web_Menu_ManageTimeSlot")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function checkCanAdd() {
+        var grid = document.getElementById('Timeslots').ej2_instances[0];
+        var ds = grid.dataSource.dataSource.json;
+        var canAdd = true;
+        if (ds.filter(function (elt) { return elt.IsAllDay === true; }).length > 0) {
+            canAdd = false;
+        } else {
+            var totalMinutes = ds.map(function (elt) {
+                if (typeof elt.StartTime != "string") {
+                    var startTimeArray = [];
+                    startTimeArray.push(elt.StartTime.Hour);
+                    startTimeArray.push(elt.StartTime.Minute);
+                }
+                else
+                    var startTimeArray = elt.StartTime.split(':');
+                var startTime = (+startTimeArray[0]) * 60 + (+startTimeArray[1]);
+                if (typeof elt.EndTime != "string") {
+                    var endTimeArray = [];
+                    endTimeArray.push(elt.EndTime.Hour);
+                    endTimeArray.push(elt.EndTime.Minute);
+                }
+                else
+                    var endTimeArray = elt.EndTime.split(':');
+                var endTime = (+endTimeArray[0]) * 60 + (+endTimeArray[1]);
+                if (startTime < endTime)
+                    return endTime - startTime;
+                else
+                    return (endTime + 24 * 60) - startTime;
+            }).reduce(function (elt1, elt2) { return elt1 + elt2; });
+            if (totalMinutes == (24 * 60)) {
+                canAdd = false;
+            }
+        }
+        document.getElementById('Timeslots').ej2_instances[0].toolbarModule.enableItems(['Timeslots_add'], canAdd);
+    }
+
+    function gridDataBound(args) {
+        this.autoFitColumns(['Label', 'StartTime', 'EndTime', 'Color', 'DisplayOrder']);
+        checkCanAdd();
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Color") {
+            args.cell.style.backgroundColor = args.data["Color"];
+            args.cell.innerText = "";
+        }
+    }
+
+    function excelQueryCellInfo(args) {
+        if (args.column.field == "Color") {
+            args.style = { backColor: args.data.Color };
+            args.value = "";
+        }
+    }
+
+    function toolbarClick(args) {
+        if ((args.item.properties.id == "Timeslots_delete" || args.item.properties.id == "Timeslots_edit") && this.getSelectedRecords().length == 0) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (args.item.properties.id) {
+                case "Timeslots_delete":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                    break;
+                case "Timeslots_edit":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                    break;
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if (args.item.properties.id == "Timeslots_add" && this.dataSource.dataSource.json.filter(function (o) { return o.IsAllDay == true; }).length > 0) {
+            args.cancel = true; //prevent the default alert popup
+            var msg = "";
+            msg = "All day event exist. cannot create another timeslot";
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if (args.item.id === 'Timeslots_excelexport') {
+            var gridObj = document.getElementById("Timeslots").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "Timeslots.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+    function actionFailure(args) {
+        var str = "";
+        if (args.hasOwnProperty("error")) {
+            str = args.error[0].error.statusText;
+        }
+        if (args.length > 0) {
+            str = args[0].error.statusText;
+        }
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: str, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        this.cancel = true;
+    }
+
+    var flag = true;
+    function actionBegin(args) {
+        var gridObj = document.getElementById('Timeslots').ej2_instances[0];
+
+        if ((args.requestType === 'beginEdit' || args.requestType === 'add')) {
+            if (args.requestType === 'beginEdit') {
+                for (var i = 0; i < this.columns.length; i++) {
+                    if (this.columns[i].field == "IsAllDay" && this.dataSource.dataSource.json.length <= 1) {
+                        this.columns[i].visible = true;
+                    }
+                }
+            }
+            if (args.requestType === 'add') {
+                for (var i = 0; i < this.columns.length; i++) {
+                    if (this.columns[i].field == "IsAllDay" && this.dataSource.dataSource.json.length == 0) {
+                        this.columns[i].visible = true;
+                    }
+                }
+                args.rowData.DisplayOrder = this.dataSource.dataSource.json.length + 1;
+            }
+                
+        }
+
+        if (args.requestType == "save" && flag) {
+            if (args.data.StartTime instanceof Date || args.data.EndTime instanceof Date) {
+                args.data.StartTime = args.data.StartTime.toTimeString().split(' ')[0];
+                args.data.EndTime = args.data.EndTime.toTimeString().split(' ')[0];
+            }
+
+            flag = true;
+            args.cancel = true;
+            $.ajax({
+                url: "@Url.Action("SaveTimeslotValidation")",
+                type: 'POST',
+                data: args.data,
+                success: function (result) {
+                    if (result.goodData) {
+                        flag = false;
+                        gridObj.endEdit();
+                    }
+                    else {
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: result.Message, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                    }
+                },
+                error: function () {
+                }
+            });
+        } else if (args.requestType == "save") {
+            if (args.data.StartTime instanceof Date || args.data.EndTime instanceof Date) {
+                args.data.StartTime = args.data.StartTime.toTimeString().split(' ')[0];
+                args.data.EndTime = args.data.EndTime.toTimeString().split(' ')[0];
+            }
+        }
+        if (flag == false)
+            flag = true;
+    }
+
+    function actionComplete(args) {
+        var type = args.requestType;
+        if (type === "beginEdit") {
+            //Set dialog of Edit mode title
+            args.dialog.header = "@LocalizedStrings.GetString("Web_Detail") : " + args.rowData.Label;
+            args.dialog.width = "auto";
+            args.dialog.headerEle.style.width = "auto";
+        }
+        if (type === "add") {
+            //Set dialog of Add mode title
+            args.dialog.header = '@LocalizedStrings.GetString("Common_NewRecordHeader")';
+            args.dialog.width = "auto";
+            args.dialog.headerEle.style.width = "auto";
+        }
+        if (type == "save" || type == "delete") {
+            LoadPartial('/Schedule/ManageTimeslots?partial=true', '#pageContainer');
+        }
+        if (type == "save" || type == "cancel") {
+            for (var i = 0; i < this.columns.length; i++) {
+                if (this.columns[i].field == "IsAllDay") {
+                    this.columns[i].visible = false;
+                }
+            }
+        }
+        checkCanAdd();
+    }
+
+    function onDrop(args) {
+        //send ajax post
+        var toSend = { 'changed': args.data, 'dropIndex': args.dropIndex };
+        var ajax = new ej.base.Ajax({
+            url: "/Schedule/RowDropHandler",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(toSend)
+        });
+        ajax.send().then(function (data) {
+            LoadPartial('/Schedule/ManageTimeslots?partial=true', '#pageContainer');
+        }).catch(function (xhr) {
+            console.log(xhr);
+        });
+    }
+</script>
+
+@Html.EJS().ScriptManager()

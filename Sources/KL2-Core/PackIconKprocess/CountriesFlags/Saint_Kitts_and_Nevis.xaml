@@ -1,0 +1,393 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,750,500" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FF009E49">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M750,0L0,0 0,500" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFCE1126">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,500L750,500 750,0" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FF000000">
+      <GeometryDrawing.Pen>
+        <Pen Brush="#FFFCD116" Thickness="210" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+      </GeometryDrawing.Pen>
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,500L750,0" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FF000000">
+      <GeometryDrawing.Pen>
+        <Pen Brush="#FF000000" Thickness="150" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+      </GeometryDrawing.Pen>
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,500L750,0" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup x:Name="star" Transform="0.832050948079558,-0.554699215611405,0.554699215611405,0.832050948079558,517.5,155">
+      <DrawingGroup x:Name="c">
+        <GeometryDrawing x:Name="t">
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup Transform="-1,0,0,1,0,0">
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing>
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup Transform="0.309016994374947,0.951056516295154,-0.951056516295154,0.309016994374947,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="-0.809016994374947,0.587785252292473,-0.587785252292473,-0.809016994374947,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="-0.809016994374948,-0.587785252292473,0.587785252292473,-0.809016994374948,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="0.309016994374947,-0.951056516295154,0.951056516295154,0.309016994374947,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup>
+        <DrawingGroup Transform="-1,0,0,1,0,0">
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing>
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,-285,190">
+      <DrawingGroup Transform="0.832050948079558,-0.554699215611405,0.554699215611405,0.832050948079558,517.5,155">
+        <DrawingGroup Transform="0.309016994374947,0.951056516295154,-0.951056516295154,0.309016994374947,0,0">
+          <DrawingGroup>
+            <DrawingGroup Transform="-1,0,0,1,0,0">
+              <GeometryDrawing>
+                <GeometryDrawing.Brush>
+                  <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+                </GeometryDrawing.Brush>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup>
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+        <DrawingGroup Transform="-0.809016994374947,0.587785252292473,-0.587785252292473,-0.809016994374947,0,0">
+          <DrawingGroup>
+            <DrawingGroup Transform="-1,0,0,1,0,0">
+              <GeometryDrawing>
+                <GeometryDrawing.Brush>
+                  <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+                </GeometryDrawing.Brush>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup>
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+        <DrawingGroup Transform="-0.809016994374948,-0.587785252292473,0.587785252292473,-0.809016994374948,0,0">
+          <DrawingGroup>
+            <DrawingGroup Transform="-1,0,0,1,0,0">
+              <GeometryDrawing>
+                <GeometryDrawing.Brush>
+                  <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+                </GeometryDrawing.Brush>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup>
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+        <DrawingGroup Transform="0.309016994374947,-0.951056516295154,0.951056516295154,0.309016994374947,0,0">
+          <DrawingGroup>
+            <DrawingGroup Transform="-1,0,0,1,0,0">
+              <GeometryDrawing>
+                <GeometryDrawing.Brush>
+                  <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+                </GeometryDrawing.Brush>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup>
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+    </DrawingGroup>
+    <DrawingGroup Transform="0.832050948079558,-0.554699215611405,0.554699215611405,0.832050948079558,517.5,155">
+      <DrawingGroup Transform="0.309016994374947,0.951056516295154,-0.951056516295154,0.309016994374947,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="-0.809016994374947,0.587785252292473,-0.587785252292473,-0.809016994374947,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="-0.809016994374948,-0.587785252292473,0.587785252292473,-0.809016994374948,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="0.309016994374947,-0.951056516295154,0.951056516295154,0.309016994374947,0,0">
+        <DrawingGroup>
+          <DrawingGroup Transform="-1,0,0,1,0,0">
+            <GeometryDrawing>
+              <GeometryDrawing.Brush>
+                <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+              </GeometryDrawing.Brush>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup>
+        <DrawingGroup Transform="-1,0,0,1,0,0">
+          <GeometryDrawing>
+            <GeometryDrawing.Brush>
+              <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+            </GeometryDrawing.Brush>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing>
+          <GeometryDrawing.Brush>
+            <SolidColorBrush Color="#FFFFFFFF" Opacity="1" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" />
+          </GeometryDrawing.Brush>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Transform="0.951056516295154,0.309016994374947,-0.309016994374947,0.951056516295154,-21.6311896062463,-3.42604385933926" Figures="M0,-70L0,0 35,0" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+  </DrawingGroup>
+</DrawingGroup>

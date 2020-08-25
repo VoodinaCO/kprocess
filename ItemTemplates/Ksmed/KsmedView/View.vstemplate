@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Ksmed View</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <Icon>View.ico</Icon>
+    <TemplateID>11de640a-2413-484c-a890-ed2a3bfde3d7</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>4.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>View.xaml</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+		</References>
+
+    <ProjectItem TargetFileName="$fileinputname$.xaml" ReplaceParameters="true">View.xaml</ProjectItem>
+    <ProjectItem TargetFileName="$fileinputname$.xaml.cs" ReplaceParameters="true">View.xaml.cs</ProjectItem>
+
+  </TemplateContent>
+  
+</VSTemplate>

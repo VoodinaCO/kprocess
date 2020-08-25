@@ -1,0 +1,669 @@
+﻿<UserControl x:Class="KProcess.Ksmed.Presentation.Shell.Views.PrepareProjectsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="http://schemas.kprocess.com/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+             xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:views="clr-namespace:KProcess.Ksmed.Presentation.Shell.Views"
+             d:DesignHeight="544.117"
+             d:DesignWidth="783"
+             mc:Ignorable="d">
+    <!--  d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:PrepareProjectsViewModel}}"  -->
+    <UserControl.Resources>
+
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="2,6,2,2" />
+        </Style>
+
+        <Style x:Key="TreeViewItemStyle" TargetType="{x:Type syncfusion:TreeViewItemAdv}">
+            <!--<EventSetter Event="RequestBringIntoView" Handler="TreeViewItem_RequestBringIntoView"/>-->
+            <EventSetter Event="MouseDoubleClick" Handler="OnListBoxItemMouseDoubleClick" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="VerticalContentAlignment" Value="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="Padding" Value="1,0,0,0" />
+            <Setter Property="Foreground" Value="{StaticResource InputForegroundBrush}" />
+            <Setter Property="IsEditable" Value="False" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+            <Setter Property="AllowDrop" Value="{Binding AllowDrop}" />
+            <!--<Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type syncfusion:TreeViewItemAdv}">
+                        <Grid x:Name="GridRoot">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="14" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="ExpansionStates">
+                                    <VisualState x:Name="Expanded">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Visibility)" Storyboard.TargetName="ItemsHost">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="Collapsed" />
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <ToggleButton x:Name="Expander"
+                                          Style="{StaticResource ExpandCollapseToggleStyle}"
+                                          ClickMode="Press"
+                                          IsChecked="{Binding DataContext.IsExpanded, RelativeSource={RelativeSource TemplatedParent}}"/>
+                            <Border x:Name="Bd" MouseLeftButtonDown="OnListBoxItemMouseLeftButtonDown"
+                                    Grid.Column="1" Grid.ColumnSpan="2"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Padding="{TemplateBinding Padding}">
+                                <ContentPresenter x:Name="PART_Header"
+                                                  ContentSource="Header"
+                                                  HorizontalAlignment="Stretch"/>
+                            </Border>
+                            <ItemsPresenter x:Name="ItemsHost"
+                                            Grid.Row="1"
+                                            Grid.Column="1"
+                                            Grid.ColumnSpan="2"
+                                            Visibility="Collapsed" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="Expander" Property="Visibility" Value="Hidden" />
+                            </Trigger>
+                            <Trigger Property="IsSelected"  Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#FFC2DF00"/>
+                            </Trigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader" Value="false" />
+                                    <Condition Property="Width" Value="Auto" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header" Property="MinWidth" Value="75" />
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="HasHeader" Value="false" />
+                                    <Condition Property="Height" Value="Auto" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="PART_Header" Property="MinHeight" Value="19" />
+                            </MultiTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>-->
+        </Style>
+
+        <Style x:Key="DragIndicatorStyle" TargetType="{x:Type syncfusion:TemplatedAdornerInternalControl}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+
+        <DataTemplate x:Key="removeFolderTemplate">
+            <Image Width="32"
+                   Height="32"
+                   Source="pack://siteoforigin:,,,/Resources/Images/removeFolder.png" />
+        </DataTemplate>
+
+        <DataTemplate x:Key="deleteProcessTemplate">
+            <Image Width="32"
+                   Height="32"
+                   Source="pack://siteoforigin:,,,/Resources/Images/deleteprocess32-green.png" />
+        </DataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type models:ProjectDir}" ItemsSource="{Binding Nodes}">
+            <Grid Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       Width="16"
+                       Height="16"
+                       Margin="2,0,0,0"
+                       VerticalAlignment="Center"
+                       Source="pack://siteoforigin:,,,/Resources/Images/folder.png" />
+                <TextBlock Grid.Column="1"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{core:TreeviewItemLabelConverter}">
+                            <Binding Path="Name" UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Path="IsNotMarkedAsUnchanged" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+            </Grid>
+        </HierarchicalDataTemplate>
+
+        <HierarchicalDataTemplate DataType="{x:Type models:Procedure}" ItemsSource="{Binding Projects}">
+            <Grid Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       Width="16"
+                       Height="16"
+                       Margin="2,0,0,0"
+                       VerticalAlignment="Center"
+                       Source="pack://siteoforigin:,,,/Resources/Images/process.png" />
+                <TextBlock Grid.Column="1"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{core:TreeviewItemLabelConverter}">
+                            <Binding Path="Label" UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Path="IsNotMarkedAsUnchanged" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <iconPacks:PackIconMaterial x:Name="SyncIcon"
+                                            Grid.Column="2"
+                                            Width="16"
+                                            Height="16"
+                                            Margin="2,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Kind="Sync">
+                    <iconPacks:PackIconMaterial.Spin>
+                        <MultiBinding Converter="{core:IsSyncingConverter}">
+                            <Binding />
+                            <Binding Path="DataContext.RefreshIsSyncing" RelativeSource="{RelativeSource FindAncestor, AncestorType={x:Type views:PrepareProjectsView}}" />
+                        </MultiBinding>
+                    </iconPacks:PackIconMaterial.Spin>
+                </iconPacks:PackIconMaterial>
+            </Grid>
+            <HierarchicalDataTemplate.Triggers>
+                <DataTrigger Binding="{Binding SyncVideo}" Value="False">
+                    <Setter TargetName="SyncIcon" Property="Kind" Value="SyncOff" />
+                    <Setter TargetName="SyncIcon" Property="Width" Value="14" />
+                    <Setter TargetName="SyncIcon" Property="Height" Value="14" />
+                </DataTrigger>
+            </HierarchicalDataTemplate.Triggers>
+        </HierarchicalDataTemplate>
+
+        <DataTemplate DataType="{x:Type models:Project}">
+            <Grid Height="24" ToolTip="{Binding Converter={core:ProjectToTooltipConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       Width="48"
+                       Height="16"
+                       VerticalAlignment="Center"
+                       Source="{Binding Converter={core:ProjectToIconConverter}}" />
+                <TextBlock Grid.Column="1"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Center">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{core:TreeviewItemLabelConverter}">
+                            <Binding Path="Label" UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Path="IsNotMarkedAsUnchanged" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <!--<iconPacks:PackIconMaterial Grid.Column="2"
+                                            VerticalAlignment="Center" Kind="Lock"
+                                            Width="16" Height="16" Margin="2 0"
+                                            Visibility="{Binding IsAbandoned, Converter={StaticResource BooleanToVisibilityConverter}}"/>-->
+            </Grid>
+        </DataTemplate>
+
+    </UserControl.Resources>
+    <Grid x:Name="myGrid" Grid.IsSharedSizeScope="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="48" />
+            <ColumnDefinition Width="260"
+                              MinWidth="260"
+                              MaxWidth="{Binding ActualWidth, ElementName=myGrid, Converter={core:RatioConverter}, ConverterParameter=2}" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0"
+                    Margin="0,15,0,0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top">
+            <Button Style="{StaticResource ButtonLeftAddFolderStyle}" ToolTip="{k:Localize View_PrepareProject_CreateFolder}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <core:FocusAction TargetObject="{Binding ElementName=folder_nameTB}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button x:Name="RemoveFolderButton"
+                    Command="{Binding RemoveFolderCommand}"
+                    ContentTemplate="{StaticResource removeFolderTemplate}"
+                    ToolTipService.ShowOnDisabled="True">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource ButtonLeftStyleBase}" TargetType="{x:Type Button}">
+                        <Setter Property="ToolTip" Value="{k:Localize View_PrepareProject_RemoveFolder, Shortcut=Delete}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="ToolTip" Value="{k:Localize View_PrepareProject_CantRemoveFolder}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding CurrentNode, Converter={core:NotShowCantRemoveFolderTooltipConverter}}" Value="True">
+                                <Setter Property="ToolTip" Value="{x:Null}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Style="{StaticResource ButtonLeftAddProcessStyle}"
+                    ToolTip="{k:Localize View_PrepareProject_CreateProcess}"
+                    Visibility="{Binding CurrentProcess, Converter={k:NullToVisibilityConverter}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <core:FocusAction TargetObject="{Binding ElementName=process_nameTB}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button x:Name="RemoveProcessButton"
+                    Command="{Binding RemoveProcessCommand}"
+                    ContentTemplate="{StaticResource deleteProcessTemplate}"
+                    ToolTipService.ShowOnDisabled="True"
+                    Visibility="{Binding CurrentProject, Converter={k:NullToVisibilityConverter}}">
+                <Button.Style>
+                    <Style BasedOn="{StaticResource ButtonLeftStyleBase}" TargetType="{x:Type Button}">
+                        <Setter Property="ToolTip" Value="{k:Localize View_PrepareProject_DeleteProcess, Shortcut=Delete}" />
+                        <Style.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="ToolTip" Value="{k:Localize View_PrepareProject_CantRemoveProcess}" />
+                            </Trigger>
+                            <DataTrigger Binding="{Binding CurrentNode, Converter={core:NotShowCantRemoveProcessTooltipConverter}}" Value="True">
+                                <Setter Property="ToolTip" Value="{x:Null}" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button Style="{StaticResource ButtonLeftAddFileStyle}" Visibility="{Binding CurrentProcess, Converter={k:NotNullToVisibilityConverter}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <core:FocusAction TargetObject="{Binding ElementName=nameTB}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Style="{StaticResource ButtonLeftRemoveFileStyle}"
+                    ToolTip="{k:Localize View_PrepareProject_Delete}"
+                    Visibility="{Binding CurrentProject, Converter={k:NotNullToVisibilityConverter}}" />
+            <!--<Button Style="{StaticResource ButtonLeftExportProjectStyle}" Command="{Binding ExportProjectCommand}" ToolTip="{k:Localize View_PrepareProject_Export}" Visibility="{Binding CanExportProject, Converter={StaticResource BooleanToVisibilityConverter}}" />-->
+            <!--<Button Style="{StaticResource ButtonLeftImportProjectStyle}" Command="{Binding ImportProjectCommand}" ToolTip="{k:Localize View_PrepareProject_Import}" Visibility="{Binding CanImportProject, Converter={StaticResource BooleanToVisibilityConverter}}" />-->
+            <!--<Button Style="{StaticResource ButtonLeftExportExcelStyle}" Command="{Binding ExportExcelCommand}" ToolTip="{k:Localize View_AnalyzeRestitution_ExportToExcel}" Visibility="{Binding CanExportProject, Converter={StaticResource BooleanToVisibilityConverter}}" />-->
+
+            <ItemsControl Style="{StaticResource ExtBarActionsLarge}" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    Margin="8,-8,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <Button Command="{Binding CollapseAllCommand}"
+                    CommandParameter="{Binding ElementName=ProjectsTreeview}"
+                    Style="{DynamicResource ButtonFolderMinusSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_CollapseAll}" />
+            <Button Command="{Binding ExpandAllCommand}"
+                    CommandParameter="{Binding ElementName=ProjectsTreeview}"
+                    Style="{DynamicResource ButtonFolderPlusSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_ExpandAll}" />
+        </StackPanel>
+        <syncfusion:TreeViewAdv x:Name="ProjectsTreeview"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="8,26,8,8"
+                                Background="White"
+                                BorderThickness="0"
+                                Collapsing="ProjectsTreeview_Collapsing"
+                                DragIndicatorStyle="{StaticResource DragIndicatorStyle}"
+                                IsEnabled="{Binding CanChangeProject}"
+                                IsExpandOnDrop="True"
+                                ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                                ItemsSource="{Binding AllProjects}"
+                                SelectedTreeItem="{Binding CurrentNode}"
+                                Visibility="{Binding ProjectsListVisibility}">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="DragStart">
+                    <mvvm:EventToCommand Command="{Binding DragStartCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="DragEnd">
+                    <mvvm:EventToCommand Command="{Binding DragEndCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+                <i:EventTrigger EventName="DragCompleted">
+                    <mvvm:EventToCommand Command="{Binding DragCompletedCommand}" PassEventArgsToCommand="True" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </syncfusion:TreeViewAdv>
+
+        <GridSplitter Grid.Row="1"
+                      Grid.Column="2"
+                      HorizontalAlignment="Stretch"
+                      Style="{StaticResource verticalGridSplitterStyle}" />
+
+        <Grid Grid.Row="0" Grid.Column="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollViewer Grid.Row="0"
+                          Margin="5,0,0,5"
+                          Padding="0,0,3,0"
+                          BorderThickness="0"
+                          HorizontalScrollBarVisibility="Hidden"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}" Visibility="{Binding CurrentFolder, Converter={StaticResource NotNullToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_PrepareProject_Name}"
+                                   TextWrapping="Wrap" />
+                        <TextBox x:Name="folder_nameTB"
+                                 Grid.Row="1"
+                                 IsReadOnly="{Binding CanUpdateFolder, Converter={core:NotBooleanConverter}}"
+                                 MaxLength="{x:Static models:ProjectDir.NameMaxLength}"
+                                 Text="{k:InstantValidatingBinding CurrentFolder.Name}"
+                                 TextWrapping="Wrap" />
+                    </Grid>
+                    <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}" Visibility="{Binding CurrentProcess, Converter={StaticResource NotNullToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="60" />
+                            <RowDefinition Height="40" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_PrepareProject_Name}"
+                                   TextWrapping="Wrap" />
+                        <TextBox x:Name="process_nameTB"
+                                 Grid.Row="1"
+                                 IsReadOnly="{Binding CanUpdateProcess, Converter={core:NotBooleanConverter}}"
+                                 MaxLength="{x:Static models:Procedure.LabelMaxLength}"
+                                 Text="{k:InstantValidatingBinding CurrentProcess.Label}"
+                                 TextWrapping="Wrap" />
+                        <TextBlock Grid.Row="2"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_PrepareProject_ProcessDescription}"
+                                   TextWrapping="Wrap" />
+                        <TextBox Grid.Row="3"
+                                 MinHeight="40"
+                                 AcceptsReturn="True"
+                                 IsReadOnly="{Binding CanUpdateProcess, Converter={core:NotBooleanConverter}}"
+                                 MaxLength="{x:Static models:Procedure.DescriptionMaxLength}"
+                                 Text="{k:InstantValidatingBinding CurrentProcess.Description}"
+                                 TextWrapping="Wrap" />
+                        <CheckBox Grid.Row="4"
+                                  Height="24"
+                                  Content="{k:Localize View_PrepareProject_ProcessIsSkill}"
+                                  IsChecked="{Binding CurrentProcess.IsSkill}"
+                                  IsEnabled="{Binding CanUpdateProcess}" />
+                        <CheckBox Grid.Row="5"
+                                  Height="24"
+                                  Command="{Binding SyncChangeCommand}"
+                                  Content="{k:Localize View_PrepareProject_SyncVideo}"
+                                  IsChecked="{Binding CurrentProcess.SyncVideo, Mode=OneWay}" />
+                    </Grid>
+                    <Grid Width="{Binding ViewportWidth, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}}"
+                          IsEnabled="{Binding CurrentProject.IsReadOnly, Converter={core:NotBooleanConverter}}"
+                          Visibility="{Binding CurrentProject, Converter={StaticResource NotNullToVisibilityConverter}}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Style="{StaticResource LabelStyle}"
+                                       Text="{k:Localize View_PrepareProject_Name}"
+                                       TextWrapping="Wrap" />
+                            <TextBox x:Name="nameTB"
+                                     IsReadOnly="{Binding CanUpdateProject, Converter={core:NotBooleanConverter}}"
+                                     MaxLength="{x:Static models:Project.LabelMaxLength}"
+                                     Text="{k:InstantValidatingBinding CurrentProject.Label}"
+                                     TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1">
+                            <TextBlock Style="{StaticResource LabelStyle}"
+                                       Text="{k:Localize Common_FurtherInformation}"
+                                       TextWrapping="Wrap" />
+                            <TextBox AcceptsReturn="True"
+                                     IsReadOnly="{Binding CanUpdateProject, Converter={core:NotBooleanConverter}}"
+                                     MaxLength="{x:Static models:Project.WorkshopMaxLength}"
+                                     Text="{k:InstantValidatingBinding CurrentProject.Workshop}"
+                                     TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2">
+                            <TextBlock Style="{StaticResource LabelStyle}"
+                                       Text="{k:Localize View_PrepareProject_Objectives}"
+                                       TextWrapping="Wrap" />
+                            <ListBox IsEnabled="{Binding CanUpdateProject}"
+                                     ItemsSource="{Binding Objectives}"
+                                     ScrollViewer.CanContentScroll="False"
+                                     SelectedItem="{k:ValidatingBinding CurrentProject.Objective}"
+                                     Style="{StaticResource radioListBoxStyle}">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ShortLabel}" TextWrapping="WrapWithOverflow" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <RadioButton Margin="6,0,0,0"
+                                         HorizontalContentAlignment="Stretch"
+                                         IsChecked="{Binding IsAlternateObjectiveChecked}"
+                                         IsEnabled="{Binding CanUpdateProject}">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Margin="0,0,5,0"
+                                               VerticalAlignment="Center"
+                                               Text="{k:Localize View_PrepareProject_Autre}" />
+                                    <TextBox Grid.Column="1"
+                                             IsReadOnly="{Binding CanUpdateProject, Converter={core:NotBooleanConverter}}"
+                                             MaxLength="{x:Static models:Project.OtherObjectiveLabelMaxLength}"
+                                             Text="{k:InstantValidatingBinding AlternateObjective}" />
+                                </Grid>
+                            </RadioButton>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3">
+                            <TextBlock Style="{StaticResource LabelStyle}"
+                                       Text="{k:Localize View_PrepareProject_Description}"
+                                       TextWrapping="Wrap" />
+                            <TextBox MinHeight="40"
+                                     AcceptsReturn="True"
+                                     IsReadOnly="{Binding CanUpdateProject, Converter={core:NotBooleanConverter}}"
+                                     MaxLength="{x:Static models:Project.DescriptionMaxLength}"
+                                     Text="{k:InstantValidatingBinding CurrentProject.Description}"
+                                     TextWrapping="Wrap" />
+                        </StackPanel>
+                        <StackPanel Grid.Row="4">
+                            <TextBlock Style="{StaticResource LabelStyle}"
+                                       Text="{k:Localize View_PrepareProject_TimeScale}"
+                                       TextWrapping="Wrap" />
+                            <ComboBox DisplayMemberPath="Label"
+                                      IsEnabled="{Binding CanUpdateProject}"
+                                      ItemsSource="{Binding TimeScales}"
+                                      SelectedValue="{k:ValidatingBinding CurrentProject.TimeScale}"
+                                      SelectedValuePath="Value" />
+                        </StackPanel>
+                        <Grid Grid.Row="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{k:Localize View_PrepareProject_StartDate}"
+                                           TextWrapping="Wrap" />
+                                <syncfusion:DateTimeEdit x:Name="StartDateControl"
+                                                         CanEdit="False"
+                                                         DateTime="{Binding CurrentProject.StartDate}"
+                                                         IsEnabled="{Binding CanUpdateProject}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="1" Margin="4,0">
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{k:Localize View_PrepareProject_ForecastEndDate}"
+                                           TextWrapping="Wrap" />
+                                <syncfusion:DateTimeEdit CanEdit="False"
+                                                         DateTime="{Binding CurrentProject.ForecastEndDate}"
+                                                         IsEmptyDateEnabled="True"
+                                                         IsEnabled="{Binding CanUpdateProject}" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Style="{StaticResource LabelStyle}"
+                                           Text="{k:Localize View_PrepareProject_RealEndDate}"
+                                           TextWrapping="Wrap" />
+                                <syncfusion:DateTimeEdit CanEdit="False"
+                                                         DateTime="{Binding CurrentProject.RealEndDate}"
+                                                         IsButtonPopUpEnabled="False"
+                                                         IsEmptyDateEnabled="True"
+                                                         IsEnabled="{Binding CanUpdateProject}"
+                                                         IsReadOnly="True" />
+                            </StackPanel>
+                        </Grid>
+
+                        <DataGrid x:Name="SummaryDatagrid"
+                                  Grid.Row="6"
+                                  Grid.ColumnSpan="3"
+                                  Margin="0,10"
+                                  AutoGenerateColumns="False"
+                                  CanUserReorderColumns="False"
+                                  CanUserSortColumns="False"
+                                  IsReadOnly="True">
+                            <i:Interaction.Behaviors>
+                                <core:ExportGridBehavior />
+                            </i:Interaction.Behaviors>
+                        </DataGrid>
+
+                    </Grid>
+                </StackPanel>
+            </ScrollViewer>
+
+            <Grid Grid.Row="1"
+                  Margin="0,0,5,8"
+                  HorizontalAlignment="Stretch"
+                  VerticalAlignment="Bottom">
+
+                <!--<Button Height="20" Margin="5 0" HorizontalAlignment="Left"
+                        MinWidth="{StaticResource ValidationButtonMinWidth}"
+                        Command="{k:CommandBinding ChangeAbandonedCommand}">
+                    <i:Interaction.Behaviors>
+                        <core:DataStateBehavior Binding="{Binding IsAbandonProject}" Value="true"
+                                                TrueState="ColorGreen" FalseState="ColorRed" />
+                    </i:Interaction.Behaviors>
+                    <Button.Style>
+                        <Style TargetType="{x:Type Button}" BasedOn="{StaticResource baseButtonStyle}">
+                            <Setter Property="Content" Value="{k:Localize View_PrepareProject_Abandone}" />
+                            <Setter Property="ToolTip" Value="{k:Localize View_PrepareProject_Abandone_Tooltip}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding CurrentProject.IsAbandoned}" Value="true">
+                                    <Setter Property="Content" Value="{k:Localize View_PrepareProject_Recover}" />
+                                    <Setter Property="ToolTip" Value="{k:Localize View_PrepareProject_Recover_Tooltip}" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding CurrentProject}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>-->
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <StackPanel.Style>
+                        <Style TargetType="{x:Type StackPanel}">
+                            <Setter Property="Visibility" Value="{Binding CurrentNode, Converter={StaticResource NotNullToVisibilityConverter}}" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding IsCurrentProjectOpened}" Value="true" />
+                                        <Condition Binding="{Binding CurrentProject.IsMarkedAsUnchanged}" Value="true" />
+                                    </MultiDataTrigger.Conditions>
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </StackPanel.Style>
+
+                    <Button Height="20"
+                            MinWidth="{StaticResource ValidationButtonMinWidth}"
+                            Command="{k:CommandBinding ValidateCommand}">
+                        <i:Interaction.Behaviors>
+                            <core:DataStateBehavior Binding="{Binding CanChangeProject}"
+                                                    FalseState="ColorGreen"
+                                                    TrueState="ColorGreen"
+                                                    Value="true" />
+                        </i:Interaction.Behaviors>
+                        <Button.Style>
+                            <Style BasedOn="{StaticResource baseButtonStyle}" TargetType="{x:Type Button}">
+                                <Setter Property="Content" Value="{k:Localize Common_Open}" />
+                                <Setter Property="ToolTip" Value="{k:Localize Common_Open, Shortcut=Save}" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentNode.IsNotMarkedAsUnchanged}" Value="true">
+                                        <Setter Property="Content" Value="{k:Localize Common_Save}" />
+                                        <Setter Property="ToolTip" Value="{k:Localize Common_Save, Shortcut=Save}" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CurrentFolder.IsMarkedAsUnchanged}" Value="true">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CurrentProcess.IsMarkedAsUnchanged}" Value="true">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding CurrentFolder}" Value="{x:Null}" />
+                                            <Condition Binding="{Binding CurrentProcess}" Value="{x:Null}" />
+                                            <Condition Binding="{Binding CurrentProject}" Value="{x:Null}" />
+                                        </MultiDataTrigger.Conditions>
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+
+                    <Button Height="20"
+                            MinWidth="{StaticResource ValidationButtonMinWidth}"
+                            Margin="5,0,0,0"
+                            Command="{k:CommandBinding CancelCommand}"
+                            Content="{k:Localize Common_Cancel}"
+                            ToolTip="{k:Localize Common_Cancel,
+                                                 Shortcut=Cancel}"
+                            Visibility="{Binding CanChangeProject, Converter={StaticResource NegatedBooleanToVisibilityConverter}}">
+                        <i:Interaction.Behaviors>
+                            <core:DataStateBehavior Binding="{Binding CanChangeProject}"
+                                                    FalseState="ColorGreen"
+                                                    TrueState="ColorDefault"
+                                                    Value="true" />
+                        </i:Interaction.Behaviors>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

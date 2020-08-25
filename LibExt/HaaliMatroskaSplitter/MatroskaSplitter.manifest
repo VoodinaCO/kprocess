@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+
+  <assemblyIdentity
+      type="win32"
+      name="MatroskaSplitter"
+      version="1.0.0.0" />
+
+  <file name="splitter.ax">
+
+    <comClass
+        description="MatroskaSplitter (AR)"
+        clsid="{564FD788-86C9-4444-971E-CC4A243DA150}"
+        threadingModel="Both" />
+
+    <!--<comClass
+        description="Media Splitter"
+        clsid="{55DA30FC-F16B-49FC-BAA5-AE59FC65F82D}"
+        threadingModel="Both" />-->
+
+    <comClass
+        description="Memory Allocator"
+        clsid="{90C7D10E-CE9A-479B-A238-1A0F2396DE43}"
+        threadingModel="Both" />
+
+    <comClass
+        description="Video Sink"
+        clsid="{F13D3732-96BD-4108-AFEB-E85F68FF64DC}"
+        threadingModel="Both" />
+
+    <!--Media Splitter about page {7B63A013-DC2C-462E-9292-CAF8C867100F}
+    Media Splitter property page {895322C5-84A1-450C-8478-C57793CAE86F}
+    Haali Simple Media Splitter {8F43B7D9-9D6B-4F48-BE18-4D787C795EEA}
+    Haali Matroska Muxer    {A28F324B-DDC5-4999-AA25-D3A7E25EF7A8}-->
+
+  </file>
+
+  <!--<file name="mkx.dll">
+    <comClass
+        description="Disk File Reader"
+        clsid="{53D9DE0B-FC61-4650-9773-74D13CC7E582}"
+        threadingModel="Both" />
+    <comClass
+        description="Matroska Parser"
+        clsid="{64F2005C-6CF5-4652-B94F-600360B15B27}"
+        threadingModel="Both" />
+    <comClass
+        description="HTTP Reader"
+        clsid="{BD4FB4BE-809D-487b-ADD6-F7D164247E52}"
+        threadingModel="Both" />
+  </file>
+
+  <file name="mp4.dll">
+    <comClass
+        description="MP4 Parser"
+        clsid="{B3DE7EDC-0CD4-4D07-B1C5-92219CD475CC}"
+        threadingModel="Both" />
+  </file>-->
+
+</assembly>

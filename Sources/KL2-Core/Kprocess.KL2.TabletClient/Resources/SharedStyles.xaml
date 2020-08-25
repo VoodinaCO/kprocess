@@ -1,0 +1,1078 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+                    xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+                    xmlns:core="clr-namespace:Kprocess.KL2.TabletClient.Core"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                    xmlns:linq="clr-namespace:Syncfusion.Data;assembly=Syncfusion.Data.WPF"
+                    xmlns:loc="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+                    xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+                    xmlns:sfGrid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
+                    xmlns:views="clr-namespace:Kprocess.KL2.TabletClient.Views">
+
+    <Style x:Key="PublicationDataGridStyle" TargetType="sfGrid:SfDataGrid">
+        <Setter Property="behaviors:PublicationDataGridSerializationBehavior.IsEnabled" Value="True" />
+        <Setter Property="behaviors:CustomColumnSizerBehavior.IsEnabled" Value="True" />
+        <Setter Property="behaviors:WBSComparerBehavior.IsEnabled" Value="True" />
+        <Setter Property="SortColumnDescriptions">
+            <Setter.Value>
+                <sfGrid:SortColumnDescriptions>
+                    <sfGrid:SortColumnDescription ColumnName="WBS" SortDirection="Ascending" />
+                </sfGrid:SortColumnDescriptions>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Columns">
+            <Setter.Value>
+                <sfGrid:Columns>
+                    <sfGrid:GridTextColumn x:Name="ColumnWBS"
+                                           DisplayBinding="{Binding WBS, Converter={converter:IndentWBSConverter}}"
+                                           HeaderText="WBS"
+                                           IsReadOnly="True"
+                                           MappingName="WBS" />
+                    <sfGrid:GridTextColumn x:Name="ColumnLabel"
+                                           HeaderText="{loc:Localization LabelHeaderText}"
+                                           IsReadOnly="True"
+                                           MappingName="Label"
+                                           TextWrapping="Wrap" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnStart"
+                                              CellTemplate="{StaticResource StartTemplate}"
+                                              HeaderText="Start"
+                                              IsReadOnly="True"
+                                              MappingName="Start" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnFinish"
+                                              CellTemplate="{StaticResource FinishTemplate}"
+                                              HeaderText="Finish"
+                                              IsReadOnly="True"
+                                              MappingName="Finish" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnBuildStart"
+                                              CellTemplate="{StaticResource BuildStartTemplate}"
+                                              HeaderText="BuildStart"
+                                              IsReadOnly="True"
+                                              MappingName="BuildStart" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnBuildFinish"
+                                              CellTemplate="{StaticResource BuildFinishTemplate}"
+                                              HeaderText="BuildFinish"
+                                              IsReadOnly="True"
+                                              MappingName="BuildFinish" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnDuration"
+                                               CellTemplate="{StaticResource DurationTemplate}"
+                                               HeaderText="Duration"
+                                               IsHidden="True"
+                                               IsReadOnly="True"
+                                               MappingName="Duration" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnThumbnail"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowResizing="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource ThumbnailTemplate}"
+                                               HeaderText="{loc:Localization ThumbnailHeaderText}"
+                                               IsReadOnly="True"
+                                               MappingName="Thumbnail" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnResource"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplateSelector="{StaticResource PublishedResourceDataGridTemplateSelector}"
+                                               HeaderText="Resource"
+                                               IsReadOnly="True"
+                                               MappingName="PublishedResource" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnCategory"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplateSelector="{StaticResource PublishedCategoryDataGridTemplateSelector}"
+                                               HeaderText="Category"
+                                               IsReadOnly="True"
+                                               MappingName="PublishedActionCategory" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnRef1"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource Refs1Template}"
+                                               HeaderTemplate="{StaticResource Refs1HeaderTemplate}"
+                                               IsReadOnly="True"
+                                               MappingName="Refs1" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnRef2"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource Refs2Template}"
+                                               HeaderTemplate="{StaticResource Refs2HeaderTemplate}"
+                                               IsReadOnly="True"
+                                               MappingName="Refs2" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnRef3"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource Refs3Template}"
+                                               HeaderTemplate="{StaticResource Refs3HeaderTemplate}"
+                                               IsReadOnly="True"
+                                               MappingName="Refs3" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnRef4"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource Refs4Template}"
+                                               HeaderTemplate="{StaticResource Refs4HeaderTemplate}"
+                                               IsReadOnly="True"
+                                               MappingName="Refs4" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnRef5"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource Refs5Template}"
+                                               HeaderTemplate="{StaticResource Refs5HeaderTemplate}"
+                                               IsReadOnly="True"
+                                               MappingName="Refs5" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnRef6"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource Refs6Template}"
+                                               HeaderTemplate="{StaticResource Refs6HeaderTemplate}"
+                                               IsReadOnly="True"
+                                               MappingName="Refs6" />
+                    <sfGrid:GridTemplateColumn x:Name="ColumnRef7"
+                                               AllowFiltering="False"
+                                               AllowGrouping="False"
+                                               AllowSorting="False"
+                                               CellTemplate="{StaticResource Refs7Template}"
+                                               HeaderTemplate="{StaticResource Refs7HeaderTemplate}"
+                                               IsReadOnly="True"
+                                               MappingName="Refs7" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnCustomNumericValue"
+                                              HeaderTemplate="{StaticResource CustomNumericValueHeaderTemplate}"
+                                              IsReadOnly="True"
+                                              MappingName="CustomNumericValue" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnCustomNumericValue2"
+                                              HeaderTemplate="{StaticResource CustomNumericValue2HeaderTemplate}"
+                                              IsReadOnly="True"
+                                              MappingName="CustomNumericValue2" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnCustomNumericValue3"
+                                              HeaderTemplate="{StaticResource CustomNumericValue3HeaderTemplate}"
+                                              IsReadOnly="True"
+                                              MappingName="CustomNumericValue3" />
+                    <sfGrid:GridNumericColumn x:Name="ColumnCustomNumericValue4"
+                                              HeaderTemplate="{StaticResource CustomNumericValue4HeaderTemplate}"
+                                              IsReadOnly="True"
+                                              MappingName="CustomNumericValue4" />
+                    <sfGrid:GridTextColumn x:Name="ColumnCustomTextValue"
+                                           HeaderTemplate="{StaticResource CustomTextValueHeaderTemplate}"
+                                           IsReadOnly="True"
+                                           MappingName="CustomTextValue" />
+                    <sfGrid:GridTextColumn x:Name="ColumnCustomTextValue2"
+                                           HeaderTemplate="{StaticResource CustomTextValue2HeaderTemplate}"
+                                           IsReadOnly="True"
+                                           MappingName="CustomTextValue2" />
+                    <sfGrid:GridTextColumn x:Name="ColumnCustomTextValue3"
+                                           HeaderTemplate="{StaticResource CustomTextValue3HeaderTemplate}"
+                                           IsReadOnly="True"
+                                           MappingName="CustomTextValue3" />
+                    <sfGrid:GridTextColumn x:Name="ColumnCustomTextValue4"
+                                           HeaderTemplate="{StaticResource CustomTextValue4HeaderTemplate}"
+                                           IsReadOnly="True"
+                                           MappingName="CustomTextValue4" />
+                    <sfGrid:GridCheckBoxColumn x:Name="ColumnIsRandom"
+                                               HeaderText="IsRandom"
+                                               IsReadOnly="True"
+                                               MappingName="IsRandom" />
+                    <sfGrid:GridTextColumn x:Name="ColumnDifferenceReason"
+                                           HeaderText="DifferenceReason"
+                                           IsReadOnly="true"
+                                           MappingName="DifferenceReason" />
+                </sfGrid:Columns>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="DetailsViewDefinition">
+            <Setter.Value>
+                <sfGrid:DetailsViewDefinition>
+                    <sfGrid:GridViewDefinition RelationalColumn="LinkedPublication.PublishedActions">
+                        <sfGrid:GridViewDefinition.DataGrid>
+                            <sfGrid:SfDataGrid x:Name="DataGridInner"
+                                               HorizontalAlignment="Left"
+                                               AllowDraggingColumns="False"
+                                               AllowEditing="False"
+                                               AllowResizingColumns="False"
+                                               AllowSorting="False"
+                                               AutoGenerateColumns="False"
+                                               FontSize="20"
+                                               HeaderRowHeight="35"
+                                               HideEmptyGridViewDefinition="True"
+                                               IsReadOnly="True"
+                                               LiveDataUpdateMode="AllowDataShaping"
+                                               RowHeight="40"
+                                               SelectionMode="Single">
+                                <i:Interaction.Behaviors>
+                                    <behaviors:LinkedPublicationDataGridSerializationBehavior />
+                                    <behaviors:CustomColumnSizerBehavior />
+                                    <behaviors:WBSComparerBehavior />
+                                </i:Interaction.Behaviors>
+                                <sfGrid:SfDataGrid.SortColumnDescriptions>
+                                    <sfGrid:SortColumnDescription ColumnName="WBS" SortDirection="Ascending" />
+                                </sfGrid:SfDataGrid.SortColumnDescriptions>
+                                <sfGrid:SfDataGrid.Columns>
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnWBS"
+                                                           ColumnSizer="Auto"
+                                                           DisplayBinding="{Binding WBS, Converter={converter:IndentWBSConverter}}"
+                                                           HeaderText="WBS"
+                                                           IsReadOnly="True"
+                                                           MappingName="WBS" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnLabel"
+                                                           HeaderText="{loc:Localization LabelHeaderText}"
+                                                           IsReadOnly="True"
+                                                           MappingName="Label"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnStart"
+                                                              CellTemplate="{StaticResource StartLinkedTemplate}"
+                                                              HeaderText="Start"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="Start" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnFinish"
+                                                              CellTemplate="{StaticResource FinishLinkedTemplate}"
+                                                              HeaderText="Finish"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="Finish" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnBuildStart"
+                                                              CellTemplate="{StaticResource BuildStartLinkedTemplate}"
+                                                              HeaderText="BuildStart"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="BuildStart" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnBuildFinish"
+                                                              CellTemplate="{StaticResource BuildFinishLinkedTemplate}"
+                                                              HeaderText="BuildFinish"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="BuildFinish" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnDuration"
+                                                               CellTemplate="{StaticResource DurationTemplate}"
+                                                               HeaderText="Duration"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Duration" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnThumbnail"
+                                                               Width="300"
+                                                               CellTemplate="{StaticResource ThumbnailTemplate}"
+                                                               HeaderText="{loc:Localization ThumbnailHeaderText}"
+                                                               IsReadOnly="True"
+                                                               MappingName="Thumbnail" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnResource"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplateSelector="{StaticResource PublishedResourceDataGridTemplateSelector}"
+                                                               HeaderText="Resource"
+                                                               IsReadOnly="True"
+                                                               MappingName="PublishedResource" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnCategory"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplateSelector="{StaticResource PublishedCategoryDataGridTemplateSelector}"
+                                                               HeaderText="Category"
+                                                               IsReadOnly="True"
+                                                               MappingName="PublishedActionCategory" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef1"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs1Template}"
+                                                               HeaderTemplate="{StaticResource Refs1HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs1" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef2"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs2Template}"
+                                                               HeaderTemplate="{StaticResource Refs2HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs2" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef3"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs3Template}"
+                                                               HeaderTemplate="{StaticResource Refs3HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs3" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef4"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs4Template}"
+                                                               HeaderTemplate="{StaticResource Refs4HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs4" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef5"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs5Template}"
+                                                               HeaderTemplate="{StaticResource Refs5HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs5" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef6"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs6Template}"
+                                                               HeaderTemplate="{StaticResource Refs6HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs6" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef7"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs7Template}"
+                                                               HeaderTemplate="{StaticResource Refs7HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs7" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue"
+                                                              HeaderTemplate="{StaticResource CustomNumericValueHeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue2"
+                                                              HeaderTemplate="{StaticResource CustomNumericValue2HeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue2" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue3"
+                                                              HeaderTemplate="{StaticResource CustomNumericValue3HeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue3" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue4"
+                                                              HeaderTemplate="{StaticResource CustomNumericValue4HeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue4" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue"
+                                                           HeaderTemplate="{StaticResource CustomTextValueHeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue2"
+                                                           HeaderTemplate="{StaticResource CustomTextValue2HeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue2"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue3"
+                                                           HeaderTemplate="{StaticResource CustomTextValue3HeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue3"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue4"
+                                                           HeaderTemplate="{StaticResource CustomTextValue4HeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue4"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridCheckBoxColumn x:Name="InnerColumnIsRandom"
+                                                               HeaderText="IsRandom"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="IsRandom" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnDifferenceReason"
+                                                           HeaderText="DifferenceReason"
+                                                           IsHidden="True"
+                                                           IsReadOnly="true"
+                                                           MappingName="DifferenceReason" />
+                                </sfGrid:SfDataGrid.Columns>
+                            </sfGrid:SfDataGrid>
+                        </sfGrid:GridViewDefinition.DataGrid>
+                    </sfGrid:GridViewDefinition>
+                </sfGrid:DetailsViewDefinition>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InspectionDataGridStyle"
+           BasedOn="{StaticResource PublicationDataGridStyle}"
+           TargetType="sfGrid:SfDataGrid">
+        <Setter Property="DetailsViewDefinition">
+            <Setter.Value>
+                <sfGrid:DetailsViewDefinition>
+                    <sfGrid:GridViewDefinition RelationalColumn="Childs">
+                        <sfGrid:GridViewDefinition.DataGrid>
+                            <sfGrid:SfDataGrid x:Name="DataGridInner"
+                                               HorizontalAlignment="Left"
+                                               AllowDraggingColumns="False"
+                                               AllowEditing="False"
+                                               AllowResizingColumns="False"
+                                               AllowSorting="False"
+                                               AutoGenerateColumns="False"
+                                               FontSize="20"
+                                               HeaderRowHeight="35"
+                                               HideEmptyGridViewDefinition="True"
+                                               IsReadOnly="True"
+                                               LiveDataUpdateMode="AllowDataShaping"
+                                               RowHeight="40"
+                                               SelectionMode="Single">
+                                <sfGrid:SfDataGrid.SortComparers>
+                                    <linq:SortComparer Comparer="{core:WBSComparer}" PropertyName="WBS" />
+                                </sfGrid:SfDataGrid.SortComparers>
+                                <sfGrid:SfDataGrid.SortColumnDescriptions>
+                                    <sfGrid:SortColumnDescription ColumnName="WBS" SortDirection="Ascending" />
+                                </sfGrid:SfDataGrid.SortColumnDescriptions>
+                                <sfGrid:SfDataGrid.Columns>
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnWBS"
+                                                           ColumnSizer="Auto"
+                                                           DisplayBinding="{Binding WBS, Converter={converter:IndentWBSConverter}}"
+                                                           HeaderText="WBS"
+                                                           IsReadOnly="True"
+                                                           MappingName="WBS" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnLabel"
+                                                           HeaderText="{loc:Localization LabelHeaderText}"
+                                                           IsReadOnly="True"
+                                                           MappingName="Label"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnStart"
+                                                              CellTemplate="{StaticResource StartLinkedTemplate}"
+                                                              HeaderText="Start"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="Start" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnFinish"
+                                                              CellTemplate="{StaticResource FinishLinkedTemplate}"
+                                                              HeaderText="Finish"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="Finish" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnBuildStart"
+                                                              CellTemplate="{StaticResource BuildStartLinkedTemplate}"
+                                                              HeaderText="BuildStart"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="BuildStart" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnBuildFinish"
+                                                              CellTemplate="{StaticResource BuildFinishLinkedTemplate}"
+                                                              HeaderText="BuildFinish"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="BuildFinish" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnThumbnail"
+                                                               Width="300"
+                                                               CellTemplate="{StaticResource ThumbnailTemplate}"
+                                                               HeaderText="{loc:Localization ThumbnailHeaderText}"
+                                                               IsReadOnly="True"
+                                                               MappingName="Thumbnail" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef1"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs1Template}"
+                                                               HeaderTemplate="{StaticResource Refs1HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs1" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef2"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs2Template}"
+                                                               HeaderTemplate="{StaticResource Refs2HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs2" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef3"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs3Template}"
+                                                               HeaderTemplate="{StaticResource Refs3HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs3" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef4"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs4Template}"
+                                                               HeaderTemplate="{StaticResource Refs4HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs4" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef5"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs5Template}"
+                                                               HeaderTemplate="{StaticResource Refs5HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs5" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef6"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs6Template}"
+                                                               HeaderTemplate="{StaticResource Refs6HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs6" />
+                                    <sfGrid:GridTemplateColumn x:Name="InnerColumnRef7"
+                                                               AllowFiltering="False"
+                                                               AllowGrouping="False"
+                                                               AllowSorting="False"
+                                                               CellTemplate="{StaticResource Refs7Template}"
+                                                               HeaderTemplate="{StaticResource Refs7HeaderLinkedTemplate}"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="Refs7" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue"
+                                                              HeaderTemplate="{StaticResource CustomNumericValueHeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue2"
+                                                              HeaderTemplate="{StaticResource CustomNumericValue2HeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue2" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue3"
+                                                              HeaderTemplate="{StaticResource CustomNumericValue3HeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue3" />
+                                    <sfGrid:GridNumericColumn x:Name="InnerColumnCustomNumericValue4"
+                                                              HeaderTemplate="{StaticResource CustomNumericValue4HeaderLinkedTemplate}"
+                                                              IsHidden="True"
+                                                              IsReadOnly="True"
+                                                              MappingName="CustomNumericValue4" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue"
+                                                           HeaderTemplate="{StaticResource CustomTextValueHeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue2"
+                                                           HeaderTemplate="{StaticResource CustomTextValue2HeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue2"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue3"
+                                                           HeaderTemplate="{StaticResource CustomTextValue3HeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue3"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnCustomTextValue4"
+                                                           HeaderTemplate="{StaticResource CustomTextValue4HeaderLinkedTemplate}"
+                                                           IsHidden="True"
+                                                           IsReadOnly="True"
+                                                           MappingName="CustomTextValue4"
+                                                           TextWrapping="Wrap" />
+                                    <sfGrid:GridCheckBoxColumn x:Name="InnerColumnIsRandom"
+                                                               HeaderText="IsRandom"
+                                                               IsHidden="True"
+                                                               IsReadOnly="True"
+                                                               MappingName="IsRandom" />
+                                    <sfGrid:GridTextColumn x:Name="InnerColumnDifferenceReason"
+                                                           HeaderText="DifferenceReason"
+                                                           IsHidden="True"
+                                                           IsReadOnly="true"
+                                                           MappingName="DifferenceReason" />
+                                </sfGrid:SfDataGrid.Columns>
+                            </sfGrid:SfDataGrid>
+                        </sfGrid:GridViewDefinition.DataGrid>
+                    </sfGrid:GridViewDefinition>
+                </sfGrid:DetailsViewDefinition>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type sfGrid:GridHeaderCellControl}">
+        <Setter Property="Background" Value="{StaticResource AccentColorBrush}" />
+        <Setter Property="Foreground" Value="{StaticResource BlackBrush}" />
+        <Setter Property="FontFamily" Value="Segoe UI" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="FontSize" Value="24" />
+        <Setter Property="Padding" Value="24,0,24,0" />
+        <Setter Property="BorderBrush" Value="#FCA7A9" />
+        <Setter Property="BorderThickness" Value="0.5" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridHeaderCellControl}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+
+                        <Grid Margin="{TemplateBinding Padding}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                              VerticalAlignment="Center"
+                                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={converter:HeaderVisibilityConverter}}" />
+
+                            <Grid Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={converter:HeaderVisibilityConverter}}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="18" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Path Width="8.938"
+                                      Height="8.138"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M167.5,212.46L199.5,177.507 231.5,212.46 167.5,212.46z"
+                                      Fill="White"
+                                      Stretch="Fill"
+                                      Visibility="{Binding SortDirection, ConverterParameter=Ascending, Converter={converter:SortDirectionToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="0" />
+                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+
+                                <Path Width="8.938"
+                                      Height="8.138"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M454.165,177.507L422.165,212.46 390.165,177.507 454.165,177.507z"
+                                      Fill="White"
+                                      Stretch="Fill"
+                                      Visibility="{Binding SortDirection, ConverterParameter=Decending, Converter={converter:SortDirectionToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Path.RenderTransform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="0" />
+                                            <ScaleTransform ScaleX="1" ScaleY="1" />
+                                        </TransformGroup>
+                                    </Path.RenderTransform>
+                                </Path>
+
+                                <TextBlock Grid.Column="1"
+                                           Margin="0,-4,0,0"
+                                           VerticalAlignment="Center"
+                                           FontSize="10"
+                                           Foreground="White"
+                                           Text="{TemplateBinding SortNumber}"
+                                           Visibility="{TemplateBinding SortNumberVisibility}" />
+
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="sfGrid:GridDetailsViewExpanderCell">
+        <Setter Property="Foreground" Value="{StaticResource BlackBrush}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Background="{StaticResource AccentColorBrush}" Visibility="{Binding Converter={converter:GridDetailsViewExpanderConverter}}">
+                            <iconPacks:PackIconMaterial Width="12"
+                                                        Height="12"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Kind="Plus"
+                                                        Visibility="{Binding IsExpanded, Converter={converter:InvertBoolToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
+                            <iconPacks:PackIconMaterial Width="12"
+                                                        Height="12"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Kind="Minus"
+                                                        Visibility="{Binding IsExpanded, Converter={converter:BoolToVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InspectionThreeStatesCheckBoxGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Background="Transparent" Visibility="{Binding IsGroup, Converter={converter:InvertBoolToVisibilityConverter}, FallbackValue=Collapse}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding ChangeInspectionStateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=views:Inspection}}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <iconPacks:PackIconModern x:Name="CheckMarkNull"
+                                                      Width="30"
+                                                      Height="30"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Foreground="{TemplateBinding Foreground}"
+                                                      Kind="CheckmarkUncrossed"
+                                                      Visibility="{Binding IsOk, Converter={converter:NullToVisibilityConverter}}" />
+                            <iconPacks:PackIconModern x:Name="CheckMarkOff"
+                                                      Width="30"
+                                                      Height="30"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Foreground="{TemplateBinding Foreground}"
+                                                      Kind="CheckmarkCross"
+                                                      Visibility="{Binding IsOk, Converter={converter:InvertBoolToVisibilityConverter}}" />
+                            <Viewbox x:Name="CheckMarkOn"
+                                     Width="30"
+                                     Height="30"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Center"
+                                     Visibility="{Binding IsOk, Converter={converter:BoolToVisibilityConverter}}">
+                                <Canvas Width="32" Height="32">
+                                    <Path Data="M0,0V32H32V0H0M4,4V28H28V4H4Z" Fill="{TemplateBinding Foreground}" />
+                                    <Path Data="M8.22,11.5L15.19,18.06L28.96,2.54L32.29,5.47L15.58,25.5L4.9,14.81L8.22,11.5Z" Fill="{TemplateBinding Foreground}" />
+                                </Canvas>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="QualifiedGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="IsEnabled" Value="{Binding CanValidateQualificationStep}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="Background" Background="Transparent">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ChangeQualifiedStateCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <iconPacks:PackIconMaterial x:Name="CheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="Check"
+                                                        Visibility="Hidden" />
+                            <iconPacks:PackIconMaterial x:Name="UnCheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="CheckboxBlankOutline" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsGroup}" Value="True">
+                            <Setter TargetName="Background" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsQualified}" Value="True">
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Green" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NotQualifiedGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="IsEnabled" Value="{Binding CanValidateQualificationStep}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="Background" Background="Transparent">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ChangeNotQualifiedStateCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <iconPacks:PackIconMaterial x:Name="CheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="Close"
+                                                        Visibility="Hidden" />
+                            <iconPacks:PackIconMaterial x:Name="UnCheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="CheckboxBlankOutline" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsGroup}" Value="True">
+                            <Setter TargetName="Background" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsQualified}" Value="False" />
+                                <Condition Binding="{Binding IsKeyTask}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Orange" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsQualified}" Value="False" />
+                                <Condition Binding="{Binding IsKeyTask}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Red" />
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="OkGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="Background" Background="{Binding Converter={converter:LinkedPublicationColorConverter}}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ChangeOkStateCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <iconPacks:PackIconMaterial x:Name="CheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="Check"
+                                                        Visibility="Hidden" />
+                            <iconPacks:PackIconMaterial x:Name="UnCheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="CheckboxBlankOutline" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsGroup}" Value="True">
+                            <Setter TargetName="Background" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsOk}" Value="True">
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Green" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="NotOkGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="Background" Background="{Binding Converter={converter:LinkedPublicationColorConverter}}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ChangeNotOkStateCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <iconPacks:PackIconMaterial x:Name="CheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="Close"
+                                                        Visibility="Hidden" />
+                            <iconPacks:PackIconMaterial x:Name="UnCheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="CheckboxBlankOutline" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsGroup}" Value="True">
+                            <Setter TargetName="Background" Property="Visibility" Value="Collapsed" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsOk}" Value="False">
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Orange" />
+                        </DataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsOk}" Value="False" />
+                                <Condition Binding="{Binding IsKeyTask}" Value="False" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Orange" />
+                        </MultiDataTrigger>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding IsOk}" Value="False" />
+                                <Condition Binding="{Binding IsKeyTask}" Value="True" />
+                            </MultiDataTrigger.Conditions>
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Red" />
+                        </MultiDataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ShowAnomalyGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Background="Transparent">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ShowAnomalyCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <ContentPresenter />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AuditOkGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="Background" Background="Transparent">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ChangeOkStateCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <iconPacks:PackIconMaterial x:Name="CheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="Check"
+                                                        Visibility="Hidden" />
+                            <iconPacks:PackIconMaterial x:Name="UnCheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="CheckboxBlankOutline" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsOk}" Value="True">
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Green" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AuditNotOkGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="Background" Background="Transparent">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ChangeNotOkStateCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <iconPacks:PackIconMaterial x:Name="CheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="Close"
+                                                        Visibility="Hidden" />
+                            <iconPacks:PackIconMaterial x:Name="UnCheckedIcon"
+                                                        Width="20"
+                                                        Height="20"
+                                                        HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{TemplateBinding Foreground}"
+                                                        Kind="CheckboxBlankOutline" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <DataTrigger Binding="{Binding IsOk}" Value="False">
+                            <Setter TargetName="UnCheckedIcon" Property="Visibility" Value="Collapsed" />
+                            <Setter TargetName="CheckedIcon" Property="Visibility" Value="Visible" />
+                            <Setter TargetName="Background" Property="Background" Value="Orange" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="AuditCommentGridCellStyle" TargetType="{x:Type sfGrid:GridCell}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type sfGrid:GridCell}">
+                    <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid x:Name="Background" Background="Transparent">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding DataContext.ShowCommentCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <TextBlock Padding="10,0"
+                                       VerticalAlignment="Center"
+                                       Text="{Binding Comment}" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

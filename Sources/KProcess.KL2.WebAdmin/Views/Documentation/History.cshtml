@@ -1,0 +1,312 @@
+@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using Syncfusion.EJ2.Popups;
+@using KProcess.KL2.Languages;
+
+@model IList<DocumentationHistory>
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    .label {
+        font-weight: 500;
+        font-size: 100%;
+    }
+
+    .statusLabel {
+        padding: 3px;
+        color: white;
+    }
+
+    .waiting {
+        background-color: #f39c12 !important;
+    }
+
+    .cancelled {
+        background-color: #dd4b39 !important;
+    }
+
+    .inprogress {
+        background-color: #00c0ef !important;
+    }
+
+    .completed {
+        background-color: #00a65a !important;
+    }
+
+    .inerror {
+        background-color: #dd4b39 !important;
+    }
+
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    @*<div class="row">
+        @Html.EJS().Button("FakePublishButton").Content("Faking publication").Render()
+    </div>*@
+    <div class="innerContent">
+        @(Html.EJS().Grid("PublicationHistory")
+            .Height("100%").Width("100%")
+            .DataSource(Model)
+            .AllowTextWrap()
+            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+            .AllowPaging()
+            .AllowExcelExport()
+            .AllowSorting()
+            .AllowExcelExport()
+            .PageSettings(page => { page.PageSize(25); })
+            .Load("onLoad")
+            .DataBound("onDataBound")
+            .Columns(col =>
+            {
+                col.Field("ProcessId").Visible(false).Add();
+                col.Field("TimestampAsString").Width(10).HeaderText(LocalizedStrings.GetString("View_DocumentationHistory_Timestamp")).HeaderTextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("ProcessLabel").Width(20).HeaderText(LocalizedStrings.GetString("View_Documentation_Process")).HeaderTextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Publisher").Width(13).HeaderText(LocalizedStrings.GetString("View_DocumentationHistory_Publisher")).HeaderTextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Description").Width(23).HeaderText(LocalizedStrings.GetString("View_DocumentationHistory_Description")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).HeaderTextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("ErrorMessage").Width(15).Template("#errorMessageTemplate").HeaderText(LocalizedStrings.GetString("View_DocumentationHistory_ErrorMessage")).HeaderTextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("ProgressBar").Width(8).Template("#progressTemplate").HeaderText(LocalizedStrings.GetString("View_DocumentationHistory_Progress")).HeaderTextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("StateAsLabel").Width(8).Template("#stateTemplate").HeaderText(LocalizedStrings.GetString("View_DocumentationHistory_State")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).HeaderTextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("State").Width(8).Template("#stateActionTemplate").HeaderText(" ").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+            })
+            .Render()
+        )
+    </div>
+</div>
+
+@(Html.EJS().Dialog("confirmCancelDialog")
+    .ShowCloseIcon(true)
+    .Target("#wrapper")
+    .CloseOnEscape(true)
+    .AnimationSettings(e => e.Effect(DialogEffect.None))
+    .IsModal(true)
+    .Visible(false)
+    .Header(LocalizedStrings.GetString("Common_Confirmation"))
+    .ContentTemplate(
+        @<div class="container" id="confirmCancelForm">
+            <div class="row">
+                <p id="confirmCancelLabel"></p>
+            </div>
+            <div class="row justify-content-end" style="margin-top:20px;">
+                <button type="button" class="btn btn-default" id="btnYes" onclick="confirmCancelPublication(true); return false;">
+                    @LocalizedStrings.GetString("Common_Yes")
+                </button>
+                <button type="button" class="btn btn-primary" id="btnNo" onclick="confirmCancelPublication(false); return false;">
+                    @LocalizedStrings.GetString("Common_No")
+                </button>
+            </div>
+        </div>
+    )
+    .Render()
+)
+
+<script id="errorMessageTemplate" type="text/x-template">
+    ${if (ErrorMessage != null)}
+    <span id="ErrorMessage_${PublicationHistoryId}" style="text-align:center;">${ErrorMessage}</span>
+    ${else}
+    <span id="ErrorMessage_${PublicationHistoryId}" style="text-align:center;"></span>
+    ${/if}
+</script>
+
+<script id="stateActionTemplate" type="text/x-template">
+    <div style="text-align:center;">
+        ${if (State == 0 || State == 1)}
+        <button id="CancelButton_${PublicationHistoryId}" type="button" data-id="${PublicationHistoryId}" data-url="@Url.Action("CancelPublication")" data-confirm="@Html.Raw(LocalizedStrings.GetString("View_PublicationHistory_AskCancelPublication"))" onclick="onCancelPublicationClick(this)" role="button">@Html.Raw(LocalizedStrings.GetString("Common_Cancel"))</button>
+        ${/if}
+    </div>
+</script>
+
+<script id="stateTemplate" type="text/x-template">
+    <span id="State_${PublicationHistoryId}" class="label statusLabel ${StateAsString}">${StateAsLabel}</span>
+</script>
+
+<script id="progressTemplate" type="text/x-template">
+    ${if (State == 1)}
+    <div id="Progress_${PublicationHistoryId}" class="progress sm" style="margin-bottom: 0">
+        <div id="ProgressBar_${PublicationHistoryId}" class="progress-bar progress-bar-aqua" style="width: 0%"></div>
+    </div>
+    ${else}
+    <div id="Progress_${PublicationHistoryId}" class="progress sm" style="margin-bottom: 0;display: none">
+        <div id="ProgressBar_${PublicationHistoryId}" class="progress-bar progress-bar-aqua" style="width: 0%"></div>
+    </div>
+    ${/if}
+</script>
+
+<script>
+    var statesAsLabels = @Html.Raw(ViewBag.StatesAsLabel);
+    var refreshedFirstTime = false;
+
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Documentation")" + "/" + "@LocalizedStrings.GetString("Web_Menu_PublicationHistory")");
+        setIsRefreshing(false);
+        setTimeout(function () {
+            refreshedFirstTime = false;
+            updateCheck();
+        }, 1000);
+    });
+
+    function updateHistoryDescription(dataGrid, publicationHistory) {
+        $.ajax({
+            url: '@Url.Action("UpdatePublicationHistory")',
+            type: 'POST',
+            data: { publicationHistoryId: publicationHistory.PublicationHistoryId },
+            success: function (newElt) {
+                for (var i = 0; i < dataGrid.dataSource.length; i++) {
+                    if (dataGrid.dataSource[i].PublicationHistoryId == newElt.PublicationHistoryId) {
+                        dataGrid.dataSource[i] = newElt;
+                        dataGrid.refresh();
+                        break;
+                    }
+                }
+            },
+            error: function () {
+            }
+        });
+    }
+
+    function onLoad(args) {
+        KLPublicationHubProxy.on('RefreshPublicationProgress', onRefreshPublicationProgress);
+        signalRConnection.start();
+    }
+
+    function onDataBound(args) {
+        updateCheck();
+    }
+
+    function updateCheck() {
+        var dataGrid = document.getElementById('PublicationHistory').ej2_instances[0];
+        var ongoingData = dataGrid.dataSource.find(function (element) {
+            return element.State == 1;
+        });
+        if (ongoingData != null && refreshedFirstTime == false) {
+            updateHistoryDescription(dataGrid, ongoingData);
+            refreshedFirstTime = true;
+        }
+    }
+
+    @*document.getElementById('FakePublishButton').onclick = function () {
+        var token = $(':input:hidden[name*="RequestVerificationToken"]');
+        var data = {};
+        data[token.attr('name')] = token.val();
+        $.ajax({
+            url: '@Url.Action("FakingPublication")',
+            type: 'POST',
+            data: data,
+            success: function (result) {
+                if (result.Success) {
+                    location.reload();
+                }
+                else {
+                    $("#failLabel").text(result.Message);
+                    $("#failModal").modal("show");
+                }
+            },
+            error: function () {
+            }
+        });
+    };*@
+
+    function onRefreshPublicationProgress(args) {
+        // Update error message
+        if (args.PublicationHistoryId != null) {
+            if (args.ErrorMessage == null) {
+                $("#ErrorMessage_" + args.PublicationHistoryId).html();
+            } else {
+                $("#ErrorMessage_" + args.PublicationHistoryId).html(args.ErrorMessage);
+            }
+        }
+        // Update progress bar
+        if (args.PublicationHistoryId != null) {
+            if (args.Progress == null) {
+                $("#Progress_" + args.PublicationHistoryId).css("display", "none");
+            } else {
+                $("#ProgressBar_" + args.PublicationHistoryId).css("width", args.Progress + "%");
+                $("#Progress_" + args.PublicationHistoryId).css("display", "");
+            }
+        }
+        // Update status
+        if (args.PublicationHistoryId != null) {
+            if ($("#State_" + args.PublicationHistoryId).hasClass(statesAsLabels[args.Status].AsString) === false) {
+                statesAsLabels.forEach(function (state) { $("#State_" + args.PublicationHistoryId).removeClass(state.AsString); });
+                $("#State_" + args.PublicationHistoryId).addClass(statesAsLabels[args.Status].AsString);
+                $("#State_" + args.PublicationHistoryId).html(statesAsLabels[args.Status].AsLabel);
+                if (args.Status == 2) {
+                    var dataGrid = document.getElementById('PublicationHistory').ej2_instances[0];
+                    var pHistory = dataGrid.dataSource.find(function (elt) { return elt.PublicationHistoryId == args.PublicationHistoryId; });
+                    updateHistoryDescription(dataGrid, pHistory);
+                }
+            }
+        }
+        // Update cancel button
+        if (args.PublicationHistoryId != null) {
+            if (args.CanCancel === true) {
+                $("#CancelButton_" + args.PublicationHistoryId).css("display", "");
+            } else {
+                $("#CancelButton_" + args.PublicationHistoryId).css("display", "none");
+            }
+        }
+    }
+
+    var urlCancelPublicationClick = "";
+    var PublicationHistoryId = 0;
+    function onCancelPublicationClick(args) {
+        urlCancelPublicationClick = $(args).data('url');
+        PublicationHistoryId = $(args).data('id');
+        $("#confirmCancelLabel").text($(args).data('confirm'));
+        var confirmCancelDialog = document.getElementById("confirmCancelDialog").ej2_instances[0];
+        confirmCancelDialog.height = "auto";
+        confirmCancelDialog.width = "auto";
+        confirmCancelDialog.show();
+    }
+
+    function confirmCancelPublication(confirm) {
+        document.getElementById("confirmCancelDialog").ej2_instances[0].hide();
+        if (confirm) {
+            var token = $(':input:hidden[name*="RequestVerificationToken"]');
+            var data = {};
+            data[token.attr('name')] = token.val();
+            data['publicationHistoryId'] = PublicationHistoryId;
+            $.ajax({
+                url: urlCancelPublicationClick,
+                type: 'POST',
+                data: data,
+                success: function (result) {
+                    if (result.Success) {
+                        LoadPartial('/Documentation/History?partial=true', '#pageContainer');
+                    }
+                    else {
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: result.Message, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        }
+        return false;
+    };
+</script>
+
+@Html.EJS().ScriptManager()

@@ -1,0 +1,108 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+    <div class="text-center panel panel-default">
+        <div class="panel-body">
+            <h1>Compte-rendu de fin de formation - @DateTime.Now.ToShortDateString()</h1>
+        </div>
+    </div>
+    <div style="margin-left:45px;margin-right:45px;">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-4">
+                    Formation
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.ProcessLabel
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Date début formation
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.StartDate.ToShortDateString()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-4">
+                    Nom de la personne formée
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.TrainedName
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Date fin de formation
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.EndDate.ToShortDateString()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-4">
+                    Situation de la personne formée
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.TrainedTenured
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Nom du référent
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.ReferentName
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-4">
+                    Equipe
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @string.Join(", ", Model.Teams)
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Nom(s) formateur(s)
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @string.Join(", ", Model.TrainersName)
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-12 panel panel-primary text-center">
+                <h3><i>Formation terminée, vous pouvez réaliser l'évaluation.</i></h3>
+            </div>
+        </div>
+        <br />
+    </div>
+</body>
+</html>

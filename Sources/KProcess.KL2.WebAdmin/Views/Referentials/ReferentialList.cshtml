@@ -1,0 +1,51 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Referentials;
+@using Syncfusion.EJ2.Popups;
+@using KProcess.KL2.Languages;
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    List<RefResourceViewModel> ds = new List<RefResourceViewModel>();
+}
+
+@(Html.EJS().Dialog("referentialListDialog")
+    .ShowCloseIcon(true)
+    .Target("#wrapper")
+    .CloseOnEscape(true)
+    .AnimationSettings(e => e.Effect(DialogEffect.None))
+    .IsModal(true)
+    .Visible(false)
+    .Header(LocalizedStrings.GetString("VM_ReferentialMergeViewModel_Title"))
+    .ContentTemplate(
+        @<div class="container" id="confirmAuditForm" style="max-height:700px;">
+            <div class="row">
+                <p>@LocalizedStrings.GetString("Views_ReferentialMergeView_Merge") <i id="mergeTarget"></i></p>
+                <p hidden="hidden" id="mergeMasterId"></p>
+                @(Html.EJS()
+                    .ListView("ReferentialMergeList")
+                    .DataSource(ds)
+                    .Fields(f => f.Text("Label")
+                        .Id("itemId")
+                        .GroupBy("ProcessLabel"))
+                    .ShowCheckBox(true)
+                    .Height("100%")
+                    .Render()
+                )
+            </div>
+        </div>
+    )
+    .FooterTemplate(
+        "<div class='container'>" +
+         "<div class='row justify-content-end' style='margin-top:20px;'>" +
+             "<button id='mergeSaveButton' type='submit' class='btn btn-primary pull-left' onclick='mergeOperation()'>" + LocalizedStrings.GetString("Common_OK") + "</button>" +
+             "<button type='button' class='btn btn-default pull-right' onclick='cancelMerge()'>" + LocalizedStrings.GetString("Common_Cancel") + "</button>" +
+         "</div>" +
+        "</div>"
+    )
+    .Render()
+)
+
+<script>
+    function cancelMerge() {
+        document.getElementById("referentialListDialog").ej2_instances[0].hide();
+    }
+</script>

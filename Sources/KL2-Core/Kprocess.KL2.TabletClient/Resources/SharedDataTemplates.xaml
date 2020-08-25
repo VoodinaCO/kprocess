@@ -1,0 +1,619 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+                    xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+                    xmlns:sfGrid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF">
+
+    <converter:PublishedRefItemDataGridTemplateSelector x:Key="PublishedRefItemDataGridTemplateSelector" />
+    <converter:PublishedResourceDataGridTemplateSelector x:Key="PublishedResourceDataGridTemplateSelector" />
+    <converter:PublishedCategoryDataGridTemplateSelector x:Key="PublishedCategoryDataGridTemplateSelector" />
+
+    <DataTemplate x:Key="ImageTemplate" DataType="{x:Type models:PublishedReferentialAction}">
+        <StackPanel Orientation="Horizontal" TextElement.FontSize="12">
+            <TextBlock VerticalAlignment="Center"
+                       Text="{Binding Quantity}"
+                       Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+            <TextBlock Margin="5,0"
+                       VerticalAlignment="Center"
+                       Text="x"
+                       Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+            <Image MaxWidth="60"
+                   MaxHeight="60"
+                   Margin="2"
+                   Source="{Binding PublishedReferential.FileHash, Converter={converter:HashToDownloadedFileConverter}}"
+                   Stretch="Uniform">
+                <Image.ToolTip>
+                    <TextBlock FontSize="12" Text="{Binding PublishedReferential.Label}" />
+                </Image.ToolTip>
+            </Image>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="UriTemplate" DataType="{x:Type models:PublishedReferentialAction}">
+        <StackPanel Orientation="Horizontal" TextElement.FontSize="20">
+            <TextBlock Text="{Binding Quantity}" Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+            <TextBlock Margin="5,0"
+                       Text="x"
+                       Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+            <TextBlock>
+                <Hyperlink NavigateUri="{Binding PublishedReferential.FileHash, Converter={converter:HashToUriConverter}}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="RequestNavigate">
+                            <mvvm:EventToCommand Command="{Binding DataContext.HyperlinkRequestNavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}}" PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Run Text="{Binding PublishedReferential.Label}" />
+                </Hyperlink>
+            </TextBlock>
+        </StackPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="TextTemplate" DataType="{x:Type models:PublishedReferentialAction}">
+        <DockPanel TextElement.FontSize="20">
+            <TextBlock DockPanel.Dock="Left"
+                       Text="{Binding Quantity}"
+                       Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+            <TextBlock Margin="5,0"
+                       DockPanel.Dock="Left"
+                       Text="x"
+                       Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+            <TextBlock Text="{Binding PublishedReferential.Label}" TextWrapping="Wrap" />
+        </DockPanel>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ResourceImageTemplate" DataType="{x:Type models:PublishedAction}">
+        <Grid TextElement.FontSize="12">
+            <Image MaxWidth="60"
+                   MaxHeight="60"
+                   Margin="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Source="{Binding PublishedResource.FileHash, Converter={converter:HashToDownloadedFileConverter}}"
+                   Stretch="Uniform">
+                <Image.ToolTip>
+                    <TextBlock FontSize="12" Text="{Binding PublishedResource.Label}" />
+                </Image.ToolTip>
+            </Image>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ResourceUriTemplate" DataType="{x:Type models:PublishedAction}">
+        <Grid TextElement.FontSize="20">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Hyperlink NavigateUri="{Binding PublishedResource.FileHash, Converter={converter:HashToUriConverter}}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="RequestNavigate">
+                            <mvvm:EventToCommand Command="{Binding DataContext.HyperlinkRequestNavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}}" PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Run Text="{Binding PublishedResource.Label}" />
+                </Hyperlink>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ResourceTextTemplate" DataType="{x:Type models:PublishedAction}">
+        <Grid TextElement.FontSize="20">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{Binding PublishedResource.Label}"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ResourceNullTemplate" DataType="{x:Type models:PublishedAction}">
+        <Grid TextElement.FontSize="20" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CategoryImageTemplate" DataType="{x:Type models:PublishedActionCategory}">
+        <Grid TextElement.FontSize="12">
+            <Image MaxWidth="60"
+                   MaxHeight="60"
+                   Margin="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Source="{Binding PublishedActionCategory.FileHash, Converter={converter:HashToDownloadedFileConverter}}"
+                   Stretch="Uniform">
+                <Image.ToolTip>
+                    <TextBlock FontSize="12" Text="{Binding PublishedActionCategory.Label}" />
+                </Image.ToolTip>
+            </Image>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CategoryUriTemplate" DataType="{x:Type models:PublishedActionCategory}">
+        <Grid TextElement.FontSize="20">
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Hyperlink NavigateUri="{Binding PublishedActionCategory.FileHash, Converter={converter:HashToUriConverter}}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="RequestNavigate">
+                            <mvvm:EventToCommand Command="{Binding DataContext.HyperlinkRequestNavigateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}}" PassEventArgsToCommand="True" />
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                    <Run Text="{Binding PublishedActionCategory.Label}" />
+                </Hyperlink>
+            </TextBlock>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CategoryTextTemplate" DataType="{x:Type models:PublishedActionCategory}">
+        <Grid TextElement.FontSize="20">
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{Binding PublishedActionCategory.Label}"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CategoryNullTemplate" DataType="{x:Type models:PublishedActionCategory}">
+        <Grid TextElement.FontSize="20" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="ThumbnailTemplate" DataType="{x:Type models:PublishedAction}">
+        <Image MaxWidth="300"
+               MaxHeight="300"
+               Source="{Binding ThumbnailHash, Converter={converter:HashToDownloadedFileConverter}}"
+               Stretch="Uniform" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs1Template" DataType="{x:Type models:PublishedAction}">
+        <ItemsControl Margin="5"
+                      VerticalAlignment="Center"
+                      ItemTemplateSelector="{StaticResource PublishedRefItemDataGridTemplateSelector}"
+                      ItemsSource="{Binding Refs1}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs2Template" DataType="{x:Type models:PublishedAction}">
+        <ItemsControl Margin="5"
+                      VerticalAlignment="Center"
+                      ItemTemplateSelector="{StaticResource PublishedRefItemDataGridTemplateSelector}"
+                      ItemsSource="{Binding Refs2}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs3Template" DataType="{x:Type models:PublishedAction}">
+        <ItemsControl Margin="5"
+                      VerticalAlignment="Center"
+                      ItemTemplateSelector="{StaticResource PublishedRefItemDataGridTemplateSelector}"
+                      ItemsSource="{Binding Refs3}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs4Template" DataType="{x:Type models:PublishedAction}">
+        <ItemsControl Margin="5"
+                      VerticalAlignment="Center"
+                      ItemTemplateSelector="{StaticResource PublishedRefItemDataGridTemplateSelector}"
+                      ItemsSource="{Binding Refs4}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs5Template" DataType="{x:Type models:PublishedAction}">
+        <ItemsControl Margin="5"
+                      VerticalAlignment="Center"
+                      ItemTemplateSelector="{StaticResource PublishedRefItemDataGridTemplateSelector}"
+                      ItemsSource="{Binding Refs5}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs6Template" DataType="{x:Type models:PublishedAction}">
+        <ItemsControl Margin="5"
+                      VerticalAlignment="Center"
+                      ItemTemplateSelector="{StaticResource PublishedRefItemDataGridTemplateSelector}"
+                      ItemsSource="{Binding Refs6}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs7Template" DataType="{x:Type models:PublishedAction}">
+        <ItemsControl Margin="5"
+                      VerticalAlignment="Center"
+                      ItemTemplateSelector="{StaticResource PublishedRefItemDataGridTemplateSelector}"
+                      ItemsSource="{Binding Refs7}">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </DataTemplate>
+
+    <DataTemplate x:Key="StartTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:TicksToStringConverter}">
+                    <Binding Path="Start" />
+                    <Binding Path="DataContext.Publication.TimeScale" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FinishTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:TicksToStringConverter}">
+                    <Binding Path="Finish" />
+                    <Binding Path="DataContext.Publication.TimeScale" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BuildStartTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:TicksToStringConverter}">
+                    <Binding Path="BuildStart" />
+                    <Binding Path="DataContext.Publication.TimeScale" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BuildFinishTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:TicksToStringConverter}">
+                    <Binding Path="BuildFinish" />
+                    <Binding Path="DataContext.Publication.TimeScale" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="DurationTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:TicksToStringConverter}">
+                    <Binding Path="Duration" />
+                    <Binding Path="DataContext.Publication.TimeScale" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs1HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref1}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs2HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref2}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs3HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref3}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs4HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref4}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs5HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref5}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs6HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref6}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs7HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref7}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValueHeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue2HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel2}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue3HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel3}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue4HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel4}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValueHeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue2HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel2}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue3HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel3}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue4HeaderTemplate">
+        <TextBlock Text="{Binding DataContext.Publication.Localizations, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:PublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel4}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValueTemplate">
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomNumericValue, RelativeSource={RelativeSource TemplatedParent}, Converter={converter:MoneyToStringConverter}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue2Template">
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomNumericValue2, RelativeSource={RelativeSource TemplatedParent}, Converter={converter:MoneyToStringConverter}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue3Template">
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomNumericValue3, RelativeSource={RelativeSource TemplatedParent}, Converter={converter:MoneyToStringConverter}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue4Template">
+        <TextBlock HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomNumericValue4, RelativeSource={RelativeSource TemplatedParent}, Converter={converter:MoneyToStringConverter}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValueTemplate">
+        <TextBlock Margin="10"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomTextValue, RelativeSource={RelativeSource TemplatedParent}}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue2Template">
+        <TextBlock Margin="10"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomTextValue2, RelativeSource={RelativeSource TemplatedParent}}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue3Template">
+        <TextBlock Margin="10"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomTextValue3, RelativeSource={RelativeSource TemplatedParent}}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue4Template">
+        <TextBlock Margin="10"
+                   VerticalAlignment="Center"
+                   Text="{Binding DataContext.CustomTextValue4, RelativeSource={RelativeSource TemplatedParent}}"
+                   TextWrapping="Wrap" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="LabelPublishedActionStyleSelectorWithTriggers">
+        <Grid Background="Transparent">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <mvvm:EventToCommand Command="{Binding DataContext.ShowStepCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock Padding="10,0"
+                       VerticalAlignment="Center"
+                       FontWeight="{Binding Converter={converter:IsKeyTaskFontWeightConverter}}"
+                       Foreground="White"
+                       Text="{Binding Label}"
+                       TextDecorations="Underline"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LabelLinkedPublishedActionStyleSelectorWithTriggers">
+        <Grid Background="Transparent">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <mvvm:EventToCommand Command="{Binding DataContext.ShowStepCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock Padding="10,0"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Text="{Binding Label}"
+                       TextDecorations="UnderLine"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LabelPublishedActionStyleSelector">
+        <Grid Background="Transparent">
+            <TextBlock Padding="10,0"
+                       VerticalAlignment="Center"
+                       FontWeight="{Binding Converter={converter:IsKeyTaskFontWeightConverter}}"
+                       Foreground="White"
+                       Text="{Binding Label}"
+                       TextDecorations="Underline"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LabelLinkedPublishedActionStyleSelector">
+        <Grid Background="Transparent">
+            <TextBlock Padding="10,0"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Text="{Binding Label}"
+                       TextDecorations="UnderLine"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LabelGroupStyleSelector">
+        <Grid Background="Transparent">
+            <TextBlock Padding="10,0"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Text="{Binding Label}"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="LabelGroupStyleSelectorWithTriggers">
+        <Grid Background="Transparent">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <mvvm:EventToCommand Command="{Binding DataContext.ShowStepCommand, ElementName=DataGrid}" CommandParameter="{Binding}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <TextBlock Padding="10,0"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       Text="{Binding Label}"
+                       TextWrapping="Wrap" />
+        </Grid>
+    </DataTemplate>
+
+    <!--  LINKED PUBLICATION  -->
+
+    <DataTemplate x:Key="StartLinkedTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:LinkedTicksToStringConverter}">
+                    <Binding Path="Start" />
+                    <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="FinishLinkedTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:LinkedTicksToStringConverter}">
+                    <Binding Path="Finish" />
+                    <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BuildStartLinkedTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:LinkedTicksToStringConverter}">
+                    <Binding Path="BuildStart" />
+                    <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="BuildFinishLinkedTemplate">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock.Text>
+                <MultiBinding Converter="{converter:LinkedTicksToStringConverter}">
+                    <Binding Path="BuildFinish" />
+                    <Binding Path="DataContext" RelativeSource="{RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}" />
+                </MultiBinding>
+            </TextBlock.Text>
+        </TextBlock>
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs1HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref1}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs2HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref2}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs3HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref3}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs4HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref4}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs5HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref5}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs6HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref6}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="Refs7HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationRefsLocalizationConverter}, ConverterParameter={x:Static models:ProcessReferentialIdentifier.Ref7}}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValueHeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue2HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel2}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue3HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel3}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomNumericValue4HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomNumericLabel4}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValueHeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue2HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel2}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue3HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel3}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomTextValue4HeaderLinkedTemplate">
+        <TextBlock Text="{Binding DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType=sfGrid:SfDataGrid}, Converter={converter:LinkedPublicationCustomLabelLocalizationConverter}, ConverterParameter=CustomTextLabel4}" />
+    </DataTemplate>
+
+    <DataTemplate x:Key="SecurityAnomalyTemplate" DataType="{x:Type models:Anomaly}">
+        <Grid Background="Green">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="MaintenanceAnomalyTemplate" DataType="{x:Type models:Anomaly}" />
+
+    <DataTemplate x:Key="OperatorAnomalyTemplate" DataType="{x:Type models:Anomaly}" />
+
+</ResourceDictionary>

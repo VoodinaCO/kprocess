@@ -1,0 +1,584 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Referentials;
+@using KProcess.Ksmed.Models;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model ReferentialsViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Index";
+
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "ProcessLabelSort", direction = "Ascending" });
+    cols.Add(new { field = "Label", direction = "Ascending" });
+
+    List<object> toolbarItems = new List<object>();
+    toolbarItems.Add(new { text = LocalizedStrings.GetString("View_AdminReferentials_AddToStandard"), tooltipText = LocalizedStrings.GetString("View_AdminReferentials_AddToStandard_Tooltip"), prefixIcon = "e-addRef", id = "AddToStandard" });
+    if (Model.RefIdentifier != ProcessReferentialIdentifier.Skill)
+    {
+        toolbarItems.Add(new { text = LocalizedStrings.GetString("View_AdminReferentials_AddToProcess"), tooltipText = LocalizedStrings.GetString("View_AdminReferentials_AddToProcess_Tooltip"), prefixIcon = "e-addRef", id = "AddToProcess" });
+    }
+    toolbarItems.Add(new { text = LocalizedStrings.GetString("View_AdminReferentials_Edit"), tooltipText = LocalizedStrings.GetString("View_AdminReferentials_Edit_Tooltip"), prefixIcon = "e-editRef", id = "EditReferential" });
+    toolbarItems.Add("Delete");
+    if (Model.RefIdentifier != ProcessReferentialIdentifier.Skill)
+    {
+        toolbarItems.Add(new { text = LocalizedStrings.GetString("View_AdminReferentials_Merge"), tooltipText = LocalizedStrings.GetString("View_AdminReferentials_Merge_Tooltip"), prefixIcon = "e-mergeRef", id = "MergeReferentials" });
+    }
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .e-headercelldiv > .e-sortnumber {
+        display: none;
+    }
+
+    .e-columnheader > .e-grouptopleftcell {
+        cursor: default;
+    }
+</style>
+
+<div style="display: flex; flex-direction:column; height: 100%">
+    <div style="display: flex; align-items: baseline;">
+        <h3>@Model.RefLabel</h3>
+        <a class="editRefLabel" style="margin-left: 5px; @(ViewBag.LicenseExpired != null ? (ViewBag.LicenseExpired == true ? "pointer-events:none; opacity: 0;" : "cursor: pointer;") : "")"><span class="e-icons e-editLabel"></span></a>
+    </div>
+    <div style="flex: 1">
+        @(Html.EJS().Grid("Refs")
+            .Height("100%").Width("100%")
+            .DataSource(ds => ds.Json(Model.Refs.ToArray())
+                .UpdateUrl(Url.Action("UpdateReferential"))
+                .InsertUrl(Url.Action("InsertReferential"))
+                .CrudUrl(Url.Action("CRUDReferential"))
+                .Adaptor("RemoteSaveAdaptor"))
+            .EditSettings(edit =>
+            {
+                edit.AllowAdding(true)
+                    .AllowDeleting(true)
+                    .AllowEditing(true)
+                    .ShowConfirmDialog(true)
+                    .ShowDeleteConfirmDialog(true)
+                    .Mode(Syncfusion.EJ2.Grids.EditMode.Dialog)
+                    .Template("#editReftemplate");
+            })
+            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+            .AllowPaging()
+            .PageSettings(p => p.PageSize(25))
+            .Locale(ejLanguageCode)
+            .AllowTextWrap()
+            .AllowFiltering()
+            .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+            .AllowSorting()
+            .AllowMultiSorting()
+            .SortSettings(sort => sort.Columns(cols).AllowUnsort(false))
+            .AllowGrouping()
+            .GroupSettings(group =>
+            {
+                group.Columns(new string[] { "ProcessLabelSort" })
+                    .CaptionTemplate("#groupCaption")
+                    .ShowDropArea(false);
+            })
+            .EnableHover()
+            .Toolbar(toolbarItems)
+            .ToolbarClick("toolbarClick")
+            .Query("new ej.data.Query().addParams('refIdentifier', " + @Model.IntRefIdentifier + ")")
+            .Columns(col =>
+            {
+                col.Field("itemId").IsPrimaryKey(true)
+                    .Visible(false)
+                    .Add();
+                col.Field("Color")
+                    .HeaderText(" ")
+                    .Width(60)
+                    .AllowResizing(false)
+                    .AllowFiltering(false)
+                    .AllowSorting(false)
+                    .Add();
+                col.Field("Label")
+                    .HeaderText(LocalizedStrings.GetString("View_AdminReferentials_Label"))
+                    .ValidationRules(new { required = true })
+                    .AllowResizing(false)
+                    .MaxWidth("40%")
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("Description")
+                    .HeaderText(LocalizedStrings.GetString("View_Common_AppReferentials_Description"))
+                    .MinWidth("100px")
+                    .MaxWidth("40%")
+                    .AllowResizing(false)
+                    .AllowFiltering(false)
+                    .Add();
+                if (Model.RefIdentifier == ProcessReferentialIdentifier.Category)
+                {
+                    col.Field("ActionTypeLabel")
+                        .HeaderText(LocalizedStrings.GetString("View_AdminReferentials_ActionType"))
+                        .AllowResizing(false)
+                        .Add();
+                    col.Field("ActionValueLabel")
+                        .HeaderText(LocalizedStrings.GetString("View_AnalyzeBuild_Action_ActionValue"))
+                        .AllowResizing(false)
+                        .Add();
+                }
+                col.HeaderText(LocalizedStrings.GetString("View_AdminReferentials_AttachedFile"))
+                    .Template("#fileDisplay")
+                    .AllowResizing(false)
+                    .AllowFiltering(false)
+                    .Width(150)
+                    .Add();
+                col.Field("ProcessLabelSort").Visible(false).Add();
+                col.Field("ProcessLabel").Visible(false).Add();
+                col.Field("ProcessId").Visible(false).Add();
+            })
+            .ActionBegin("actionBegin")
+            .ActionComplete("actionComplete")
+            .ActionFailure("actionFailure")
+            .QueryCellInfo("gridQueryCellInfo")
+            .HeaderCellInfo("gridHeaderCellInfo")
+            .RowDataBound("gridRowDataBound")
+            .DataBound("gridDataBound")
+            .Render()
+        )
+    </div>
+</div>
+
+<script type="text/template" id="fileDisplay">
+    ${if (Hash != null)}
+    ${if (FileType == 'image')}
+    <div style="text-align:center"><img height="50" class="imagePopUp" src="${Uri}" title="${Hash}${Extension}" onclick="popUpImage(this)"></div>
+    ${else}
+    <a href="${Uri}">@LocalizedStrings.GetString("View_AdminReferentials_Uri_Download")</a>
+    ${/if}
+    ${/if}
+</script>
+
+<script id="editReftemplate" type="text/template">
+    <div id="dialogTemp">
+    </div>
+</script>
+
+<script id="groupCaption" type="text/x-jsrender">
+    ${if (key == '' || key == null)}
+    Standard
+    ${else}
+    ${key}
+    ${/if}
+</script>
+
+
+<script type="text/javascript">
+    window.uploadData = {};
+    refId = @Html.Raw(Model.IntRefIdentifier);
+    var autoFitColumns = ['Label'];
+    if (@Model.IntRefIdentifier == 3) {
+        var autoFitColumns = ['Label', 'ActionTypeLabel', 'ActionValueLabel'];
+    }
+
+    docReady(function () {
+        document.getElementById('Refs').parentElement.style.paddingTop = "15px";
+        document.getElementById('Refs').parentElement.style.paddingBottom = "15px";
+
+        //document.getElementById('uploadFile_SelectButton').value = "Parcourir";
+
+        var editRefLabels = document.querySelectorAll('.editRefLabel');
+        for (var i = 0, len = editRefLabels.length; i < len; ++i) {
+            var elt = editRefLabels[i];
+            elt.onclick = function () {
+                if (checkReadOnlyCondition())
+                    return;
+                var icon = elt.querySelector('.e-icons');
+                if (icon.classList.contains('e-editLabel')) {
+                    icon.classList.add('e-labelSave');
+                    icon.classList.remove("e-editLabel");
+                    $(elt.previousElementSibling).html('<input type="textbox" id="editRefLabelTb" value="' + elt.previousElementSibling.innerHTML + '">');
+
+                    document.getElementById('editRefLabelTb').addEventListener('keypress', function (e) {
+                        // Enter pressed
+                        if (e.keyCode == 13) {
+                            updateReferentialLabel(elt.previousElementSibling);
+                        }
+                    });
+                }
+                else {
+                    updateReferentialLabel(elt.previousElementSibling);
+                }
+            };
+        }
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function updateReferentialLabel(textbox) {
+        if (document.getElementById('editRefLabelTb').value != "") {
+            var newLabel = document.getElementById('editRefLabelTb').value;
+            var refId = @Model.IntRefIdentifier;
+            $.ajax({
+                url: "/Referentials/ChangeRefLabel?refId=" + refId + "&label=" + encodeURIComponent(newLabel),
+                type: "GET",
+                success: function (data) {
+                    if (data.success) {
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Success")", content: "@LocalizedStrings.GetString("LabelChangeSuccessful")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+                        $(textbox).html(newLabel);
+                        var icon = textbox.nextElementSibling.querySelector('.e-icons');
+                        if (icon.classList.contains('e-labelSave')) {
+                            icon.classList.add('e-editLabel');
+                            icon.classList.remove("e-labelSave");
+                        }
+                        var tabElt = document.querySelector("div .@(Model.RefIdentifier.ToString())[role='tab']");
+                        var tabHeader = tabElt.querySelector(".e-tab-text[role='presentation']");
+                        $(tabHeader).html(newLabel);
+                    }
+                    else {
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: data.message, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                    }
+                },
+                error: function (data) {
+                    document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("LabelChangeError")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                }
+            });
+
+        } else {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("LabelChangeEmptyWarning")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Color") {
+            args.cell.style.backgroundColor = args.data["Color"];
+            args.cell.innerText = "";
+        }
+        if (args.column.field == "ActionTypeLabel") {
+            if (args.data.ActionTypeLabel == "") {
+                args.cell.innerText = "@LocalizedStrings.GetString("View_AppActionCategories_ActionType_None")";
+            }
+        }
+    }
+
+    function gridHeaderCellInfo(args) {
+        if (args.cell.column.allowSorting === false) {
+            args.node.style.cursor = "default";
+        }
+    }
+
+    function gridRowDataBound(args) {
+        args.rowHeight = 67;
+    }
+
+    function gridDataBound(args) {
+        this.autoFitColumns(autoFitColumns);
+    }
+
+    function toolbarClick(args) {
+        var toolbar = args.item.id;
+        if ((toolbar === "EditReferential" || toolbar === "Refs_delete") && this.getSelectedRecords().length == 0) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (toolbar) {
+                case "Refs_delete":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                    break;
+                case "EditReferential":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                    break;
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            return;
+        }
+        if (toolbar=='AddToStandard') {
+            isAddProcess = false;
+            var gridObj = document.getElementById('Refs').ej2_instances[0];
+            gridObj.addRecord();
+        } else if (toolbar == 'AddToProcess') {
+            isAddProcess = true;
+            var gridObj = document.getElementById('Refs').ej2_instances[0];
+            gridObj.addRecord();
+
+        } else if (toolbar=='MergeReferentials') {
+            if (this.getSelectedRecords().length == 0) {
+                var msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            }
+            else {
+                var Id = this.getSelectedRecords()[0].itemId;
+                var refLabel = this.getSelectedRecords()[0].Label;
+                $.ajax({
+                    url: "/Referentials/GetReferentialListForMerge?Id=" + Id + "&refId=@Model.IntRefIdentifier",
+                    type: "GET",
+                    cache: false,
+                    success: function (data) {
+                        if (data.success) {
+                            var refs = data.refs;
+                            var obj = document.getElementById('ReferentialMergeList').ej2_instances[0];
+                            obj.dataSource = refs;
+                            $("#mergeTarget").text(refLabel);
+                            $("#mergeMasterId").text(Id);
+                            if (refs.length > 0) $("#mergeSaveButton").show();
+                            else $("#mergeSaveButton").hide();
+
+                            var referentialListDialog = document.getElementById('referentialListDialog').ej2_instances[0];
+                            referentialListDialog.height = "auto";
+                            referentialListDialog.width = "auto";
+                            referentialListDialog.show();
+                        }
+                        else {
+                            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: data.message, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                        }
+                    },
+                    error: function (data) {
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("MergeFailed")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                    }
+                });
+
+            }
+        } else if (toolbar=='EditReferential') {
+            if (this.getSelectedRecords().length == 0) {
+                var msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            }
+            else {
+                var refId = @( (Int16) Model.RefIdentifier);
+                var Id = this.getSelectedRecords()[0].itemId;
+                var ajax = new ej.base.Ajax({
+                    url: "/Referentials/GetReferential?id=" + Id + "&refId=" + refId,
+                    type: "POST",
+                    contentType: "application/json"
+                });
+                ajax.send().then(function (data) {
+                    var gridObj = document.getElementById('Refs').ej2_instances[0];
+                    var selectedRow = gridObj.getSelectedRecords();
+                    gridObj.startEdit(selectedRow[0]);
+                    //$("#dialogTemp").html(data); //Render the edit form with selected record
+                    //args.form.elements.namedItem('itemId').focus();
+                    $(".hideControl").attr("style", "display: none");
+                }).catch(function (xhr) {
+                    console.log(xhr);
+                    location.reload();
+                });
+            }
+        }
+
+    }
+
+    function actionBegin(args) {
+        if (args.requestType == "save")
+        {
+            //ProcessId
+            var processIdEle = document.getElementById('ProcessId');
+            if (processIdEle.type != 'hidden') {
+                var processValue = document.getElementById('ProcessId').ej2_instances[0].value;
+                if (processValue == "")
+                    args.data['ProcessId'] = null;
+                else
+                    args.data["ProcessId"] = processValue;
+            }
+
+            //Color
+            var colorValue = document.getElementById('Color').ej2_instances[0].value;
+            if (colorValue == "")
+                args.data['Color'] = null;
+            else
+                args.data["Color"] = colorValue;
+
+            //ActionTypeCode
+            if (document.getElementById('ActionTypeCode') !== null) {
+                var actionTypeCodeValue = document.getElementById('ActionTypeCode').ej2_instances[0].value;
+                if (actionTypeCodeValue == "")
+                    args.data['ActionTypeCode'] = null;
+                else
+                    args.data["ActionTypeCode"] = actionTypeCodeValue;
+            }
+
+            //ActionValueCode
+            if (document.getElementById('ActionValueCode') !== null) {
+                var actionValueCodeValue = document.getElementById('ActionValueCode').ej2_instances[0].value;
+                if (actionValueCodeValue == "")
+                    args.data['ActionValueCode'] = null;
+                else
+                    args.data["ActionValueCode"] = actionValueCodeValue;
+            }
+
+            args.data["Uri"] = $("#fileInput").text();
+            if (window.uploadData != null && window.uploadData.upfile != null) {
+                args.data["Uri"] = $("#urlFile").val();
+                args.data["TusId"] = $("#tusId").val();
+            }
+        }
+        if (args.requestType == "delete") {
+            var index = checkParamExist(this.query.params, "ItemId");
+            if (index > -1)
+                this.query.params.splice(index, 1);
+            this.query.addParams("ItemId", args.data[0].itemId);
+        }
+    }
+
+    function checkParamExist(array, key) {
+        for (var i = 0; i < array.length; i++) {
+            if (array[i].key == key)
+                return i;
+        }
+        return -1;
+    }
+
+    function feedGlobalUpload(args) {
+        if (args.filesData[0] != null)
+        {
+            uploadData["upfile"] = args.filesData[0].rawFile;
+            var filename = args.filesData[0].name;
+            $("#fileInput").html(filename);
+            $("#clearFileButton").css("display", "block");
+            uploadViaTus();
+        }
+    }
+
+    function actionFailure(args) {
+        var str = "";
+        if (args.hasOwnProperty("error")) {
+            str = args.error[0].error.statusText;
+        }
+        if (args.length > 0) {
+            str = args[0].error.statusText;
+        }
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: str, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        this.cancel = true;
+    }
+
+    function actionComplete(args) {
+        if (args.requestType === 'beginEdit') {
+            args.dialog.width = "600px";
+            window.uploadData = {};
+            var spinner = ej.popups.createSpinner({ target: args.dialog.element });
+            ej.popups.showSpinner(args.dialog.element);
+            args.dialog.header = "Détails de \"" + args.rowData.Label + "\"";
+            var ajax = new ej.base.Ajax({
+                url: "/Referentials/GetReferential?id=" + args.rowData.itemId + "&refId=@Model.IntRefIdentifier", //render the partial view
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ value: args.rowData })
+            });
+            ajax.send().then(function (data) {
+                $('#dialogTemp').html(data); //Render the edit form with selected record
+                args.form.elements.Label.focus();
+                ej.popups.hideSpinner(args.dialog.element);
+            }).catch(function (xhr) {
+                console.log(xhr);
+                ej.popups.hideSpinner(args.dialog.element);
+                location.reload();
+            });
+            args.form.addEventListener('keyup', function (e) {
+                this.ej2_instances[0].validate(e.target.name);
+            });
+        } else if (args.requestType === 'add') {
+            args.dialog.width = "600px";
+            var spinner = ej.popups.createSpinner({ target: args.dialog.element });
+            ej.popups.showSpinner(args.dialog.element);
+            args.dialog.header = "@LocalizedStrings.GetString("Common_NewRecordHeader")";
+            var ajax = new ej.base.Ajax({
+                url: "/Referentials/GetReferential?id=0&refId=@Model.IntRefIdentifier&linkToProcess=" + isAddProcess, //render the partial view
+                type: "POST",
+                contentType: "application/json",
+            });
+            ajax.send().then(function (data) {
+                $('#dialogTemp').html(data); //Render the edit form with selected record
+                args.form.elements.Label.focus();
+                ej.popups.hideSpinner(args.dialog.element);
+            }).catch(function (xhr) {
+                console.log(xhr);
+                ej.popups.hideSpinner(args.dialog.element);
+                location.reload();
+            });
+            args.form.addEventListener('keyup', function (e) {
+                this.ej2_instances[0].validate(e.target.name);
+            });
+        } else if (args.requestType == "cancel") {
+            window.uploadData = {};
+            this.clearSelection();
+        } else if (args.requestType == "save") {
+            if ($("#fileInput").text() != "") {
+                //this.element.ejWaitingPopup("show");
+                //uploadFile(args, this);
+                //uploadViaTus();
+            }
+            var grid = document.getElementById("Refs").ej2_instances[0];
+            originalDS = grid.dataSource.dataSource.json;
+        } else if (args.requestType == "delete") {
+            var grid = document.getElementById("Refs").ej2_instances[0];
+            originalDS = grid.dataSource.dataSource.json;
+        }
+    }
+
+    $.validator.setDefaults({
+        //to validate all fields(hidden also)
+        ignore: [],
+        //if we don’t set custom class, default “error” class will be added
+        errorClass: 'e-validation-error',
+        //it specifies the error message display position
+        errorPlacement: function (error, element) {
+            $(error).insertAfter(element.closest(".e-widget"));
+        }
+    });
+
+    function mergeOperation() {
+        var mergeIds = [];
+        var masterId = $("#mergeMasterId").text();
+        //var listBox = $("#ReferentialMergeList").data("ejListBox");
+        var listBox = document.getElementById('ReferentialMergeList').ej2_instances[0];
+        //var list = listBox._checkedItems;
+        var list = listBox.getSelectedItems();
+        if (list.data.length > 0)
+        {
+            $("#referentialList").modal("hide");
+            for (var i = 0; i < list.data.length; i++) {
+                mergeIds.push(list.data[i].itemId);
+            }
+            $.ajax({
+                url: "/Referentials/MergeReferentials",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({ masterId: masterId, mergeIds: mergeIds, refIdentifier: @Model.IntRefIdentifier}),
+                dataType: 'json',
+                type: "POST",
+                cache: false,
+                success: function (data) {
+                    if (data.success) {
+                        console.log("merge");
+                        document.getElementById('referentialListDialog').ej2_instances[0].hide();
+                        @if (Model.RefIdentifier == ProcessReferentialIdentifier.Operator || Model.RefIdentifier == ProcessReferentialIdentifier.Equipment)
+                        {
+                            <text>
+                            LoadPartial('/Referentials/Resources', '#refTabContainer', null, null, -1);
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                            LoadPartial('/Referentials/Referentials?refId=@Model.IntRefIdentifier', '#refTabContainer', null, null, -1);
+                            setLocationRefId("@Model.IntRefIdentifier");
+                            setIsRefreshing(false);
+                            </text>
+                        }
+                    }
+                    else {
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: data.message, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+
+@Html.EJS().ScriptManager()
+

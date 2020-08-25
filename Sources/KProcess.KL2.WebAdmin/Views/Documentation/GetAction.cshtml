@@ -1,0 +1,585 @@
+@using KProcess.KL2.WebAdmin.Models.Skill;
+@using Syncfusion.EJ2.DropDowns;
+@using KProcess.Ksmed.Models;
+@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model GetActionModel
+
+@Styles.Render("~/Content/ej2/custom/multi-select-input.css")
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    #crudDialog {
+        max-height: calc(100% - 20px) !important;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        min-height: 0px;
+    }
+
+        #crudDialog .e-dlg-header-content {
+            flex: none;
+        }
+
+        #crudDialog .e-dlg-content {
+            flex: auto;
+        }
+
+        #crudDialog .e-footer-content {
+            flex: none;
+        }
+
+    .referential-quantity {
+        margin: 10px 0px;
+        width: 100% !important;
+    }
+
+    #control-container {
+        padding: 0px !important;
+    }
+
+    /*.e-popup.e-popup .e-list-item * {
+        display: block;
+        text-indent: 0;
+    }*/
+
+    .e-bigger .e-popup .e-dropdownbase .e-list-item {
+        line-height: 42px;
+        height: 80px;
+    }
+
+    .e-bigger .e-popup.e-popup .empImage {
+        margin: 10px 16px;
+    }
+
+    /*.e-popup.e-popup .e-list-item * {
+        display: block;
+        text-indent: 0;
+    }*/
+
+    .e-bigger .e-popup .e-dropdownbase .e-list-item {
+        line-height: 42px;
+        height: 80px;
+    }
+
+    .e-bigger .e-popup.e-popup .empImage {
+        margin: 10px 16px;
+    }
+
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
+
+    .quantityInput {
+        background: transparent;
+    }
+</style>
+
+<form id="taskForm" style="min-width:500px;">
+    <div>
+        <div id="action-form" class="box-body">
+            <div class="row">
+                <div class="col-md-6">
+
+                    @*File upload storage*@
+                    <input type="hidden" id="hashFile" />
+
+                    <div class="form-group required">
+                        <label class="control-label">@LocalizedStrings.GetString("View_Documentation_Label")</label>
+                        @(Html.EJS().TextBox("Label")
+                                    .Value(Model.DocumentationActionDraftWBS.DocumentationActionDraft.Label)
+                                    .CssClass("form-control")
+                                    .HtmlAttributes(new Dictionary<string, object>() { ["tabindex"] = "1" })
+                                    .Render()
+                        )
+                    </div>
+                    <div class="form-group">
+                        @(Html.EJS().CheckBox("IsKeyTask")
+                                    .Checked(Model.DocumentationActionDraftWBS.DocumentationActionDraft.IsKeyTask)
+                                    .Label(LocalizedStrings.GetString("View_Documentation_KeyTask"))
+                                    .Render()
+                        )
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group required">
+                        <label class="control-label">@LocalizedStrings.GetString("View_Documentation_Duration") (@ViewBag.TimeScaleHeader)</label>
+                        @(Html.EJS().MaskedTextBox("DurationString")
+                                    .Mask((string)ViewBag.TimeScaleMask)
+                                    .CssClass("form-control")
+                                    .HtmlAttributes(new Dictionary<string, object>() { ["tabindex"] = "2", ["regex"] = ViewBag.JsTimeScaleMask, ["data-regex-message"] = LocalizedStrings.GetString("Common_InvalidField"), ["data-msg-containerid"] = "requiredDurationError" })
+                                    .Change("durationChange")
+                                    .Render()
+                        )
+                        <div id="requiredDurationError" style="position: absolute;"></div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">@LocalizedStrings.GetString("View_Documentation_Skill")</label>
+                        @*@Html.DropDownListFor(o => o.SkillId, Model.Skills.Select(u => new SelectListItem { Text = u.Label, Value = u.Id.ToString() }), new { @class = "form-control" })*@
+                        @(Html.EJS().DropDownList("SkillId")
+                                    .DataSource((IEnumerable<SkillViewModel>)Model.Skills)
+                                    .Value(Model.DocumentationActionDraftWBS.DocumentationActionDraft.SkillId ?? -1)
+                                    .Placeholder(LocalizedStrings.GetString("View_Documentation_SkillsSelection"))
+                                    .Fields(df => df.Text("Label").Value("Id"))
+                                    //.ShowClearButton()
+                                    .Render()
+                        )
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label class="control-label">@LocalizedStrings.GetString("View_Documentation_Image")</label>
+                        <div id="uploadboxDiv">
+                            @(Html.EJS().Uploader("uploadFile")
+                                        .Locale(ejLanguageCode)
+                                        .Multiple(false)
+                                        .AutoUpload(true)
+                                        .AsyncSettings(new Syncfusion.EJ2.Inputs.UploaderAsyncSettings { SaveUrl = Url.Action("SaveDefault") })
+                                        .Success("uploadSuccess")
+                                        .Failure("uploadFailure")
+                                        .Buttons(new Syncfusion.EJ2.Inputs.UploaderButtonsProps
+                                        {
+                                            Browse = LocalizedStrings.GetString("View_Documentation_Browse")
+                                        })
+                                        .Files(f =>
+                                        {
+                                            if (Model.DocumentationActionDraftWBS.DocumentationActionDraft.Thumbnail == null)
+                                                f.Add();
+                                            else
+                                                f.Name(Model.DocumentationActionDraftWBS.DocumentationActionDraft.Thumbnail.Hash)
+                                                    .Size(0)
+                                                    .Type(Model.DocumentationActionDraftWBS.DocumentationActionDraft.Thumbnail.Extension)
+                                                    .Add();
+                                        })
+                                        .Template("${getUploadedFileTemplate(data)}")
+                                        .Render()
+                            )
+                        </div>
+                        <button id="clearFileButton" class="e-btn" type="button" onclick="clearFile()" style="display: @(Model.DocumentationActionDraftWBS.DocumentationActionDraft.Thumbnail == null ? "none" : "block");">@LocalizedStrings.GetString("View_Documentation_RemoveFile")</button>
+                        <br />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">@LocalizedStrings.GetString("Grid_PublishedResourceHeaderText")</label>
+                        @(Html.EJS().DropDownList("ResourceId")
+                                            .DataSource((IList<ReferentialFieldElement>)Model.Referentials.FirstOrDefault(r => r.ReferentialFieldId == ProcessReferentialIdentifier.Operator || r.ReferentialFieldId == ProcessReferentialIdentifier.Equipment).ReferentialsFieldElements)
+                                            .Value(Model.DocumentationActionDraftWBS.DocumentationActionDraft.ResourceId)
+                                            .Placeholder(LocalizedStrings.GetString("View_Documentation_ResourceSelection"))
+                                            .Fields(df => df.Text("Label").Value("Id").GroupBy("CategoryAsLabel"))
+                                            .Render()
+                        )
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">@LocalizedStrings.GetString("Grid_PublishedActionCategoryHeaderText")</label>
+                        @(Html.EJS().DropDownList("CategoryId")
+                                            .DataSource((IList<ReferentialFieldElement>)Model.Referentials.FirstOrDefault(r => r.ReferentialFieldId == ProcessReferentialIdentifier.Category).ReferentialsFieldElements)
+                                            .Value(Model.DocumentationActionDraftWBS.DocumentationActionDraft.ActionCategoryId)
+                                            .Placeholder(LocalizedStrings.GetString("View_Documentation_CategorySelection"))
+                                            .Fields(df => df.Text("Label").Value("Id").GroupBy("CategoryAsLabel"))
+                                            .Render()
+                        )
+                    </div>
+                </div>
+            </div>
+
+            @foreach (var referentialField in Model.Referentials.Where(r => r.ReferentialFieldId.IsRefs()))
+            {
+                var defaultValues = Model.DocumentationActionDraftWBS.DocumentationActionDraft.ReferentialDocumentations
+                    .Where(_ => _.RefNumber == (int)referentialField.ReferentialFieldId - 3)
+                    .Select(_ => _.ReferentialId)
+                    .ToList();
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="@referentialField.ReferentialFieldId" class="control-label">@referentialField.ReferentialFieldName</label>
+
+                            <div style="display:flex">
+                                @if (referentialField.HasQuantity)
+                                {
+                                    @(Html.EJS().MultiSelect($"{referentialField.ReferentialFieldId}")
+                                        .DataSource(referentialField.ReferentialsFieldElements)
+                                        .Value(defaultValues)
+                                        //.MaximumSelectionLength(!referentialField.HasMultipleSelection ? 1 : int.MaxValue)
+                                        //.GroupTemplate("<strong>${Category}</strong>")
+                                        .CssClass(!referentialField.HasMultipleSelection ? "NoMultipleSelection" : "")
+                                        .Select("onSelectReferential")
+                                        .Open("onOpen")
+                                        .ChipSelection("onChipSelection")
+                                        .Mode(VisualMode.Box)
+                                        .Placeholder("Select a value")
+                                        .PopupHeight("270px")
+                                        .Fields(new MultiSelectFieldSettings { Value = "Id", Text = "Label", GroupBy = "CategoryAsLabel" })
+                                        .ValueTemplate("<div style=\"width:100%;height:100%;\"><div class=\"name\"> ${Label} </div></div> <div class=\"e-input-group\" style=\"display:block\"><input id=\"" + referentialField.ReferentialFieldId.ToString() + "Quantity_${Id}\" class=\"e-chip-input quantityInput\" onfocusout=\"quantityFocusOut()\" value=\"${if(Quantity == 0 || Quantity == undefined)}1${else}${Quantity}${/if}\" type=\"number\" min=\"1\" placeholder=\"Quantity\" onkeypress=\"restrictInput(event);\" /> </div></div>")
+                                        .Render()
+                                    )
+                                }
+                                else
+                                {
+                                    @(Html.EJS().MultiSelect($"{referentialField.ReferentialFieldId}")
+                                        .DataSource(referentialField.ReferentialsFieldElements)
+                                        .Value(defaultValues)
+                                        //.MaximumSelectionLength(!referentialField.HasMultipleSelection ? 1 : int.MaxValue)
+                                        //.GroupTemplate("<strong>${CategoryAsLabel}</strong>")
+                                        .CssClass(!referentialField.HasMultipleSelection ? "NoMultipleSelection" : "")
+                                        .Open("onOpen")
+                                        .Select("onSelectReferential")
+                                        .ChipSelection("onChipSelection")
+                                        .Mode(VisualMode.Box)
+                                        .Placeholder("Select a value")
+                                        .PopupHeight("270px")
+                                        .Fields(new MultiSelectFieldSettings { Value = "Id", Text = "Label", GroupBy = "CategoryAsLabel" })
+                                        .ValueTemplate("<div style=\"width:100%;height:100%;padding:10px\"><div class=\"name\"> ${Label} </div></div></div>")
+                                        .Render()
+                                    )
+
+                                }
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div class="row">
+                <div class="col-md-6">
+                    @foreach (var referentialField in Model.Referentials.Where(r => r.ReferentialFieldId.IsCustomTextLabel()))
+                    {
+                        string customValue = null;
+                        switch (referentialField.ReferentialFieldId)
+                        {
+                            case ProcessReferentialIdentifier.CustomTextLabel:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomTextValue;
+                                break;
+                            case ProcessReferentialIdentifier.CustomTextLabel2:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomTextValue2;
+                                break;
+                            case ProcessReferentialIdentifier.CustomTextLabel3:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomTextValue3;
+                                break;
+                            case ProcessReferentialIdentifier.CustomTextLabel4:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomTextValue4;
+                                break;
+                        }
+
+                        <div class="form-group">
+                            <label class="control-label">@referentialField.ReferentialFieldName</label>
+                            @(Html.EJS().TextBox($"{referentialField.ReferentialFieldId}")
+                                        .Value(customValue)
+                                        .Render()
+                            )
+                        </div>
+                    }
+                </div>
+                <div class="col-md-6">
+                    @foreach (var referentialField in Model.Referentials.Where(r => r.ReferentialFieldId.IsCustomNumericLabel()))
+                    {
+                        double? customValue = null;
+                        switch (referentialField.ReferentialFieldId)
+                        {
+                            case ProcessReferentialIdentifier.CustomNumericLabel:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomNumericValue;
+                                break;
+                            case ProcessReferentialIdentifier.CustomNumericLabel2:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomNumericValue2;
+                                break;
+                            case ProcessReferentialIdentifier.CustomNumericLabel3:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomNumericValue3;
+                                break;
+                            case ProcessReferentialIdentifier.CustomNumericLabel4:
+                                customValue = Model.DocumentationActionDraftWBS.DocumentationActionDraft.CustomNumericValue4;
+                                break;
+                        }
+
+                        <div class="form-group">
+                            <label class="control-label">@referentialField.ReferentialFieldName</label>
+                            @(Html.EJS().NumericTextBox($"{referentialField.ReferentialFieldId}")
+                                        .Locale(ejLanguageCode)
+                                        .Format("###.##########")
+                                        .FloatLabelType(Syncfusion.EJ2.Inputs.FloatLabelType.Never)
+                                        .ShowSpinButton(false)
+                                        .Decimals(10)
+                                        .ValidateDecimalOnType(true)
+                                        .Value(customValue)
+                                        .Render()
+                            )
+                        </div>
+                    }
+                </div>
+            </div>
+
+            @* Submit button *@
+            @*<div class="row" style="display: flex; min-width: 0px; flex-direction: row-reverse;">
+                    @(Html.EJS().Button("submitTask")
+                        .Content(LocalizerUtils.LocalizedStrings.GetString("Common_Validate"))
+                        .CssClass("e-primary")
+                        .HtmlAttributes(new Dictionary<string, object> { ["onclick"] = $"submitForm('{Model.Verb}')", ["style"] = "margin-right: 12px;" })
+                        .Render()
+                    )
+                </div>*@
+
+        </div>
+    </div>
+</form>
+
+<script type="text/javascript">
+    var formValidator = null;
+
+    var currentDocumentationAction = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model)));
+    var currentFile = null;
+    var submitButton = null;
+
+    docReady(function () {
+        document.getElementById('crudDialog').querySelector('.e-footer-content').style.display = "block";
+        submitButton = new ej.buttons.Button({
+            cssClass: 'e-primary',
+            content: '@LocalizedStrings.GetString("Common_Validate")'
+        });
+        submitButton.appendTo('#submitTask');
+        document.getElementById('submitTask').onclick = function (args) {
+            submitForm('@Html.Raw(Model.Verb)');
+        }
+
+        currentFile = currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.Thumbnail;
+
+        document.getElementById('DurationString').ej2_instances[0].value = "@Model.DocumentationActionDraftWBS.DocumentationActionDraft.DurationString";
+        @foreach (var referentialField in Model.Referentials.Where(r => r.ReferentialFieldId.IsRefs()))
+        {
+            if (referentialField.HasQuantity)
+            {
+                <text>
+        document.getElementById('@referentialField.ReferentialFieldId').ej2_instances[0].value.forEach(function (selectRef) {
+            var refData = currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ReferentialDocumentations.find(function (elt) { return elt.RefNumber === @((int)referentialField.ReferentialFieldId - 3) && elt.ReferentialId == selectRef; });
+            document.getElementById("@referentialField.ReferentialFieldId" + "Quantity_" + selectRef).value = refData.Quantity.toString();
+        });
+                </text>
+            }
+        }
+
+        // Initialize Form validation
+        var validatorOptions = {
+            rules: {
+                    'Label': {
+                        required: [true, '@LocalizedStrings.GetString("Common_RequiredField")'],
+                        maxLength: [@ActionReferentialProperties.LabelMaxLength, '@LocalizedStrings.GetString("Common_MaxLength", DocumentationActionDraft.LabelMaxLength.ToString())']
+                    }
+                },
+            customPlacement: function (inputElement, errorElement) {
+                inputElement.parentNode.parentNode.appendChild(errorElement);
+            },
+            validationComplete: function (args) {
+                var validateButton = document.getElementById('submitTask').ej2_instances[0];
+                if (args.status == "failure") {
+                    args.element.parentElement.classList.add("e-error");
+                    validateButton.disabled = true;
+
+                } else if (args.status == "success") {
+                    args.element.parentElement.classList.remove("e-error");
+                    validateButton.disabled = false;
+                }
+            }
+        };
+        formValidator = new ej.inputs.FormValidator('#taskForm', validatorOptions);
+        formValidator.validate();
+    });
+
+    function getUploadedFileTemplate(data) {
+        if (data.name && data.name != null && data.name != "") {
+            return "<img height='200px' src='" + "@Html.Raw(System.Web.Configuration.WebConfigurationManager.AppSettings["FileServerUri"])" + "/GetFile/" + data.name + "'>";
+        }
+        return "";
+    }
+
+    function durationChange() {
+        formValidator.validate("DurationString");
+    }
+
+    function getDuration(durationString) {
+        var splitDuration = durationString.split(':').map(function (elt) { return parseFloat(elt); });
+        var hours = splitDuration[0];
+        var minutes = splitDuration[1];
+        var seconds = splitDuration[2];
+        return ((hours * 3600) + (minutes * 60) + seconds) * 10000000;
+    }
+
+    function submitForm(verb) {
+        @if (string.IsNullOrEmpty(Model.DocumentationActionDraftWBS.WBS))
+        {
+            <text>
+        currentDocumentationAction.DocumentationActionDraftWBS.TreeId = getNextActionId(currentDocumentationAction.PublishMode);
+        setWBS(currentDocumentationAction.DocumentationActionDraftWBS, getNextWBS(currentDocumentationAction.PublishMode));
+            </text>
+        }
+        //Validation
+        if (document.getElementById('Label').value == "" || isNaN(getDuration(document.getElementById('DurationString').value)) ) {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("AskFillRequired")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            return;
+        }
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.Label = document.getElementById('Label').value;
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.IsKeyTask = document.getElementById('IsKeyTask').ej2_instances[0].checked;
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.Duration = getDuration(document.getElementById('DurationString').value);
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.DurationString = document.getElementById('DurationString').value.replace(/:/g,'').replace('.','');
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.SkillId = parseInt(document.getElementById('SkillId').ej2_instances[0].value);
+        var resourceRef = document.getElementById('ResourceId').ej2_instances[0];
+        if (resourceRef.value != null) {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ResourceId = resourceRef.value;
+        }
+        var categoryRef = document.getElementById('CategoryId').ej2_instances[0];
+        if (categoryRef.value != null) {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ActionCategoryId = categoryRef.value;
+        }
+
+        if (currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.SkillId === -1) {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.SkillId = null;
+        }
+        if (currentFile == null) {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ThumbnailHash = null;
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.Thumbnail = null;
+        } else {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ThumbnailHash = currentFile.Hash;
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.Thumbnail = currentFile;
+        }
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ReferentialDocumentations = [];
+        @foreach (var referentialField in Model.Referentials.Where(r => r.ReferentialFieldId.IsRefs()))
+        {
+            if (referentialField.HasQuantity)
+            {
+                <text>
+        document.getElementById('@referentialField.ReferentialFieldId').ej2_instances[0].value.forEach(function (selectRef) {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ReferentialDocumentations.push({
+                RefNumber: @((int)referentialField.ReferentialFieldId - 3),
+                ReferentialId: selectRef,
+                Quantity: parseInt(document.getElementById("@referentialField.ReferentialFieldId" + "Quantity_" + selectRef).value)
+            });
+        });
+                </text>
+            }
+            else
+            {
+                <text>
+        document.getElementById('@referentialField.ReferentialFieldId').ej2_instances[0].value.forEach(function (selectRef) {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.ReferentialDocumentations.push({
+                RefNumber: @((int)referentialField.ReferentialFieldId - 3),
+                ReferentialId: selectRef,
+                Quantity: 1
+            });
+        });
+                </text>
+            }
+        }
+        @foreach (var referentialField in Model.Referentials.Where(r => r.ReferentialFieldId.IsCustomTextLabel()))
+        {
+            <text>
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.@(referentialField.ReferentialFieldId.ToString().Replace("Label", "Value")) = document.getElementById('@referentialField.ReferentialFieldId').value;
+        if (currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.@(referentialField.ReferentialFieldId.ToString().Replace("Label", "Value")) == "") {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.@(referentialField.ReferentialFieldId.ToString().Replace("Label", "Value")) = null;
+        }
+            </text>
+        }
+        @foreach (var referentialField in Model.Referentials.Where(r => r.ReferentialFieldId.IsCustomNumericLabel()))
+        {
+            <text>
+        currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.@(referentialField.ReferentialFieldId.ToString().Replace("Label", "Value")) = parseFloat(document.getElementById('@referentialField.ReferentialFieldId').value.replace(',', '.'));
+        if (isNaN(currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.@(referentialField.ReferentialFieldId.ToString().Replace("Label", "Value")))) {
+            currentDocumentationAction.DocumentationActionDraftWBS.DocumentationActionDraft.@(referentialField.ReferentialFieldId.ToString().Replace("Label", "Value")) = null;
+        }
+            </text>
+        }
+
+        crudTask(verb, currentDocumentationAction.DocumentationActionDraftWBS);
+    }
+
+    var inputEle = null;
+    function quantityFocusOut() {
+        inputEle = null;
+    }
+    function onChipSelection(e) {
+        e.cancelBubble = true;
+        var chips = e.target.closest('.e-chips.e-chip-selected')
+        chips.classList.remove("e-chip-selected");
+        inputEle = chips.querySelector('.e-chip-input');
+        inputEle.parentElement.style.display = "block";
+        var multiselect = e.target.closest('.e-multi-select-wrapper').querySelector('input.e-control.e-multiselect').ej2_instances[0];
+        if (multiselect.listData.length == multiselect.value.length) {
+            setTimeout(function () {
+                inputEle && inputEle.focus();
+                inputEle = null;
+            }, 0);
+        }
+    }
+
+    function onSelectReferential(args) {
+        var ele = this;
+        if (ele.value.length > 0 && ele.cssClass.indexOf('NoMultipleSelection') !== -1) {
+            args.cancel = true;
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString( "Common_MultipleSelectionError")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+    }
+    function onOpen(args) {
+        if (inputEle) {
+            args.cancel = true;
+            inputEle.focus();
+            inputEle = null;
+        }
+    }
+
+    function clearFile() {
+        currentFile = null;
+        document.getElementById('uploadFile').ej2_instances[0].remove();
+        document.getElementById('clearFileButton').style.display = "none";
+    }
+
+    function uploadSuccess(args) {
+        currentFile = JSON.parse(args.e.currentTarget.response);
+        var uploader = document.getElementById('uploadFile').ej2_instances[0];
+        args.file.name = currentFile.FileName;
+        args.file.rawFile = null;
+        $(uploader.fileList[0]).html("<img height='200px' src='" + "@Html.Raw(System.Web.Configuration.WebConfigurationManager.AppSettings["FileServerUri"])" + "/GetFile/" + currentFile.FileName + "'>");
+        document.getElementById('clearFileButton').style.display = "block";
+    }
+
+    function uploadFailure(args) {
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@(LocalizedStrings.GetString("Common_Error"))", content: "L'upload a échoué", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+    }
+
+    function restrictInput(e) {
+        var inputKeyCode = e.keyCode ? e.keyCode : e.which;
+        if (inputKeyCode != null) {
+            var key = Number(e.key);
+            if (isNaN(key)) {
+                e.preventDefault();
+            }
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

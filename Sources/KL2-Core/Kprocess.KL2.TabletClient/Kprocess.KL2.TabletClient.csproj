@@ -1,0 +1,750 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6FDAFFB8-BF9C-4700-8A42-A51018246829}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Kprocess.KL2.TabletClient</RootNamespace>
+    <AssemblyName>Kprocess.KL2.TabletClient</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>..\..\..\Assets\kl2_FieldService.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Kprocess.KL2.TabletClient.Program</StartupObject>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="AttachBehaviors\TreeviewExpandBehavior.cs" />
+    <Compile Include="Behaviors\LoadingContentBehavior.cs" />
+    <Compile Include="Behaviors\ExitDialogBehavior.cs" />
+    <Compile Include="Behaviors\FrictionScrollableBehavior.cs" />
+    <Compile Include="Behaviors\SyncMediaElementBehavior.cs" />
+    <Compile Include="Behaviors\ScrollableBehavior.cs" />
+    <Compile Include="Behaviors\DXVA2_Behavior.cs" />
+    <Compile Include="Behaviors\CustomColumnSizerBehavior.cs" />
+    <Compile Include="Behaviors\GridColumnSizerBehavior.cs" />
+    <Compile Include="Behaviors\LinkedPublicationDataGridSerializationBehavior.cs" />
+    <Compile Include="Behaviors\SyncSfDataGridBehavior.cs" />
+    <Compile Include="Behaviors\WBSComparerBehavior.cs" />
+    <Compile Include="Behaviors\PublicationDataGridSerializationBehavior.cs" />
+    <Compile Include="Common\CustomColumnSizer.cs" />
+    <Compile Include="Common\GridColumnSizerExt.cs" />
+    <Compile Include="Common\LinkedPublicationDataGridSerialization.cs" />
+    <Compile Include="Common\PublicationDataGridSerialization.cs" />
+    <Compile Include="Common\StarRatio.cs" />
+    <Compile Include="Controls\CustomStyleSelector.cs" />
+    <Compile Include="Controls\EtiquetteAnomaly.xaml.cs">
+      <DependentUpon>EtiquetteAnomaly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EtiquettesControl.xaml.cs">
+      <DependentUpon>EtiquettesControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\UniformGridItemsControl.cs" />
+    <Compile Include="Converter\AnomalyConverter.cs" />
+    <Compile Include="Converter\AnomalyHorsMAConverter.cs" />
+    <Compile Include="Converter\CancelDownloadToLabelConverter.cs" />
+    <Compile Include="Converter\DetailsFieldsConverter.cs" />
+    <Compile Include="Converter\IsKeyTaskFontWeightConverter.cs" />
+    <Compile Include="Converter\LinkedPublicationColorConverter.cs" />
+    <Compile Include="Converter\IsOkColorConverter.cs" />
+    <Compile Include="Converter\MoneyToStringConverter.cs" />
+    <Compile Include="Converter\PercentConverter.cs" />
+    <Compile Include="Converter\AnomalyKindItemTemplateSelector.cs" />
+    <Compile Include="Converter\PublishedCategoryDataGridTemplateSelector.cs" />
+    <Compile Include="Converter\PublishedResourceDataGridTemplateSelector.cs" />
+    <Compile Include="Converter\SecondsToTicksConverter.cs" />
+    <Compile Include="Converter\TitleConverter.cs" />
+    <Compile Include="Converter\LabelStyleSelector.cs" />
+    <Compile Include="Converter\SingleToArrayConverter.cs" />
+    <Compile Include="Converter\UserIsQualifiedColorConverter.cs" />
+    <Compile Include="Converter\StringConcatConverter.cs" />
+    <Compile Include="Converter\GridDetailsViewExpanderConverter.cs" />
+    <Compile Include="Converter\NullToVisibilityConverter.cs" />
+    <Compile Include="Converter\RowHeightConverter.cs" />
+    <Compile Include="Converter\NullableDateToBoolConverter.cs" />
+    <Compile Include="Converter\IsQualifiedColorConverter.cs" />
+    <Compile Include="Converter\InvertBoolConverter.cs" />
+    <Compile Include="Converter\QualificationRowStyleColorConverter.cs" />
+    <Compile Include="Converter\FormationRowStyleColorConverter.cs" />
+    <Compile Include="Converter\HeaderVisibilityConverter.cs" />
+    <Compile Include="Converter\InvertBoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\HashToDownloadedFileConverter.cs" />
+    <Compile Include="Converter\IndentWBSConverter.cs" />
+    <Compile Include="Converter\IsReadToEnabledConverter.cs" />
+    <Compile Include="Converter\MediaElementVisibilityConverter.cs" />
+    <Compile Include="Converter\IsReadToVisibilityConverter.cs" />
+    <Compile Include="Converter\GroupColorConverter.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converter\ThumbnailMaximizeVisibilityConverter.cs" />
+    <Compile Include="Converter\StreamToBitmapImageConverter.cs" />
+    <Compile Include="Converter\VideoMaximizeConverter.cs" />
+    <Compile Include="Converter\RefPanelOrientationConverter.cs" />
+    <Compile Include="Converter\PublicationCustomLabelLocalizationConverter.cs" />
+    <Compile Include="Converter\PublicationRefsLocalizationConverter.cs" />
+    <Compile Include="Converter\PublishedRefItemDataGridTemplateSelector.cs" />
+    <Compile Include="Converter\InvertVisibilityConverter.cs" />
+    <Compile Include="Converter\ThumbnailVisibilityConverter.cs" />
+    <Compile Include="Converter\NotConverter.cs" />
+    <Compile Include="Converter\CustomLabelPositionConverter.cs" />
+    <Compile Include="Converter\NotNullToVisibilityConverter.cs" />
+    <Compile Include="Converter\MaxConverter.cs" />
+    <Compile Include="Converter\NotNullConverter.cs" />
+    <Compile Include="Converter\OrConverter.cs" />
+    <Compile Include="Converter\AndConverter.cs" />
+    <Compile Include="Converter\NullConverter.cs" />
+    <Compile Include="Converter\PublishedRefItemTemplateSelector.cs" />
+    <Compile Include="Converter\PublicationsTreeviewTemplateSelector.cs" />
+    <Compile Include="Converter\SortDirectionToVisibilityConverter.cs" />
+    <Compile Include="Converter\SortDirectionToWidthConverter.cs" />
+    <Compile Include="Converter\HashToUriConverter.cs" />
+    <Compile Include="Converter\TicksToStringConverter.cs" />
+    <Compile Include="Converter\TimeSpanToSecondsConverter.cs" />
+    <Compile Include="Converter\UriToSizeConverter.cs" />
+    <Compile Include="Converter\UriToBitmapImageConverter.cs" />
+    <Compile Include="Converter\ViewModelToViewConverter.cs" />
+    <Compile Include="Core\WBSComparer.cs" />
+    <Compile Include="Dialog\AddSignatureOperatorFormationDialog.xaml.cs">
+      <DependentUpon>AddSignatureOperatorFormationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ErrorPublicationDialog.xaml.cs">
+      <DependentUpon>ErrorPublicationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ErrorSyncingDialog.xaml.cs">
+      <DependentUpon>ErrorSyncingDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\InspectionSummaryDetailsDialog.xaml.cs">
+      <DependentUpon>InspectionSummaryDetailsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\NoOpenedAuditDialog.xaml.cs">
+      <DependentUpon>NoOpenedAuditDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\FormationSummaryDetailsDialog.xaml.cs">
+      <DependentUpon>FormationSummaryDetailsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\TextDialog.xaml.cs">
+      <DependentUpon>TextDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ShowAnomaliesDialog.xaml.cs">
+      <DependentUpon>ShowAnomaliesDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ChooseCaptureDeviceDialog.xaml.cs">
+      <DependentUpon>ChooseCaptureDeviceDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ChooseReasonDialog.xaml.cs">
+      <DependentUpon>ChooseReasonDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ExitDialog.xaml.cs">
+      <DependentUpon>ExitDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\InspectionExtensions.cs" />
+    <Compile Include="Models\Extensions.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\Version.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Version.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Services\APIManager.cs" />
+    <Compile Include="Services\DownloadManager.cs" />
+    <Compile Include="Services\IAPIManager.cs" />
+    <Compile Include="ViewModel\Audit\AuditViewModel.cs" />
+    <Compile Include="ViewModel\Inspection\AddInspectionAnomalyViewModel.cs" />
+    <Compile Include="ViewModel\Inspection\InspectionTypeChoiceViewModel.cs" />
+    <Compile Include="ViewModel\Inspection\InspectionScheduledViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\ISfDataGridViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\ITempPublication.cs" />
+    <Compile Include="ViewModel\Interfaces\IWaitResultViewModel.cs" />
+    <Compile Include="Views\Audit\Audit.xaml.cs">
+      <DependentUpon>Audit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inspection\AddInspectionAnomaly.xaml.cs">
+      <DependentUpon>AddInspectionAnomaly.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\InspectionActionDetailsDialog.xaml.cs">
+      <DependentUpon>InspectionActionDetailsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\QualificationActionDetailsDialog.xaml.cs">
+      <DependentUpon>QualificationActionDetailsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\SelectOperatorsFormationDialog.xaml.cs">
+      <DependentUpon>SelectOperatorsFormationDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\ErrorLoginDialog.xaml.cs">
+      <DependentUpon>ErrorLoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\CriticalPathDialog.xaml.cs">
+      <DependentUpon>CriticalPathDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\OperatorsDialog.xaml.cs">
+      <DependentUpon>OperatorsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\FormationActionDetailsDialog.xaml.cs">
+      <DependentUpon>FormationActionDetailsDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\SplashScreen.xaml.cs">
+      <DependentUpon>SplashScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialog\AppLoginDialog.xaml.cs">
+      <DependentUpon>AppLoginDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\SfDataGridExtensions.cs" />
+    <Compile Include="Flyouts\SelectInspection.xaml.cs">
+      <DependentUpon>SelectInspection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Flyouts\SelectFormation.xaml.cs">
+      <DependentUpon>SelectFormation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Globalization\LocalizationExt.cs" />
+    <Compile Include="Extensions\PublicationExtensions.cs" />
+    <Compile Include="Models\CriticalPathMethod\IEnumerableExtensions.cs" />
+    <Compile Include="Models\UIUser.cs" />
+    <Compile Include="Models\FFMEWebcam.cs" />
+    <Compile Include="Services\NavigationService.cs" />
+    <Compile Include="Models\OfflineManager.cs" />
+    <Compile Include="Services\TabletSecurityContext.cs" />
+    <Compile Include="ViewModel\ChooseCaptureDeviceDialogViewModel.cs" />
+    <Compile Include="ViewModel\Formation\FormationChoiceViewModel.cs" />
+    <Compile Include="ViewModel\Inspection\InspectionChoiceViewModel.cs" />
+    <Compile Include="ViewModel\SnapshotViewModel.cs" />
+    <Compile Include="ViewModel\ActivityChoiceViewModel.cs" />
+    <Compile Include="ViewModel\Formation\ChooseReasonDialogViewModel.cs" />
+    <Compile Include="ViewModel\Formation\QualificationViewModel.cs" />
+    <Compile Include="ViewModel\Formation\OperatorsDialogViewModel.cs" />
+    <Compile Include="ViewModel\Formation\FormationViewModel.cs" />
+    <Compile Include="ViewModel\Formation\SelectQualificationOperatorsViewModel.cs" />
+    <Compile Include="ViewModel\Formation\SelectFormationOperatorsViewModel.cs" />
+    <Compile Include="ViewModel\Formation\SelectFormationSummaryViewModel.cs" />
+    <Compile Include="ViewModel\Inspection\InspectionViewModel.cs" />
+    <Compile Include="ViewModel\Inspection\SelectInspectionSummaryViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IMediaElementViewModel.cs" />
+    <Compile Include="ViewModel\Interfaces\IRefreshViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="Ioc\ViewModelLocator.cs" />
+    <Compile Include="Views\Formation\FormationChoice.xaml.cs">
+      <DependentUpon>FormationChoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inspection\InspectionTypeChoice.xaml.cs">
+      <DependentUpon>InspectionTypeChoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inspection\InspectionChoice.xaml.cs">
+      <DependentUpon>InspectionChoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inspection\InspectionScheduledView.xaml.cs">
+      <DependentUpon>InspectionScheduledView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Snapshot.xaml.cs">
+      <DependentUpon>Snapshot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ActivityChoice.xaml.cs">
+      <DependentUpon>ActivityChoice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Formation\QualificationView.xaml.cs">
+      <DependentUpon>QualificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Formation\Formation.xaml.cs">
+      <DependentUpon>Formation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Formation\SelectQualificationOperators.xaml.cs">
+      <DependentUpon>SelectQualificationOperators.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Formation\SelectFormationSummary.xaml.cs">
+      <DependentUpon>SelectFormationSummary.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Formation\Selectors\QualifiedStyleSelector.cs" />
+    <Compile Include="Views\Inspection\Inspection.xaml.cs">
+      <DependentUpon>Inspection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Inspection\SelectInspectionSummary.xaml.cs">
+      <DependentUpon>SelectInspectionSummary.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Controls\ControlTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\EtiquetteAnomaly.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\EtiquettesControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialog\AddSignatureOperatorFormationDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialog\ErrorPublicationDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\ErrorSyncingDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\InspectionSummaryDetailsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\NoOpenedAuditDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\FormationSummaryDetailsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\TextDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\ShowAnomaliesDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\ChooseCaptureDeviceDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\ChooseReasonDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\ExitDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\FlyoutStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Audit\Audit.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Inspection\AddInspectionAnomaly.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\InspectionActionDetailsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\QualificationActionDetailsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\SelectOperatorsFormationDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\ErrorLoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="Views\Formation\SelectFormationOperators.xaml.cs">
+      <DependentUpon>SelectFormationOperators.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Dialog\CriticalPathDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\OperatorsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\FormationActionDetailsDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\SplashScreen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Dialog\DialogTemplates.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialog\AppLoginDialog.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Flyouts\SelectInspection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Flyouts\SelectFormation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resources\CustomAccent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SharedStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\SharedDataTemplates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\CustomMetroWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Formation\FormationChoice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Inspection\InspectionTypeChoice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Inspection\InspectionChoice.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Inspection\InspectionScheduledView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Snapshot.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ActivityChoice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Formation\QualificationView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Formation\Formation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Formation\SelectQualificationOperators.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Formation\SelectFormationSummary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Formation\SelectFormationOperators.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Inspection\Inspection.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Inspection\SelectInspectionSummary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Resource Include="..\..\..\Assets\kl2_FieldService-splash.png">
+      <Link>Resources\kl2_FieldService-splash.png</Link>
+    </Resource>
+    <Resource Include="..\..\..\Assets\kl2_FieldService.ico">
+      <Link>Resources\kl2_FieldService.ico</Link>
+    </Resource>
+    <Resource Include="kl2_VideoAnalyst.ico" />
+    <Content Include="Properties\Version.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Version.cs</LastGenOutput>
+    </Content>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Content Include="..\Localization.sqlite">
+      <Link>Resources\Localization.sqlite</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="App.Debug.Config">
+      <DependentUpon>App.Config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="FFME.Windows">
+      <Version>4.2.320</Version>
+    </PackageReference>
+    <PackageReference Include="LoadingIndicators.WPF">
+      <Version>0.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro">
+      <Version>1.6.5</Version>
+    </PackageReference>
+    <PackageReference Include="MahApps.Metro.IconPacks">
+      <Version>2.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>2.2.6</Version>
+    </PackageReference>
+    <PackageReference Include="MvvmLightLibs">
+      <Version>5.4.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF">
+      <Version>17.1.0.50</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.SfGrid.WPF">
+      <Version>17.1.0.50</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Tools.WPF">
+      <Version>17.1.0.50</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\KProcess.KL2.Language\KProcess.KL2.Languages.csproj">
+      <Project>{808A3592-D80A-440B-9EAA-3E8286728CC0}</Project>
+      <Name>KProcess.KL2.Languages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AForge.NET\AForge.NET.csproj">
+      <Project>{757ff36c-cb43-4654-818d-2ef10ead753e}</Project>
+      <Name>AForge.NET</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DlhSoft.HierarchicalData.LightWPF.Controls\DlhSoft.HierarchicalData.LightWPF.Controls.csproj">
+      <Project>{22912e86-c4f7-4920-8167-3d67dbb3cba1}</Project>
+      <Name>DlhSoft.HierarchicalData.LightWPF.Controls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FFME_Libs\FFME_Libs.csproj">
+      <Project>{c75c4083-0dd0-4511-8cf9-a7f09e68b0e8}</Project>
+      <Name>FFME_Libs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41A8FD16-8AA1-48F2-AC75-CB27FFEEA2A4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5d4074aa-f569-4c2a-ac8f-a486c382bfd7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579C-1C1B-4B94-B14C-52AB369AEEBA}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.APIClient\KProcess.KL2.APIClient.csproj">
+      <Project>{4E55B9A5-39E7-46E1-9952-BBF00123945C}</Project>
+      <Name>KProcess.KL2.APIClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.Business.Impl\KProcess.KL2.Business.Impl.csproj">
+      <Project>{391D2E27-2151-4B41-AB9E-A9ACBA7168A7}</Project>
+      <Name>KProcess.KL2.Business.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.KL2.FileTransfer.NetStandard\Kprocess.KL2.FileTransfer.NetStandard.csproj">
+      <Project>{e2812008-d7dd-422a-a711-382ff67b9bdb}</Project>
+      <Name>Kprocess.KL2.FileTransfer.NetStandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.KL2.FileTransfer\Kprocess.KL2.FileTransfer.csproj">
+      <Project>{8A8A45DC-ECEB-4743-BB01-C10AB2069B8D}</Project>
+      <Name>Kprocess.KL2.FileTransfer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.JWT\KProcess.KL2.JWT.csproj">
+      <Project>{45C8B89D-034F-4543-8423-7BF77B98A15C}</Project>
+      <Name>KProcess.KL2.JWT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.SignalRClient\KProcess.KL2.SignalRClient.csproj">
+      <Project>{B2687D8C-28A1-4D14-8298-C01C5BF0D8E7}</Project>
+      <Name>KProcess.KL2.SignalRClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.KL2.SyncService\Kprocess.KL2.SyncService.csproj">
+      <Project>{d7f9b6c4-4341-4e49-a859-d3df069aa382}</Project>
+      <Name>Kprocess.KL2.SyncService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Business\KProcess.Ksmed.Business.csproj">
+      <Project>{A53F3357-B177-4C21-BC01-89C173694B4E}</Project>
+      <Name>KProcess.Ksmed.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Security\KProcess.Ksmed.Security.csproj">
+      <Project>{4F602ABB-799B-4ED2-9C99-CB2F14380C3A}</Project>
+      <Name>KProcess.Ksmed.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Presentation.Windows\KProcess.Presentation.Windows.csproj">
+      <Project>{BA24ABBC-FE81-40B3-AB48-5E33C8FC542F}</Project>
+      <Name>KProcess.Presentation.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Supervision.Log4Net\KProcess.Supervision.Log4Net.csproj">
+      <Project>{7389422E-2903-4B88-91E3-0EB23E6451CD}</Project>
+      <Name>KProcess.Supervision.Log4Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Supervision\KProcess.Supervision.csproj">
+      <Project>{8271055C-57C4-460E-B715-730D38F86227}</Project>
+      <Name>KProcess.Supervision</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.TabTip\Kprocess.TabTip.csproj">
+      <Project>{F2A19F8B-2B2F-4349-BD87-D72531B6CBE7}</Project>
+      <Name>Kprocess.TabTip</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PackIconKprocess\Kprocess.PackIconKprocess.csproj">
+      <Project>{99f9a32c-d18e-4d17-9fb3-930fced4cdd7}</Project>
+      <Name>Kprocess.PackIconKprocess</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="..\..\..\Assets\kl2_FieldService.png">
+      <Link>Resources\kl2_FieldService.png</Link>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\no-video.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Référencement de la tache de transformation -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="..\..\..\LibExt\Microsoft.Web.Publishing.Tasks.dll" />
+  <!-- Transformation -->
+  <Target Name="TransformAppConfig" Condition="exists('app.$(Configuration).config')" AfterTargets="AfterBuild">
+    <TransformXml Source="app.config" Destination="$(TargetPath).config" Transform="app.$(Configuration).config" />
+    <!-- Copy lors de l'execution en local sur *.vshost -->
+    <Copy Condition="'$(UseVSHostingProcess)' == 'true'" SourceFiles="$(TargetPath).config" DestinationFiles="$(TargetDir)$(TargetName).vshost$(TargetExt).config" />
+  </Target>
+  <Target Name="App_config_AfterCompile" AfterTargets="AfterCompile" Condition="Exists('App.$(Configuration).config')">
+    <!--Generate transformed app config in the intermediate directory-->
+    <TransformXml Source="App.config" Destination="$(IntermediateOutputPath)$(TargetFileName).config" Transform="App.$(Configuration).config" />
+    <!--Force build process to use the transformed configuration file from now on.-->
+    <ItemGroup>
+      <AppConfigWithTargetPath Remove="App.config" />
+      <AppConfigWithTargetPath Include="$(IntermediateOutputPath)$(TargetFileName).config">
+        <TargetPath>$(TargetFileName).config</TargetPath>
+      </AppConfigWithTargetPath>
+    </ItemGroup>
+  </Target>
+  <!--Override After Publish to support ClickOnce AfterPublish. Target replaces the untransformed config file copied to the deployment directory with the transformed one.-->
+  <Target Name="App_config_AfterPublish" AfterTargets="AfterPublish" Condition="Exists('App.$(Configuration).config')">
+    <PropertyGroup>
+      <DeployedConfig>$(_DeploymentApplicationDir)$(TargetName)$(TargetExt).config$(_DeploymentFileMappingExtension)</DeployedConfig>
+    </PropertyGroup>
+    <!--Publish copies the untransformed App.config to deployment directory so overwrite it-->
+    <Copy Condition="Exists('$(DeployedConfig)')" SourceFiles="$(IntermediateOutputPath)$(TargetFileName).config" DestinationFiles="$(DeployedConfig)" />
+  </Target>
+</Project>

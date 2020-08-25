@@ -1,0 +1,141 @@
+﻿<Window x:Class="KProcess.Ksmed.Presentation.Shell.Views.ActivationView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:core="http://schemas.kprocess.com/xaml/core"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:k="http://schemas.kprocess.com/xaml/framework"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        Title="{k:Localize View_ActivationView_Title}"
+        Width="550"
+        Height="381"
+        FontFamily="{StaticResource DefaultFontFamily}"
+        FontSize="{StaticResource DefaultFontSize}"
+        Foreground="{StaticResource NormalFontBrush}"
+        Icon="/Resources/kl2_VideoAnalyst.ico"
+        SizeToContent="Height"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextHintingMode="Animated"
+        UseLayoutRounding="True"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/Images/backgroundtexture.png"
+                    Stretch="None"
+                    TileMode="Tile"
+                    Viewport="0,0,200,200"
+                    ViewportUnits="Absolute" />
+    </Window.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.ColumnSpan="2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="{StaticResource Heading3FontSize}"
+                   Foreground="{StaticResource Heading3FontBrush}"
+                   Style="{StaticResource ActivationStatusTextBlockStyle}" />
+
+        <TextBlock Grid.Row="1"
+                   Margin="4"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_ActivationView_Name}"
+                   TextWrapping="Wrap" />
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 Margin="4"
+                 VerticalAlignment="Center"
+                 core:SpellCheckConfig.Enabled="False"
+                 Text="{k:InstantValidatingBinding Name}"
+                 TextWrapping="Wrap" />
+        <TextBlock Grid.Row="2"
+                   Margin="4"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_ActivationView_Company}"
+                   TextWrapping="Wrap" />
+        <TextBox Grid.Row="2"
+                 Grid.Column="1"
+                 Margin="4"
+                 VerticalAlignment="Center"
+                 core:SpellCheckConfig.Enabled="False"
+                 Text="{k:InstantValidatingBinding Company}"
+                 TextWrapping="Wrap" />
+        <TextBlock Grid.Row="3"
+                   Margin="4"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_ActivationView_Email}"
+                   TextWrapping="Wrap" />
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 Margin="4"
+                 VerticalAlignment="Center"
+                 core:SpellCheckConfig.Enabled="False"
+                 Text="{k:InstantValidatingBinding Email}"
+                 TextWrapping="Wrap" />
+        <TextBlock Grid.Row="4"
+                   Margin="4"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_ActivationView_MachineHash}"
+                   TextWrapping="Wrap" />
+        <TextBox Grid.Row="4"
+                 Grid.Column="1"
+                 Margin="4"
+                 VerticalAlignment="Center"
+                 IsReadOnly="True"
+                 Text="{Binding MachineHash, Mode=OneWay}"
+                 TextWrapping="Wrap" />
+        <TextBlock x:Name="ActivationExplanationTB"
+                   Grid.Row="5"
+                   Grid.Column="2"
+                   Margin="4,8,4,4"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap" />
+
+        <StackPanel Grid.Row="6"
+                    Grid.Column="1"
+                    Margin="0,0,0,8"
+                    Orientation="Horizontal"
+                    d:LayoutOverrides="Width, Height">
+            <Button Width="200"
+                    Height="25"
+                    Margin="4"
+                    Command="{Binding AskKeyEmailCommand}"
+                    Content="{k:Localize View_ActivationView_KeyEmail}" />
+            <Button Width="200"
+                    Height="25"
+                    Margin="4"
+                    Command="{Binding AskKeyClipboardCommand}"
+                    Content="{k:Localize View_ActivationView_KeyClipboard}" />
+        </StackPanel>
+        <TextBlock Grid.Row="7"
+                   Grid.Column="1"
+                   Margin="4,8,4,4"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_ActivationView_ImportKeyExplanation}"
+                   TextWrapping="Wrap" />
+        <Button Grid.Row="8"
+                Grid.Column="1"
+                Width="200"
+                Height="25"
+                Margin="4"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Command="{Binding ImportKeyCommand}"
+                Content="{k:Localize View_ActivationView_ImportKey}" />
+
+    </Grid>
+</Window>

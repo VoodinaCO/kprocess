@@ -1,0 +1,65 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,4320,2880" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FFED2939">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,4320,2880" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,1440,4320,1440" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M1481.678,720A541.5,541.5,0,1,1,398.67798,720A541.5,541.5,0,1,1,1481.678,720z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFED2939">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M1651.835,720A511.73499,511.73499,0,1,1,628.36499,720A511.73499,511.73499,0,1,1,1651.835,720z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="star" Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M1007.1951,733.06439L933.63466,676.63425 860.09279,733.09117 888.40587,642.09687 814.61147,586.0053 905.6704,586.1981 933.6049,495.07467 961.56934,586.18798 1052.6282,585.96246 978.8522,642.0808 1007.1951,733.06439z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup Transform="1,0,0,1,577.18853,0">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M1007.1951,733.06439L933.63466,676.63425 860.09279,733.09117 888.40587,642.09687 814.61147,586.0053 905.6704,586.1981 933.6049,495.07467 961.56934,586.18798 1052.6282,585.96246 978.8522,642.0808 1007.1951,733.06439z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,288.88853,-214.21117">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M1007.1951,733.06439L933.63466,676.63425 860.09279,733.09117 888.40587,642.09687 814.61147,586.0053 905.6704,586.1981 933.6049,495.07467 961.56934,586.18798 1052.6282,585.96246 978.8522,642.0808 1007.1951,733.06439z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,107.99953,342.74883">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M1007.1951,733.06439L933.63466,676.63425 860.09279,733.09117 888.40587,642.09687 814.61147,586.0053 905.6704,586.1981 933.6049,495.07467 961.56934,586.18798 1052.6282,585.96246 978.8522,642.0808 1007.1951,733.06439z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,469.18853,342.74883">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M1007.1951,733.06439L933.63466,676.63425 860.09279,733.09117 888.40587,642.09687 814.61147,586.0053 905.6704,586.1981 933.6049,495.07467 961.56934,586.18798 1052.6282,585.96246 978.8522,642.0808 1007.1951,733.06439z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <GeometryDrawing Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M1007.1951,733.06439L933.63466,676.63425 860.09279,733.09117 888.40587,642.09687 814.61147,586.0053 905.6704,586.1981 933.6049,495.07467 961.56934,586.18798 1052.6282,585.96246 978.8522,642.0808 1007.1951,733.06439z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+  </DrawingGroup>
+</DrawingGroup>

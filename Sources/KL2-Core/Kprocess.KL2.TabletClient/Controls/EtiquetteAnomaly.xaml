@@ -1,0 +1,219 @@
+﻿<UserControl x:Class="Kprocess.KL2.TabletClient.Controls.EtiquetteAnomaly"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+             xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+             xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="1000"
+             x:Name="myEtiquette">
+    <UserControl.Resources>
+        <converter:AnomalyKindItemTemplateSelector x:Key="AnomalyKindItemTemplateSelector"/>
+        <Style TargetType="{x:Type TextBox}">
+            <Setter Property="BorderBrush" Value="{Binding DarkColor, ElementName=myEtiquette}"/>
+            <Setter Property="Background" Value="{StaticResource LightColorEtiquette}"/>
+            <Setter Property="Foreground" Value="{StaticResource TextColorEtiquette}"/>
+        </Style>
+        <ObjectDataProvider x:Key="AnomalyPriorityDataProvider" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="models:AnomalyPriority" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+    </UserControl.Resources>
+    <Grid>
+        <Grid Background="{Binding DarkColor, ElementName=myEtiquette}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0" Background="{StaticResource LightColorEtiquette}" Margin="6"
+                  TextElement.Foreground="{Binding DarkColor, ElementName=myEtiquette}"
+                  TextElement.FontWeight="Bold" TextElement.FontSize="20">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin="8,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Grid.Column="0" Text="LIGNE" Margin="8,1" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Margin="0,2" Text="{Binding Line, ElementName=myEtiquette, UpdateSourceTrigger=PropertyChanged}"
+                             IsReadOnly="{Binding IsReadOnly, ElementName=myEtiquette}"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="MACHINE" Margin="8,1" VerticalAlignment="Center"/>
+                    <TextBox Grid.Row="1" Grid.Column="1" Margin="0,2" Text="{Binding Machine, ElementName=myEtiquette, UpdateSourceTrigger=PropertyChanged}"
+                             IsReadOnly="{Binding IsReadOnly, ElementName=myEtiquette}"/>
+                </Grid>
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="PRIORITE" Margin="0,0,8,0" VerticalAlignment="Center"/>
+                    <ItemsControl ItemsSource="{Binding Source={StaticResource AnomalyPriorityDataProvider}}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate DataType="models:AnomalyPriority">
+                                <Border x:Name="border" Width="30" Height="30" Margin="20,0"
+                                        Background="Transparent"
+                                        BorderThickness="1" BorderBrush="{Binding DarkColor, ElementName=myEtiquette}"
+                                        MouseLeftButtonDown="Priority_MouseLeftButtonDown" Tag="{Binding}">
+                                    <TextBlock x:Name="text" Text="{Binding}" Foreground="{StaticResource TextColorEtiquette}"
+                                               VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Value="True">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{converter:AnomalyPriorityEqualsConverter}">
+                                                <Binding Path="SelectedPriority" ElementName="myEtiquette"/>
+                                                <Binding />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        <DataTrigger.Setters>
+                                            <Setter TargetName="border" Property="Background" Value="{Binding DarkColor, ElementName=myEtiquette}"/>
+                                            <Setter TargetName="text" Property="Foreground" Value="{StaticResource LightColorEtiquette}"/>
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </Grid>
+            <Grid x:Name="DescriptionGrid"
+                  Grid.Row="1" Background="{StaticResource LightColorEtiquette}" Margin="6"
+                  TextElement.Foreground="{Binding DarkColor, ElementName=myEtiquette}"
+                  TextElement.FontSize="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Grid.ColumnSpan="2">
+                    <ItemsControl ItemsSource="{Binding PossibleAnomalies, ElementName=myEtiquette}" ItemTemplateSelector="{StaticResource AnomalyKindItemTemplateSelector}"
+                                  HorizontalAlignment="Center">
+                        <ItemsControl.Resources>
+                            <DataTemplate x:Key="AnomalyKindItemTitleTemplate" DataType="{x:Type models:AnomalyKindItemTitle}">
+                                <TextBlock Text="{Binding Label}" FontWeight="Bold"
+                                           Height="{Binding RowHeight, ElementName=myEtiquette}" VerticalAlignment="Center" Margin="2,0"/>
+                            </DataTemplate>
+                            <DataTemplate x:Key="AnomalyKindItemTemplate" DataType="{x:Type models:AnomalyKindItem}">
+                                <Grid Height="{Binding RowHeight, ElementName=myEtiquette}" Margin="2,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border x:Name="border" Background="Transparent"
+                                            Grid.Column="0" Width="24" Height="24" BorderThickness="1" BorderBrush="{Binding DarkColor, ElementName=myEtiquette}"
+                                            MouseLeftButtonDown="AnomalyKindItem_MouseLeftButtonDown" Tag="{Binding}">
+                                        <TextBlock x:Name="text" Text="{Binding Number}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Grid.Column="1" Text="{Binding Label}" VerticalAlignment="Center" Margin="4,0,0,0"
+                                               MouseLeftButtonDown="AnomalyKindItem_MouseLeftButtonDown" Tag="{Binding}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Value="True">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{converter:AnomalyKindItemEqualsConverter}">
+                                                <Binding Path="SelectedAnomalyKindItem" ElementName="myEtiquette"/>
+                                                <Binding />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        <DataTrigger.Setters>
+                                            <Setter TargetName="border" Property="Background" Value="{Binding DarkColor, ElementName=myEtiquette}"/>
+                                            <Setter TargetName="text" Property="Foreground" Value="{StaticResource LightColorEtiquette}"/>
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                            <!--<DataTemplate x:Key="AnomalyKindEditableItemTemplate" DataType="{x:Type models:AnomalyKindEditableItem}">
+                                <Grid Height="{Binding RowHeight, ElementName=myEtiquette}" Margin="2,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border x:Name="border" Background="Transparent"
+                                            Grid.Column="0" Width="24" Height="24" BorderThickness="1" BorderBrush="{Binding DarkColor, ElementName=myEtiquette}"
+                                            MouseLeftButtonDown="AnomalyKindItem_MouseLeftButtonDown" Tag="{Binding}">
+                                        <TextBlock x:Name="text" Text="{Binding Number}" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    </Border>
+                                    <TextBlock Grid.Column="1" Text="{Binding Label}" VerticalAlignment="Center" Margin="4,0"
+                                               MouseLeftButtonDown="AnomalyKindItem_MouseLeftButtonDown" Tag="{Binding}"/>
+                                    <TextBox x:Name="ValueTextBox"
+                                             Grid.Column="2" Text="{Binding Value, UpdateSourceTrigger=PropertyChanged}"
+                                             MahApps:TextBoxHelper.Watermark="- SVP Spécifier -"
+                                             GotFocus="ValueTextBox_GotFocus" Tag="{Binding}"/>
+                                </Grid>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Value="True">
+                                        <DataTrigger.Binding>
+                                            <MultiBinding Converter="{converter:AnomalyKindItemEqualsConverter}">
+                                                <Binding Path="SelectedAnomalyKindItem" ElementName="myEtiquette"/>
+                                                <Binding />
+                                            </MultiBinding>
+                                        </DataTrigger.Binding>
+                                        <DataTrigger.Setters>
+                                            <Setter TargetName="border" Property="Background" Value="{Binding DarkColor, ElementName=myEtiquette}"/>
+                                            <Setter TargetName="text" Property="Foreground" Value="{StaticResource LightColorEtiquette}"/>
+                                        </DataTrigger.Setters>
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>-->
+                            <DataTemplate x:Key="AnomalyKindItemEmptyTemplate" DataType="{x:Type models:AnomalyKindItemTitle}">
+                                <TextBlock Text="" Height="{Binding RowHeight, ElementName=myEtiquette}" VerticalAlignment="Center"/>
+                            </DataTemplate>
+                        </ItemsControl.Resources>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Vertical" Height="{Binding PanelHeight, ElementName=myEtiquette}"
+                                           ItemWidth="286"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </Grid>
+                <Border Grid.Row="1" Grid.RowSpan="2" Grid.Column="0" Margin="10">
+                    <Grid>
+                        <Button Content="{iconPacks:Material Kind=Camera, Width=40, Height=40}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center"
+                                MahApps:VisibilityHelper.IsVisible="{Binding CaptureStream, Converter={converter:NullConverter}}"
+                                Command="{Binding RetryPhotoCommand, ElementName=myEtiquette}"/>
+                        <Image Source="{Binding CaptureStream, ElementName=myEtiquette, Converter={converter:StreamToBitmapImageConverter}}" Stretch="Uniform">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding RetryPhotoCommand, ElementName=myEtiquette}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
+                    </Grid>
+                </Border>
+                <TextBlock Grid.Row="1" Grid.Column="1" Text="Description du problème" HorizontalAlignment="Center" FontSize="24" FontWeight="Bold" />
+                <TextBox x:Name="DescriptionTextBox"
+                         Grid.Row="2" Grid.Column="1" AcceptsReturn="True" Margin="4" BorderThickness="2"
+                         Text="{Binding Description, ElementName=myEtiquette, UpdateSourceTrigger=PropertyChanged}"
+                         TextWrapping="Wrap" IsReadOnly="{Binding IsReadOnly, ElementName=myEtiquette}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="GotMouseCapture">
+                            <mvvm:EventToCommand Command="{Binding ShowTextDialogCommand, ElementName=myEtiquette}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

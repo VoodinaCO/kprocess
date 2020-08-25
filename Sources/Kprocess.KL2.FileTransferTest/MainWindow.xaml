@@ -1,0 +1,169 @@
+﻿<Window x:Class="Kprocess.KL2.FileTransferTest.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:Kprocess.KL2.FileTransferTest"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        x:Name="myControl"
+        Title="Test FileTransfer"
+        Width="800"
+        Height="450"
+        mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="Download test">
+            <Grid Margin="0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Test le téléchargement du fichier download.mkv vers C:\Temp\download.mkv" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding DataContext.DownloadOperation.Progress.Speed, ElementName=myControl, StringFormat={}{0} Mo/s}" />
+                        <StackPanel Orientation="Horizontal">
+                            <ProgressBar Width="300"
+                                         Height="10"
+                                         Value="{Binding DataContext.DownloadOperation.Progress.PercentBytesTransferred, ElementName=myControl, Mode=OneWay}" />
+                            <TextBlock Text="{Binding DataContext.DownloadOperation.Progress, ElementName=myControl, Converter={local:ProgressConverter}}" />
+                        </StackPanel>
+                        <TextBlock Foreground="Red" Text="{Binding DataContext.DownloadOperation.Error, ElementName=myControl}" />
+                    </StackPanel>
+                    <Button Margin="5"
+                            Command="{Binding DataContext.DownloadCommand, ElementName=myControl}"
+                            Content="Download"
+                            IsEnabled="{Binding DataContext.DownloadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.PauseDownloadCommand, ElementName=myControl}"
+                            Content="Pause"
+                            IsEnabled="{Binding DataContext.DownloadOperation.CanPause, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.CancelDownloadCommand, ElementName=myControl}"
+                            Content="Annuler"
+                            IsEnabled="{Binding DataContext.DownloadOperation.CanCancel, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.DownloadAsyncCommand, ElementName=myControl}"
+                            Content="Download Async"
+                            IsEnabled="{Binding DataContext.DownloadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding DataContext.TusDownloadOperation.Progress.Speed, ElementName=myControl, StringFormat={}{0} Mo/s}" />
+                        <StackPanel Orientation="Horizontal">
+                            <ProgressBar Width="300"
+                                         Height="10"
+                                         Value="{Binding DataContext.TusDownloadOperation.Progress.PercentBytesTransferred, ElementName=myControl, Mode=OneWay}" />
+                            <TextBlock Text="{Binding DataContext.TusDownloadOperation.Progress, ElementName=myControl, Converter={local:ProgressConverter}}" />
+                        </StackPanel>
+                        <TextBlock Foreground="Red" Text="{Binding DataContext.TusDownloadOperation.Error, ElementName=myControl}" />
+                    </StackPanel>
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusDownloadCommand, ElementName=myControl}"
+                            Content="Download"
+                            IsEnabled="{Binding DataContext.TusDownloadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusPauseDownloadCommand, ElementName=myControl}"
+                            Content="Pause"
+                            IsEnabled="{Binding DataContext.TusDownloadOperation.CanPause, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusCancelDownloadCommand, ElementName=myControl}"
+                            Content="Annuler"
+                            IsEnabled="{Binding DataContext.TusDownloadOperation.CanCancel, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusDownloadAsyncCommand, ElementName=myControl}"
+                            Content="Download Async"
+                            IsEnabled="{Binding DataContext.TusDownloadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                    <TextBlock Margin="5"
+                               VerticalAlignment="Center"
+                               Text="(Tus.io)"
+                               TextElement.FontSize="20"
+                               TextElement.FontWeight="Bold" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="Upload test">
+            <Grid Margin="0,20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" Text="Test l'envoi du fichier C:\Temp\upload.mkv" />
+                <StackPanel Grid.Row="1" Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding DataContext.UploadOperation.Progress.Speed, ElementName=myControl, StringFormat={}{0} Mo/s}" />
+                        <StackPanel Orientation="Horizontal">
+                            <ProgressBar Width="300"
+                                         Height="10"
+                                         Value="{Binding DataContext.UploadOperation.Progress.PercentBytesTransferred, ElementName=myControl, Mode=OneWay}" />
+                            <TextBlock Text="{Binding DataContext.UploadOperation.Progress, ElementName=myControl, Converter={local:ProgressConverter}}" />
+                        </StackPanel>
+                        <TextBlock Foreground="Red" Text="{Binding DataContext.UploadOperation.Error, ElementName=myControl}" />
+                    </StackPanel>
+                    <Button Margin="5"
+                            Command="{Binding DataContext.UploadCommand, ElementName=myControl}"
+                            Content="Upload"
+                            IsEnabled="{Binding DataContext.UploadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.PauseUploadCommand, ElementName=myControl}"
+                            Content="Pause"
+                            IsEnabled="{Binding DataContext.UploadOperation.CanPause, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.CancelUploadCommand, ElementName=myControl}"
+                            Content="Annuler"
+                            IsEnabled="{Binding DataContext.UploadOperation.CanCancel, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.UploadAsyncCommand, ElementName=myControl}"
+                            Content="Upload Async"
+                            IsEnabled="{Binding DataContext.UploadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                </StackPanel>
+                <StackPanel Grid.Row="2" Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock HorizontalAlignment="Center" Text="{Binding DataContext.TusUploadOperation.Progress.Speed, ElementName=myControl, StringFormat={}{0} Mo/s}" />
+                        <StackPanel Orientation="Horizontal">
+                            <ProgressBar Width="300"
+                                         Height="10"
+                                         Value="{Binding DataContext.TusUploadOperation.Progress.PercentBytesTransferred, ElementName=myControl, Mode=OneWay}" />
+                            <TextBlock Text="{Binding DataContext.TusUploadOperation.Progress, ElementName=myControl, Converter={local:ProgressConverter}}" />
+                        </StackPanel>
+                        <TextBlock Foreground="Red" Text="{Binding DataContext.TusUploadOperation.Error, ElementName=myControl}" />
+                    </StackPanel>
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusUploadCommand, ElementName=myControl}"
+                            Content="Upload"
+                            IsEnabled="{Binding DataContext.TusUploadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusPauseUploadCommand, ElementName=myControl}"
+                            Content="Pause"
+                            IsEnabled="{Binding DataContext.TusUploadOperation.CanPause, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusCancelUploadCommand, ElementName=myControl}"
+                            Content="Annuler"
+                            IsEnabled="{Binding DataContext.TusUploadOperation.CanCancel, ElementName=myControl, FallbackValue=False}" />
+                    <Button Margin="5"
+                            Command="{Binding DataContext.TusUploadAsyncCommand, ElementName=myControl}"
+                            Content="Upload Async"
+                            IsEnabled="{Binding DataContext.TusUploadOperation.CanResume, ElementName=myControl, FallbackValue=True}" />
+                    <TextBlock Margin="5"
+                               VerticalAlignment="Center"
+                               Text="(Tus.io)"
+                               TextElement.FontSize="20"
+                               TextElement.FontWeight="Bold" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+        <Border Grid.RowSpan="2"
+                Background="#66666666"
+                Visibility="{Binding DataContext.IsLoading, ElementName=myControl, Converter={local:VisibilityConverter}, FallbackValue=Hidden}">
+            <ProgressBar Width="200"
+                         Height="30"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         IsIndeterminate="True" />
+        </Border>
+    </Grid>
+</Window>

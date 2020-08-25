@@ -1,0 +1,58 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="ffme\avcodec-58.dll" />
+    <None Remove="ffme\avdevice-58.dll" />
+    <None Remove="ffme\avfilter-7.dll" />
+    <None Remove="ffme\avformat-58.dll" />
+    <None Remove="ffme\avutil-56.dll" />
+    <None Remove="ffme\ffmpeg.exe" />
+    <None Remove="ffme\ffplay.exe" />
+    <None Remove="ffme\ffprobe.exe" />
+    <None Remove="ffme\postproc-55.dll" />
+    <None Remove="ffme\swresample-3.dll" />
+    <None Remove="ffme\swscale-5.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ffme\avcodec-58.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\avdevice-58.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\avfilter-7.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\avformat-58.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\avutil-56.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\ffmpeg.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\ffplay.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\ffprobe.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\postproc-55.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\swresample-3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="ffme\swscale-5.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

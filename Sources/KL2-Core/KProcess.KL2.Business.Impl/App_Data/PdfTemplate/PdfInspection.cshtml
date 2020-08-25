@@ -1,0 +1,101 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="bootstrap.min.css">
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+</head>
+<body>
+    <div class="text-center panel panel-default">
+        <div class="panel-body">
+            <h1>Compte-rendu des inspections MA/MP - @DateTime.Now.AddDays(-1).ToShortDateString()</h1>
+        </div>
+    </div>
+    <div style="margin-left:45px;margin-right:45px;">
+        <div class="row">
+            <div class="col-lg-12 panel panel-primary">
+                <h3 class="text-center panel-heading">Liste des visites</h3>
+                <table class="table table-striped panel-body">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3 text-center">Visites planifiées</th>
+                            <th class="col-md-3 text-center">Faite</th>
+                            <th class="col-md-3 text-center">Intervenant</th>
+                            <th class="col-md-3 text-center">Audit</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var inspection in Model.Item1)
+                        {
+                            <tr class="text-center">
+                                <td>@inspection.ProcessName</td>
+                                @{
+                                    if (inspection.EndDate != null)
+                                    {
+                                        @:
+                                        <td class="success"> Oui </td>
+                                    }
+                                    else
+                                    {
+                                        @:
+                                        <td class="danger"> Non </td>
+                                    }
+                                }
+                                <td>@string.Join(", ", inspection.Inspectors)</td>
+                                @{
+                                    if (inspection.AuditExists == true)
+                                    {
+                                        @:
+                                        <td> Oui </td>
+                                    }
+                                    else
+                                    {
+                                        @:
+                                        <td> Non </td>
+                                    }
+                                }
+                            </tr>
+                                    }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-12 panel panel-info">
+                <h3 class="text-center panel-heading">Liste des anomalies</h3>
+                <table class="table table-striped panel-body">
+                    <thead>
+                        <tr>
+                            <th class="col-md-3 text-center">Visite avec anomalie</th>
+                            <th class="col-md-3 text-center">Type d'étiquette</th>
+                            <th class="col-md-3 text-center">Commentaire</th>
+                            <th class="col-md-3 text-center">Photo</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @foreach (var anomaly in Model.Item2)
+                        {
+                            <tr class="text-center">
+                                <td>@anomaly.ProcessLabel</td>
+                                <td style="background-color:@anomaly.TypeColor;">@anomaly.TypeLabel</td>
+                                <td>@anomaly.Description</td>
+                                <td>
+                                    @if (anomaly.HasPhoto)
+                                    {
+                                        <img src="@anomaly.Photo" style="max-height: 272px; max-width: 272px; height: auto; width: auto;" />
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

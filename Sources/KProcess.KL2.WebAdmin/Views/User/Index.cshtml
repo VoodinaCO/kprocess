@@ -1,0 +1,505 @@
+@using KProcess.KL2.WebAdmin.Models.Users;
+@using System.Web.Mvc.Html;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model UserManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "fr";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+
+    ViewBag.Title = LocalizedStrings.GetString("Web_Menu_Users");
+
+    List<object> toolbarItems = new List<object>();
+    toolbarItems.Add("Add");
+    toolbarItems.Add("Edit");
+    toolbarItems.Add("Delete");
+    toolbarItems.Add("ExcelExport");
+    toolbarItems.Add(new { text = LocalizedStrings.GetString("Web_View_User_Activate"), tooltipText = LocalizedStrings.GetString("Web_View_User_ActivateTooltip"), id = "ActivateUser", prefixIcon = "e-checkmark" });
+    toolbarItems.Add(new { text = LocalizedStrings.GetString("Web_View_User_Deactivate"), tooltipText = LocalizedStrings.GetString("Web_View_User_DeactivateTooltip"), id = "DeactivateUser", prefixIcon = "e-uncheckmark" });
+    toolbarItems.Add(new { text = LocalizedStrings.GetStringFormat("Web_View_User_ActivatedUsersCount", ViewBag.ActivatedUsersCount.ToString(), ViewBag.ActivatedUsersMax.ToString()), id = "ActivatedUsersCount", align = "Right" });
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "Username", direction = "Ascending" });
+}
+
+<style>
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+
+    .e-checkmark::before {
+        content: '\e7ff';
+    }
+
+    .e-uncheckmark::before {
+        content: '\e917';
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+        @Html.Hidden("total", Model.UsersViewModel.Count().ToString(), new { id = "totalUsers" })
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Grid("Users")
+            .Height("100%").Width("100%")
+            .DataSource(ds => ds.Json(Model.UsersViewModel.ToArray()).UpdateUrl(Url.Action("UpdateUser")).InsertUrl(Url.Action("InsertUser")).RemoveUrl(Url.Action("DeleteUser")).Adaptor("RemoteSaveAdaptor"))
+            .EditSettings(edit => { edit.AllowAdding(true).AllowDeleting(true).AllowEditing(true).ShowConfirmDialog(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog).Template("#template"); })
+            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+            .AllowPaging()
+            .PageSettings(p => p.PageSize(25))
+            .Locale(ejLanguageCode)
+            //Excel export
+            .AllowExcelExport()
+            .AllowTextWrap()
+            .AllowFiltering()
+            .AllowSorting()
+            .AllowMultiSorting()
+            .SortSettings(sort => sort.Columns(cols))
+            .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+            .EnableHover()
+            //.Toolbar(new List<string>() { "Add", "Edit", "Delete", "ExcelExport" })
+            .Toolbar(toolbarItems)
+            .SelectionSettings(s => s.Type(Syncfusion.EJ2.Grids.SelectionType.Multiple))
+            .ToolbarClick("toolbarClick")
+            .Columns(col =>
+            {
+                col.Field("UserId").IsPrimaryKey(true)
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_UserId_Header"))
+                    .IsIdentity(true)
+                    .Visible(false)
+                    .Add();
+                col.Field("Username")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_Username_Header"))
+                    .ValidationRules(new { required = true })
+                    .AllowFiltering(false)
+                    .AllowSorting(true)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("Firstname")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_Firstname_Header"))
+                    .ValidationRules(new { required = true })
+                    .AllowFiltering(false)
+                    .AllowSorting(true)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("Name")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_Name_Header"))
+                    .ValidationRules(new { required = true })
+                    .AllowFiltering(false)
+                    .AllowSorting(true)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("TenuredDisplay")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_Position_Header"))
+                    .AllowSorting(false)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("Teams")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_Team_Header"))
+                    .AllowSorting(false)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("DefaultLanguageCode")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_Language_Header"))
+                    .ValidationRules(new { required = true })
+                    .AllowSorting(false)
+                    .AllowFiltering(false)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("Roles")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_Roles_Header"))
+                    .AllowSorting(false)
+                    .AllowFiltering(false)
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("IsActive")
+                    .HeaderText(LocalizedStrings.GetString("Web_View_User_StatusHeader"))
+                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Template("#userStatusTemplate")
+                    .Filter(new { type = "Excel", itemTemplate = "${getItemTemplate(data)}" })
+                    .Add();
+                col.Field("Tenured").Visible(false).Add();
+            })
+            .ActionBegin("actionBegin")
+            .ActionComplete("actionComplete")
+            .ActionFailure("actionFailure")
+            .QueryCellInfo("gridQueryCellInfo")
+            .RowSelected("onRowSelect")
+            .RowDeselected("onRowDeselect")
+            .RowSelecting("onSelectingCheck")
+            .DataBound("gridDataBound")
+            .HeaderCellInfo("gridHeaderCellInfo")
+            .Render()
+        )
+    </div>
+</div>
+
+<script id="template" type="text/template">
+    <div id="dialogTemp">
+    </div>
+</script>
+
+<script id="userStatusTemplate" type="text/x-template">
+    ${if (IsActive)}
+    <div><span class="fa fa-check" style="vertical-align:middle;" aria-hidden="true"></span><span style="vertical-align:middle;"> @LocalizedStrings.GetString("Web_View_User_Active")</span></div>
+    ${else}
+
+    ${/if}
+</script>
+
+<script type="text/javascript">
+    var selectedIndex = [];
+    var maxSlots = @ViewBag.ActivatedUsersMax;
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Administration")" + "/" + "@LocalizedStrings.GetString("Web_Menu_Users")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function gridDataBound(args) {
+        this.autoFitColumns(['Username', 'Firstname', 'Name', 'TenuredDisplay', 'Teams', 'DefaultLanguageCode']);
+        dataBoundDisableActivationUser();
+        recallSelection(this);
+    }
+
+    function recallSelection(grid) {
+        if (selectedIndex.length != 0) {
+            grid.selectionModule.selectRows(selectedIndex);
+            selectedIndex = [];
+        }
+    }
+
+    function getItemTemplate(data) {
+        if (data.IsActive === false) {
+            return '@Html.Raw(LocalizedStrings.GetString("Web_View_User_Deactive"))';
+        } else if (data.IsActive === true) {
+            return '@Html.Raw(LocalizedStrings.GetString("Web_View_User_Active"))';
+        } else {
+            return data.IsActive;
+        }
+    }
+
+    function dataBoundDisableActivationUser() {
+        var grid = document.getElementById("Users").ej2_instances[0];
+        grid.toolbarModule.enableItems(['ActivateUser', 'DeactivateUser'], false);
+    }
+
+    function onRowSelect(args) {
+        var grid = document.getElementById("Users").ej2_instances[0];
+        var selectedRows = grid.getSelectedRecords();
+
+        var userCount = document.querySelector('#ActivatedUsersCount>.e-tbar-btn-text').textContent;
+        var oldText = userCount.split('/');
+        var usedSlots = parseInt(oldText[0]);
+        var availableSlots = maxSlots - usedSlots;
+
+        if (selectedRows.length > 1) {
+            //Multi selection
+            var sameStatus = selectedRows.every(checkIsActiveSame);
+            if (sameStatus == true) {
+                var isActive = selectedRows[0].IsActive;
+                if (isActive) {
+                    grid.toolbarModule.enableItems(['DeactivateUser'], true);
+                    grid.toolbarModule.enableItems(['ActivateUser'], false);
+                } else if (isActive == false) {
+                    if (selectedRows.length > availableSlots) {
+                        grid.toolbarModule.enableItems(['DeactivateUser'], false);
+                        grid.toolbarModule.enableItems(['ActivateUser'], false);
+                    } else {
+                        grid.toolbarModule.enableItems(['DeactivateUser'], false);
+                        grid.toolbarModule.enableItems(['ActivateUser'], true);
+                    }
+                }
+            }
+            else {
+                grid.toolbarModule.enableItems(['DeactivateUser'], false);
+                grid.toolbarModule.enableItems(['ActivateUser'], false);
+            }
+        }
+        else {
+            //Single selection
+            var isActive = args.data.IsActive;
+            if (isActive) {
+                grid.toolbarModule.enableItems(['DeactivateUser'], true);
+                grid.toolbarModule.enableItems(['ActivateUser'], false);
+            } else if (isActive == false) {
+                if (availableSlots == 0) {
+                    grid.toolbarModule.enableItems(['DeactivateUser'], false);
+                    grid.toolbarModule.enableItems(['ActivateUser'], false);
+                } else {
+                    grid.toolbarModule.enableItems(['DeactivateUser'], false);
+                    grid.toolbarModule.enableItems(['ActivateUser'], true);
+                }
+            }
+        }
+    }
+
+    function checkIsActiveSame(el, index, arr) {
+        if (index === 0) {
+            return true;
+        }
+        else {
+            //do each array element value match the value of the previous array element
+            return (el.IsActive === arr[index - 1].IsActive);
+        }
+    }
+
+    function onRowDeselect(args) {
+        var grid = document.getElementById("Users").ej2_instances[0];
+        var selectedRows = grid.getSelectedRecords();
+        if (selectedRows.length > 0) {
+            var sameStatus = selectedRows.every(checkIsActiveSame);
+            if (sameStatus == true) {
+                var isActive = selectedRows[0].IsActive;
+                if (isActive) {
+                    grid.toolbarModule.enableItems(['DeactivateUser'], true);
+                    grid.toolbarModule.enableItems(['ActivateUser'], false);
+                }
+                if (isActive == false) {
+                    grid.toolbarModule.enableItems(['DeactivateUser'], false);
+                    grid.toolbarModule.enableItems(['ActivateUser'], true);
+                }
+            }
+            else {
+                grid.toolbarModule.enableItems(['DeactivateUser'], false);
+                grid.toolbarModule.enableItems(['ActivateUser'], false);
+            }
+        }
+        else {
+            dataBoundDisableActivationUser();
+        }
+    }
+
+    function gridHeaderCellInfo(args) {
+        if (args.cell.column.allowSorting === false) {
+            args.node.style.cursor = "default";
+        }
+    }
+
+    function toolbarClick(args) {
+        if ((args.item.properties.id == "Users_delete" || args.item.properties.id == "Users_edit") && this.getSelectedRecords().length == 0) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (args.item.properties.id) {
+                case "Users_delete":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                    break;
+                case "Users_edit":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                    break;
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if ((args.item.properties.id == "Users_delete" || args.item.properties.id == "Users_edit") && this.getSelectedRecords().length > 1) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "@LocalizedStrings.GetString("Web_View_User_ActionMultipleItem")";
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if (args.item.id === 'Users_excelexport') {
+            var gridObj = document.getElementById("Users").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "Users.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+        if (args.item.id === "ActivateUser") {
+            var gridObj = document.getElementById("Users").ej2_instances[0];
+            var selected = gridObj.getSelectedRecords();
+            var userIds = selected.map(retrieveUserIds);
+            toggleUserStatus(userIds, true);
+        }
+        if (args.item.id === "DeactivateUser") {
+            var gridObj = document.getElementById("Users").ej2_instances[0];
+            var selected = gridObj.getSelectedRecords();
+            var userIds = selected.map(retrieveUserIds);
+            toggleUserStatus(userIds, false);
+        }
+    }
+
+    function retrieveUserIds(item) {
+        return item.UserId;
+    }
+
+    function retrieveIndexIds(item) {
+        return item.rowIndex;
+    }
+
+    function toggleUserStatus(userId, status) {
+        var targetElement = $('#pageContainer')[0];
+        ej.popups.showSpinner(targetElement);
+
+        var ajax = new ej.base.Ajax({
+            url: "@Url.Action("UpdateUserStatus", "User")", //render the partial view
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({ userIds: userId, status: status })
+        });
+        ajax.send().then(function (data) {
+            var respond = JSON.parse(data);
+            if (respond.Success == false) {
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: respond.message, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                ej.popups.hideSpinner(targetElement);
+            }
+            else {
+                var grid = document.getElementById("Users").ej2_instances[0];
+                var selectedRows = grid.getSelectedRows();
+                var userIds = selectedRows.map(retrieveIndexIds);
+                selectedIndex = selectedIndex.concat(userIds);
+                grid.dataSource.dataSource.json = respond.Users;
+                var userCount = grid.toolbar.filter(function (o) { return o.id == 'ActivatedUsersCount'; });
+                var userCountIndex = grid.toolbar.indexOf(userCount[0]);
+                var oldText = userCount[0].text.split('/');
+                oldText[0] = respond.activatedCount;
+                grid.toolbarModule.toolbar.items[userCountIndex].text = oldText[0] + '/' + oldText[1];
+                grid.refresh();
+            }
+        }).catch(function (xhr) {
+            console.log(xhr);
+            location.reload();
+        });
+    }
+
+    function refreshUsersCount(total) {
+        var grid = document.getElementById("Users").ej2_instances[0];
+        var userCount = grid.toolbar.filter(function (o) { return o.id == 'ActivatedUsersCount'; });
+        var userCountIndex = grid.toolbar.indexOf(userCount[0]);
+        var oldText = userCount[0].text.split('/');
+        oldText[0] = total;
+        grid.toolbarModule.toolbar.items[userCountIndex].text = oldText[0] + '/' + oldText[1];
+        grid.refresh();
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Roles") {
+            var roles = args.data["Roles"];
+            args.cell.innerText = String(roles).replace(/\,/g, ', ');
+        }
+        if (args.column.field == "Teams") {
+            var teams = args.data["Teams"];
+            args.cell.innerText = String(teams).replace(/\,/g, ', ');
+        }
+    }
+
+    function actionFailure(args) {
+        var msg = "";
+        if (args.error.length > 0) {
+            msg = args.error[0].error.statusText;
+        }
+        if (args.length > 0) {
+            msg = args[0].error.statusText;
+        }
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        this.cancel = true;
+    }
+
+    function actionBegin(args) {
+        if (args.requestType === "save") {
+            //Roles save
+            var roleList = document.getElementById('Roles').ej2_instances[0];
+            var selectedItems = roleList.getSelectedItems();
+            var roles = [];
+            for (var i = 0; i < selectedItems.data.length; i++) {
+                roles[i] = selectedItems.data[i].RoleCode;
+            }
+            args.data['Roles'] = roles.join();
+            //Tenured save
+            var tenuredValue = document.getElementById('Tenured').value;
+            if (tenuredValue == "")
+                args.data['Tenured'] = null;
+        }
+    }
+
+    function actionComplete(args) {
+        if (args.requestType === 'beginEdit') {
+            //var spinner = ej.popups.createSpinner({ target: args.dialog.element });
+            //ej.popups.showSpinner(args.dialog.element);
+            args.dialog.header = "@LocalizedStrings.GetString("Web_View_User_UserEditHeader") " + args.rowData.Username;
+            var ajax = new ej.base.Ajax({
+                url: "@Url.Action("GetUser", "User")", //render the partial view
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ value: args.rowData })
+            });
+            ajax.send().then(function (data) {
+                $('#dialogTemp').html(data); //Render the edit form with selected record
+                args.form.elements.Firstname.focus();
+                //ej.popups.hideSpinner(args.dialog.element);
+            }).catch(function (xhr) {
+                console.log(xhr);
+                location.reload();
+                //ej.popups.hideSpinner(args.dialog.element);
+            });
+            args.form.addEventListener('keyup', function (e) {
+                this.ej2_instances[0].validate(e.target.name);
+            });
+        } else if (args.requestType === 'add') {
+            //var spinner = ej.popups.createSpinner({ target: args.dialog.element });
+            //ej.popups.showSpinner(args.dialog.element);
+            args.dialog.header = "@LocalizedStrings.GetString("Common_NewRecordHeader")";
+            var ajax = new ej.base.Ajax({
+                url: "@Url.Action("GetUser", "User")", //render the partial view
+                type: "POST",
+                contentType: "application/json",
+            });
+            ajax.send().then(function (data) {
+                $('#dialogTemp').html(data); //Render the edit form with selected record
+                args.form.elements.Firstname.focus();
+                //ej.popups.hideSpinner(args.dialog.element);
+            }).catch(function (xhr) {
+                console.log(xhr);
+                location.reload();
+                //ej.popups.hideSpinner(args.dialog.element);
+            });
+            args.form.addEventListener('keyup', function (e) {
+                this.ej2_instances[0].validate(e.target.name);
+            });
+        } else if (args.requestType === 'delete') {
+            var userActives = this.dataSource.dataSource.json.filter(function (o) { return o.IsActive == true; })
+            refreshUsersCount(userActives.length);
+        } else if (args.requestType === 'save') {
+            if (args.row != null && args.row != undefined) {
+                selectedIndex = [args.row.rowIndex];
+                recallSelection(this);
+            } else {
+                selectedIndex = [args.rows.findIndex(function (elt) { return elt.data.Username == args.data.Username; })];
+                recallSelection(this);
+            }
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

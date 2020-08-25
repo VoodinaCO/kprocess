@@ -1,0 +1,2608 @@
+@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using KProcess.KL2.WebAdmin.Models.Action;
+@using System.Web.Configuration;
+@using KProcess.Ksmed.Models;
+@using Newtonsoft.Json;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model FormatViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    var jsonSettings = new JsonSerializerSettings { TypeNameHandling = TypeNameHandling.All, PreserveReferencesHandling = PreserveReferencesHandling.All };
+
+    int referenceWidth = 1260;
+    int firstColumnWidth = 24;
+    int gridSize = referenceWidth - firstColumnWidth;
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style id="notedStyle">
+
+    .e-form-container {
+        width: 50%;
+    }
+
+    .icheckbox_flat-red {
+        margin-right: 8px;
+    }
+
+    .img-documentation {
+        width: 2.38em;
+    }
+
+    .thumbnail-documentation {
+        width: 100%;
+    }
+
+    .grid-documentation .e-row, .grid-documentation .e-alt_row {
+        min-height: 2.381em;
+        height: 2.381em;
+    }
+
+    .grid-documentation {
+        width: 1300px;
+    }
+
+        .grid-documentation .e-grid, .grid-documentation .e-grid th {
+            font-size: 126px;
+        }
+
+    /*Font size : Header and content*/
+    .e-grid .e-headercelldiv {
+        font-size: 0.01942em !important;
+    }
+
+    .e-grid .e-rowcell {
+        font-size: 0.01618em !important;
+    }
+
+    /*
+        Reset font-size initial to avoid big font-size in the popup form
+    */
+    .e-externalform {
+        padding: initial;
+        font-size: initial;
+    }
+
+    .grid-documentation .e-grid th .e-headercelldiv, .grid-documentation .e-grid td.e-templatecell, .grid-documentation .e-grid td.emptyrecord {
+        font-size: 0.159em !important;
+        line-height: unset;
+    }
+
+    .grid-documentation .e-grid td .badge {
+        font-size: 0.9524em !important;
+    }
+
+    .grid-documentation .e-js.e-grid .e-headercell {
+        padding: 0 .3em !important;
+    }
+
+    /*#PublishForTraining, #PublishForInspection, #PublishForEvaluation {
+        width: 1300px;
+    }*/
+
+    .grid-previoustask {
+        margin-top: 35px;
+    }
+
+    #DocumentationFormatTab > .e-content,
+    #DocumentationFormatTab > .e-content > .e-item.e-active,
+    #DocumentationFormatTab > .e-content > .e-item.e-active > #trainingFormatTabContent,
+    #DocumentationFormatTab > .e-content > .e-item.e-active > #evaluationFormatTabContent,
+    #DocumentationFormatTab > .e-content > .e-item.e-active > #inspectionFormatTabContent,
+    #DocumentationFormatTabTraining > .e-content,
+    #DocumentationFormatTabEvaluation > .e-content,
+    #DocumentationFormatTabInspection > .e-content,
+    #DocumentationFormatTabTraining > .e-content > .e-item.e-active,
+    #DocumentationFormatTabEvaluation > .e-content > .e-item.e-active,
+    #DocumentationFormatTabInspection > .e-content > .e-item.e-active,
+    #DocumentationFormatTabTraining > .e-content > .e-item.e-active > #trainingFormatListTabContent,
+    #DocumentationFormatTabTraining > .e-content > .e-item.e-active > #trainingFormatGridTabContent,
+    #DocumentationFormatTabEvaluation > .e-content > .e-item.e-active > #evaluationFormatListTabContent,
+    #DocumentationFormatTabEvaluation > .e-content > .e-item.e-active > #evaluationFormatGridTabContent,
+    #DocumentationFormatTabInspection > .e-content > .e-item.e-active > #inspectionFormatListTabContent,
+    #DocumentationFormatTabInspection > .e-content > .e-item.e-active > #inspectionFormatGridTabContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .e-dragdrop:before {
+        content: '\e330';
+    }
+
+    .e-keytask:before {
+        content: '\e33c';
+    }
+
+    .custom .e-list-text {
+        width: 100%;
+        padding-right: 5px;
+    }
+
+    .e-treeview .e-fullrow,
+    .e-treeview .e-list-item.e-hover > .e-fullrow {
+        border-color: #d2d2d2;
+        border-style: solid;
+        border-width: 1px;
+    }
+
+        .e-treeview .e-fullrow.isDocumentation,
+        .e-treeview .e-list-item.e-hover > .e-fullrow.isDocumentation {
+            border-color: #d2d2d2;
+            border-style: dashed;
+            border-width: 1px;
+            display: flex;
+        }
+
+    .e-treeview .e-list-item > .e-fullrow.isDocumentation > .docNodeActionButtons {
+        visibility: hidden;
+        z-index: 1;
+    }
+
+    .e-treeview .e-list-item.e-hover > .e-fullrow.isDocumentation > .docNodeActionButtons {
+        visibility: visible;
+    }
+
+    .e-list-item > .e-text-content {
+        padding: 0;
+    }
+
+    .taskText {
+        flex: 1;
+        text-align: left;
+        padding-right: 5px;
+    }
+
+    .e-treeview .e-ul {
+        padding: 0 0 0 38px;
+    }
+
+    td > span, td > a {
+        line-height: 1;
+    }
+
+    #docTabContainer > .e-spinner-pane {
+        display: initial !important;
+    }
+
+    #docTabContainer > .e-spin-hide {
+        display: initial !important;
+    }
+</style>
+
+<div class="row justify-content-center">
+    <div style="margin-right:20px">
+        @(Html.EJS().CheckBox("cbTraining")
+                    .Label(LocalizedStrings.GetString("View_Documentation_TrainingLabel"))
+                    .Checked(Model.PublishForTraining)
+                    .Change("formatCbChanged")
+                    .Render()
+        )
+    </div>
+    <div style="margin-right:20px">
+        @(Html.EJS().CheckBox("cbEvaluation")
+                    .Label(LocalizedStrings.GetString("View_Documentation_EvaluationLabel"))
+                    .Checked(Model.PublishForEvaluation)
+                    .Change("formatCbChanged")
+                    .Render()
+        )
+    </div>
+    <div style="margin-right:20px">
+        @(Html.EJS().CheckBox("cbInspection")
+                    .Label(LocalizedStrings.GetString("View_Documentation_InspectionLabel"))
+                    .Checked(Model.PublishForInspection)
+                    .Change("formatCbChanged")
+                    .Render()
+        )
+    </div>
+</div>
+
+@(Html.EJS().Tab("DocumentationFormatTab")
+        .Items(builder =>
+        {
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_TrainingLabel")))
+                .CssClass("FormatTraining")
+                .Content("#trainingFormatTabContent")
+                .Add();
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_EvaluationLabel")))
+                .CssClass("FormatEvaluation")
+                .Content("#evaluationFormatTabContent")
+                .Add();
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_InspectionLabel")))
+                .CssClass("FormatInspection")
+                .Content("#inspectionFormatTabContent")
+                .Add();
+        })
+        .Selecting("preventSwipe")
+        .Selected("docFormatTabSelected")
+        .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+        .Render()
+)
+
+<div id="trainingFormatTabContent" style="display: none; text-align:right;">
+    @(Html.EJS().Tab("DocumentationFormatTabTraining")
+                .Items(builder =>
+                {
+                    builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_ListLabel")))
+                        .Content("#trainingFormatListTabContent")
+                        .Add();
+                    builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_GridLabel")))
+                        .Content("#trainingFormatGridTabContent")
+                        .Add();
+                })
+                .Selecting("preventSwipe")
+                .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+                .Selected("docViewTabSelected")
+                .Render()
+    )
+</div>
+
+<div id="trainingFormatListTabContent" style="display: none;">
+    <div style="height: 100%; display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: row;">
+            <div style="flex: 1; margin-right: 10px; text-align: left;">
+                @(Html.EJS().Button("AddFormation")
+                            .Content("<span class='fas fa-plus'></span>")
+                            .CssClass("e-small e-round")
+                            .HtmlAttributes(new Dictionary<string, object> { ["title"] = LocalizedStrings.GetString("View_AdminReferentials_AddDocument") })
+                            .Render()
+                )
+            </div>
+            <div style="flex: 1; margin-left: 10px;">
+                <h4 id="trainingDocumentationActionsListHeader" style="text-align: center; visibility: hidden;">@Html.Raw(LocalizedStrings.GetString("View_DocumentationFormat_LastDocumentationActions"))</h4>
+            </div>
+        </div>
+        <div style="flex: 1; min-height: 0px; display: flex; flex-direction: row;">
+            <div id="trainingActionsList" style="flex: 1; margin-right: 10px; overflow: auto;"></div>
+            <div id="trainingDocumentationActionsList" style="flex: 1; margin-left: 10px; overflow: auto;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="trainingFormatGridTabContent" class="insideTab" style="display: none; text-align: left;">
+</div>
+
+<div id="evaluationFormatTabContent" style="display: none; text-align:right;">
+    @(Html.EJS().Tab("DocumentationFormatTabEvaluation")
+                .Items(builder =>
+                {
+                    builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_ListLabel")))
+                        .Content("#evaluationFormatListTabContent")
+                        .Add();
+                    builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_GridLabel")))
+                        .Content("#evaluationFormatGridTabContent")
+                        .Add();
+                })
+                .Selecting("preventSwipe")
+                .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+                .Selected("docViewTabSelected")
+                .Render()
+    )
+</div>
+
+<div id="evaluationFormatListTabContent" style="display: none;">
+    <div style="height: 100%; display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: row;">
+            <div style="flex: 1; margin-right: 10px; text-align: left;">
+                @(Html.EJS().Button("AddEvaluation")
+                            .Content("<span class='fas fa-plus'></span>")
+                            .CssClass("e-small e-round")
+                            .HtmlAttributes(new Dictionary<string, object> { ["title"] = LocalizedStrings.GetString("View_AdminReferentials_AddDocument") })
+                            .Render()
+                )
+            </div>
+            <div style="flex: 1; margin-left: 10px;">
+                <h4 id="evaluationDocumentationActionsListHeader" style="text-align: center; visibility: hidden;">@Html.Raw(LocalizedStrings.GetString("View_DocumentationFormat_LastDocumentationActions"))</h4>
+            </div>
+        </div>
+        <div style="flex: 1; min-height: 0px; display: flex; flex-direction: row;">
+            <div id="evaluationActionsList" style="flex: 1; margin-right: 10px; overflow: auto;"></div>
+            <div id="evaluationDocumentationActionsList" style="flex: 1; margin-left: 10px; overflow: auto;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="evaluationFormatGridTabContent" class="insideTab" style="display: none; text-align: left;">
+</div>
+
+<div id="inspectionFormatTabContent" style="display: none; text-align:right;">
+    @(Html.EJS().Tab("DocumentationFormatTabInspection")
+                .Items(builder =>
+                {
+                    builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_ListLabel")))
+                        .Content("#inspectionFormatListTabContent")
+                        .Add();
+                    builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_GridLabel")))
+                        .Content("#inspectionFormatGridTabContent")
+                        .Add();
+                })
+                .Selecting("preventSwipe")
+                .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+                .Selected("docViewTabSelected")
+                .Render()
+    )
+</div>
+
+<div id="inspectionFormatListTabContent" style="display: none;">
+    <div style="height: 100%; display: flex; flex-direction: column;">
+        <div style="display: flex; flex-direction: row;">
+            <div style="flex: 1; margin-right: 10px; text-align: left;">
+                @(Html.EJS().Button("AddInspection")
+                            .Content("<span class='fas fa-plus'></span>")
+                            .CssClass("e-small e-round")
+                            .HtmlAttributes(new Dictionary<string, object> { ["title"] = LocalizedStrings.GetString("View_AdminReferentials_AddDocument") })
+                            .Render()
+                )
+            </div>
+            <div style="flex: 1; margin-left: 10px;">
+                <h4 id="inspectionDocumentationActionsListHeader" style="text-align: center; visibility: hidden;">@Html.Raw(LocalizedStrings.GetString("View_DocumentationFormat_LastDocumentationActions"))</h4>
+            </div>
+        </div>
+        <div style="flex: 1; min-height: 0px; display: flex; flex-direction: row;">
+            <div id="inspectionActionsList" style="flex: 1; margin-right: 10px; overflow: auto;"></div>
+            <div id="inspectionDocumentationActionsList" style="flex: 1; margin-left: 10px; overflow: auto;"></div>
+        </div>
+    </div>
+</div>
+
+<div id="inspectionFormatGridTabContent" class="insideTab" style="display: none; text-align: left;">
+</div>
+
+@(Html.EJS().Dialog("crudDialog")
+    .ShowCloseIcon(true)
+    .Target("#wrapper")
+    .CloseOnEscape(true)
+    .Locale(ejLanguageCode)
+    .AnimationSettings(e => e.Effect(Syncfusion.EJ2.Popups.DialogEffect.Fade))
+    .IsModal(true)
+    .Visible(false)
+    .ContentTemplate(@<div id="crudDialogContent"></div>)
+    .FooterTemplate("<div><button id='submitTask'></button><div>")
+    .Render()
+)
+
+<script id="templateInspection" type="text/template">
+</script>
+
+<script id="templateFormation" type="text/template">
+</script>
+
+<script id="templateEvaluation" type="text/template">
+</script>
+
+<script type="text/x-jsrender" id="labelTemplate">
+</script>
+
+<script type="text/x-jsrender" id="NoTemplate">
+</script>
+
+<script>
+    // Treeview functions
+    function getNextActionId(publishMode) {
+        switch (publishMode) {
+            case @((int)PublishModeEnum.Formation):
+                if (trainingActionsDS.length == 0)
+                    return 1;
+                return Math.max.apply(Math, trainingActionsDS.map(function (elt) { return elt.TreeId; })) + 1;
+            case @((int)PublishModeEnum.Evaluation):
+                if (evaluationActionsDS.length == 0)
+                    return 1;
+                return Math.max.apply(Math, evaluationActionsDS.map(function (elt) { return elt.TreeId; })) + 1;
+            case @((int)PublishModeEnum.Inspection):
+                if (inspectionActionsDS.length == 0)
+                    return 1;
+                return Math.max.apply(Math, inspectionActionsDS.map(function (elt) { return elt.TreeId; })) + 1;
+        }
+    }
+    function getNextWBS(publishMode) {
+        switch (publishMode) {
+            case @((int)PublishModeEnum.Formation):
+                if (trainingActionsDS.length == 0)
+                    return '1';
+                var firstWBS = Math.max.apply(Math, trainingActionsDS.map(function (elt) { return elt.WBSParts[0]; })) + 1;
+                return firstWBS.toString();
+            case @((int)PublishModeEnum.Evaluation):
+                if (evaluationActionsDS.length == 0)
+                    return '1';
+                var firstWBS = Math.max.apply(Math, evaluationActionsDS.map(function (elt) { return elt.WBSParts[0]; })) + 1;
+                return firstWBS.toString();
+            case @((int)PublishModeEnum.Inspection):
+                if (inspectionActionsDS.length == 0)
+                    return '1';
+                var firstWBS = Math.max.apply(Math, inspectionActionsDS.map(function (elt) { return elt.WBSParts[0]; })) + 1;
+                return firstWBS.toString();
+        }
+    }
+    function getWBSParts(wbs) {
+        return wbs.split('.').map(function (elt) { return parseInt(elt); });
+    }
+    function setWBS(data, wbs) {
+        data.WBS = wbs;
+        data.WBSParts = getWBSParts(wbs);
+    }
+    function recursiveWBS(parentId, treeDatas) {
+        var counter = 1;
+        var previousParent = null;
+        var nodes = null;
+        if (parentId == null) {
+            nodes = treeDatas.filter(function (data) { return data.ParentId == null || isNaN(data.ParentId); });
+        } else {
+            nodes = treeDatas.filter(function (data) { return data.ParentId == parentId; });
+        }
+        if (parentId != null) {
+            previousParent = treeDatas.find(function (elt) { return elt.TreeId === parentId; });
+        }
+        nodes.forEach(function (data) {
+            if (previousParent == null) {
+                setWBS(data, counter.toString());
+            } else {
+                setWBS(data, previousParent.WBS + "." + counter.toString());
+            }
+            if (data.IsGroup) {
+                recursiveWBS(data.TreeId, treeDatas);
+            }
+            counter++;
+        });
+    }
+    function fixIsGroup(treeDatas) {
+        treeDatas.forEach(function (data) {
+            if (data.IsGroup == null || data.IsGroup == undefined) {
+                data.IsGroup = false;
+            }
+        });
+    }
+    function updateWBS(treeView, publishMode, grid) {
+        recursiveWBS(null, treeView.treeData);
+        fixIsGroup(treeView.treeData);
+
+        // Refresh DataSources
+        switch (publishMode) {
+            case @((int)PublishModeEnum.Formation):
+                trainingActionsDS = treeView.treeData;
+                trainingActionsDS.sort(sortWBSComparer);
+                treeView.fields = { dataSource: trainingActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                grid.dataSource = trainingActionsDS;
+                tempTrainingActionDS = trainingActionsDS;
+                break;
+            case @((int)PublishModeEnum.Evaluation):
+                evaluationActionsDS = treeView.treeData;
+                evaluationActionsDS.sort(sortWBSComparer);
+                treeView.fields = { dataSource: evaluationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                grid.dataSource = evaluationActionsDS;
+                tempEvaluationActionDS = evaluationActionsDS;
+                break;
+            case @((int)PublishModeEnum.Inspection):
+                inspectionActionsDS = treeView.treeData;
+                inspectionActionsDS.sort(sortWBSComparer);
+                treeView.fields = { dataSource: inspectionActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                grid.dataSource = inspectionActionsDS;
+                tempInspectionActionDS = inspectionActionsDS;
+                break;
+        }
+    }
+    function sortWBSComparer(reference, comparer) {
+        var referenceWBSParts = reference.WBS.split('.').map(function (elt) { return parseInt(elt); });
+        var comparerWBSParts = comparer.WBS.split('.').map(function (elt) { return parseInt(elt); });
+
+        if (referenceWBSParts.length == 0 && comparerWBSParts.length == 0) {
+            return 0;
+        }
+
+        if (referenceWBSParts.length == 0) {
+            return -1;
+        }
+
+        if (comparerWBSParts.length == 0) {
+            return 1;
+        }
+
+        if (referenceWBSParts.length > comparerWBSParts.length) {
+            for (var i = 0; i < comparerWBSParts.length; i++) {
+                if (referenceWBSParts[i] != comparerWBSParts[i])
+                    return referenceWBSParts[i] < comparerWBSParts[i] ? -1 : 1;
+            }
+            return 1;
+        }
+
+        if (referenceWBSParts.length < comparerWBSParts.length) {
+            for (var i = 0; i < referenceWBSParts.length; i++) {
+                if (referenceWBSParts[i] != comparerWBSParts[i])
+                    return (referenceWBSParts[i] < comparerWBSParts[i] ? -1 : 1);
+            }
+            return -1;
+        }
+
+        for (var i = 0; i < comparerWBSParts.length; i++) {
+            if (referenceWBSParts[i] != comparerWBSParts[i])
+                return (referenceWBSParts[i] < comparerWBSParts[i] ? -1 : 1);
+        }
+        return 0;
+    };
+
+    function setHasChanged(value) {
+        updateWizardButtonsStates({ cancel: value, saveasdraft: value });
+        if (value == true)
+            updateWizardIfTaskExistForPublication(value);
+    }
+
+    var formatTabControl = null;
+    var crudDialogObj = null;
+    var minColumnWidth = 100;
+
+    docReady(function () {
+        leaveFunction = localLeaveFunction;
+        cancelFunction = localCancelFunction;
+        saveAsDraftFunction = localSaveAsDraftFunction;
+        setHeader('/Documentation/DocumentationHeader', { processName: "@Html.Raw(ViewBag.ProcessName)", projectName: "@Html.Raw(ViewBag.ProjectName)" });
+        updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+        updateWizardButtonsStates({ previous: true, cancel: false, saveasdraft: false, next: true });
+        formatTabControl = document.getElementById('DocumentationFormatTab').ej2_instances[0];
+
+        // Auto select correct tab
+        if (document.getElementById('cbTraining').ej2_instances[0].checked !== true) {
+            formatTabControl.select(2);
+        }
+
+        // Complete checkbox depend on task
+        if (document.getElementById('cbTraining').ej2_instances[0].checked == true || document.getElementById('cbEvaluation').ej2_instances[0].checked == true) {
+            document.getElementById('cbTraining').ej2_instances[0].checked = true;
+            document.getElementById('cbEvaluation').ej2_instances[0].checked = true;
+        }
+
+        // Disable checkbox(es) if necessary
+        if (document.getElementById('cbTraining').ej2_instances[0].checked !== true && document.getElementById('cbInspection').ej2_instances[0].checked !== true) {
+            //No analyst task
+            updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+            updateWizardButtonsStates({ previous: true, cancel: false, saveasdraft: false, next: true });
+
+            document.getElementById('cbInspection').ej2_instances[0].checked = true;
+            document.getElementById('cbTraining').ej2_instances[0].checked = true;
+            document.getElementById('cbEvaluation').ej2_instances[0].checked = true;
+            formatTabControl.select(0);
+        }
+        else {
+            if (document.getElementById('cbTraining').ej2_instances[0].checked !== true) {
+                document.getElementById('cbInspection').ej2_instances[0].disabled = true;
+            }
+            if (document.getElementById('cbInspection').ej2_instances[0].checked !== true) {
+                document.getElementById('cbTraining').ej2_instances[0].disabled = true;
+                document.getElementById('cbEvaluation').ej2_instances[0].disabled = true;
+            }
+        }
+        refreshTabVisibility();
+
+        documentationStates.documentationDraftId = @ViewBag.DocumentationDraftId;
+        documentationStates.draft = @(Html.Raw(JsonConvert.SerializeObject(ViewBag.Draft, jsonSettings)));
+
+        //Assign and prepare control
+        document.getElementById("AddFormation").onclick = function () { execOpenCrudDialog('add', @((int)PublishModeEnum.Formation), trainingActionsList); };
+        document.getElementById("AddEvaluation").onclick = function () { execOpenCrudDialog('add', @((int)PublishModeEnum.Evaluation), evaluationActionsList); };
+        document.getElementById("AddInspection").onclick = function () { execOpenCrudDialog('add', @((int)PublishModeEnum.Inspection), inspectionActionsList); };
+
+        crudDialogObj = document.getElementById("crudDialog").ej2_instances[0];
+
+        var columnChoosers = document.getElementsByClassName('e-ccdlg');
+        for (var i = 0; i < columnChoosers.length; i++) {
+            columnChoosers[i].addEventListener("click", checkNumberOfChoosenColumns, true);
+        }
+
+        redefineStyle();
+    });
+
+    function updateWizardIfTaskExistForPublication(value) {
+        if (document.getElementById('cbTraining').ej2_instances[0].checked == true && trainingActionsDS.length == 0) {
+            updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+            updateWizardButtonsStates({ previous: true, cancel: value, saveasdraft: value, next: true });
+            return;
+        }
+        if (document.getElementById('cbEvaluation').ej2_instances[0].checked == true && evaluationActionsDS.length == 0) {
+            updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+            updateWizardButtonsStates({ previous: true, cancel: value, saveasdraft: value, next: true });
+            return;
+        }
+        if (document.getElementById('cbInspection').ej2_instances[0].checked == true && inspectionActionsDS.length == 0) {
+            updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+            updateWizardButtonsStates({ previous: true, cancel: value, saveasdraft: value, next: true });
+            return;
+        }
+        updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+        updateWizardButtonsStates({ previous: true, cancel: value, saveasdraft: value, next: true });
+    }
+
+    $(window).resize(function () {
+        redefineStyle();
+    });
+
+    //Check number of choosen columns OR set sizes after changing columns
+    function checkNumberOfChoosenColumns(args) {
+        if (args.target.parentElement.classList.contains("e-checkbox-wrapper")) {
+            // If the checkbox is already checked, it means we are changing checkbox state from checked to unchecked
+            if (args.target.parentElement.querySelector('.e-frame').classList.contains("e-check")) {
+                return;
+            }
+
+            var maxColumns = 7;
+            var frozenColumns = 0;
+            var maxAdditionnalColumns = 0;
+            var checkedNumber = 0;
+            var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+            if (selectedTabClass == 'FormatTraining') {
+                frozenColumns = @FormatViewModelExt.DocumentationColumnsPreferences[PublishModeEnum.Formation].ColumnsPreferences.Count(cp => cp.Value.ShouldBeVisible && !cp.Value.ShouldBeShownInColumnChooser);
+                maxAdditionnalColumns = maxColumns - frozenColumns;
+                if (args.target.parentElement.querySelector('.e-frame').classList.contains("e-selectall")) {
+                    checkedNumber = document.querySelectorAll("#trainingFormatGridTabContent_ccdlg .e-checkbox-wrapper .e-frame:not(.e-selectall)").length;
+                } else {
+                    checkedNumber = document.querySelectorAll("#trainingFormatGridTabContent_ccdlg .e-checkbox-wrapper .e-frame.e-check:not(.e-selectall)").length + 1;
+                }
+            } else if (selectedTabClass == 'FormatEvaluation') {
+                frozenColumns = @FormatViewModelExt.DocumentationColumnsPreferences[PublishModeEnum.Evaluation].ColumnsPreferences.Count(cp => cp.Value.ShouldBeVisible && !cp.Value.ShouldBeShownInColumnChooser);
+                maxAdditionnalColumns = maxColumns - frozenColumns;
+                if (args.target.parentElement.querySelector('.e-frame').classList.contains("e-selectall")) {
+                    checkedNumber = document.querySelectorAll("#evaluationFormatGridTabContent_ccdlg .e-checkbox-wrapper .e-frame:not(.e-selectall)").length;
+                } else {
+                    checkedNumber = document.querySelectorAll("#evaluationFormatGridTabContent_ccdlg .e-checkbox-wrapper .e-frame.e-check:not(.e-selectall)").length + 1;
+                }
+            } else if (selectedTabClass == 'FormatInspection') {
+                frozenColumns = @FormatViewModelExt.DocumentationColumnsPreferences[PublishModeEnum.Inspection].ColumnsPreferences.Count(cp => cp.Value.ShouldBeVisible && !cp.Value.ShouldBeShownInColumnChooser);
+                maxAdditionnalColumns = maxColumns - frozenColumns;
+                if (args.target.parentElement.querySelector('.e-frame').classList.contains("e-selectall")) {
+                    checkedNumber = document.querySelectorAll("#inspectionFormatGridTabContent_ccdlg .e-checkbox-wrapper .e-frame:not(.e-selectall)").length;
+                } else {
+                    checkedNumber = document.querySelectorAll("#inspectionFormatGridTabContent_ccdlg .e-checkbox-wrapper .e-frame.e-check:not(.e-selectall)").length + 1;
+                }
+            }
+
+            if (checkedNumber > maxAdditionnalColumns) {
+                args.stopPropagation();
+                $.notify({ message: "@LocalizedStrings.GetString("View_Documentation_MaxColumns")".replace("{0}", maxAdditionnalColumns), icon: 'fa fa-warning', title: '<strong style="padding-right: 5px"@LocalizedStrings.GetString("Common_Error")</strong>' }, { type: 'warning' });
+            }
+        } else if (args.target.classList.contains("e-cc_okbtn")) {
+            args.stopPropagation();
+            var ccdlg = args.target.closest('.e-ccdlg');
+            ccdlg.ej2_instances[0].closeIconClickEventHandler(null);
+            var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+            var currentGrid = null;
+            if (selectedTabClass == 'FormatTraining') {
+                currentGrid = trainingActionsGrid;
+            } else if (selectedTabClass == 'FormatEvaluation') {
+                currentGrid = evaluationActionsGrid;
+            } else if (selectedTabClass == 'FormatInspection') {
+                currentGrid = inspectionActionsGrid;
+            }
+            var visibleColumnsAfterCloseColumnChooser = getSelectedColumns(ccdlg, currentGrid);
+            // Get removed columns
+            var removedColumns = visibleColumnsBeforeOpenColumnChooser.filter(function (col) {
+                return !visibleColumnsAfterCloseColumnChooser.map(function (afterCol) {
+                    return afterCol.field;
+                }).includes(col.field);
+            });
+            var removedSize = 0;
+            if (removedColumns.length > 0) {
+                removedSize = removedColumns.map(function (col) { return parseFloat(col.width); }).reduce(function (a, b) { return a + b; });
+                setHasChanged(true);
+            }
+            for (var i = 0; i < removedColumns.length; i++) {
+                removedColumns[i].width = "0px";
+            }
+            // Get added columns
+            var addedColumns = visibleColumnsAfterCloseColumnChooser.filter(function (col) {
+                return !visibleColumnsBeforeOpenColumnChooser.map(function (afterCol) {
+                    return afterCol.field;
+                }).includes(col.field);
+            });
+            for (var i = 0; i < addedColumns.length; i++) {
+                addedColumns[i].width = addedColumns[i].minWidth;
+            }
+            var addedSize = 0;
+            if (addedColumns.length > 0) {
+                addedSize = addedColumns.map(function (col) { return parseFloat(col.width); }).reduce(function (a, b) { return a + b; });
+                setHasChanged(true);
+            }
+            // Change visibility of columns
+            for (var i = 0; i < removedColumns.length; i++) {
+                removedColumns[i].visible = false;
+            }
+            for (var i = 0; i < addedColumns.length; i++) {
+                addedColumns[i].visible = true;
+            }
+            // Distribute differential size
+            var vColumns = currentGrid.columns.filter(function (col) { return col.visible; });
+            var lastColumnIndex = vColumns.length - 1;
+            var diffSize = addedSize - removedSize;
+            if (diffSize > 0) {
+                while (diffSize > 0) {
+                    var availableReducingSize = parseFloat(vColumns[lastColumnIndex].width) - parseFloat(vColumns[lastColumnIndex].minWidth);
+                    vColumns[lastColumnIndex].width = (parseFloat(vColumns[lastColumnIndex].width) - availableReducingSize) + "px";
+                    diffSize -= availableReducingSize;
+                    lastColumnIndex--;
+                }
+            } else if (diffSize < 0) {
+                vColumns[lastColumnIndex].width = (parseFloat(vColumns[lastColumnIndex].width) - diffSize) + "px";
+            }
+            currentGrid.refreshHeader();
+            currentGrid.refresh();
+        }
+    }
+
+    var visibleColumnsBeforeOpenColumnChooser = null;
+
+    function beforeOpenColumnChooser(args) {
+        visibleColumnsBeforeOpenColumnChooser = args.columns.filter(function (col) { return col.visible; });
+    }
+
+    function getSelectedColumns(ccdlg, currentGrid) {
+        var columns = Array.prototype.slice.call(ccdlg.querySelectorAll('.e-ccheck:not([uid="grid-selectAll"])'));
+        var checkedColumns = columns.filter(function (col) { return col.querySelectorAll('.e-frame.e-check').length > 0; });
+        var checkedColumnsUid = checkedColumns.map(function (col) { return col.getAttribute("uid"); });
+        var result = currentGrid.columns.filter(function (col) { return checkedColumnsUid.includes(col.uid); });
+        return result;
+    }
+
+    function preventSwipe(args) {
+        if (args.isSwiped) {
+            args.cancel = true;
+        }
+        if (args.selectingItem.classList.contains("e-disable")) {
+            args.cancel = true;
+        }
+    }
+
+    function docViewTabSelected(args) {
+        if (args.selectedIndex == 0) {
+            return;
+        }
+        redefineStyle();
+    }
+
+    //Define style to preserve ratio
+    function redefineStyle() {
+        var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        var currentGrid = null;
+        if (selectedTabClass == 'FormatTraining') {
+            currentGrid = trainingActionsGrid;
+        } else if (selectedTabClass == 'FormatEvaluation') {
+            currentGrid = evaluationActionsGrid;
+        } else if (selectedTabClass == 'FormatInspection') {
+            currentGrid = inspectionActionsGrid;
+        }
+        var width = currentGrid.element.querySelector('.e-gridcontent .e-content').offsetWidth;
+        if (width == 0) {
+            return;
+        }
+
+        minColumnWidth = width * 6.438 / 100;
+        currentGrid.columns.forEach(function (col) {
+            col.minWidth = minColumnWidth + "px";
+            if (col.width.toString().includes('%')) {
+                col.width = width * parseFloat(col.width) / 100;
+            }
+        });
+
+        var style = document.createElement('style');
+        var headerFontSize = '.e-grid .e-headercell { font-size: ' + width + 'px; } \n';
+        var contentFontSize = '.e-grid .e-gridcontent {font-size: ' + width + 'px; } \n';
+        var headerHeight = '.e-grid .e-headercelldiv { height: 100%; } \n';
+        var groupTaskHeight = '.e-grid tr.e-row.IsGroup { max-height: ' + width * 14.401 / 100 + 'px; } \n';
+        var notGroupTaskMinHeight = '.e-grid tr.e-row { max-height: ' + width * 14.401 / 100 + 'px; height: ' + width * 14.401 / 100 + 'px; } \n';
+        var thumbnailMaxSize = '.e-grid td.Thumbnail img { max-width: ' + width * 24.272 / 100 + 'px; max-height: ' + width * 24.272 / 100 + 'px; } \n';
+        var referentialMaxSize = '.e-grid td img { max-width: ' + width * 4.854 / 100 + 'px; max-height: ' + width * 4.854 / 100 + 'px; } \n';
+        style.innerHTML = headerFontSize + contentFontSize + headerHeight + groupTaskHeight + notGroupTaskMinHeight + thumbnailMaxSize + referentialMaxSize;
+
+        var ref = document.querySelector("#notedStyle");
+        if(ref != null)
+            ref.parentNode.insertBefore(style, ref);
+    }
+
+    function setClassForGroupTask(args) {
+        if (args.column.field == 'IsGroup' && args.data['IsGroup'] == true) {
+            args.cell.classList.add('IsGroup');
+        }
+        if (args.column.field == 'Thumbnail') {
+            args.cell.classList.add('Thumbnail');
+        }
+    }
+
+    function gridApplyClass(args) {
+        var allIsGroups = $('.IsGroup');
+        for (var i = 0; i < allIsGroups.length; i++) {
+            var td = allIsGroups[i];
+            if (td.parentElement != null) {
+                td.parentElement.classList.add('IsGroup');
+            }
+        }
+    }
+
+    var headerSizeBeforeResizing = 0;
+    var visibleColumns = null;
+
+    function resizeStart(args) {
+        var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        var currentGrid = null;
+        if (selectedTabClass == 'FormatTraining') {
+            currentGrid = trainingActionsGrid;
+        } else if (selectedTabClass == 'FormatEvaluation') {
+            currentGrid = evaluationActionsGrid;
+        } else if (selectedTabClass == 'FormatInspection') {
+            currentGrid = inspectionActionsGrid;
+        }
+        visibleColumns = currentGrid.columns.filter(function (elt) { return elt.visible; });
+        var lastColumn = visibleColumns[visibleColumns.length - 1];
+        if (lastColumn.field == args.column.field) {
+            args.cancel = true;
+        }
+        headerSizeBeforeResizing = visibleColumns.map(function (col) { return parseFloat(col.width); }).reduce(function (a, b) { return a + b }, 0);
+    }
+
+    function resizing(args) {
+        var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        var currentGrid = null;
+        if (selectedTabClass == 'FormatTraining') {
+            currentGrid = trainingActionsGrid;
+        } else if (selectedTabClass == 'FormatEvaluation') {
+            currentGrid = evaluationActionsGrid;
+        } else if (selectedTabClass == 'FormatInspection') {
+            currentGrid = inspectionActionsGrid;
+        }
+        var currentColumnIndex = 0;
+        while (visibleColumns[currentColumnIndex].field != args.column.field) {
+            currentColumnIndex++;
+        }
+        var nextColumn = visibleColumns[currentColumnIndex + 1];
+        // Compute future width of last column
+        var visibleColumnsWidth = visibleColumns.map(function (col) { return parseFloat(col.width); }).reduce(function (a, b) { return a + b }, 0);
+        var diffWidth = headerSizeBeforeResizing - visibleColumnsWidth;
+        if (nextColumn.width + diffWidth <= parseFloat(nextColumn.minWidth.replace('px'))) {
+            args.preventDefault(); // Raise an error but keep the drag active
+            //args.cancel = true;
+        } else {
+            nextColumn.width += diffWidth;
+            currentGrid.refreshHeader();
+        }
+    }
+
+    function resizeStop(args) {
+        setHasChanged(true);
+    }
+
+    function columnDrop(args) {
+        setHasChanged(true);
+    }
+
+    function createJsonDisposition(currentGrid) {
+        var savedColumns = JSON.parse(JSON.stringify(currentGrid.columns));
+        var vColumns = savedColumns.filter(function (elt) { return elt.visible; });
+        var vColumnsWidth = vColumns.map(function (col) { return parseFloat(col.width); }).reduce(function (a, b) { return a + b }, 0);
+        savedColumns.forEach(function (col) {
+            if (col.visible) {
+                col.width = (parseFloat(col.width) / vColumnsWidth * 100) + "%";
+            } else {
+                col.width = "0%";
+            }
+            col.headerText = currentGrid.columns.find(function (elt) { return elt.field == col.field; }).headerText;
+        });
+        var disposition = { cols: savedColumns };
+        return JSON.stringify(disposition);
+    }
+
+    function updateDispositionDocumentationDraft(publishMode, onSuccess, onError) {
+        var jsonDisposition = null;
+        switch (publishMode) {
+            case @((int)PublishModeEnum.Formation):
+                if (documentationStates.publishForTraining === true) {
+                    jsonDisposition = createJsonDisposition(trainingActionsGrid);
+                } else {
+                    if (onSuccess != null && onSuccess != undefined) {
+                        onSuccess(result);
+                    }
+                    return;
+                }
+                break;
+            case @((int)PublishModeEnum.Evaluation):
+                if (documentationStates.publishForEvaluation === true) {
+                    jsonDisposition = createJsonDisposition(evaluationActionsGrid);
+                } else {
+                    if (onSuccess != null && onSuccess != undefined) {
+                        onSuccess(result);
+                    }
+                    return;
+                }
+                break;
+            case @((int)PublishModeEnum.Inspection):
+                if (documentationStates.publishForInspection === true) {
+                    jsonDisposition = createJsonDisposition(inspectionActionsGrid);
+                } else {
+                    if (onSuccess != null && onSuccess != undefined) {
+                        onSuccess(result);
+                    }
+                    return;
+                }
+                break;
+            default:
+                return;
+        }
+        $.ajax({
+            url: '/Documentation/UpdateDispositionDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                JsonDisposition: jsonDisposition,
+                PublishMode: publishMode
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+                if (onSuccess != null && onSuccess != undefined) {
+                    onSuccess(result);
+                }
+            },
+            error: function () {
+                if (onError != null && onError != undefined) {
+                    onError();
+                }
+            }
+        });
+    }
+
+    // Save state
+    function localLeaveFunction() {
+        var hasError = false;
+
+        documentationStates.publishForTraining = document.getElementById('cbTraining').ej2_instances[0].checked;
+        documentationStates.publishForEvaluation = document.getElementById('cbEvaluation').ej2_instances[0].checked;
+        documentationStates.publishForInspection = document.getElementById('cbInspection').ej2_instances[0].checked;
+
+        documentationStates.TrainingActions = trainingActionsList.treeData;
+        documentationStates.EvaluationActions = evaluationActionsList.treeData;
+        documentationStates.InspectionActions = inspectionActionsList.treeData;
+
+        // Update dispositions
+        updateDispositionDocumentationDraft(@((int)PublishModeEnum.Formation));
+        updateDispositionDocumentationDraft(@((int)PublishModeEnum.Evaluation));
+        updateDispositionDocumentationDraft(@((int)PublishModeEnum.Inspection));
+
+        // Save documentation disposition
+        $.ajax({
+            url: '/Documentation/SaveDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify(documentationStates.draft, function replacer(key, value) {
+                if (key == "Action") {
+                    return null;
+                } else {
+                    return value;
+                }
+            }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                signalRAPIConnection.start(function () {
+                    KLAnalyzeHubProxy.invoke('RaiseDocumentationUpdated');
+                });
+                documentationStates.draft = result;
+                documentationStates.documentationDraftId = documentationStates.draft.DocumentationDraftId;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+
+        // Save documentation actions
+        var docActionsPostData = {
+            Draft: documentationStates.draft,
+            TrainingActions: null,
+            EvaluationActions: null,
+            InspectionActions: null,
+        };
+        if (documentationStates.publishForTraining === true) {
+            docActionsPostData.TrainingActions = trainingActionsList.treeData;
+        }
+        if (documentationStates.publishForEvaluation === true) {
+            docActionsPostData.EvaluationActions = evaluationActionsList.treeData;
+        }
+        if (documentationStates.publishForInspection === true) {
+            docActionsPostData.InspectionActions = inspectionActionsList.treeData;
+        }
+        $.ajax({
+            url: '/Documentation/SaveDocumentationDraftActions',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify(docActionsPostData, function replacer(key, value) {
+                if (key == "Action") {
+                    return null;
+                } else {
+                    return value;
+                }
+            }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+
+        saveDocumentationStates();
+
+        return !hasError;
+    }
+
+    function localCancelFunction() {
+        setIsRefreshing(true);
+        docTabSelected();
+        setIsRefreshing(false);
+    }
+
+    function localSaveAsDraftFunction() {
+        var targetElement = $('#pageContainer')[0];
+        var spinner = ej.popups.createSpinner({ target: targetElement });
+        ej.popups.showSpinner(targetElement);
+
+        // Save states
+        var success = localLeaveFunction();
+
+        if (success === true) {
+            document.getElementById('toast_container').ej2_instances[0].show({ content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraft")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+            setHasChanged(false);
+        }
+        else {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@(LocalizedStrings.GetString("Common_Error"))", content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraftError")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+
+        ej.popups.hideSpinner(targetElement);
+    }
+
+    // Load shared objects
+    var skills = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.Skills)));
+    var referentials = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.Referentials)));
+    var projectTimeScale = @ViewBag.ProjectTimeScale;
+    var analystActions = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.AnalystActions)));
+
+    // Load TreeViews
+    var trainingActionsDS = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.FormationActions)));
+    trainingActionsDS.forEach(function (elt) {
+        Object.defineProperty(elt, 'Action', {
+            get: function () { return analystActions.find(function (a) { return a.ActionId === elt.ActionId; }); }
+        });
+    });
+    var tempTrainingActionDS = trainingActionsDS;
+    var trainingActionsList = new ej.navigations.TreeView({
+        fields: { dataSource: trainingActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup', expanded: "IsExpanded" },
+        allowDragAndDrop: true,
+        allowEditing: false,
+        nodeDragStart: nodeDragStart,
+        nodeDropped: nodeDropped,
+        nodeCollapsed : nodeCollapsed,
+        nodeExpanded: nodeExpanded,
+        drawNode: drawNode,
+        nodeTemplate: '${getFormatTreeTemplate(data)}',
+        cssClass: "custom"
+    });
+    trainingActionsList.appendTo('#trainingActionsList');
+    //trainingActionsList.expandAll();
+    @if (Model.PreviousTrainingDocumentationActions != null && Model.PreviousTrainingDocumentationActions.Count != 0)
+    {
+        <text>
+    var trainingDocumentationActionsDS = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.PreviousTrainingDocumentationActions)));
+    var trainingDocumentationActionsList = new ej.navigations.TreeView({
+        fields: { dataSource: trainingDocumentationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup', expanded: "IsExpanded" },
+        allowDragAndDrop: true,
+        allowEditing: false,
+        nodeDropped: nodeDropped,
+        drawNode: drawDocNode,
+        nodeTemplate: '${getFormatDocTreeTemplate(data)}',
+        cssClass: "custom"
+    });
+    trainingDocumentationActionsList.appendTo('#trainingDocumentationActionsList');
+    document.getElementById("trainingDocumentationActionsListHeader").style.visibility = "visible";
+        </text>
+    }
+
+    var evaluationActionsDS = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.EvaluationActions)));
+    evaluationActionsDS.forEach(function (elt) {
+        Object.defineProperty(elt, 'Action', {
+            get: function () { return analystActions.find(function (a) { return a.ActionId === elt.ActionId; }); }
+        });
+    });
+    var tempEvaluationActionDS = evaluationActionsDS;
+    var evaluationActionsList = new ej.navigations.TreeView({
+        fields: { dataSource: evaluationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup', expanded: "IsExpanded" },
+        allowDragAndDrop: true,
+        allowEditing: false,
+        nodeDragStart: nodeDragStart,
+        nodeDropped: nodeDropped,
+        nodeCollapsed : nodeCollapsed,
+        nodeExpanded: nodeExpanded,
+        drawNode: drawNode,
+        nodeTemplate: '${getFormatTreeTemplate(data)}',
+        cssClass: "custom"
+    });
+    evaluationActionsList.appendTo('#evaluationActionsList');
+    //evaluationActionsList.expandAll();
+    @if (Model.PreviousEvaluationDocumentationActions != null && Model.PreviousEvaluationDocumentationActions.Count != 0)
+    {
+        <text>
+    var evaluationDocumentationActionsDS = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.PreviousEvaluationDocumentationActions)));
+    var evaluationDocumentationActionsList = new ej.navigations.TreeView({
+        fields: { dataSource: evaluationDocumentationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup', expanded: "IsExpanded" },
+        allowDragAndDrop: true,
+        allowEditing: false,
+        nodeDropped: nodeDropped,
+        drawNode: drawDocNode,
+        nodeTemplate: '${getFormatDocTreeTemplate(data)}',
+        cssClass: "custom"
+    });
+    evaluationDocumentationActionsList.appendTo('#evaluationDocumentationActionsList');
+    document.getElementById("evaluationDocumentationActionsListHeader").style.visibility = "visible";
+        </text>
+    }
+
+    var inspectionActionsDS = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(ViewBag.InspectionActions)));
+    inspectionActionsDS.forEach(function (elt) {
+        Object.defineProperty(elt, 'Action', {
+            get: function () { return analystActions.find(function (a) { return a.ActionId === elt.ActionId; }); }
+        });
+    });
+    var tempInspectionActionDS = inspectionActionsDS;
+    var inspectionActionsList = new ej.navigations.TreeView({
+        fields: { dataSource: inspectionActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup', expanded: "IsExpanded" },
+        allowDragAndDrop: true,
+        allowEditing: false,
+        nodeDragStart: nodeDragStart,
+        nodeDropped: nodeDropped,
+        nodeCollapsed : nodeCollapsed,
+        nodeExpanded: nodeExpanded,
+        drawNode: drawNode,
+        nodeTemplate: '${getFormatTreeTemplate(data)}',
+        cssClass: "custom"
+    });
+    inspectionActionsList.appendTo('#inspectionActionsList');
+    //inspectionActionsList.expandAll();
+    @if (Model.PreviousInspectionDocumentationActions != null && Model.PreviousInspectionDocumentationActions.Count != 0)
+    {
+        <text>
+    var inspectionDocumentationActionsDS = @(Html.Raw(new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(Model.PreviousInspectionDocumentationActions)));
+    var inspectionDocumentationActionsList = new ej.navigations.TreeView({
+        fields: { dataSource: inspectionDocumentationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup', expanded: "IsExpanded" },
+        allowDragAndDrop: true,
+        allowEditing: false,
+        nodeDropped: nodeDropped,
+        drawNode: drawDocNode,
+        nodeTemplate: '${getFormatDocTreeTemplate(data)}',
+        cssClass: "custom"
+    });
+    inspectionDocumentationActionsList.appendTo('#inspectionDocumentationActionsList');
+    document.getElementById("inspectionDocumentationActionsListHeader").style.visibility = "visible";
+        </text>
+    }
+
+    // Load DataGrids
+    var trainingColumns = [
+        {
+            field: "ActionId",
+            visible: @(PublishModeEnum.Formation.ShouldBeVisible(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Formation.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            isPrimaryKey: true,
+            width: "0%"
+        },
+        {
+            field: 'IsDocumentation',
+            visible: @(PublishModeEnum.Formation.ShouldBeVisible(nameof(GenericActionViewModel.IsDocumentation)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Formation.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.IsDocumentation)) ? "true" : "false"),
+            width: "0%"
+        },
+        {
+            field: 'IsGroup',
+            visible: @(PublishModeEnum.Formation.ShouldBeVisible(nameof(GenericActionViewModel.IsGroup)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Formation.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.IsGroup)) ? "true" : "false"),
+            width: "0%"
+        },
+    ];
+    @foreach(var actionHeader in Model.FormationActionHeaders)
+    {
+        if (FormatViewModelExt.ManagedColumns.Contains(actionHeader.Key))
+        {
+            @:addToColumns(trainingColumns,"@actionHeader.Key", "@Html.Raw(actionHeader.Value.Width)", "@Html.Raw(actionHeader.Value.Label)", '@PublishModeEnum.Formation.TextAlign(actionHeader.Key)', "${get" + "@actionHeader.Key" + "Template(data)}", @(actionHeader.Value.IsVisible ? "true" : "false"), @(PublishModeEnum.Formation.ShouldBeShownInColumnChooser(actionHeader.Key) ? "true" : "false"));
+        }
+        else
+        {
+            @:addToColumns(trainingColumns,"@Html.Raw(actionHeader.Key)", "@Html.Raw(actionHeader.Value.Width)", "@Html.Raw(actionHeader.Value.Label)", '@PublishModeEnum.Formation.TextAlign(actionHeader.Key)', "#NoTemplate", @(actionHeader.Value.IsVisible ? "true" : "false"), @(PublishModeEnum.Formation.ShouldBeShownInColumnChooser(actionHeader.Key) ? "true" : "false"));
+        }
+    }
+    var trainingActionsGrid = new ej.grids.Grid({
+        dataSource: trainingActionsDS,
+        enableHover: false,
+        gridLines: "Both",
+        height: "100%",
+        showColumnChooser: true,
+        toolbar: ['ColumnChooser'],
+        locale: '@Html.Raw(ejLanguageCode)',
+        allowResizing: true,
+        allowReordering: true,
+        columns: trainingColumns,
+        queryCellInfo: setClassForGroupTask,
+        dataBound: gridApplyClass,
+        resizeStart: resizeStart,
+        resizing: resizing,
+        resizeStop: resizeStop,
+        columnDrop: columnDrop,
+        beforeOpenColumnChooser: beforeOpenColumnChooser
+    });
+    trainingActionsGrid.appendTo('#trainingFormatGridTabContent');
+
+    var evaluationColumns = [
+        {
+            field: "ActionId",
+            visible: @(PublishModeEnum.Evaluation.ShouldBeVisible(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Evaluation.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            isPrimaryKey: true,
+            width: "0%"
+        },
+        {
+            field: 'IsDocumentation',
+            visible: @(PublishModeEnum.Evaluation.ShouldBeVisible(nameof(GenericActionViewModel.IsDocumentation)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Evaluation.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            width: "0%"
+        },
+        {
+            field: 'IsGroup',
+            visible: @(PublishModeEnum.Evaluation.ShouldBeVisible(nameof(GenericActionViewModel.IsGroup)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Evaluation.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            width: "0%"
+        },
+    ];
+    @foreach(var actionHeader in Model.EvaluationActionHeaders)
+    {
+        if (FormatViewModelExt.ManagedColumns.Contains(actionHeader.Key))
+        {
+            @:addToColumns(evaluationColumns,"@actionHeader.Key", "@Html.Raw(actionHeader.Value.Width)", "@Html.Raw(actionHeader.Value.Label)", '@PublishModeEnum.Evaluation.TextAlign(actionHeader.Key)', "${get" + "@actionHeader.Key" + "Template(data)}", @(actionHeader.Value.IsVisible ? "true" : "false"), @(PublishModeEnum.Evaluation.ShouldBeShownInColumnChooser(actionHeader.Key) ? "true" : "false"));
+        }
+        else
+        {
+            @:addToColumns(evaluationColumns,"@Html.Raw(actionHeader.Key)", "@Html.Raw(actionHeader.Value.Width)", "@Html.Raw(actionHeader.Value.Label)", '@PublishModeEnum.Evaluation.TextAlign(actionHeader.Key)', "#NoTemplate", @(actionHeader.Value.IsVisible ? "true" : "false"), @(PublishModeEnum.Evaluation.ShouldBeShownInColumnChooser(actionHeader.Key) ? "true" : "false"));
+        }
+    }
+    var evaluationActionsGrid = new ej.grids.Grid({
+        dataSource: evaluationActionsDS,
+        enableHover: false,
+        gridLines: "Both",
+        height: "100%",
+        showColumnChooser: true,
+        toolbar: ['ColumnChooser'],
+        locale: '@Html.Raw(ejLanguageCode)',
+        allowResizing: true,
+        allowReordering: true,
+        columns: evaluationColumns,
+        queryCellInfo: setClassForGroupTask,
+        dataBound: gridApplyClass,
+        resizeStart: resizeStart,
+        resizing: resizing,
+        resizeStop: resizeStop,
+        columnDrop: columnDrop,
+        beforeOpenColumnChooser: beforeOpenColumnChooser
+    });
+    evaluationActionsGrid.appendTo('#evaluationFormatGridTabContent');
+
+    var inspectionColumns = [
+        {
+            field: "ActionId",
+            visible: @(PublishModeEnum.Inspection.ShouldBeVisible(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Inspection.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            isPrimaryKey: true,
+            width: "0%"
+        },
+        {
+            field: 'IsDocumentation',
+            visible: @(PublishModeEnum.Inspection.ShouldBeVisible(nameof(GenericActionViewModel.IsDocumentation)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Inspection.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            width: "0%"
+        },
+        {
+            field: 'IsGroup',
+            visible: @(PublishModeEnum.Inspection.ShouldBeVisible(nameof(GenericActionViewModel.IsGroup)) ? "true" : "false"),
+            showInColumnChooser: @(PublishModeEnum.Inspection.ShouldBeShownInColumnChooser(nameof(GenericActionViewModel.ActionId)) ? "true" : "false"),
+            width: "0%"
+        },
+    ];
+    @foreach(var actionHeader in Model.InspectionActionHeaders)
+    {
+        if (FormatViewModelExt.ManagedColumns.Contains(actionHeader.Key))
+        {
+            @:addToColumns(inspectionColumns,"@actionHeader.Key", "@Html.Raw(actionHeader.Value.Width)", "@Html.Raw(actionHeader.Value.Label)", '@PublishModeEnum.Inspection.TextAlign(actionHeader.Key)', "${get" + "@actionHeader.Key" + "Template(data)}", @(actionHeader.Value.IsVisible ? "true" : "false"), @(PublishModeEnum.Inspection.ShouldBeShownInColumnChooser(actionHeader.Key) ? "true" : "false"));
+        }
+        else
+        {
+            @:addToColumns(inspectionColumns,"@Html.Raw(actionHeader.Key)", "@Html.Raw(actionHeader.Value.Width)", "@Html.Raw(actionHeader.Value.Label)", '@PublishModeEnum.Inspection.TextAlign(actionHeader.Key)', "#NoTemplate", @(actionHeader.Value.IsVisible ? "true" : "false"), @(PublishModeEnum.Inspection.ShouldBeShownInColumnChooser(actionHeader.Key) ? "true" : "false"));
+        }
+    }
+    var inspectionActionsGrid = new ej.grids.Grid({
+        dataSource: inspectionActionsDS,
+        enableHover: false,
+        gridLines: "Both",
+        height: "100%",
+        showColumnChooser: true,
+        toolbar: ['ColumnChooser'],
+        locale: '@Html.Raw(ejLanguageCode)',
+        allowResizing: true,
+        allowReordering: true,
+        columns: inspectionColumns,
+        queryCellInfo: setClassForGroupTask,
+        dataBound: gridApplyClass,
+        resizeStart: resizeStart,
+        resizing: resizing,
+        resizeStop: resizeStop,
+        columnDrop: columnDrop,
+        beforeOpenColumnChooser: beforeOpenColumnChooser
+    });
+    inspectionActionsGrid.appendTo('#inspectionFormatGridTabContent');
+
+    var selectedNodes, treeView, tempPublishMode;
+
+    function addToColumns(columns, field, width, headerText, textAlign, template, visible, showInColumnChooser) {
+        var params = {
+            field: field,
+            width: width,
+            headerText: headerText,
+            textAlign: textAlign,
+            template: template,
+            visible: visible,
+            showInColumnChooser: showInColumnChooser,
+        };
+        if (field == "WBS") {
+            params.headerText = " ";
+            params.textAlign = "Left";
+        }
+        columns.push(params);
+    }
+
+    function execOpenCrudDialog(action, publishMode, dataSource) {
+        var selectedNode = null;
+        if (dataSource.selectedNodes.length > 0) {
+            selectedNode = dataSource.treeData.find(function (elt) { return elt.TreeId === parseInt(dataSource.selectedNodes[0]) });
+        }
+        openCrudDialog(action, publishMode, selectedNode);
+    }
+
+    //Display crud dialog
+    function openCrudDialog(action, publishMode, selectedItem) {
+        var postData = JSON.stringify({
+            Verb: action,
+            DocumentationActionDraftWBS: selectedItem,
+            ProcessId: documentationStates.processId,
+            ProjectId: documentationStates.projectId,
+            ScenarioId: documentationStates.scenarioId,
+            PublishMode: publishMode,
+            Skills: skills,
+            Referentials: referentials,
+            ProjectTimeScale: projectTimeScale
+        }, function replacer(key, value) {
+            if (key == "Action") {
+                return null;
+            } else {
+                return value;
+            }
+        });
+        if (action == 'add') {
+            $.ajax({
+                url: '/Documentation/GetAction',
+                type: 'POST',
+                cache: false,
+                data: postData,
+                contentType: "application/json",
+                success: function (result) {
+                    $("#crudDialogContent").html(result);
+                    crudDialogObj.height = "auto";
+                    crudDialogObj.width = "auto";
+                    crudDialogObj.header = "@LocalizedStrings.GetString("Common_NewRecordHeader")";
+                    crudDialogObj.show();
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        }
+        else if (action == 'edit' || action == 'remove') {
+            if (selectedItem === undefined || selectedItem == null) {
+                var msg = "";
+                switch (action) {
+                    case "remove":
+                        msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                        break;
+                    case "edit":
+                        msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                        break;
+                }
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                return;
+            }
+
+            if (!selectedItem.IsDocumentation) {
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@(LocalizedStrings.GetString("View_Documentation_TaskNotDocumentationType"))", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                selectedNode = null;
+                treeView = null;
+                return;
+            }
+
+            if (action == 'remove') {
+                $.ajax({
+                    url: '/Documentation/DeleteConfirmation',
+                    type: 'POST',
+                    cache: false,
+                    data: JSON.stringify({
+                        treeId: selectedItem.TreeId,
+                        publishMode: selectedItem.DocumentationPublishMode
+                    }),
+                    contentType: "application/json",
+                    success: function (result) {
+                        $("#crudDialogContent").html(result);
+                        crudDialogObj.height = "auto";
+                        crudDialogObj.width = "auto";
+                        crudDialogObj.header = "@LocalizedStrings.GetString("Common_Confirmation")";
+                        crudDialogObj.show();
+                    },
+                    error: function (xhr) {
+                        console.log(xhr);
+                    }
+                });
+            } else if (action == 'edit') {
+                $.ajax({
+                    url: '/Documentation/GetAction',
+                    type: 'POST',
+                    cache: false,
+                    data: postData,
+                    contentType: "application/json",
+                    success: function (result) {
+                        $("#crudDialogContent").html(result);
+                        crudDialogObj.height = "auto";
+                        crudDialogObj.width = "auto";
+                        crudDialogObj.header = "@LocalizedStrings.GetString("Common_Modify")"
+                        crudDialogObj.show();
+                    },
+                    error: function (xhr) {
+                        console.log(xhr);
+                    }
+                });
+            }
+        }
+    }
+
+    function crudTask(verb, documentationAction) {
+        crudDialogObj.hide();
+        if (verb == 'add') {
+            var newNodes = [documentationAction];
+            switch (documentationAction.DocumentationPublishMode) {
+                case @((int)PublishModeEnum.Formation):
+                    trainingActionsList.addNodes(newNodes);
+                    trainingActionsDS = trainingActionsList.treeData;
+                    trainingActionsDS.sort(sortWBSComparer);
+                    trainingActionsList.fields = { dataSource: trainingActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                    trainingActionsGrid.dataSource = trainingActionsDS;
+                    tempTrainingActionDS = trainingActionsDS;
+                    break;
+                case @((int)PublishModeEnum.Evaluation):
+                    evaluationActionsList.addNodes(newNodes);
+                    evaluationActionsDS = evaluationActionsList.treeData;
+                    evaluationActionsDS.sort(sortWBSComparer);
+                    evaluationActionsList.fields = { dataSource: evaluationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                    evaluationActionsGrid.dataSource = evaluationActionsDS;
+                    tempEvaluationActionDS = evaluationActionsDS;
+                    break;
+                case @((int)PublishModeEnum.Inspection):
+                    inspectionActionsList.addNodes(newNodes);
+                    inspectionActionsDS = inspectionActionsList.treeData;
+                    inspectionActionsDS.sort(sortWBSComparer);
+                    inspectionActionsList.fields = { dataSource: inspectionActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                    inspectionActionsGrid.dataSource = inspectionActionsDS;
+                    tempInspectionActionDS = inspectionActionsDS;
+                    break;
+            }
+        } else if (verb == 'edit') {
+            switch (documentationAction.DocumentationPublishMode) {
+                case @((int)PublishModeEnum.Formation):
+                    var oldNodes = trainingActionsList.treeData.find(function (node) { return node.TreeId === documentationAction.TreeId; });
+                    oldNodes.DocumentationActionDraft = documentationAction.DocumentationActionDraft;
+                    trainingActionsDS = trainingActionsList.treeData;
+                    trainingActionsList.fields = { dataSource: trainingActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                    trainingActionsGrid.dataSource = trainingActionsDS;
+                    tempTrainingActionDS = trainingActionsDS;
+                    break;
+                case @((int)PublishModeEnum.Evaluation):
+                    var oldNodes = evaluationActionsList.treeData.find(function (node) { return node.TreeId === documentationAction.TreeId; });
+                    oldNodes.DocumentationActionDraft = documentationAction.DocumentationActionDraft;
+                    evaluationActionsDS = evaluationActionsList.treeData;
+                    evaluationActionsList.fields = { dataSource: evaluationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                    evaluationActionsGrid.dataSource = evaluationActionsDS;
+                    tempEvaluationActionDS = evaluationActionsDS;
+                    break;
+                case @((int)PublishModeEnum.Inspection):
+                    var oldNodes = inspectionActionsList.treeData.find(function (node) { return node.TreeId === documentationAction.TreeId; });
+                    oldNodes.DocumentationActionDraft = documentationAction.DocumentationActionDraft;
+                    inspectionActionsDS = inspectionActionsList.treeData;
+                    inspectionActionsList.fields = { dataSource: inspectionActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                    inspectionActionsGrid.dataSource = inspectionActionsDS;
+                    tempInspectionActionDS = inspectionActionsDS;
+                    break;
+            }
+        }
+        setHasChanged(true);
+    }
+
+    function deleteTask(treeId, publishMode) {
+        crudDialogObj.hide();
+        var oldNodes = [treeId.toString()];
+        switch (publishMode) {
+            case @((int)PublishModeEnum.Formation):
+                trainingActionsList.removeNodes(oldNodes);
+                updateWBS(trainingActionsList, publishMode, trainingActionsGrid);
+                break;
+            case @((int)PublishModeEnum.Evaluation):
+                evaluationActionsList.removeNodes(oldNodes);
+                updateWBS(evaluationActionsList, publishMode, evaluationActionsGrid);
+                break;
+            case @((int)PublishModeEnum.Inspection):
+                inspectionActionsList.removeNodes(oldNodes);
+                updateWBS(inspectionActionsList, publishMode, inspectionActionsGrid);
+                break;
+        }
+        setHasChanged(true);
+    }
+
+    function nodeDragStart(args) {
+        if (args.draggedNode.getElementsByClassName('AnalystTask').length !== 0)
+            args.cancel = true;
+    }
+
+    function createDocActionButtons(nodeData) {
+        var actionsEltContainer = document.createElement("div");
+        actionsEltContainer.classList.add("ml-auto");
+        actionsEltContainer.classList.add("docNodeActionButtons");
+
+        var updateAction = document.createElement("button");
+        updateAction.title = "@Html.Raw(LocalizedStrings.GetString("View_AdminReferentials_UpdateDocument"))";
+        updateAction.style.marginRight = "4px";
+        updateAction.classList.add("e-control");
+        updateAction.classList.add("e-btn");
+        updateAction.classList.add("e-lib");
+        updateAction.classList.add("e-small");
+        updateAction.classList.add("e-round");
+        updateAction.classList.add("e-primary");
+        updateAction.onclick = function () { openCrudDialog('edit', nodeData.DocumentationPublishMode, nodeData); };
+        var updateActionIcon = document.createElement("span");
+        updateActionIcon.classList.add("fas");
+        updateActionIcon.classList.add("fa-edit");
+        updateAction.appendChild(updateActionIcon);
+        actionsEltContainer.appendChild(updateAction);
+
+        var deleteAction = document.createElement("button");
+        deleteAction.title = "@Html.Raw(LocalizedStrings.GetString("View_AdminReferentials_RemoveDocument"))";
+        deleteAction.classList.add("e-control");
+        deleteAction.classList.add("e-btn");
+        deleteAction.classList.add("e-lib");
+        deleteAction.classList.add("e-small");
+        deleteAction.classList.add("e-round");
+        deleteAction.classList.add("e-danger");
+        deleteAction.onclick = function () { openCrudDialog('remove', nodeData.DocumentationPublishMode, nodeData); };
+        var deleteActionIcon = document.createElement("span");
+        deleteActionIcon.classList.add("fas");
+        deleteActionIcon.classList.add("fa-trash");
+        deleteAction.appendChild(deleteActionIcon);
+        actionsEltContainer.appendChild(deleteAction);
+
+        return actionsEltContainer;
+    }
+
+    function drawNode(args) {
+        var textElement = args.node.querySelector('.e-fullrow');
+        textElement.style.textAlign = "left";
+        var dragAndDropEltContainer = document.createElement("div");
+        dragAndDropEltContainer.style.width = "18px";
+        dragAndDropEltContainer.style.height = "100%";
+        dragAndDropEltContainer.style.display = "flex";
+        dragAndDropEltContainer.style.alignItems = "center";
+        dragAndDropEltContainer.style.justifyContent = "center";
+        var dragAndDropElt = document.createElement("i");
+        dragAndDropElt.classList.add("e-icons");
+        dragAndDropElt.classList.add("e-dragdrop");
+        dragAndDropElt.style.fontSize = "14px";
+        if (args.nodeData.IsDocumentation === true) {
+            textElement.classList.add("isDocumentation");
+        } else {
+            dragAndDropElt.style.visibility = "hidden";
+        }
+        dragAndDropEltContainer.appendChild(dragAndDropElt);
+        textElement.appendChild(dragAndDropEltContainer);
+
+        // Action buttons
+        if (args.nodeData.IsDocumentation === true) {
+            textElement.appendChild(createDocActionButtons(args.nodeData));
+        }
+    }
+
+    function drawDocNode(args) {
+        var textElement = args.node.querySelector('.e-fullrow');
+        textElement.style.textAlign = "left";
+        var dragAndDropEltContainer = document.createElement("div");
+        dragAndDropEltContainer.style.width = "18px";
+        dragAndDropEltContainer.style.height = "100%";
+        dragAndDropEltContainer.style.display = "flex";
+        dragAndDropEltContainer.style.alignItems = "center";
+        dragAndDropEltContainer.style.justifyContent = "center";
+        var dragAndDropElt = document.createElement("i");
+        dragAndDropElt.classList.add("e-icons");
+        dragAndDropElt.classList.add("e-dragdrop");
+        dragAndDropElt.style.fontSize = "14px";
+        textElement.classList.add("isDocumentation");
+        dragAndDropEltContainer.appendChild(dragAndDropElt);
+        textElement.appendChild(dragAndDropEltContainer);
+    }
+
+    function nodeDropped(args) {
+        var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        if (selectedTabClass == 'FormatTraining') {
+            updateWBS(trainingActionsList, @((int)PublishModeEnum.Formation), trainingActionsGrid);
+        } else if (selectedTabClass == 'FormatEvaluation') {
+            updateWBS(evaluationActionsList, @((int)PublishModeEnum.Evaluation), evaluationActionsGrid);
+        } else if (selectedTabClass == 'FormatInspection') {
+            updateWBS(inspectionActionsList, @((int)PublishModeEnum.Inspection), inspectionActionsGrid);
+        }
+        setHasChanged(true);
+    }
+
+    function setExpanded(nodeData, treeViewData, value) {
+        treeViewData.find(function (elt) { return elt.TreeId === parseInt(nodeData.id); }).IsExpanded = value;
+        nodeData.expanded = value;
+    }
+
+    function nodeCollapsed(args) {
+        var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        if (selectedTabClass == 'FormatTraining') {
+            setExpanded(args.nodeData, trainingActionsList.treeData, false);
+        } else if (selectedTabClass == 'FormatEvaluation') {
+            setExpanded(args.nodeData, evaluationActionsList.treeData, false);
+        } else if (selectedTabClass == 'FormatInspection') {
+            setExpanded(args.nodeData, inspectionActionsList.treeData, false);
+        }
+    }
+
+    function nodeExpanded(args) {
+        var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        if (selectedTabClass == 'FormatTraining') {
+            setExpanded(args.nodeData, trainingActionsList.treeData, true);
+        } else if (selectedTabClass == 'FormatEvaluation') {
+            setExpanded(args.nodeData, evaluationActionsList.treeData, true);
+        } else if (selectedTabClass == 'FormatInspection') {
+            setExpanded(args.nodeData, inspectionActionsList.treeData, true);
+        }
+    }
+
+    function refreshTabVisibility() {
+        if (document.getElementById('cbTraining').ej2_instances[0].checked === true) {
+            formatTabControl.items[0].disabled = false;
+        } else {
+            formatTabControl.items[0].disabled = true;
+        }
+        if (document.getElementById('cbEvaluation').ej2_instances[0].checked === true) {
+            formatTabControl.items[1].disabled = false;
+        } else {
+            formatTabControl.items[1].disabled = true;
+        }
+        if (document.getElementById('cbInspection').ej2_instances[0].checked === true) {
+            formatTabControl.items[2].disabled = false;
+        } else {
+            formatTabControl.items[2].disabled = true;
+        }
+        formatTabControl.refresh();
+    }
+
+    function docFormatTabSelected(args) {
+        var selectedClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        if (selectedClass == "FormatTraining") {
+        } else if (selectedClass == "EvaluationTraining") {
+        } else if (selectedClass == "InspectionTraining") {
+        }
+    }
+
+    function isObject(obj) {
+        var type = typeof obj;
+        return type === 'function' || type === 'object' && !!obj;
+    };
+
+    function iterationCopy(src) {
+        var target = {};
+        for (var prop in src) {
+            if (src.hasOwnProperty(prop)) {
+                // if the value is a nested object, recursively copy all it's properties
+                if (isObject(src[prop])) {
+                    target[prop] = iterationCopy(src[prop]);
+                } else {
+                    target[prop] = src[prop];
+                }
+            }
+        }
+        return target;
+    }
+
+    function cloneAction(src) {
+        var target = iterationCopy(src);
+        Object.defineProperty(target, 'Action', {
+            get: function () { return analystActions.find(function (a) { return a.ActionId === target.ActionId; }); }
+        });
+        target.IsGroup = src.Action.IsGroup;
+        target.WBS = src.Action.WBS;
+        target.WBSParts = src.Action.WBSParts;
+        return target;
+    }
+
+    var formatCbIsChanging = false;
+
+    function formatCbChanged(args) {
+        if (formatCbIsChanging == true) {
+            return;
+        }
+        formatCbIsChanging = true;
+        var eltId = args.event.target.id;
+        if (eltId == 'cbTraining') {
+            if (args.checked === true) {
+                // Enable checkbox(es)
+                document.getElementById('cbInspection').ej2_instances[0].disabled = false;
+                // Recreate datasource
+                @*trainingActionsDS = inspectionActionsDS.filter(function (a) { return a.IsDocumentation == false; }).slice().map(function (a) {
+                    var newItem = cloneAction(a);
+                    newItem.DocumentationPublishMode = @((int)PublishModeEnum.Formation);
+                    return newItem;
+                });*@
+                trainingActionsDS = tempTrainingActionDS;
+                @*evaluationActionsDS = inspectionActionsDS.filter(function (a) { return a.IsDocumentation == false; }).slice().map(function (a) {
+                    var newItem = cloneAction(a);
+                    newItem.DocumentationPublishMode = @((int)PublishModeEnum.Evaluation);
+                    return newItem;
+                });*@
+                evaluationActionsDS = tempEvaluationActionDS;
+                // Fix parentID too
+                trainingActionsDS.forEach(function (a) {
+                    if (a.WBSParts.length > 1) {
+                        var searchWBS = a.WBSParts.slice(0, a.WBSParts.length - 1).reduce(function (a, b) { return a + b; });
+                        a.ParentId = trainingActionsDS.find(function (elt) { return elt.WBS == searchWBS; }).TreeId;
+                    } else {
+                        a.ParentId = null;
+                    }
+                });
+                evaluationActionsDS.forEach(function (a) {
+                    if (a.WBSParts.length > 1) {
+                        var searchWBS = a.WBSParts.slice(0, a.WBSParts.length - 1).reduce(function (a, b) { return a + b; });
+                        a.ParentId = evaluationActionsDS.find(function (elt) { return elt.WBS == searchWBS; }).TreeId;
+                    } else {
+                        a.ParentId = null;
+                    }
+                });
+                trainingActionsDS.sort(sortWBSComparer);
+                evaluationActionsDS.sort(sortWBSComparer);
+                trainingActionsList.fields = { dataSource: trainingActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                evaluationActionsList.fields = { dataSource: evaluationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                trainingActionsGrid.dataSource = trainingActionsDS;
+                evaluationActionsGrid.dataSource = evaluationActionsDS;
+                document.getElementById('cbEvaluation').ej2_instances[0].checked = true;
+            } else {
+                // Select inspection tab
+                formatTabControl.select(2);
+                // Disable checkbox(es)
+                document.getElementById('cbInspection').ej2_instances[0].disabled = true;
+                trainingActionsDS = [];
+                evaluationActionsDS = [];
+                document.getElementById('cbEvaluation').ej2_instances[0].checked = false;
+            }
+            refreshTabVisibility();
+        } else if (eltId == 'cbEvaluation') {
+            if (args.checked === true) {
+                // Enable checkbox(es)
+                document.getElementById('cbInspection').ej2_instances[0].disabled = false;
+                // Recreate datasource
+                @*trainingActionsDS = inspectionActionsDS.filter(function (a) { return a.IsDocumentation == false; }).slice().map(function (a) {
+                    var newItem = cloneAction(a);
+                    newItem.DocumentationPublishMode = @((int)PublishModeEnum.Formation);
+                    return newItem;
+                });*@
+                trainingActionsDS = tempTrainingActionDS;
+                @*evaluationActionsDS = inspectionActionsDS.filter(function (a) { return a.IsDocumentation == false; }).slice().map(function (a) {
+                    var newItem = cloneAction(a);
+                    newItem.DocumentationPublishMode = @((int)PublishModeEnum.Evaluation);
+                    return newItem;
+                });*@
+                evaluationActionsDS = tempEvaluationActionDS;
+                // Fix parentID too
+                trainingActionsDS.forEach(function (a) {
+                    if (a.WBSParts.length > 1) {
+                        var searchWBS = a.WBSParts.slice(0, a.WBSParts.length - 1).reduce(function (a, b) { return a + b; });
+                        a.ParentId = trainingActionsDS.find(function (elt) { return elt.WBS == searchWBS; }).TreeId;
+                    } else {
+                        a.ParentId = null;
+                    }
+                });
+                evaluationActionsDS.forEach(function (a) {
+                    if (a.WBSParts.length > 1) {
+                        var searchWBS = a.WBSParts.slice(0, a.WBSParts.length - 1).reduce(function (a, b) { return a + b; });
+                        a.ParentId = evaluationActionsDS.find(function (elt) { return elt.WBS == searchWBS; }).TreeId;
+                    } else {
+                        a.ParentId = null;
+                    }
+                });
+                trainingActionsDS.sort(sortWBSComparer);
+                evaluationActionsDS.sort(sortWBSComparer);
+                trainingActionsList.fields = { dataSource: trainingActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                evaluationActionsList.fields = { dataSource: evaluationActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                trainingActionsGrid.dataSource = trainingActionsDS;
+                evaluationActionsGrid.dataSource = evaluationActionsDS;
+                document.getElementById('cbTraining').ej2_instances[0].checked = true;
+            } else {
+                // Select inspection tab
+                formatTabControl.select(2);
+                // Disable checkbox(es)
+                document.getElementById('cbInspection').ej2_instances[0].disabled = true;
+                trainingActionsDS = [];
+                evaluationActionsDS = [];
+                document.getElementById('cbTraining').ej2_instances[0].checked = false;
+            }
+            refreshTabVisibility();
+        } else if (eltId == 'cbInspection') {
+            if (args.checked === true) {
+                // Enable checkbox(es)
+                document.getElementById('cbTraining').ej2_instances[0].disabled = false;
+                document.getElementById('cbEvaluation').ej2_instances[0].disabled = false;
+                // Recreate datasource
+                @*inspectionActionsDS = trainingActionsDS.filter(function (a) { return a.IsDocumentation == false; }).slice().map(function (a) {
+                    var newItem = cloneAction(a);
+                    newItem.DocumentationPublishMode = @((int)PublishModeEnum.Inspection);
+                    return newItem;
+                });*@
+                inspectionActionsDS = tempInspectionActionDS;
+                // Fix parentID too
+                inspectionActionsDS.forEach(function (a) {
+                    if (a.WBSParts.length > 1) {
+                        var searchWBS = a.WBSParts.slice(0, a.WBSParts.length - 1).reduce(function (a, b) { return a + b; });
+                        a.ParentId = inspectionActionsDS.find(function (elt) { return elt.WBS == searchWBS; }).TreeId;
+                    } else {
+                        a.ParentId = null;
+                    }
+                });
+                inspectionActionsDS.sort(sortWBSComparer);
+                inspectionActionsList.fields = { dataSource: inspectionActionsDS, id: 'TreeId', text: 'Label', parentID: 'ParentId', hasChildren: 'IsGroup' };
+                inspectionActionsGrid.dataSource = inspectionActionsDS;
+            } else {
+                // Select training tab
+                formatTabControl.select(0);
+                // Disable checkbox(es)
+                document.getElementById('cbTraining').ej2_instances[0].disabled = true;
+                document.getElementById('cbEvaluation').ej2_instances[0].disabled = true;
+                inspectionActionsDS = [];
+            }
+            refreshTabVisibility();
+        }
+        setHasChanged(true);
+        formatCbIsChanging = false;
+    }
+
+    function displayGrid(gridToShow, show) {
+        switch (gridToShow) {
+            case "TRAINING":
+                show ? $('#PublishForTraining').show() : $('#PublishForTraining').hide();
+                show ? $('#menutraining').show() : $('#menutraining').hide();
+                break;
+            case "INSPECTION":
+                show ? $('#PublishForInspection').show() : $('#PublishForInspection').hide();
+                show ? $('#menuinspection').show() : $('#menuinspection').hide();
+                break;
+            case "EVALUATION":
+                show ? $('#PublishForEvaluation').show() : $('#PublishForEvaluation').hide();
+                show ? $('#menuevaluation').show() : $('#menuevaluation').hide();
+                break;
+        }
+    }
+
+    function getActiveTab() {
+        if (state.publishForTraining) {
+            return "TRAINING";
+        }
+        if (state.publishForInspection) {
+            return "INSPECTION";
+        }
+        if (state.publishForEvaluation) {
+            return "EVALUATION";
+        }
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "IsDocumentation" && args.data.IsDocumentation) {
+            $($(args.cell).parent()).css("backgroundColor", "#f3f2f2");    /*custom css applied to the row */
+        }
+        if (args.column.field == "IsGroup" && args.data.IsGroup) {
+            $($(args.cell).parent()).css("height", "0.159em");    /*custom css applied to the row */
+        }
+    }
+
+    function rowSelectedTraining(args) {
+        rowSelected(args, "FormatTraining")
+    }
+
+    function rowSelectedEvaluation(args) {
+        rowSelected(args, "FormatEvaluation")
+    }
+
+    function rowSelectedInspection(args) {
+        rowSelected(args, "FormatInspection")
+    }
+
+    function rowSelected(arg, gridName) {
+
+        var $toolbar = $("#" + gridName + "_toolbarItems");
+
+        if (arg.data.IsDocumentation) {
+            $("#" + gridName + "_edit").removeClass("e-disable");
+            $("#" + gridName + "_delete").removeClass("e-disable");
+        }
+        else {
+            $("#" + gridName + "_edit").addClass("e-disable");
+            $("#" + gridName + "_delete").addClass("e-disable");
+        }
+    }
+
+    @*Utils functions*@
+    function toStrong(html) {
+        return "<strong>" + html + "</strong>";
+    }
+    function addBadge(html, content) {
+        return "<span class='badge bg-gray' style='margin:3px;margin-bottom:5px;'>x" + content + "</span>" + html;
+    }
+    function setQuantity(html, data) {
+        if (data.Quantity != null && data.Quantity != undefined && data.Quantity !== 0) {
+            return addBadge(html, data.Quantity);
+        }
+        return html;
+    }
+
+    @*Types template functions*@
+    function getTextTemplate(data) {
+        return "<span style='white-space: pre-wrap;'>" + data + "</span>";
+    }
+    function getLinkTemplate(data, uri) {
+        return "<a href='" + uri + "'>" + data + "</a>";
+    }
+    function getLinkTemplatePartial(publishMode, actionId, data) {
+        return "<a onclick='GoToDetail(" + publishMode + "," + actionId +")'>" + data + "</a>";
+    }
+    function getImageTemplate(data, description) {
+        var desc = "";
+        if (description != undefined && description != null) {
+            desc = description;
+        }
+        if (data != null) {
+            return "<div><img width='100%' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.FileName + "' onclick='popUpImage(this)' title='" + desc + "'/></div>";
+        }
+        return "";
+    }
+    function getReferentialTextTemplate(data) {
+        return "<span style='word-break: break-word; white-space: normal;'>" + setQuantity(data.Referential.Label, data) + "</span>";
+    }
+    function getReferentialImageTemplate(data) {
+        var description = "";
+        if (data.Referential.Description != undefined && data.Referential.Description != null) {
+            description = data.Referential.Description;
+        }
+        var html = "<img max-height='100px' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.Referential.CloudFile.FileName + "' onclick='popUpImage(this)' title='" + description + "'/>";
+        return "<div>" + setQuantity(html, data) + "</div>";
+    }
+    function getReferentialFileTemplate(data) {
+        var description = "";
+        if (data.Referential.Description != undefined && data.Referential.Description != null) {
+            description = data.Referential.Description;
+        }
+        if (description == "") {
+            description = data.Referential.Label;
+        }
+        var html = "<a target='_blank' href='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.Referential.CloudFile.FileName + "'>" + description + "</a>";
+        return "<div>" + setQuantity(html, data) + "</div>";
+    }
+    function getReferentialTemplate(data) {
+        if (data == null || data.Referential == null) {
+            return getTextTemplate("");
+        } else if (data.Referential.CloudFile == null) { // Text
+            return getReferentialTextTemplate(data);
+        } else if (isImage(data.Referential.CloudFile.Extension)) { // Image
+            return getReferentialImageTemplate(data);
+        } else { // File
+            return getReferentialFileTemplate(data);
+        }
+    }
+    function getMultiReferentialTemplate(datas) {
+        var html = "";
+        for (var i = 0, len = datas.length; i < len; i++) {
+            html = html + getReferentialTemplate(datas[i]);
+            if (i < len - 1) {
+                html = html + "<br>";
+            }
+        }
+        return html;
+    }
+
+    @*Fields template functions*@
+    function getWBSTemplate(data) {
+        var hierarchySpace = WBSPrepareSpaces(data.WBS);
+        return getTextTemplate(hierarchySpace + data.WBS);
+    }
+    function WBSPrepareSpaces(wbs) {
+        if (wbs.includes(".")) {
+            var occurance = wbs.split(".").length - 1;
+            var spaces = "";
+            while (occurance > 0) {
+                spaces = spaces + "&nbsp;&nbsp;"
+                occurance--;
+            }
+            return spaces;
+        }
+        else
+            return "";
+    }
+    function getLabelTemplate(data) {
+        var tempHtml = null;
+        var html = "";
+        var isKeyTask = false;
+        if (data.IsDocumentation) {
+            tempHtml = data.DocumentationActionDraft.Label;
+            isKeyTask = data.DocumentationActionDraft.IsKeyTask;
+        } else {
+            tempHtml = data.Action.Label;
+            isKeyTask = data.Action.IsKeyTask;
+        }
+        if (tempHtml !== undefined && tempHtml !== null) {
+            html = tempHtml;
+        }
+        if (isKeyTask === true) {
+            return toStrong(html);
+        }
+        return html;
+    }
+    function getThumbnailTemplate(data) {
+        if (data.IsDocumentation) {
+            // TODO
+            return getImageTemplate(data.DocumentationActionDraft.Thumbnail);
+        } else {
+            return getImageTemplate(data.Action.Thumbnail);
+        }
+        return "";
+    }
+    function getPublishedResourceTemplate(data) {
+        var equipments = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Equipment) });
+        var operators = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Operator) });
+        if (data.IsDocumentation) {
+            // equipments and operators have same data as now it retrieve as Resource
+            if (data.DocumentationActionDraft != null) {
+                if (data.DocumentationActionDraft.ResourceId != null) {
+                    var resource = operators.ReferentialsFieldElements.find(function (r) { return r.Id === data.DocumentationActionDraft.ResourceId; });
+                    if (resource != undefined || resource != null)
+                        return getReferentialTemplate({ Quantity: null, Referential: resource });
+                }
+            }
+        }
+        else {
+            if (data.Action.ResourceId != null) {
+                if (data.Action.Operator != null) {
+                    var resource = operators.ReferentialsFieldElements.find(function (r) { return r.Id === data.Action.Operator.Id; });
+                    if (resource != undefined || resource != null)
+                        return getReferentialTemplate({ Quantity: null, Referential: resource });
+                }
+                else if (data.Action.Equipment != null) {
+                    var resource = equipments.ReferentialsFieldElements.find(function (r) { return r.Id === data.Action.Equipment.Id; });
+                    if (resource != undefined || resource != null)
+                        return getReferentialTemplate({ Quantity: null, Referential: resource });
+                }
+            }
+        }
+        return "";
+    }
+    function getPublishedActionCategoryTemplate(data) {
+        var categories = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Category) });
+        if (data.IsDocumentation) {
+            if (data.DocumentationActionDraft != null) {
+                if (data.DocumentationActionDraft.ActionCategoryId != null) {
+                    var resource = categories.ReferentialsFieldElements.find(function (r) { return r.Id === data.DocumentationActionDraft.ActionCategoryId; });
+                    if (resource != undefined || resource != null)
+                        return getReferentialTemplate({ Quantity: null, Referential: resource });
+                }
+            }
+        } else {
+            if (data.Action.CategoryId != null) {
+                var category = categories.ReferentialsFieldElements.find(function (r) { return r.Id === data.Action.CategoryId; });
+                if (category != undefined || category != null)
+                    return getReferentialTemplate({ Quantity: null, Referential: category });
+            }
+        }
+        return "";
+    }
+    function getDurationFormattedString(projectTimeScale, durationString) {
+        switch (projectTimeScale) {
+            case 10000000:
+                return durationString.invert().insert(2, ':').insert(5, ':').invert();
+            case 1000000:
+                return durationString.invert().insert(1, '.').insert(4, ':').insert(7, ':').invert();
+            case 100000:
+                return durationString.invert().insert(2, '.').insert(5, ':').insert(8, ':').invert();
+            case 10000:
+                return durationString.invert().insert(3, '.').insert(6, ':').insert(9, ':').invert();
+            default:
+                return "";
+        }
+    }
+    function getDurationTemplate(data) {
+        var resultString = "";
+        if (data.IsDocumentation) {
+            resultString = getDurationFormattedString(projectTimeScale, data.DocumentationActionDraft.DurationString);
+        } else {
+            resultString = getDurationFormattedString(projectTimeScale, data.Action.DurationString);
+        }
+        return getTextTemplate(resultString);
+    }
+    function getSkillTemplate(data) {
+        var skill = null;
+        if (data.IsDocumentation) {
+            if (data.DocumentationActionDraft.SkillId != null && data.DocumentationActionDraft.SkillId !== -1) {
+                skill = skills.find(function (s) { return s.SkillId === data.DocumentationActionDraft.SkillId; });
+            }
+        } else {
+            if (data.Action.SkillId != null) {
+                skill = skills.find(function (s) { return s.SkillId === data.Action.SkillId; });
+            }
+        }
+        return getReferentialTemplate({ Quantity: null, Referential: skill });
+    }
+    function getRefs1Template(data) {
+        var refs = [];
+        var referential = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Ref1) });
+        if (data.IsDocumentation) {
+            var refs1 = data.DocumentationActionDraft.ReferentialDocumentations.filter(function (elt) { return elt.RefNumber === @((int)ProcessReferentialIdentifier.Ref1 - 3); });
+            if (refs1.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = refs1.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                } else {
+                    refs = refs1.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                }
+            }
+        } else {
+            if (data.Action.Ref1 != null && data.Action.Ref1.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = data.Action.Ref1.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                } else {
+                    refs = data.Action.Ref1.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                }
+            }
+        }
+        return getMultiReferentialTemplate(refs);
+    }
+    function getRefs2Template(data) {
+        var refs = [];
+        var referential = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Ref2) });
+        if (data.IsDocumentation) {
+            var refs2 = data.DocumentationActionDraft.ReferentialDocumentations.filter(function (elt) { return elt.RefNumber === @((int)ProcessReferentialIdentifier.Ref2 - 3); });
+            if (refs2.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = refs2.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                } else {
+                    refs = refs2.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                }
+            }
+        } else {
+            if (data.Action.Ref2 != null && data.Action.Ref2.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = data.Action.Ref2.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                } else {
+                    refs = data.Action.Ref2.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                }
+            }
+        }
+        return getMultiReferentialTemplate(refs);
+    }
+    function getRefs3Template(data) {
+        var refs = [];
+        var referential = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Ref3) });
+        if (data.IsDocumentation) {
+            var refs3 = data.DocumentationActionDraft.ReferentialDocumentations.filter(function (elt) { return elt.RefNumber === @((int)ProcessReferentialIdentifier.Ref3 - 3); });
+            if (refs3.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = refs3.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                } else {
+                    refs = refs3.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                }
+            }
+        } else {
+            if (data.Action.Ref3 != null && data.Action.Ref3.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = data.Action.Ref3.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                } else {
+                    refs = data.Action.Ref3.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                }
+            }
+        }
+        return getMultiReferentialTemplate(refs);
+    }
+    function getRefs4Template(data) {
+        var refs = [];
+        var referential = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Ref4) });
+        if (data.IsDocumentation) {
+            var refs4 = data.DocumentationActionDraft.ReferentialDocumentations.filter(function (elt) { return elt.RefNumber === @((int)ProcessReferentialIdentifier.Ref4 - 3); });
+            if (refs4.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = refs4.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                } else {
+                    refs = refs4.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                }
+            }
+        } else {
+            if (data.Action.Ref4 != null && data.Action.Ref4.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = data.Action.Ref4.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                } else {
+                    refs = data.Action.Ref4.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                }
+            }
+        }
+        return getMultiReferentialTemplate(refs);
+    }
+    function getRefs5Template(data) {
+        var refs = [];
+        var referential = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Ref5) });
+        if (data.IsDocumentation) {
+            var refs5 = data.DocumentationActionDraft.ReferentialDocumentations.filter(function (elt) { return elt.RefNumber === @((int)ProcessReferentialIdentifier.Ref5 - 3); });
+            if (refs5.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = refs5.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                } else {
+                    refs = refs5.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                }
+            }
+        } else {
+            if (data.Action.Ref5 != null && data.Action.Ref5.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = data.Action.Ref5.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                } else {
+                    refs = data.Action.Ref5.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                }
+            }
+        }
+        return getMultiReferentialTemplate(refs);
+    }
+    function getRefs6Template(data) {
+        var refs = [];
+        var referential = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Ref6) });
+        if (data.IsDocumentation) {
+            var refs6 = data.DocumentationActionDraft.ReferentialDocumentations.filter(function (elt) { return elt.RefNumber === @((int)ProcessReferentialIdentifier.Ref6 - 3); });
+            if (refs6.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = refs6.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                } else {
+                    refs = refs6.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                }
+            }
+        } else {
+            if (data.Action.Ref6 != null && data.Action.Ref6.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = data.Action.Ref6.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                } else {
+                    refs = data.Action.Ref6.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                }
+            }
+        }
+        return getMultiReferentialTemplate(refs);
+    }
+    function getRefs7Template(data) {
+        var refs = [];
+        var referential = referentials.find(function (elt) { return elt.ReferentialFieldId === @((int)ProcessReferentialIdentifier.Ref7) });
+        if (data.IsDocumentation) {
+            var refs7 = data.DocumentationActionDraft.ReferentialDocumentations.filter(function (elt) { return elt.RefNumber === @((int)ProcessReferentialIdentifier.Ref7 - 3); });
+            if (refs7.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = refs7.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                } else {
+                    refs = refs7.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.ReferentialId; }) }; });
+                }
+            }
+        } else {
+            if (data.Action.Ref7 != null && data.Action.Ref7.length > 0) {
+                if (referential.HasQuantity) {
+                    refs = data.Action.Ref7.map(function (elt) { return { Quantity: elt.Quantity, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                } else {
+                    refs = data.Action.Ref7.map(function (elt) { return { Quantity: null, Referential: referential.ReferentialsFieldElements.find(function (r) { return r.Id === elt.RefId; }) }; });
+                }
+            }
+        }
+        return getMultiReferentialTemplate(refs);
+    }
+    function getCustomTextValueTemplate(data) {
+        var tempHtml = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempHtml = data.DocumentationActionDraft.CustomTextValue;
+        } else {
+            tempHtml = data.Action.CustomTextValue;
+        }
+        if (tempHtml !== undefined && tempHtml !== null) {
+            html = tempHtml;
+        }
+        return getTextTemplate(html);
+    }
+    function getCustomTextValue2Template(data) {
+        var tempHtml = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempHtml = data.DocumentationActionDraft.CustomTextValue2;
+        } else {
+            tempHtml = data.Action.CustomTextValue2;
+        }
+        if (tempHtml !== undefined && tempHtml !== null) {
+            html = tempHtml;
+        }
+        return getTextTemplate(html);
+    }
+    function getCustomTextValue3Template(data) {
+        var tempHtml = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempHtml = data.DocumentationActionDraft.CustomTextValue3;
+        } else {
+            tempHtml = data.Action.CustomTextValue3;
+        }
+        if (tempHtml !== undefined && tempHtml !== null) {
+            html = tempHtml;
+        }
+        return getTextTemplate(html);
+    }
+    function getCustomTextValue4Template(data) {
+        var tempHtml = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempHtml = data.DocumentationActionDraft.CustomTextValue4;
+        } else {
+            tempHtml = data.Action.CustomTextValue4;
+        }
+        if (tempHtml !== undefined && tempHtml !== null) {
+            html = tempHtml;
+        }
+        return getTextTemplate(html);
+    }
+    function getCustomNumericValueTemplate(data) {
+        var tempFloat = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempFloat = parseFloat(data.DocumentationActionDraft.CustomNumericValue);
+        } else {
+            tempFloat = parseFloat(data.Action.CustomNumericValue);
+        }
+        if (tempFloat !== undefined && tempFloat !== null && !isNaN(tempFloat)) {
+            html = tempFloat.toString();
+        }
+        return getTextTemplate(html);
+    }
+    function getCustomNumericValue2Template(data) {
+        var tempFloat = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempFloat = parseFloat(data.DocumentationActionDraft.CustomNumericValue2);
+        } else {
+            tempFloat = parseFloat(data.Action.CustomNumericValue2);
+        }
+        if (tempFloat !== undefined && tempFloat !== null && !isNaN(tempFloat)) {
+            html = tempFloat.toString();
+        }
+        return getTextTemplate(html);
+    }
+    function getCustomNumericValue3Template(data) {
+        var tempFloat = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempFloat = parseFloat(data.DocumentationActionDraft.CustomNumericValue3);
+        } else {
+            tempFloat = parseFloat(data.Action.CustomNumericValue3);
+        }
+        if (tempFloat !== undefined && tempFloat !== null && !isNaN(tempFloat)) {
+            html = tempFloat.toString();
+        }
+        return getTextTemplate(html);
+    }
+    function getCustomNumericValue4Template(data) {
+        var tempFloat = null;
+        var html = "";
+        if (data.IsDocumentation) {
+            tempFloat = parseFloat(data.DocumentationActionDraft.CustomNumericValue4);
+        } else {
+            tempFloat = parseFloat(data.Action.CustomNumericValue4);
+        }
+        if (tempFloat !== undefined && tempFloat !== null && !isNaN(tempFloat)) {
+            html = tempFloat.toString();
+        }
+        return getTextTemplate(html);
+    }
+
+    function getFormatTreeTemplate(data) {
+        if (data.IsDocumentation === true) {
+            var taskLabel = "";
+            if (data.DocumentationActionDraft.Label != null) {
+                taskLabel = data.DocumentationActionDraft.Label;
+            }
+            var taskFormattedLabel = data.WBS + " - " + taskLabel;
+            if (data.DocumentationActionDraft.IsKeyTask) {
+                taskFormattedLabel = "<div class='taskText'><b>" + taskFormattedLabel + "</b></div>" +
+                   "<span class='e-badge e-badge-primary'><i class='fas fa-exclamation' style='margin: 2px;'></i></span>";
+            } else {
+                taskFormattedLabel = "<div class='taskText'>" + taskFormattedLabel + "</div>";
+            }
+            return "<div class='d-flex align-items-center'>" +
+                   taskFormattedLabel +
+                   "</div>";
+        } else {
+            var taskLabel = "";
+            if (data.Action.Label != null) {
+                taskLabel = data.Action.Label;
+            }
+            var taskFormattedLabel = data.WBS + " - " + taskLabel;
+            if (data.Action.IsKeyTask) {
+                taskFormattedLabel = "<div class='taskText'><b>" + taskFormattedLabel + "</b></div>" +
+                   "<span class='e-badge e-badge-primary'><i class='fas fa-exclamation' style='margin: 2px;'></i></span>";
+            } else {
+                taskFormattedLabel = "<div class='taskText'>" + taskFormattedLabel + "</div>";
+            }
+            return "<div class='d-flex align-items-center AnalystTask'>" +
+                   taskFormattedLabel +
+                   "</div>";
+        }
+    }
+
+    function getFormatDocTreeTemplate(data) {
+        var taskFormattedLabel = data.DocumentationActionDraft.Label;
+        if (data.DocumentationActionDraft.IsKeyTask) {
+            taskFormattedLabel = "<div class='taskText'><b>" + taskFormattedLabel + "</b></div>" +
+                "<span class='e-badge e-badge-primary'><i class='fas fa-exclamation' style='margin: 2px;'></i></span>";
+        } else {
+            taskFormattedLabel = "<div class='taskText'>" + taskFormattedLabel + "</div>";
+        }
+        return "<div class='d-flex align-items-center'>" +
+                taskFormattedLabel +
+                "</div>";
+    }
+
+    // Retrieve grid based on CSS class
+    function getGrid(model) {
+        switch (model.cssClass) {
+            case "training":
+                return $("#FormatTraining").ejGrid("instance");
+                break;
+            case "inspection":
+                return $("#FormatInspection").ejGrid("instance");
+                break;
+            case "evaluation":
+                return $("#FormatEvaluation").ejGrid("instance");
+                break;
+        }
+    }
+
+    // We calculate the width required to be added or removed for every columns
+    // and we update added or removed columns
+    function calculateWidthRequired(args, gridColumns) {
+        var requireWidth = 0;
+        var minColumnWidth = 100;
+
+        for (var i = gridColumns.cols.length - 1; i >= 0; i--) {
+            var column = gridColumns.cols[i];
+
+            // New column
+            if (args.addedcolumns.includes(column.headerText)) {
+                column.width = minColumnWidth;
+                requireWidth = requireWidth + minColumnWidth;
+            }
+
+            // Removed column
+            if (args.removedcolumns.includes(column.headerText)) {
+                requireWidth = requireWidth - column.width;
+                column.width = 0;
+            }
+        }
+        return requireWidth;
+    }
+
+    // We decrease existing columns width to match the space needed to be added
+    function decreaseExistingColumnsWidth(args, gridObj, gridColumns, requireWidth) {
+
+        var minColumnWidth = 100;
+        for (var i = gridColumns.cols.length - 1; i >= 0; i--) {
+            var column = gridColumns.cols[i];
+
+            // New column or removed column, we skip
+            if (!column.visible || args.addedcolumns.includes(column.headerText) || args.removedcolumns.includes(column.headerText))
+                continue;
+
+            if (column.width > minColumnWidth) {
+                var availableWidth = column.width - minColumnWidth;
+                if (availableWidth >= requireWidth) {
+                    column.width = column.width - requireWidth;
+                    break;
+                }
+                column.width = column.width - availableWidth;
+                requireWidth = requireWidth - availableWidth;
+
+                if (requireWidth <= 0)
+                    break;
+            }
+        }
+        gridObj.columns(gridColumns.cols);
+    }
+
+    // We increase existing columns width to match the space needed to be removed
+    function increaseExistingColumnsWidth(args, gridObj, gridColumns, requireWidth) {
+        for (var i = gridColumns.cols.length - 1; i >= 0; i--) {
+            var column = gridColumns.cols[i];
+
+            // New column or removed column, we skip
+            if (!column.visible || args.addedcolumns.includes(column.headerText) || args.removedcolumns.includes(column.headerText))
+                continue;
+
+            column.width = column.width + (- requireWidth);
+            break;
+        }
+        gridObj.columns(gridColumns.cols);
+    }
+
+    // Resize grid columns based on new/removed colonnes changes
+    function resizeGrid(args) {
+        var gridObj = getGrid(args.model);
+        var gridColumns = {
+            cols: gridObj.model.columns.slice()
+        }
+        var requireWidth = calculateWidthRequired(args, gridColumns);
+        //debugger;
+        if (requireWidth > 0) {
+            decreaseExistingColumnsWidth(args, gridObj, gridColumns, requireWidth);
+        }
+        else {
+            increaseExistingColumnsWidth(args, gridObj, gridColumns, requireWidth);
+        }
+    }
+
+    function toolbarClick(args) {
+        if ((args.itemName == "Edit" || args.itemName == "Delete" || args.itemName == "modifier" || args.itemName == "Effacer") & this.getSelectedRecords().length == 0) {
+
+            alert = function () { }; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (args.itemName) {
+                case "Delete":
+                case "Effacer":
+                    msg = "Aucun enregistrements sélectionnés pour l'opération de suppression";
+                    break;
+                case "Edit":
+                case "modifier":
+                    msg = "Aucun enregistrements sélectionnés pour l'opération d'édition";
+                    break;
+            }
+            $("#failLabel").text(msg);
+            $("#failModal").modal("show");
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

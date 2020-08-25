@@ -1,0 +1,335 @@
+@using KProcess.KL2.WebAdmin.Models.Publications;
+@using System.Web.Mvc.Html;
+@using Syncfusion.EJ2.Charts;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model PublicationQualificationsViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "PublicationQualification";
+
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "Folder", direction = "Ascending" });
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+
+    .filterBar {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        padding-bottom: 10px;
+    }
+
+        .filterBar > .filterBtn {
+            margin-top: 23px;
+        }
+
+    #PublicationQualificationTab > .e-content {
+        flex: 1;
+        min-height: 0px;
+        margin-top: 10px;
+    }
+
+    #PublicationQualificationTab .e-content [role="tabpanel"] {
+        height: 100%;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Tab("PublicationQualificationTab")
+                    .Height("100%")
+                    .Items(builder =>
+                    {
+                        builder.Header(header => header.Text(LocalizedStrings.GetString("Web_Grid")))
+                            .CssClass("PublicationQualificationGrid")
+                            .Content("#publicationQualificationGridTabContent")
+                            .Add();
+                        builder.Header(header => header.Text(LocalizedStrings.GetString("Web_Graph")))
+                            .CssClass("PublicationQualificationGraph")
+                            .Content("#publicationQualificationGraphTabContent")
+                            .Add();
+                    })
+                    //.Selected("docFormatTabSelected")
+                    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+                    .Selected("onSelected")
+                    .Render()
+        )
+    </div>
+</div>
+
+<div id="publicationQualificationGridTabContent" style="display: none; height: 100%">
+    <div style="display: flex; flex-direction: column; height: 100%;">
+        @using (Html.BeginForm("PublicationQualification", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "onFilter(event, 'grid')" }))
+        {
+            <div class="filterBar">
+                @Html.Label(LocalizedStrings.GetString("Team"))
+                @(Html.EJS().DropDownList("team")
+                            .DataSource(u => u.Url(@Url.Action("GetTeams")).Adaptor("UrlAdaptor"))
+                            .Placeholder("Select team to filter")
+                            .Fields(df => df.Text("Name").Value("Id"))
+                            .Width("100%")
+                            .Index((Model.selectedIndexTeam.ToString() == "") ? 0 : Model.selectedIndexTeam)
+                            .Render()
+                )
+            </div>
+            <div class="filterBar">
+                @Html.Label(LocalizedStrings.GetString("Position"))
+                @(Html.EJS().DropDownList("position")
+                            .DataSource(u => u.Url(@Url.Action("GetTenured")).Adaptor("UrlAdaptor"))
+                            .Placeholder("Select position to filter")
+                            .Fields(df => df.Text("Text").Value("Value"))
+                            .Width("100%")
+                            .Index((Model.selectedIndexPosition.ToString() == "") ? 0 : Model.selectedIndexPosition)
+                            .Render()
+                )
+            </div>
+            <div class="filterBar">
+                @(Html.EJS().Button("filterBtnGrid")
+                            .Content(LocalizedStrings.GetString("Filter"))
+                            .CssClass("filterBtn")
+                            .Render()
+                )
+            </div>
+        }
+        <div style="flex: 1; min-height: 0px;">
+            @(Html.EJS().Grid("PublicationQualification")
+                        .Height("100%")
+                        .DataSource(ds => ds.Json(Model.PublicationQualificationViewModel.ToArray()).Adaptor("RemoteSaveAdaptor"))
+                        .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                        .AllowPaging()
+                        .PageSettings(p => p.PageSize(25))
+                        .Locale(ejLanguageCode)
+                        //Excel export
+                        .AllowExcelExport()
+                        .ExcelQueryCellInfo("excelQueryCellInfo")
+                        .AllowSelection(false)
+                        .AllowTextWrap()
+                        .AllowFiltering()
+                        .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                        .EnableHover()
+                        .Toolbar(new List<string>() { "ExcelExport" })
+                        .ToolbarClick("toolbarClick")
+                        .AllowSorting()
+                        .SortSettings(sort =>
+                            sort.Columns(cols)
+                        )
+                        .Columns(col =>
+                        {
+                            col.Field("PublicationId").IsPrimaryKey(true).HeaderText("Id").Visible(false).IsIdentity(true).Width(5).Add();
+                            col.Field("Folder").HeaderText(LocalizedStrings.GetString("Folder")).Width(200).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                            col.Field("Label").HeaderText(LocalizedStrings.GetString("Formation")).Width(200).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                            col.Field("Success").HeaderText(LocalizedStrings.GetString("EvaluationSuccess")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Width(100).Add();
+                            col.Field("Failed").HeaderText(LocalizedStrings.GetString("EvaluationFailed")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Width(100).Add();
+                            col.Field("Total").HeaderText(LocalizedStrings.GetString("EvaluationTotal")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Width(100).Add();
+                            col.Field("PercentageRate").HeaderText(LocalizedStrings.GetString("EvaluationRate")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Width(100).Add();
+                        })
+                        .QueryCellInfo("gridQueryCellInfo")
+                        .RowSelecting("onSelectingCheck")
+                        .Render()
+            )
+        </div>
+    </div>
+</div>
+
+<div id="publicationQualificationGraphTabContent" style="display: none; height: 100%">
+    <div style="display: flex; flex-direction: column; height: 100%;">
+        @using (Html.BeginForm("PublicationQualification", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "onFilter(event, 'graph')" }))
+        {
+            <div class="filterBar">
+                @Html.Label(LocalizedStrings.GetString("Team"))
+                @(Html.EJS().DropDownList("teamGraph")
+                            .DataSource(u => u.Url(@Url.Action("GetTeams")).Adaptor("UrlAdaptor"))
+                            .Placeholder("Select team to filter")
+                            .Fields(df => df.Text("Name").Value("Id"))
+                            .Width("100%")
+                            .Index((Model.selectedIndexTeam.ToString() == "") ? 0 : Model.selectedIndexTeam)
+                            .Render()
+                )
+            </div>
+            <div class="filterBar">
+                @Html.Label(LocalizedStrings.GetString("Position"))
+                @(Html.EJS().DropDownList("positionGraph")
+                            .DataSource(u => u.Url(@Url.Action("GetTenured")).Adaptor("UrlAdaptor"))
+                            .Placeholder("Select position to filter")
+                            .Fields(df => df.Text("Text").Value("Value"))
+                            .Width("100%")
+                            .Index((Model.selectedIndexPosition.ToString() == "") ? 0 : Model.selectedIndexPosition)
+                            .Render()
+                )
+            </div>
+            <div class="filterBar">
+                @(Html.EJS().Button("filterBtnGraph")
+                            .Content(LocalizedStrings.GetString("Filter"))
+                            .CssClass("filterBtn")
+                            .Render()
+                )
+            </div>
+        }
+        <div id="chart" style="flex: 1; min-height: 0px;">
+            @(Html.EJS().Chart("ChartPublicationQualification")
+                        .Width("100%")
+                        .Height("100%")
+                        .Series(series =>
+                        {
+                            series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Column)
+                                .Name(LocalizedStrings.GetString("Total"))
+                                .XName("Label")
+                                .YName("Total")
+                                .DataSource(Model.PublicationQualificationViewModel.ToList())
+                                .Width(2)
+                                .Marker(mr => mr.DataLabel(dl => dl.Visible(true).Name("text").Position(LabelPosition.Top).Font(new { fontWeight = "600", color = "#ffffff" })))
+                                .Add();
+                            series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Column)
+                                .Name(LocalizedStrings.GetString("Success"))
+                                .XName("Label").YName("Success")
+                                .DataSource(Model.PublicationQualificationViewModel.ToList())
+                                .Width(2)
+                                .Marker(mr => mr.DataLabel(dl => dl.Visible(true).Name("text").Position(LabelPosition.Top).Font(new { fontWeight = "600", color = "#ffffff" })))
+                                .Add();
+                            series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Column)
+                                .Name(LocalizedStrings.GetString("Failed"))
+                                .XName("Label")
+                                .YName("Failed")
+                                .DataSource(Model.PublicationQualificationViewModel.ToList())
+                                .Width(2)
+                                .Marker(mr => mr.DataLabel(dl => dl.Visible(true).Name("text").Position(LabelPosition.Top).Font(new { fontWeight = "600", color = "#ffffff" })))
+                                .Add();
+
+                        })
+                        .PrimaryXAxis(px =>
+                        {
+                            px.ValueType(Syncfusion.EJ2.Charts.ValueType.Category)
+                                .MajorGridLines(m => m.Width(0.00001))
+                                .Interval(1)
+                                .LabelIntersectAction(LabelIntersectAction.Wrap);
+                        })
+                        .PrimaryYAxis(py =>
+                        {
+                            py.Minimum(0)
+                                .Maximum(12)
+                                .Interval(3)
+                                .LineStyle(l => l.Width(0.00001))
+                                .LabelStyle(l => l.Color("transparent"))
+                                .MajorGridLines(m => m.Width(0.00001))
+                                .MajorTickLines(m => m.Width(0.00001));
+                        })
+                        .EnableSideBySidePlacement(false)
+                        .Title(LocalizedStrings.GetString("PublicationSuccessRate"))
+                        .ChartArea(area => area.Border(new ChartBorder { Color = "transparent" }))
+                        .Load("load")
+                        .Tooltip(tt => { tt.Enable(true).Shared(true); })
+                        .Render()
+            )
+        </div>
+    </div>
+</div>
+
+<script>
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Training")" + "/" + "@LocalizedStrings.GetString("PublicationQualification")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+    
+    function onSelected(args) {
+        if (args.selectedIndex == 1) {
+            //Graph tab selected
+            var chart = document.getElementById("ChartPublicationQualification").ej2_instances[0];
+            chart.refresh();
+        }
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Folder") {
+            new ej.popups.Tooltip({
+                content: args.data["FolderPath"].toString() // add Essential JS2 tooltip for every cell.
+            }, args.cell);
+        }
+        if (args.column.field == "PercentageRate") {
+            var percentageResult = args.data["PercentageRate"];
+            if (percentageResult >= 0)
+                args.cell.innerText = percentageResult + " %";
+            else
+                args.cell.innerText = "";
+        }
+    }
+    var load = function (args) {
+        @*var selectedTheme = location.hash.split('/')[1];
+        selectedTheme = selectedTheme ? selectedTheme : 'Material';
+        args.chart.theme = (selectedTheme.charAt(0).toUpperCase() + selectedTheme.slice(1));
+        args.chart.width = ej.base.Browser.isDevice ? "100%" : "60%";*@
+    }
+    function excelQueryCellInfo(args) {
+        if (args.column.field == "PercentageRate") {
+            var percentageResult = args.data["PercentageRate"];
+            if (percentageResult >= 0)
+                args.value = percentageResult + " %";
+            else
+                args.value = "";
+        }
+    }
+    function toolbarClick(args) {
+        if (args.item.id === 'PublicationQualification_excelexport') {
+            var gridObj = document.getElementById("PublicationQualification").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "PublicationQualification.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+    function onFilter(event, tab) {
+        event = event || window.event || event.srcElement;
+        event.preventDefault();
+        if (tab == "grid") {
+            var team = document.getElementById("team").ej2_instances[0].value;
+            var position = document.getElementById("position").ej2_instances[0].value;
+        }
+        else {
+            var team = document.getElementById("teamGraph").ej2_instances[0].value;
+            var position = document.getElementById("positionGraph").ej2_instances[0].value;
+        }
+        var link = "/Publication/PublicationQualification?partial=True&team=-1&position=-2";
+        link = link.replace("-1", team);
+        link = link.replace("-2", position);
+        LoadPartial(link, '#pageContainer');
+    }
+</script>
+
+@Html.EJS().ScriptManager()

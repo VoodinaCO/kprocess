@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<testsuite>
+
+  <TestCase Menu="Validate" SubMenu="ValidateAcquire">
+
+    <User>
+      <Role>ANA001</Role>
+    </User>
+
+    <Project>
+      <Role>TEC001</Role>
+      <HasRealizedLockedScenario>false</HasRealizedLockedScenario>
+    </Project>
+
+    <IsEnabled>true</IsEnabled>
+    <CanRead>false</CanRead>
+    <CanWrite>false</CanWrite>
+    
+  </TestCase>
+
+  <TestCase Menu="Validate" SubMenu="ValidateAcquire">
+
+    <User>
+      <Role>ANA001</Role>
+    </User>
+
+    <Project>
+      <Role>TEC001</Role>
+      <HasRealizedLockedScenario>true</HasRealizedLockedScenario>
+    </Project>
+
+    <IsEnabled>true</IsEnabled>
+    <CanRead>true</CanRead>
+    <CanWrite>false</CanWrite>
+
+  </TestCase>
+
+  <TestCase Menu="Analyze" SubMenu="AnalyzeAcquire">
+
+    <User>
+      <Role>TEC001</Role>
+    </User>
+
+    <Project>
+      <Role>TEC001</Role>
+      <HasRealizedLockedScenario>true</HasRealizedLockedScenario>
+    </Project>
+
+    <IsEnabled>true</IsEnabled>
+    <CanRead>false</CanRead>
+    <CanWrite>false</CanWrite>
+
+  </TestCase>
+  
+  
+</testsuite>

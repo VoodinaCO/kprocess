@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <Property Id="RefProperty_Features" Value="1" />
+    <Feature Id="ApplicationFilesFeature" Title="!(loc.ApplicationFilesFeature)" Level="1">
+      <ComponentGroupRef Id="CompGrp_ApplicationFiles" />
+      <ComponentGroupRef Id="CompGrp_ApplicationRegistries" />
+      <ComponentRef Id="CreateExportBufferDir" />
+    </Feature>
+	</Fragment>
+</Wix>

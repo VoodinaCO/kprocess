@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{22BCF7F5-2B2D-424D-ACFA-809FB4DC5CB3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KProcess.Ksmed.Ext.Kprocess</RootNamespace>
+    <AssemblyName>KProcess.Ksmed.Ext.K-process</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.0.5022.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\LibExt\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\LibExt\Microsoft.Expression.Interactions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\LibExt\Office\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Vbe.Interop, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\LibExt\Office\Microsoft.Vbe.Interop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Office, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\..\LibExt\Office\Office.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\LibExt\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=3.2.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.3.2.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\TextFieldVisibilityConverter.cs" />
+    <Compile Include="Converters\AndOrComboBoxVisibilityConverter.cs" />
+    <Compile Include="Converters\ToggleAndOrButtonConverter.cs" />
+    <Compile Include="Converters\RadioButtonConverter.cs" />
+    <Compile Include="Enums\EHorizontalAlign.cs" />
+    <Compile Include="Enums\EVerticalAlign.cs" />
+    <Compile Include="Export\Exporter.cs" />
+    <Compile Include="Export\ExportRanges.cs" />
+    <Compile Include="Export\Extensions\StringExtensions.cs" />
+    <Compile Include="Export\Extensions\WorkbookExtensions.cs" />
+    <Compile Include="Export\Extensions\WorksheetExtensions.cs" />
+    <Compile Include="Export\Extensions\ActionExtensions.cs" />
+    <Compile Include="Export\Extensions\IEnumeratorExtensions.cs" />
+    <Compile Include="Export\Extensions\VideoExtensions.cs" />
+    <Compile Include="Export\KprocessExportWindow.xaml.cs">
+      <DependentUpon>KprocessExportWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Export\ExportScenarioExtension.cs" />
+    <Compile Include="Export\RangeGroup.cs" />
+    <Compile Include="Export\Trackability.cs" />
+    <Compile Include="KprocessExtension.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceExport.cs" />
+    <Compile Include="Resources\LocalizationResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LocalizationResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.cs" />
+    <Compile Include="ViewModels\ConfigurationViewModel.cs" />
+    <Compile Include="ViewModels\Interfaces\IConfigurationViewModel.cs" />
+    <Compile Include="Views\AndOrComboBox.cs" />
+    <Compile Include="Views\ConfigurationView.xaml.cs">
+      <DependentUpon>ConfigurationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RadioButtonWithImage.xaml.cs">
+      <DependentUpon>RadioButtonWithImage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KL2-Core\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41a8fd16-8aa1-48f2-ac75-cb27ffeea2a4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5d4074aa-f569-4c2a-ac8f-a486c382bfd7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579c-1c1b-4b94-b14c-52ab369aeeba}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Ksmed.Business\KProcess.Ksmed.Business.csproj">
+      <Project>{a53f3357-b177-4c21-bc01-89c173694b4e}</Project>
+      <Name>KProcess.Ksmed.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Ksmed.Globalization\KProcess.Ksmed.Globalization.csproj">
+      <Project>{9184fa93-891f-47d9-b725-41387ed7b5df}</Project>
+      <Name>KProcess.Ksmed.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{f92433a9-1d2c-4e64-a29b-4aaebca0d3ad}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Ksmed.Presentation.Core\KProcess.Ksmed.Presentation.Core.csproj">
+      <Project>{0e402448-c15a-4c79-bee0-5e76309639c2}</Project>
+      <Name>KProcess.Ksmed.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Ksmed.Presentation.ViewModels.Interfaces\KProcess.Ksmed.Presentation.ViewModels.Interfaces.csproj">
+      <Project>{7f137000-d591-489d-b4f6-68dc74bdce9b}</Project>
+      <Name>KProcess.Ksmed.Presentation.ViewModels.Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Ksmed.Security\KProcess.Ksmed.Security.csproj">
+      <Project>{4f602abb-799b-4ed2-9c99-cb2f14380c3a}</Project>
+      <Name>KProcess.Ksmed.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Presentation.Windows\KProcess.Presentation.Windows.csproj">
+      <Project>{ba24abbc-fe81-40b3-ab48-5e33c8fc542f}</Project>
+      <Name>KProcess.Presentation.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\KProcess.Supervision\KProcess.Supervision.csproj">
+      <Project>{8271055c-57c4-460e-b715-730d38f86227}</Project>
+      <Name>KProcess.Supervision</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\LocalizationResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LocalizationResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LocalizationResources.en-US.resx">
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\LocalizationResources.fr-FR.resx">
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Export\KprocessExportWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ConfigurationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RadioButtonWithImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Resources\exportexcelKp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Resources\Vertical-Align-Center.png" />
+    <Resource Include="Resources\Vertical-Align-Top.png" />
+    <Resource Include="Resources\Horizontal-Align-Center.png" />
+    <Resource Include="Resources\Horizontal-Align-Left.png" />
+    <Resource Include="Resources\Horizontal-Align-Right.png" />
+    <Resource Include="Resources\Vertical-Align-Bottom.png" />
+    <Resource Include="Resources\Help.png" />
+    <Content Include="Video\videosplitter-32.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Video\videosplitter-64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="KProcess.Ksmed.pfx" />
+    <None Include="Video\arial.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>"$(SolutionDir)Tasks\Deploy-Local.cmd" "$(SolutionDir)" "$(TargetDir)" "$(OutDir)"</PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

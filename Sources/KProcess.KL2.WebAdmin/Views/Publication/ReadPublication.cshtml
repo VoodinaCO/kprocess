@@ -1,0 +1,301 @@
+@using KProcess.KL2.WebAdmin.Models.Publications;
+@using System.Web.Mvc.Html;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model ReadPublicationViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    int i;
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+
+    ViewBag.Title = "ReadPublication";
+
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "TeamsString", direction = "Ascending" });
+    cols.Add(new { field = "TenuredDisplay", direction = "Ascending" });
+    cols.Add(new { field = "Fullname", direction = "Ascending" });
+}
+
+<style id="notedStyle">
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .e-grid .e-headercelldiv {
+        overflow: visible !important;
+    }
+
+    .e-grid.e-wrap .e-stackedheader .e-columnheader .e-stackedheadercelldiv, .e-grid.e-wrap .e-stackedheader .e-columnheader .e-headercelldiv {
+        max-height: none;
+    }
+</style>
+
+<script type="text/javascript">
+    //$(document).ready(function () {
+    //    ej.pvt.fnAscending = function (x, y) {
+    //        if (ej.isNullOrUndefined(y) && ej.isNullOrUndefined(x))
+    //            return -1;
+
+    //        if (y === null || y === undefined || y === "")
+    //            return -1;
+
+    //        if (x === null || x === undefined || x === "")
+    //            return 1;
+
+    //        if (typeof x === "string")
+    //            return x.localeCompare(y);
+
+    //        return x - y;
+    //    }
+
+    //    ej.pvt.fnDescending = function (x, y) {
+    //        if (ej.isNullOrUndefined(y) && ej.isNullOrUndefined(x))
+    //            return -1;
+
+    //        if (y === null || y === undefined || y === "")
+    //            return -1;
+
+    //        if (x === null || x === undefined || x === "")
+    //            return 1;
+
+    //        if (typeof x === "string")
+    //            return x.localeCompare(y) * -1;
+
+    //        return y - x;
+    //    }
+    //});
+</script>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        <div style="flex: 1; min-height: 0px;">
+            @{
+                if (Model.UserReadPublicationViewModel.Count() != 0 && Model.PublicationCount != 0)
+                {
+                    @(Html.EJS().Grid("UsersReadPublications")
+                        .DataSource(ds => ds.Json(Model.UserReadPublicationViewModel.ToArray()).Adaptor("RemoteSaveAdaptor"))
+                        .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                        .AllowPaging()
+                        .PageSettings(p => p.PageSize(25))
+                        .Locale(ejLanguageCode)
+                        //Excel export
+                        .AllowExcelExport()
+                        .HeaderCellInfo("gridHeaderCellInfo")
+                        .ExcelQueryCellInfo("excelQueryCellInfo")
+                        .AllowSelection(false)
+                        .AllowTextWrap()
+                        .TextWrapSettings(s => s.WrapMode(Syncfusion.EJ2.Grids.WrapMode.Both))
+                        .AllowFiltering()
+                        .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                        .EnableHover()
+                        .Toolbar(new List<string>() { "ExcelExport" })
+                        .ToolbarClick("toolbarClick")
+                        .AllowSorting(true)
+                        .AllowMultiSorting()
+                        .SortSettings(sort =>
+                            sort.Columns(cols)
+                        )
+                        .Columns(col =>
+                        {
+                            col.Field("UserId").IsPrimaryKey(true).HeaderText(LocalizedStrings.GetString("User_Id")).Visible(false).IsIdentity(true).Add();
+                            col.Field("TeamsString").HeaderText(LocalizedStrings.GetString("Team")).Width(150).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).AllowSorting(true).SortComparer("sortComparer").Add();
+                            col.Field("TenuredDisplay").HeaderText(LocalizedStrings.GetString("Position")).Width(150).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                            col.Field("Fullname").HeaderText(LocalizedStrings.GetString("Operators")).Width(200).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                            for (i = 0; i < Model.DirectoryList.Count(); i++)
+                            {
+                                var publicationByDirectory = Model.PublicationViewModel.Where(p => p.Folder == Model.DirectoryList.ElementAt(i)).ToList();
+                                var columnList = new List<Syncfusion.EJ2.Grids.GridColumn>();
+                                for (var j = 0; j < publicationByDirectory.Count; j++)
+                                {
+                                    var dataIndex = Model.PublicationViewModel.ToList().FindIndex(p => p.PublicationId == publicationByDirectory.ElementAt(j).PublicationId);
+                                    columnList.Add(new Syncfusion.EJ2.Grids.GridColumn
+                                    {
+                                        Field = $"ReadDate.{dataIndex}",
+                                        HeaderText = Model.PublicationViewModel.Select(r => $"{r.Label} (v{r.Version})").ElementAt(dataIndex),
+                                        HeaderTemplate = "<span class='headerTextCustom' href='#' data-toggle='tooltip' title='" + Model.PublicationViewModel.Select(p => p.FolderPath).ElementAt(dataIndex) + "'>" + Model.PublicationViewModel.Select(r => $"{r.Label} (v{r.Version})").ElementAt(dataIndex) + "</span>",
+                                        TextAlign = Syncfusion.EJ2.Grids.TextAlign.Center,
+                                        Width = "200",
+                                        AllowFiltering = false
+                                    });
+                                }
+                                col.HeaderText(Model.DirectoryList.ElementAt(i))
+                                    .HeaderTemplate("<span class='headerTextCustom' href='#' data-toggle='tooltip' title='" + Model.DirectoryListPath.ElementAt(i) + "'>" + Model.DirectoryList.ElementAt(i) + "</span>")
+                                    .Columns(columnList)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .Add();
+                            }
+                        })
+                        .AllowGrouping()
+                        .GroupSettings(group => group.Columns(new string[] { "TeamsString", "TenuredDisplay" }).ShowDropArea(false).CaptionTemplate("#groupCaption"))
+                        .ActionBegin("actionBegin")
+                        .QueryCellInfo("gridQueryCellInfo")
+                        .RowSelecting("onSelectingCheck")
+                        .Height("100%")
+                        .Render()
+                    )
+                }
+                else
+                {
+                    @Html.Label(LocalizedStrings.GetString("NoPublicationAvailable"));
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<script id="groupCaption" type="text/x-template">
+    ${if (field == 'TeamsString')}
+        ${if (key=='')}
+        @LocalizedStrings.GetString("WithoutTeam")
+        ${else}
+        @LocalizedStrings.GetString("Team") : ${key}
+        ${/if}
+    ${/if}
+    ${if (field == 'TenuredDisplay')}
+        ${if (key=='')}
+        @LocalizedStrings.GetString("WithoutPosition")
+        ${else}
+        @LocalizedStrings.GetString("Position") : ${key}
+        ${/if}
+    ${/if}
+</script>
+
+<script type="text/javascript">
+    //function gridCreate(args) {
+    //    var maxWidth = 0;
+    //    $('.orientationcss > div').each(function (i, obj) {
+
+    //        var html_org = $(this).html();
+    //        var html_calc = '<span>' + html_org + '</span>';
+    //        $(this).html(html_calc);
+    //        var textWidth = $(this).find('span:first').width();
+    //        $(this).html(html_org);
+
+    //        if (textWidth > maxWidth)
+    //            maxWidth = textWidth;
+    //    });
+    //    $(".e-headercell").css("height", maxWidth); //Assign the obtained textWidth as the height of the headerCell
+    //    $(".e-stackedHeaderCell").css("height", 50);
+    //}
+
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Training")" + "/" + "@LocalizedStrings.GetString("ReadPublication")");
+        setIsRefreshing(false);
+        settingHeaderCells();
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function settingHeaderCells() {
+        var allHeaderTextCustoms = document.getElementsByClassName("headerTextCustom");
+        var maxHeight = 0;
+        for(var i = 0; i < allHeaderTextCustoms.length; i++) {
+            if (allHeaderTextCustoms[i].offsetHeight > maxHeight) {
+                maxHeight = allHeaderTextCustoms[i].offsetHeight;
+            }
+        }
+        var style = document.createElement('style');
+        var headerRowHeight = '.e-grid .e-columnheader { height: ' + maxHeight + 'px; } \n';
+        style.innerHTML = headerRowHeight;
+        var ref = document.querySelector("#notedStyle");
+        if (ref != null)
+            ref.parentNode.insertBefore(style, ref);
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Teams") {
+            var teams = args.data["Teams"];
+            args.cell.innerText = String(teams).replace(/\,/g, ', ');
+        }
+        if (args.column.field.includes("ReadDate")) {
+            var dataIndex = parseInt(args.column.field.split('.')[1]);
+
+            if (args.data["HasRead"][dataIndex] == true)
+                args.cell.classList.add('readCell');
+            else if (args.data["HasReadPreviousVersion"][dataIndex] == true)
+                args.cell.classList.add('readCellPreviousMajorVersion');
+            else if (args.data["HasReadPreviousMajorVersion"][dataIndex] == true)
+                args.cell.classList.add('readCellPreviousMajorVersion');
+        }
+    }
+    function excelQueryCellInfo(args) {
+        if (args.column.field.includes("ReadDate")) {
+            var dataIndex = parseInt(args.column.field.split('.')[1]);
+
+            if (args.data["HasRead"][dataIndex] == true)
+                args.style = { backColor: '#90EE90' };
+            else if (args.data["HasReadPreviousVersion"][dataIndex] == true)
+                args.style = { backColor: '#FFFF66' };
+            else if (args.data["HasReadPreviousMajorVersion"][dataIndex] == true)
+                args.style = { backColor: '#FFFF66' };
+        }
+    }
+
+    function gridHeaderCellInfo(args) {
+        if (args.cell.column.allowSorting === false) {
+            args.node.style.cursor = "default";
+        }
+    }
+
+    function toolbarClick(args) {
+        if (args.item.id === 'UsersReadPublications_excelexport') {
+            var gridObj = document.getElementById("UsersReadPublications").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "UsersReadPublications.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+    var action;
+    function actionBegin(args) {
+        if (args.requestType == "sorting") {
+            action = args.direction;
+        }
+    }
+    function sortComparer(reference, comparer) {
+        var sortAsc = action === "Ascending" ? true : false;
+        if (sortAsc && reference === null) {
+            return 1;
+        }
+        else if (sortAsc && comparer === null) {
+            return -1;
+        }
+        else if (!sortAsc && reference === null) {
+            return -1;
+        }
+        else if (!sortAsc && comparer === null) {
+            return 1;
+        } else {
+            return reference - comparer;
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

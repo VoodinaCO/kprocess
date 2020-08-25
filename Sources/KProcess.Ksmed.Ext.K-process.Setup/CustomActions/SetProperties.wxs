@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <Property Id="RefProperty_SetProperties" Value="1" />
+
+    <CustomAction Id="SetINSTALLFOLDER"
+                  Property="INSTALLFOLDER"
+                  Value="[KSMEDROOTDIR]" />
+
+    <CustomAction Id="SetApplicationExtensionInstallHKLMPath"
+                  Property="ApplicationExtensionHKLMPath"
+                  Value="[ApplicationInstallHKLMPath]\Extensions" />
+
+    <InstallExecuteSequence>
+      <Custom Action="SetINSTALLFOLDER" After="LaunchConditions" />
+      <Custom Action="SetApplicationExtensionInstallHKLMPath" Before="AppSearch" />
+    </InstallExecuteSequence>
+	</Fragment>
+</Wix>

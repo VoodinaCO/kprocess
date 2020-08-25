@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
+  <PropertyGroup Label="Globals">
+    <ProjectVersion>2.1</ProjectVersion>
+    <DockerTargetOS>Windows</DockerTargetOS>
+    <ProjectGuid>c215893f-7759-4a8f-bb27-319d0cc5f5fb</ProjectGuid>
+    <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
+    <DockerServiceName>kl2suite.webadmin</DockerServiceName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DockerServiceUrl>{Scheme}://localhost:8080</DockerServiceUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include=".env" />
+    <None Include="docker-compose.yml" />
+  </ItemGroup>
+</Project>

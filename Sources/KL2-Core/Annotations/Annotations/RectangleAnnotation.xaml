@@ -1,0 +1,134 @@
+﻿<annotations:AnnotationBase x:Class="AnnotationsLib.Annotations.RectangleAnnotation"
+                            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                            xmlns:app="clr-namespace:AnnotationsLib"
+                            xmlns:annotations="clr-namespace:AnnotationsLib.Annotations"
+                            xmlns:converters="clr-namespace:AnnotationsLib.Converters"
+                            mc:Ignorable="d"
+                            d:DesignHeight="300" d:DesignWidth="300"
+                            InkCanvas.Left="{Binding RelativeSource={RelativeSource Self}, Path=X}"
+                            InkCanvas.Top="{Binding RelativeSource={RelativeSource Self}, Path=Y}"
+                            app:Adornment.Content="{Binding ResizingAdorner, RelativeSource={RelativeSource Self}}">
+    <annotations:AnnotationBase.Resources>
+        <ControlTemplate x:Key="TransparentThumb" TargetType="{x:Type Thumb}">
+            <Border Background="Transparent">
+                <ContentControl />
+            </Border>
+        </ControlTemplate>
+        <ControlTemplate x:Key="RectangleResizerTemplate" TargetType="{x:Type app:ResizingAdorner}" >
+            <Canvas Background="{TemplateBinding Background}" IsEnabled="{TemplateBinding IsEnabled}">
+                <Thumb Name="PART_THUMB_MOVE" Width="{Binding Width}" Height="{Binding Height}" Cursor="SizeAll"
+                       Template="{StaticResource TransparentThumb}" MouseEnter="Edit_MouseEnter" MouseLeave="Edit_MouseLeave"/>
+                <Thumb Name="PART_THUMB_NW" Width="{TemplateBinding HandleSize}" Height="{TemplateBinding HandleSize}" Cursor="SizeNWSE" app:ViewBoxExtra.DisableScaling="True">
+                    <Canvas.Left>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}" ConverterParameter="0">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding>
+                    </Canvas.Left>
+                    <Canvas.Top>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}" ConverterParameter="0">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding>
+                    </Canvas.Top>
+                </Thumb>
+                <Thumb Name="PART_THUMB_NE" Width="{TemplateBinding HandleSize}" Height="{TemplateBinding HandleSize}" Cursor="SizeNESW" app:ViewBoxExtra.DisableScaling="True">
+                    <Canvas.Left>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="Width" RelativeSource="{RelativeSource TemplatedParent}"/>
+                        </MultiBinding>
+                    </Canvas.Left>
+                    <Canvas.Top>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}" ConverterParameter="0">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding>
+                    </Canvas.Top>
+                </Thumb>
+                <Thumb Name="PART_THUMB_SW" Width="{TemplateBinding HandleSize}" Height="{TemplateBinding HandleSize}" Cursor="SizeNESW" app:ViewBoxExtra.DisableScaling="True">
+                    <Canvas.Left>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}" ConverterParameter="0">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding>
+                    </Canvas.Left>
+                    <Canvas.Top>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="Height" RelativeSource="{RelativeSource TemplatedParent}"/>
+                        </MultiBinding>
+                    </Canvas.Top>
+                </Thumb>
+                <Thumb Name="PART_THUMB_SE" Width="{TemplateBinding HandleSize}" Height="{TemplateBinding HandleSize}" Cursor="SizeNWSE" app:ViewBoxExtra.DisableScaling="True">
+                    <Canvas.Left>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="Width" RelativeSource="{RelativeSource TemplatedParent}"/>
+                        </MultiBinding>
+                    </Canvas.Left>
+                    <Canvas.Top>
+                        <MultiBinding Converter="{converters:ThumbPositionConverter}">
+                            <Binding Path="HandleSize" RelativeSource="{RelativeSource TemplatedParent}"/>
+                            <Binding Path="LayoutTransform" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="Height" RelativeSource="{RelativeSource TemplatedParent}"/>
+                        </MultiBinding>
+                    </Canvas.Top>
+                </Thumb>
+
+            </Canvas>
+        </ControlTemplate>
+    </annotations:AnnotationBase.Resources>
+    <annotations:AnnotationBase.Template>
+        <ControlTemplate>
+            <Border Canvas.Left="{Binding X, RelativeSource={RelativeSource TemplatedParent}}"
+                    Canvas.Top="{Binding Y, RelativeSource={RelativeSource TemplatedParent}}"
+                    BorderBrush="{Binding Brush, RelativeSource={RelativeSource TemplatedParent}}"
+                    BorderThickness="{Binding Thickness, RelativeSource={RelativeSource TemplatedParent}}"/>
+        </ControlTemplate>
+    </annotations:AnnotationBase.Template>
+    <app:Adornment.IsVisible>
+        <MultiBinding Converter="{converters:BooleansAndConverter}">
+            <Binding Path="IsVisible" RelativeSource="{RelativeSource Self}"/>
+            <Binding Path="IsInEditMode" RelativeSource="{RelativeSource Self}"/>
+        </MultiBinding>
+    </app:Adornment.IsVisible>
+    <annotations:AnnotationBase.ResizingAdorner>
+        <app:ResizingAdorner DataContext="{Binding RelativeSource={RelativeSource Self}, Path=(app:Adornment.Owner)}"
+                             X="{Binding X}" Y="{Binding Y}"
+                             Width="{Binding Width}" Height="{Binding Height}"
+                             HandleSize="8"
+                             Template="{StaticResource RectangleResizerTemplate}">
+            <app:ResizingAdorner.MaxX>
+                <MultiBinding Converter="{converters:DragThumbMaxConverter}">
+                    <Binding Path="ActualWidth"/>
+                    <Binding Path="DataContext.ContainerWidth"/>
+                </MultiBinding>
+            </app:ResizingAdorner.MaxX>
+            <app:ResizingAdorner.MaxY>
+                <MultiBinding Converter="{converters:DragThumbMaxConverter}">
+                    <Binding Path="ActualHeight"/>
+                    <Binding Path="DataContext.ContainerHeight"/>
+                </MultiBinding>
+            </app:ResizingAdorner.MaxY>
+            <app:ResizingAdorner.MaxWidth>
+                <MultiBinding Converter="{converters:DragThumbMaxConverter}">
+                    <Binding Path="X"/>
+                    <Binding Path="DataContext.ContainerWidth"/>
+                </MultiBinding>
+            </app:ResizingAdorner.MaxWidth>
+            <app:ResizingAdorner.MaxHeight>
+                <MultiBinding Converter="{converters:DragThumbMaxConverter}">
+                    <Binding Path="Y"/>
+                    <Binding Path="DataContext.ContainerHeight"/>
+                </MultiBinding>
+            </app:ResizingAdorner.MaxHeight>
+        </app:ResizingAdorner>
+    </annotations:AnnotationBase.ResizingAdorner>
+</annotations:AnnotationBase>

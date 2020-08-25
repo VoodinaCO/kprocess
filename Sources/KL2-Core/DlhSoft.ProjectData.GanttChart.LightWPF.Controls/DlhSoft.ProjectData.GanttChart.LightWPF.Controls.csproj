@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <ProjectType>local</ProjectType>
+    <ProjectVersion>7.10.3077</ProjectVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{17CF2D11-BA9D-4BCF-A0EC-47C3B06D6F5F}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyName>DlhSoft.ProjectData.GanttChart.LightWPF.Controls</AssemblyName>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>0.0</OldToolsVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugSymbols>true</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>false</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DefineConstants>TRACE</DefineConstants>
+    <DebugSymbols>false</DebugSymbols>
+    <NoStdLib>false</NoStdLib>
+    <Optimize>true</Optimize>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreGeneratedCode>true</CodeAnalysisIgnoreGeneratedCode>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>DlhSoft</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore">
+      <Name>PresentationCore</Name>
+    </Reference>
+    <Reference Include="PresentationFramework">
+      <Name>PresentationFramework</Name>
+    </Reference>
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.Core">
+      <Name>System.Core</Name>
+    </Reference>
+    <Reference Include="System.Xaml">
+      <Name>System.Xaml</Name>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Name>System.Xml</Name>
+    </Reference>
+    <Reference Include="WindowsBase">
+      <Name>WindowsBase</Name>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Localization.cs" />
+    <Compile Include="Windows\Controls\GanttChartDataGrid.KP.cs" />
+    <Compile Include="Windows\Converters\NegatedBooleanConverter.cs" />
+    <Compile Include="Windows\Data\TimeOfDayConverter.cs" />
+    <Compile Include="Windows\Shapes\DependencyArrowLine.xaml.cs">
+      <DependentUpon>DependencyArrowLine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\DataGridColumnCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\DependencyCreationValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\DependencyDeletionValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\DependencyLinePresenter.xaml.cs">
+      <DependentUpon>DependencyLinePresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Controls\DependencyType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\DragDependencyThumb.xaml.cs">
+      <DependentUpon>DragDependencyThumb.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Controls\DragTaskThumb.xaml.cs">
+      <DependentUpon>DragTaskThumb.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Controls\DragTaskThumbRole.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\GanttChartDataGrid.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\GanttChartItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\GanttChartItemCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\GanttChartView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\IGanttChartView.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\ItemActivatedEventArgs.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\ItemActivatedEventHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\PredecessorItem.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\PredecessorItemCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\Scale.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\ScaleCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\ScaleInterval.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\ScaleType.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Controls\TaskExpander.xaml.cs">
+      <DependentUpon>TaskExpander.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Controls\TaskPresenter.xaml.cs">
+      <DependentUpon>TaskPresenter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\Controls\TimeScaleTextFormat.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Converters\DateTimeStringConverter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Data\TimeInterval.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Data\TimeOfDay.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Licensing\LicenseValidator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Licensing\LicenseWarningGenerator.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Windows\Shapes\ArrowLine.xaml.cs">
+      <DependentUpon>ArrowLine.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Global.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DlhSoft.HierarchicalData.LightWPF.Controls\DlhSoft.HierarchicalData.LightWPF.Controls.csproj">
+      <Project>{22912E86-C4F7-4920-8167-3D67DBB3CBA1}</Project>
+      <Name>DlhSoft.HierarchicalData.LightWPF.Controls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Windows\Controls\DependencyLinePresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Controls\DragDependencyThumb.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Controls\DragTaskThumb.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Controls\TaskExpander.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Controls\TaskPresenter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Shapes\ArrowLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\Shapes\DependencyArrowLine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="icon.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent />
+    <PostBuildEvent />
+  </PropertyGroup>
+</Project>

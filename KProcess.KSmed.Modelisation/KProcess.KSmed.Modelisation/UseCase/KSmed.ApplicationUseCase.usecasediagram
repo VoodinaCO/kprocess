@@ -1,0 +1,1429 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="246b6272-821c-4896-af31-afda14e44028" name="KSmed.ApplicationUseCase" linkedPackageId="9674697a-7ffb-464c-84a4-007886fac2cb" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="251d578b-ab49-48b8-8088-e836792cc62c" name="Analyste" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8c5dff48-fbb6-4a50-af10-febb140f9705" />
+        <targetEnds>
+          <association Id="ba867f1a-1d1b-45e8-96e3-4989c29a17a7" isDerived="false" sourceEndRoleName="Utilisateur" targetEndRoleName="S'authentifier" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="3eb162a3-2d27-4879-b509-f45cbfd6f1ba" LastKnownName="S'authentifier" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="62fcf354-7898-4944-b7a8-07f373b87bcf" name="Utilisateur" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="eaa92bba-d7f2-475e-9720-60a27c78cb45" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="65e3b7a3-939d-4670-9df4-fb1e64447787" name="S'authentifier" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="dfa8b715-3fd5-4c29-8994-bf148b13e790" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4492ba1d-fc0b-4dcc-86fe-efa191920a58" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="cbf89f54-1e88-4f30-b604-3a9ba3aef281" name="ACQUERIR les activités du processus" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="43f4e1b8-bbc3-4adc-bd52-24757e3e5589" />
+        <suppliersInternal>
+          <dependency Id="9a78a221-209b-4165-9cea-6319d93cd89b">
+            <useCaseMoniker Id="d6111549-5f7a-44e0-81ee-5a75df71a36f" LastKnownName="CONSOLIDER la définition des actions du processus" />
+            <elementDefinition Id="a68f9372-6f85-4383-9427-aef0ab7d6b4c" />
+          </dependency>
+        </suppliersInternal>
+        <additions>
+          <include Id="b5607454-9124-45f7-a55a-04b5b94a1f01">
+            <useCaseMoniker Id="a33fbf9c-c25c-4917-a2a0-3f735799568b" LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource" />
+            <elementDefinition Id="a5fd1d6a-1c85-41aa-aa20-c4e49abecdcb" />
+          </include>
+          <include Id="85665a47-65ca-424a-bb6b-01fc4ac86b84">
+            <useCaseMoniker Id="8ee6ee47-074d-4e81-8851-9051a33cbbbf" LastKnownName="DECOMPOSER une activité à partir d'une video VSM" />
+            <elementDefinition Id="3deb9506-fe6e-4317-b256-4643e3229196" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="d6111549-5f7a-44e0-81ee-5a75df71a36f" name="CONSOLIDER la définition des actions du processus" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="99eadfdd-e6ff-40c1-8b9f-e78e894c7bc5" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$228" tag="Work Item Reference">
+            <elementDefinition Id="5618f626-4c92-4b0c-bc56-06732e3171a5" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="c31086a4-6f87-4f9f-85fd-1a7db683f898" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="a33fbf9c-c25c-4917-a2a0-3f735799568b" name="DECOMPOSER manuellement l'activité effectuées par une ressource" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="aa7a9cf3-d202-40c4-9f37-7277288fe0ef" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$79" tag="Work Item Reference">
+            <elementDefinition Id="4e486ab6-e186-4c6a-ab43-0a240780c84c" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="f102bad3-2f42-48f3-95df-8986bbfccfe7" />
+        <additions>
+          <include Id="c67d714c-19c3-43d9-bb35-fce7dda6599c">
+            <useCaseMoniker Id="22c01e29-99e3-4c23-9330-47815e840060" LastKnownName="Définir une vignette représentant l'action/tache" />
+            <elementDefinition Id="056c1430-bc80-40fe-b8fa-a331e1ca7caa" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="f5ec1747-a8aa-40c5-b668-517417fac32a" name="DECOMPOSER selon équipement" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="b7686f55-5b13-444f-80a1-b0352f800bc0" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$116" tag="Work Item Reference">
+            <elementDefinition Id="f9f97f41-338d-40f1-a0ab-95bf98f63ceb" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="85340277-4caf-48f4-8434-2cd03db1edce" />
+        <generalsInternal>
+          <generalization Id="8a226eac-66a1-4d71-8e3e-ce00c5f354f4" isSubstitutable="false">
+            <useCaseMoniker Id="a33fbf9c-c25c-4917-a2a0-3f735799568b" LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource" />
+            <elementDefinition Id="d06a3c4a-ee4c-40d8-87a4-072df4ed674b" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="798ca812-3953-4c19-8a66-1bebaf6be068" name="SYNCHRONISER les activités décomposées à l'aide d'un GANTT" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="e2541c63-34b7-433c-bdd6-8729e2ac1ef6" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$125" tag="Work Item Reference">
+            <elementDefinition Id="6ffb16bd-b26d-42df-a3bf-fd055febc8cb" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="40c432df-8787-4024-8a5a-6d034fdc3cdb" />
+        <additions>
+          <include Id="760e2dc0-7e83-4d00-840f-44cf09bcdd79">
+            <useCaseMoniker Id="1dcc5dcc-9f0c-4e3a-b256-52b9f5be2a68" LastKnownName="Visualiser la durée totale de l'activité" />
+            <elementDefinition Id="6b1fb926-b723-480e-ab7e-4616a32a343f" />
+          </include>
+          <include Id="1c0a5bc5-e7f7-4b08-8de5-38755b6fae26">
+            <useCaseMoniker Id="32ec593a-264a-40f5-9a0e-16490306b5cf" LastKnownName="Visualiser les actions du chemin critique " />
+            <elementDefinition Id="e41c5151-934f-475c-8b7e-e70d4c1893a5" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <useCase Id="05d6b26c-c7a9-4a0b-a841-7dcb18c605a9" name="CREER Un Projet" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="f0cb171a-1ed7-4660-af94-3e6a9243423e" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$61" tag="Work Item Reference">
+            <elementDefinition Id="afad7e7e-be63-484d-93bf-8d715d899334" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="bf1fbf87-edd1-408e-835d-323cae13846e" />
+        <suppliersInternal>
+          <dependency Id="8d2cf913-8095-4526-9b94-9e0f67f8d97e">
+            <useCaseMoniker Id="be8fdd2c-b82b-4804-af03-c67cc89f91a3" LastKnownName="Renseigner les objectifs, le contexte, l'atelier" />
+            <elementDefinition Id="1c08c90e-90c0-476a-8cfa-0d920393c283" />
+          </dependency>
+        </suppliersInternal>
+        <additions>
+          <include Id="5f0b36fd-f7bb-49ba-8e32-400120895c9e">
+            <useCaseMoniker Id="86ab3e40-f292-4087-bcdd-f4469368109e" LastKnownName="Définir les membre du groupe projet et attibuer un rôle" />
+            <elementDefinition Id="3ff389d8-6190-4ac7-b139-a4735fde8852" />
+          </include>
+          <include Id="02bf1bc8-33b9-4b2d-bfd8-6733cfba87fa">
+            <useCaseMoniker Id="ccef8fd8-d08f-41c9-b8f8-4066485f77bc" LastKnownName="Associer des vidéos illustrant le processus" />
+            <elementDefinition Id="3efa9784-04c5-49d6-9d70-35a3b447fbbf" />
+          </include>
+          <include Id="af93bd3f-0cea-4167-a36d-ae19c725fbfe">
+            <useCaseMoniker Id="a4ed9cf6-0d9c-4ccf-b35c-1d3afeb0b66f" LastKnownName="Définit le libellé des customAttribut" />
+            <elementDefinition Id="820e58dc-757e-4ded-b89e-ab7d4130069e" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" name="PREPARER" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="dd569413-d7b5-4405-a2e7-21c7cd5da050" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="b44b0553-4215-467b-af69-72d0e103b536" name="ANALYSER" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9a0f42fa-51b0-4359-833f-930e203ab0ae" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="fd1f8f21-0e64-413d-a06e-7db0bf3ee480" name="SUIVRE" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <ownedCommentsInternal>
+          <comment Id="f87cd6fe-cf4b-4e94-b322-88e6479fb56b">
+            <elementDefinition Id="44586c87-bebd-4b9a-8c06-c3286b034b7f" />
+            <body>Usecase identiquent à l'analyse sauf pour la mesure</body>
+          </comment>
+        </ownedCommentsInternal>
+        <elementDefinition Id="fdf1c0df-a14f-4680-adac-177ca32ac86f" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="1d4afdc8-f531-4785-b361-bc7e8b003126" name="VALIDER" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <ownedCommentsInternal>
+          <comment Id="a41b82c3-263d-46ed-abc8-d91cd66613be">
+            <elementDefinition Id="872e96f8-3aef-4ffe-a64d-97f86d2f5f0d" />
+            <body>Usecase identiquent à l'analyse</body>
+          </comment>
+        </ownedCommentsInternal>
+        <elementDefinition Id="90855f8a-118e-4c2c-8145-a5a7ee39653a" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <subsystem Id="880c9c1e-2ce1-42c4-8324-6930847432e4" name="CAPITALISER" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="467bcd15-45b1-4af4-afda-9e10f13a8245" />
+      </subsystem>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="9416ea7e-86b4-4ae0-833f-160d177cd7bb" name="PARAMETRER L'application" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="277ac4e3-a5f6-4f2d-bc36-992f86dac9b7" />
+        <additions>
+          <include Id="babcd368-7ea4-4ed1-ac69-561726662bbc">
+            <useCaseMoniker Id="61b3ccaf-c977-4456-a26f-e51282927918" LastKnownName="Gérer les utilisateurs" />
+            <elementDefinition Id="0090866f-3551-41dd-9c21-665a3c001a2a" />
+          </include>
+          <include Id="e98d67b3-ca4f-4427-ad5d-57acdc0dd5c7">
+            <useCaseMoniker Id="08672455-b890-4d0a-9eb8-cdc1bb1470ab" LastKnownName="Choisir ma langue" />
+            <elementDefinition Id="c92ebded-fefa-47df-be28-c95e2c6e59b6" />
+          </include>
+          <include Id="1c305099-f40c-4709-b707-b884431f03c9">
+            <useCaseMoniker Id="2ccaebd0-a069-422d-ab7d-44648cdcd52d" LastKnownName="Personnaliser les libellés" />
+            <elementDefinition Id="73c5d516-2567-4d9d-a334-5ef86a73dae1" />
+          </include>
+          <include Id="455ce694-590b-454d-a3a7-fd1aedfc96e3">
+            <useCaseMoniker Id="8e3eadba-2aa9-4339-be98-9a4614c062db" LastKnownName="Gérer les autorisations des utilisateurs" />
+            <elementDefinition Id="0319ba67-9167-48fe-8024-39c23deff3fd" />
+          </include>
+          <include Id="97182b26-cd31-4296-ba35-8f940fdc03cc">
+            <useCaseMoniker Id="d2c22d5f-849d-4898-af82-e7c225618400" LastKnownName="Définir un chemin par défaut pour les vidéo" />
+            <elementDefinition Id="ad2b5072-2be5-4ca7-b809-ea026575ee55" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="30b06787-bb8e-417f-bdf2-ba9cbc278c30" name="OUVRIR un projet Existant" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="560b1d96-e24f-4ba5-91ed-301472154d95" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$65" tag="Work Item Reference">
+            <elementDefinition Id="885082af-e822-4eee-bd15-999804b77bb3" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="3b09e5d1-ebf3-40de-a0a8-53c504f36ced" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="13b2192a-926c-47d0-acb8-718ae797f8d1" name="GERER Référentiels  des projets " isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="23c692f8-64cf-422a-8099-3533df70c33d" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$196" tag="Work Item Reference">
+            <elementDefinition Id="48b412f7-1a22-4277-976d-dcda7895e16b" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="7f75debc-d934-4ece-9a17-60b38e8b43b6" />
+        <generalsInternal>
+          <generalization Id="5be4c4c8-9b6d-4f77-9fce-11d21eee12cf" isSubstitutable="false">
+            <useCaseMoniker Id="9a6f9f3a-675d-490f-a819-aa3f5d0ef9b0" LastKnownName="Gérer Référentiels &quot;Standardisés&quot;" />
+            <elementDefinition Id="f56a132a-0979-4716-b792-29da37149801" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association Id="3c718a94-6ec6-47cd-b1d5-69438867b974" isDerived="false" sourceEndRoleName="GERER Référentiels  des projets " targetEndRoleName="Promouvoir un items Projet vers un item &quot;Standard&quot;" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="b5201108-f240-4801-84b9-4b66acd5a4ec" LastKnownName="Promouvoir un items Projet vers un item &quot;Standard&quot;" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d05feaf2-5b57-4351-81ff-355234321b75" name="GERER Référentiels  des projets " isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="f6ed412a-7bdb-41b2-a0f4-95c805955f90" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d1dfc68d-2b2b-4358-ad88-ba57a2651c2e" name="Promouvoir un items Projet vers un item &quot;Standard&quot;" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4cc90da9-cd8f-4962-ba00-4cf8231ddb30" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="c387c757-37ab-4796-87a5-7f057a809e05" />
+          </association>
+        </targetEnds>
+        <extendedCases>
+          <extend Id="db85086f-6b7b-4fef-96ed-006f179379c0">
+            <useCaseMoniker Id="291e310e-a011-43aa-8171-1426a7668fbe" LastKnownName="Fusionner deux éléments 2 d'un même projet" />
+            <elementDefinition Id="0f7ea3b2-2826-48b5-990a-869bbd5176ac" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include Id="fc411fdf-af29-4221-b779-57d31c079b44">
+            <useCaseMoniker Id="a50a1968-4346-409b-b425-76c25b6a77f0" LastKnownName="Importer un ou plusieurs éléments d'un projet vers un autre" />
+            <elementDefinition Id="4e4acf33-086d-4e82-b4b6-ecb6a89c264d" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="01a3ffec-ecee-4164-a930-17e535bf6d88" name="GERER Bibliothèque de vidéo" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="33a5e80e-8f85-4e78-b44b-69763528b9fc" />
+        <additions>
+          <include Id="3122118e-2570-4f06-854d-348cf119afdc">
+            <useCaseMoniker Id="d2c22d5f-849d-4898-af82-e7c225618400" LastKnownName="Définir un chemin par défaut pour les vidéo" />
+            <elementDefinition Id="d0f6f03f-cea5-4ed3-8c23-3c6e8e310ace" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="ce5a84d4-1c61-4a0c-a2a4-d0d589599d48" name="GERER mes projets" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="e52a6b36-dc84-4d37-bd1d-bb87bd82b852" />
+        <additions>
+          <include Id="f8d60339-d71d-4d13-b05f-3f268fb21017">
+            <useCaseMoniker Id="05d6b26c-c7a9-4a0b-a841-7dcb18c605a9" LastKnownName="CREER Un Projet" />
+            <elementDefinition Id="d35b347b-17c4-4a1f-8d78-909938b96e21" />
+          </include>
+          <include Id="3c0ad5c7-4486-41de-87ec-304661aba9c0">
+            <useCaseMoniker Id="30b06787-bb8e-417f-bdf2-ba9cbc278c30" LastKnownName="OUVRIR un projet Existant" />
+            <elementDefinition Id="db905677-0d40-4fe3-ace9-50548c86f535" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="be8fdd2c-b82b-4804-af03-c67cc89f91a3" name="Renseigner les objectifs, le contexte, l'atelier" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="1d8cee1c-28d9-48c5-8a75-cfc7c6704bee" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$53" tag="Work Item Reference">
+            <elementDefinition Id="e623d178-bf8e-45be-bc6e-79f15c875691" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="f8114e34-f226-4992-8d7e-29698c01d567" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="994c69c5-448a-4809-9198-918e86a84523" name="Définir la ressource par défaut" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="5a8a505e-40ff-4577-aaf4-4411364fc9bc" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$54$57" tag="Work Item Reference">
+            <elementDefinition Id="f5f36b77-117a-421a-97a0-ebb2c7e06054" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="f30d733c-b4f4-4d15-8ddd-6bf14755fd07" />
+        <suppliersInternal>
+          <dependency Id="b3ada405-489c-4103-a485-60a957a834c4">
+            <useCaseMoniker Id="bc65064e-8189-4df1-855b-043c4e977d9d" LastKnownName="Gérer les Ressources" />
+            <elementDefinition Id="289d9b6b-8338-469f-b0bc-621d1b6076a6" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="ccef8fd8-d08f-41c9-b8f8-4066485f77bc" name="Associer des vidéos illustrant le processus" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="718968e3-6eb5-4594-9aee-cadbbc1d3e40" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$55" tag="Work Item Reference">
+            <elementDefinition Id="fa4ddce9-68fd-4817-b067-721163001cc5" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="7e1ea3ff-fce2-48b2-bce8-426848309f44" />
+        <extendedCases>
+          <extend Id="85709251-c2f3-42a2-a64b-11488bc2c715">
+            <useCaseMoniker Id="994c69c5-448a-4809-9198-918e86a84523" LastKnownName="Définir la ressource par défaut" />
+            <elementDefinition Id="dffc0aab-f639-443b-a992-c4855dc80795" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <useCaseModelRootHasTypes>
+      <useCase Id="3eb162a3-2d27-4879-b509-f45cbfd6f1ba" name="S'authentifier" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="a2f8fefe-14b8-498b-8d02-4fab678e264a" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$66" tag="Work Item Reference">
+            <elementDefinition Id="9010772b-50f8-4bc7-b851-1d874c760cd7" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="f59c06b1-4eff-4a13-b6f5-891b1f69a074" />
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="c3365baa-2468-43a8-837a-68bee515c76d" name="Gérer les lieux" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="dc81f1be-267a-45e6-8981-9cd74487481d" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$60" tag="Work Item Reference">
+            <elementDefinition Id="9555d5f8-6027-4a5f-8b5c-cbfc7ed99d54" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="7585c753-965f-4c1e-ae09-4f06754d4dff" />
+        <extendedCases>
+          <extend Id="9bd1429e-41c1-43e1-9c76-6a76f7dd3079">
+            <useCaseMoniker Id="13b2192a-926c-47d0-acb8-718ae797f8d1" LastKnownName="GERER Référentiels  des projets " />
+            <elementDefinition Id="2d872a08-3bff-4ff5-8dd4-ab5c1936c750" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="af513a24-3d74-438b-86fb-fc8c5e3ed4ad" name="Gérer les outils" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="7bc41e1b-a2b8-46ed-a678-02df188e5ef4" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$75" tag="Work Item Reference">
+            <elementDefinition Id="fa0dec8c-7a8c-42cd-a803-0f2b8e07798e" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="a6386d44-25a8-47b9-a68e-1a187dade736" />
+        <extendedCases>
+          <extend Id="706f3e77-2486-4732-804a-552e1420c909">
+            <useCaseMoniker Id="13b2192a-926c-47d0-acb8-718ae797f8d1" LastKnownName="GERER Référentiels  des projets " />
+            <elementDefinition Id="b39a28f4-210d-40a3-bba2-8a4f664e5308" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="b3854e3e-7777-4793-97ca-863c8344dce4" name="Gérer les consommables" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="f597c201-2276-4d94-a495-0405559347fc" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$78" tag="Work Item Reference">
+            <elementDefinition Id="abf2577d-0d38-43dc-bab1-ddf9ae9c81c2" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="825fdb5a-0f8b-4153-bcb4-7427ada4f3e9" />
+        <extendedCases>
+          <extend Id="50c0e319-78fa-48c4-909a-f91aa8eff0f7">
+            <useCaseMoniker Id="13b2192a-926c-47d0-acb8-718ae797f8d1" LastKnownName="GERER Référentiels  des projets " />
+            <elementDefinition Id="4c6788af-5e0c-4e94-af50-2e9e8449cc1f" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a2cafd1a-c2bf-4873-a407-5296a86db7f8" name="Gérer les documents" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="cf1d8026-4404-4c9f-822c-15d6024025b7" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$76" tag="Work Item Reference">
+            <elementDefinition Id="7c42f39c-6c10-4312-8dec-8ad93641b82c" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="980f5495-3edb-46a0-a0f9-c62a3fb68590" />
+        <extendedCases>
+          <extend Id="0768c09b-987b-4370-96ad-fc246741e41b">
+            <useCaseMoniker Id="13b2192a-926c-47d0-acb8-718ae797f8d1" LastKnownName="GERER Référentiels  des projets " />
+            <elementDefinition Id="aa9dddf5-c8bc-4f34-93d7-44b20e45e13b" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="61b3ccaf-c977-4456-a26f-e51282927918" name="Gérer les utilisateurs" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="473fdc72-3e83-471b-beee-49bcc42a0446" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$72" tag="Work Item Reference">
+            <elementDefinition Id="1ea48b6f-7045-432c-9c79-13511fb25bb6" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="0e1509ca-39c2-47b7-9e05-bef9a009fdf4" />
+        <suppliersInternal>
+          <dependency Id="4106c1a3-5f98-4127-b861-3b0ffe88d3ab">
+            <useCaseMoniker Id="d54749d8-4880-4e3d-8661-198d66526e69" LastKnownName="Créér des utilisateurs Analyste " />
+            <elementDefinition Id="2b2eb25c-cca2-4e4e-ae46-a0ccdbb2d937" />
+          </dependency>
+        </suppliersInternal>
+        <additions>
+          <include Id="c622258e-36f6-4606-8137-a62018c08fb8">
+            <useCaseMoniker Id="f585b21a-8ab8-443a-bc53-f39e13eb7dfc" LastKnownName="Importer des utilisateur d'un annuaire d'entreprise" />
+            <elementDefinition Id="e3c084a2-2d1d-49d2-b602-9af8df23489b" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="08672455-b890-4d0a-9eb8-cdc1bb1470ab" name="Choisir ma langue" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="cd264b49-4409-48c0-89c0-904ea75fee69" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$70" tag="Work Item Reference">
+            <elementDefinition Id="d8b8c8b1-7121-49a1-8a79-bb3134b4f3ae" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="09087441-2b83-4940-86d8-3b371ce8890c" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="2ccaebd0-a069-422d-ab7d-44648cdcd52d" name="Personnaliser les libellés" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="e74f6b22-101b-4b9a-b77f-48a7c079899d" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$71" tag="Work Item Reference">
+            <elementDefinition Id="e41c41ea-6c05-4d88-ae75-2f8394a4ecc2" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="25147cc4-5936-4fd9-aa95-180a769570ea" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="f5ce798d-6515-4108-a8b2-8b0e28a83cb7" name="Décomposer une activité effectuée par une ressource à partir de la vidéo POV" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="b511e49f-9e5e-459c-a129-6548fc8ed4a6" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$115" tag="Work Item Reference">
+            <elementDefinition Id="4f86339a-0790-45e1-9b64-e482e17a24fc" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="98987d2f-a26c-44ad-8c5b-fde829d25b5d" />
+        <extendedCases>
+          <extend Id="ffc769aa-7d70-4265-a020-6fe8457f1e03">
+            <useCaseMoniker Id="a33fbf9c-c25c-4917-a2a0-3f735799568b" LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource" />
+            <elementDefinition Id="32f64f14-707f-468d-87a7-896ef83d6f28" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="98e61d59-ce5c-4abf-8c2a-5fe763007667" name="DECOMPOSER selon opérateur" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="751576e4-50a8-4d1e-8de7-2bc39b526128" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$117" tag="Work Item Reference">
+            <elementDefinition Id="b1179fce-fd78-4990-8db8-acee3d7a8cc3" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="af5038c9-c8bc-4baa-ba13-b839a26c673d" />
+        <generalsInternal>
+          <generalization Id="a81e8c09-edc6-4b94-b3d3-f2ca9d80d2b1" isSubstitutable="false">
+            <useCaseMoniker Id="a33fbf9c-c25c-4917-a2a0-3f735799568b" LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource" />
+            <elementDefinition Id="ba7173cf-562d-4205-b567-d927feb64aaa" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="04411da4-877b-4a2f-90b0-cc25ca5aabf1" name="SIMULER des scenarios cibles" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="ef172597-f5be-4920-b246-28a4891b6110" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$260" tag="Work Item Reference">
+            <elementDefinition Id="cb8f9c04-ffc3-4cee-b0a6-4dc10be7a9c6" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="8808f8f8-9bb3-4384-8a2c-99c2ce0bd835" />
+        <additions>
+          <include Id="ab90d762-fd2b-46a9-ae63-81340b4b5fe2">
+            <useCaseMoniker Id="cc9a7dc6-a74f-4e4d-b204-8dbe5e4e54a3" LastKnownName="Créer un nouveau scenario d'optimisation  Cible" />
+            <elementDefinition Id="eb914d22-633b-4cb4-ad19-28ed0db12eb1" />
+          </include>
+          <include Id="caf2aeca-e30e-470b-9369-1baa3b8091f2">
+            <useCaseMoniker Id="4b8619d0-4c34-4782-ba02-e9248c564782" LastKnownName="Valider Scénario Cible" />
+            <elementDefinition Id="71c1648f-e159-4e4d-abfb-6d4b64152a09" />
+          </include>
+          <include Id="015e41c6-6b12-4128-9aac-790ceec3327f">
+            <useCaseMoniker Id="d8ef1be7-a53b-4ea8-acd2-5b428d2b4471" LastKnownName="CONSTRUIRE le scénario " />
+            <elementDefinition Id="41983283-711b-4d78-ad78-068fdf2bc2f4" />
+          </include>
+          <include Id="bcb91ffa-ac65-45e1-91ab-4bf841e6d732">
+            <useCaseMoniker Id="110f117b-ed2a-4d81-b06a-a28c49b8b114" LastKnownName="Convertir et Réduire le scenario d'origine" />
+            <elementDefinition Id="b180d198-b235-443c-97ce-8bc483fae8fb" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="cc9a7dc6-a74f-4e4d-b204-8dbe5e4e54a3" name="Créer un nouveau scenario d'optimisation  Cible" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="763d4a90-2d9e-43f9-a283-48d94d154e28" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$261" tag="Work Item Reference">
+            <elementDefinition Id="b77595dc-b4cd-46bb-acb0-b71e6161ce19" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="743936ad-cd55-41f4-8391-487f6e7c2fc0" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="32ec593a-264a-40f5-9a0e-16490306b5cf" name="Visualiser les actions du chemin critique " isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="75f42885-4406-41ac-af45-44ee713bcd17" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$209" tag="Work Item Reference">
+            <elementDefinition Id="1be79b55-74b7-4177-bfad-3ea8adbda700" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="ca3751d7-339e-475d-96b3-9500415e1bb0" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="b86230c7-19a2-4d54-ac6c-ffefc8c6c2aa" name="Gérer les catégories d'action" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="da643f7a-b37b-48ee-83e6-f6ae689a9a60" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$59" tag="Work Item Reference">
+            <elementDefinition Id="8fe331c9-c12c-4e55-a89b-23974f7667d6" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="d828871a-ef8b-412b-a5cb-a33861695335" />
+        <extendedCases>
+          <extend Id="e2219952-feb7-4d50-93d4-a2060eaf5166">
+            <useCaseMoniker Id="13b2192a-926c-47d0-acb8-718ae797f8d1" LastKnownName="GERER Référentiels  des projets " />
+            <elementDefinition Id="d16793df-5dee-458a-895d-094bcc425df1" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include Id="54737478-f817-4855-9f30-f60b138f3483">
+            <useCaseMoniker Id="b1bb9f39-f08d-48a9-a327-11b232b26171" LastKnownName="Définir un type d'action par défaut {Interne,Externe, Supprimé}" />
+            <elementDefinition Id="73d9cc51-39ee-4ae4-9dd6-b2bfb970e154" />
+          </include>
+          <include Id="a68da785-4b81-4b08-9bb4-88c1a8e4c698">
+            <useCaseMoniker Id="663e3e8f-8e9b-4025-b295-2b486ff119f4" LastKnownName="Définir la valorisation de la categorie d'action  {VA,NVA,BNVA}" />
+            <elementDefinition Id="e738a622-0648-46a7-97aa-20aba2502dc6" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="b1bb9f39-f08d-48a9-a327-11b232b26171" name="Définir un type d'action par défaut {Interne,Externe, Supprimé}" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="26aa541a-6826-43d2-ab61-8d5b0ce53d1b" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$73" tag="Work Item Reference">
+            <elementDefinition Id="844a4017-5029-407f-838c-aec60967a1f3" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="3141a5f8-4322-461b-8e4f-59b3f4a676f3" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="663e3e8f-8e9b-4025-b295-2b486ff119f4" name="Définir la valorisation de la categorie d'action  {VA,NVA,BNVA}" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="6178dbff-1122-49b8-8df7-50b1b7512dfd" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$74" tag="Work Item Reference">
+            <elementDefinition Id="c48e9d57-c995-4a4e-ac20-f5feaeb894ef" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="15d349f2-b450-436a-b164-397911617a36" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="291e310e-a011-43aa-8171-1426a7668fbe" name="Fusionner deux éléments 2 d'un même projet" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="e0d46a9f-1115-467a-9727-86b254dea1b9" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$67" tag="Work Item Reference">
+            <elementDefinition Id="568162a5-6f10-4c6b-ab30-67bb8767eb79" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="8c53179b-633a-4f64-9f93-3434a51c2676" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="f9c62c2e-1877-4420-b199-e1c567ba6d70" name="Exporter  vers Excel" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f927b800-7ca7-4d5e-b526-9a107016997a" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="1dcc5dcc-9f0c-4e3a-b256-52b9f5be2a68" name="Visualiser la durée totale de l'activité" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="a65fecc4-e129-46db-8231-75a0d3d982b8" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$210" tag="Work Item Reference">
+            <elementDefinition Id="31375255-eab2-46ac-953c-2498f4c497ee" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="601cb4cc-8a5f-49b3-b24b-f4a6c2ff9948" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4dda8c96-b519-4b85-a9ca-0e769f45baa6" name="VALIDER le scenario " isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="e087f7b0-1c93-4491-b1d5-a66861823594" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$257" tag="Work Item Reference">
+            <elementDefinition Id="12daf468-629f-41f8-93b1-77c8873d4136" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="12162d09-d17a-42f9-8396-238bcf559f1b" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4b8619d0-4c34-4782-ba02-e9248c564782" name="Valider Scénario Cible" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="d209450f-799d-42f3-b9bc-5450dbbc550a" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$262" tag="Work Item Reference">
+            <elementDefinition Id="3b58a68d-c595-4030-bc26-c34975137ebb" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="7d621c36-6e3a-4c76-98e7-e244e631f10e" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="6ea79145-fd7f-4f2a-8cac-23241dc2903f" name="Visualiser graphiquement  la répartition des temps d'occupation par ressources" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="886f0e1b-534b-4fd9-80c3-a6e2edff35fb" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$564" tag="Work Item Reference">
+            <elementDefinition Id="13ac3060-d2e4-4e5a-b802-878d7bc43172" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="8f4d9f49-4553-4501-b41c-c5561b78b573" />
+        <additions>
+          <include Id="d4b46af4-e418-41f2-ac14-4ce0a89b680d">
+            <useCaseMoniker Id="6f65a682-fb3f-498e-b78a-f4118ef72b07" LastKnownName="Visualiser à partir d'un histogramme" />
+            <elementDefinition Id="1f524779-9a14-4f12-aadc-8bebcf2eb57e" />
+          </include>
+          <include Id="a33b2164-5a3b-4bee-80ac-7e2de3a4b535">
+            <useCaseMoniker Id="1b49b75b-35a4-4aa7-9f2b-76eb3be70c3c" LastKnownName="Visualiser à partir d'un dotnut 3D" />
+            <elementDefinition Id="cd01b9de-6eaa-4cc6-8e73-2747fdef5633" />
+          </include>
+          <include Id="a3d89189-914a-41e3-862c-abf6e3bfd424">
+            <useCaseMoniker Id="bd2f52e5-9aea-4cd7-99b8-6df07dfffd72" LastKnownName="Visualisation simplifiée de la répartition des temps par ressource" />
+            <elementDefinition Id="09129ad8-a1ef-4435-bf7f-0d29cb587d46" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="6f65a682-fb3f-498e-b78a-f4118ef72b07" name="Visualiser à partir d'un histogramme" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="36c6c556-4be2-4a05-8c0e-dfcf3a27c8dd" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$565" tag="Work Item Reference">
+            <elementDefinition Id="52e7bff9-699c-4327-bb54-1c8d36ae8075" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="570e4d03-24b1-473c-9790-1681d093e63e" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="1b49b75b-35a4-4aa7-9f2b-76eb3be70c3c" name="Visualiser à partir d'un dotnut 3D" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="d3b0d903-3b9d-4bbf-9ac2-7e245f9885d0" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="eb24a576-4f23-49f3-adca-85558882266d" name="Visualiser la vidéo d'un scénario" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1bf0d4f4-79a4-42a6-8e54-ea39c0adfc8b" />
+        <subjects>
+          <subsystemMoniker Id="880c9c1e-2ce1-42c4-8324-6930847432e4" LastKnownName="CAPITALISER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="8712410e-d12c-474b-a43a-11378c1c7321" name="Animer une présentation Video + détails" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a61bc33d-7807-4f2c-b50a-2b1695df1f75" />
+        <subjects>
+          <subsystemMoniker Id="880c9c1e-2ce1-42c4-8324-6930847432e4" LastKnownName="CAPITALISER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <useCaseModelRootHasTypes>
+      <actor Id="154be90d-25ff-4d7f-ae21-63168e2f60dd" name="Administrateur de KSMED" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="30885052-19a2-4c8e-b425-e85f4a731a66" />
+        <targetEnds>
+          <association Id="6049f791-3e57-42fc-a3db-d130e293e8d7" isDerived="false" sourceEndRoleName="Administrateur de KSMED" targetEndRoleName="PARAMETRER L'application" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9416ea7e-86b4-4ae0-833f-160d177cd7bb" LastKnownName="PARAMETRER L'application" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="975421b4-05e5-449a-b30f-c0416af443d5" name="Administrateur de KSMED" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="a9b365a1-e762-4689-a5d2-affb8fc08cdb" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a693e01b-5a27-41a0-a8db-0a3fa680a112" name="PARAMETRER L'application" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="4bd7b2a1-9d73-4ff7-a84c-7803278537ce" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="565c1829-23a5-4132-8e78-2b33bb0c76a3" />
+          </association>
+          <association Id="176b6c2e-28ca-42e5-8879-bd3c0d347f74" isDerived="false" sourceEndRoleName="Administrateur de KSMED" targetEndRoleName="Gérer Référentiels &quot;Standardisés&quot;" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="9a6f9f3a-675d-490f-a819-aa3f5d0ef9b0" LastKnownName="Gérer Référentiels &quot;Standardisés&quot;" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="a2e315cb-1557-4f64-b437-8fbb2a443612" name="Administrateur de KSMED" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="0787449e-cc62-4cee-88ef-e733d67f34d4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e75e9402-344d-465b-9250-b114f7672801" name="Gérer Référentiels &quot;Standardisés&quot;" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6f0970fa-dde6-4cf7-baa8-c11aa7327f10" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ff5e71be-e27c-4def-bfa0-b15010e4b2ce" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="9d3c6dd0-8a48-429c-ba57-3d2e1a097699" name="Contributeur" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="8ed0faee-c1df-44d1-9928-f4a88d428b1b" />
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="130aae2c-7dc8-41c0-9e85-344c6c23c4e6" name="Technicien" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7593d966-c4d0-409c-93d4-08f76c5066d9" />
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="4ed3f680-212d-43ee-b897-f343ae138574" name="Responsable" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0feb0cd8-1d79-4ca3-9130-2c26de048c28" />
+      </actor>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="86ab3e40-f292-4087-bcdd-f4469368109e" name="Définir les membre du groupe projet et attibuer un rôle" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="8cf83683-7304-4f1c-911f-764704df4d1d" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$51" tag="Work Item Reference">
+            <elementDefinition Id="79b24432-dfbe-49b0-8f42-365617a75e04" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="f846a6ca-6ee3-49c8-95e8-d28dde00570e" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="d54749d8-4880-4e3d-8661-198d66526e69" name="Créér des utilisateurs Analyste " isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="0614562d-06b5-45a5-b39a-f667c06f4cd7" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$52" tag="Work Item Reference">
+            <elementDefinition Id="8c5cb2bf-a28d-4c25-9628-e6b9501f04df" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="f15e5d16-3ce0-4410-8e5d-e9260e6ea96a" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="f585b21a-8ab8-443a-bc53-f39e13eb7dfc" name="Importer des utilisateur d'un annuaire d'entreprise" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="e6113667-ae54-4490-99f1-906e5758fd6d" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$62" tag="Work Item Reference">
+            <elementDefinition Id="bf7503bb-984e-47cd-8820-6fb6ce86b968" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="e6024f64-4baa-48b8-9d8a-2cb0512541ad" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="bc65064e-8189-4df1-855b-043c4e977d9d" name="Gérer les Ressources" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="6fd61ad6-0d97-49da-ad4d-8403b01fe6ea" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$58" tag="Work Item Reference">
+            <elementDefinition Id="e5585c53-8a48-4df7-b897-49b798ee3e92" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="fbfc047a-6b55-46c9-92a7-1dfe8731ec8f" />
+        <extendedCases>
+          <extend Id="98a77fa6-e951-49c6-92b7-bc9e9404d978">
+            <useCaseMoniker Id="13b2192a-926c-47d0-acb8-718ae797f8d1" LastKnownName="GERER Référentiels  des projets " />
+            <elementDefinition Id="f4cb961a-b228-402f-b288-81d91456664c" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include Id="f7e52815-b625-4316-8f40-a689462d926f">
+            <useCaseMoniker Id="369d6ce1-9739-4784-9407-7f384dd779a4" LastKnownName="Gérer les opérateurs" />
+            <elementDefinition Id="9b408e7f-ea01-457a-83e6-80906d8ec45e" />
+          </include>
+          <include Id="3d37dcad-43fa-430a-9ef5-c2977c231004">
+            <useCaseMoniker Id="921030fe-c301-45ee-ace9-39803ac6a06f" LastKnownName="Gérer les équipements" />
+            <elementDefinition Id="5c7b6bdb-57d3-4868-a47e-dfcd1ef9b55d" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="bc529a7d-813b-4bb0-bf7c-206d72f800db" name="RESTITUER" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="54994f15-d6a2-432f-84ab-683470c805d9" />
+        <additions>
+          <include Id="9ddfc310-c7eb-42ab-adb4-302694ae304f">
+            <useCaseMoniker Id="d0e1f793-b91e-4a30-9c6f-15bb6dc6b01c" LastKnownName="Visualiser la video du chemin critique" />
+            <elementDefinition Id="fdf54e45-cd21-4985-bf88-9c34713f91dd" />
+          </include>
+          <include Id="5d2ca856-ad73-44da-8c59-e0826f0dec1a">
+            <useCaseMoniker Id="0d7187f5-a043-442f-a128-79c71c752c5b" LastKnownName="Visualiser le contenu de la caisse à outil" />
+            <elementDefinition Id="979ddb78-cf73-4b4a-8cc7-b71344ac7b06" />
+          </include>
+          <include Id="debd615a-e96f-430b-8009-92482d431167">
+            <useCaseMoniker Id="662062dc-bda5-47f3-b5fb-83383f189dd2" LastKnownName="Visualiser les consommables" />
+            <elementDefinition Id="1a0b32bf-858e-4edb-ba38-ed9c442d8087" />
+          </include>
+          <include Id="1931b171-38f8-42f1-afe4-7e16519d5948">
+            <useCaseMoniker Id="6fd5d08d-f6fb-44e1-a8c3-971bce371ea7" LastKnownName="Déplacement entre les lieux" />
+            <elementDefinition Id="44fa6b32-89e7-4227-bdea-7a5eb523031b" />
+          </include>
+          <include Id="850b3d8a-65ef-4dba-a764-546915bd02ee">
+            <useCaseMoniker Id="24a663e5-b9db-4539-974b-30c65f6771fe" LastKnownName="Temps d'occupation global par catégorie par type de ressources" />
+            <elementDefinition Id="e1a25ad5-5ae5-4a88-981f-0987f4e6fc05" />
+          </include>
+          <include Id="a0c72231-41cc-42e4-8aca-5840bc3b7a09">
+            <useCaseMoniker Id="6ea79145-fd7f-4f2a-8cac-23241dc2903f" LastKnownName="Visualiser graphiquement  la répartition des temps d'occupation par ressources" />
+            <elementDefinition Id="3dd95631-2ce2-4b5f-a23c-fbf73a74a2ea" />
+          </include>
+          <include Id="3e24201c-bd8a-4fcf-9c20-70782d50dae2">
+            <useCaseMoniker Id="10bdb248-e9e2-4fa5-b52a-fd57c0b55707" LastKnownName="Visualiser les séquences vidéo de toutes les ressources en //" />
+            <elementDefinition Id="aec9c2d2-72a0-4070-8172-5a45f50cc176" />
+          </include>
+          <include Id="f1379a7b-598d-4d37-8587-c8f5a9ac40b8">
+            <useCaseMoniker Id="a1278d2e-436e-455c-bacf-5f218f15fa48" LastKnownName="Visualiser la liste des solutions" />
+            <elementDefinition Id="024002eb-b103-4b17-bfa5-e57bc5ed1e3a" />
+          </include>
+          <include Id="3e169181-d3b0-47e6-bd1b-2602ee677eae">
+            <useCaseMoniker Id="bf8f7fe1-ff1e-481b-813e-e81ee6416cc6" LastKnownName="Liste des lieux" />
+            <elementDefinition Id="adbb0bc9-513f-4b19-97fc-063a0dec0eae" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="6fd5d08d-f6fb-44e1-a8c3-971bce371ea7" name="Déplacement entre les lieux" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="69942d33-00f5-4de9-9aef-4b237d88ba38" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$574" tag="Work Item Reference">
+            <elementDefinition Id="afaf2bf5-01e6-4b68-8429-33fde29e155b" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="29765347-19f0-486e-b991-d0fe9d41a4af" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="0d7187f5-a043-442f-a128-79c71c752c5b" name="Visualiser le contenu de la caisse à outil" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="ef5c549a-9b75-4fab-833a-a1448dce3eae" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$556" tag="Work Item Reference">
+            <elementDefinition Id="13ae9dce-c32c-4ff9-bb0a-8e5b8e445e39" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="84d4ce8d-bcb6-4038-976e-6a17e60e6ec3" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="24a663e5-b9db-4539-974b-30c65f6771fe" name="Temps d'occupation global par catégorie par type de ressources" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="cad0f246-5c91-4f83-986a-012793cae28f" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$571" tag="Work Item Reference">
+            <elementDefinition Id="37de289f-2c13-46c4-868e-e04fae7d9259" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="2f8bc63f-2517-45a4-ac82-375f12638757" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4544f544-5783-4750-b9a9-b95316b57c07" name="Evaluer  investissement sur le gain (en durée) total et interne" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="0bd12803-1210-490a-a5d7-5d57860dd699" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$554" tag="Work Item Reference">
+            <elementDefinition Id="1ca1e8b9-e025-4949-bdc4-ed31d4923527" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="2cdd28de-12dd-4cc7-95e8-187d6ef588a2" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="662062dc-bda5-47f3-b5fb-83383f189dd2" name="Visualiser les consommables" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="d08bf2dc-bcf7-4b0e-8044-3e788af224cf" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$562" tag="Work Item Reference">
+            <elementDefinition Id="86f2458c-0750-4ad6-83dd-a8ff77c95405" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="3a21f602-41cb-4ea3-afb9-f3fc44a8e08e" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="d0e1f793-b91e-4a30-9c6f-15bb6dc6b01c" name="Visualiser la video du chemin critique" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="065448ef-2281-429d-be0f-1979dd8a7560" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$211" tag="Work Item Reference">
+            <elementDefinition Id="9a77e66d-488b-480a-90e0-0ac43c39d02b" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="5d2e3081-b635-476b-9ccc-1546e7eb18ea" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="8e3eadba-2aa9-4339-be98-9a4614c062db" name="Gérer les autorisations des utilisateurs" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="a03065d5-e98f-4cea-aaa5-a1b088cb91a1" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$63" tag="Work Item Reference">
+            <elementDefinition Id="559c2db4-76ae-4c70-ad2c-07438d2eb216" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="98b5e791-b662-4530-9d31-4de69e2ac1dc" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="369d6ce1-9739-4784-9407-7f384dd779a4" name="Gérer les opérateurs" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="4515ffcf-bedb-49bf-aa48-7cb7f185af24" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$68" tag="Work Item Reference">
+            <elementDefinition Id="1fa5a362-6cda-406e-a16f-a7b487973a42" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="7701b43c-5d30-455a-9b4d-b03d29af31f4" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="921030fe-c301-45ee-ace9-39803ac6a06f" name="Gérer les équipements" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="99af23a0-dd21-442d-b459-dc6fdec9178f" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$69" tag="Work Item Reference">
+            <elementDefinition Id="74aec6ef-51b3-4e98-9657-576cc25a307f" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="b57b2aac-ba40-481c-ab98-2a74dda8994f" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="4f9a45d1-395e-46b5-b88b-e010556cc502" name="Evaluer le rapport Difficulté*Cout sur Gain" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="d2aca816-5704-4960-b863-4152e41f4acf" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$555" tag="Work Item Reference">
+            <elementDefinition Id="c391e3af-4919-4837-ad00-e16f24a2e656" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="4586c26c-30c7-4396-8415-e8ac111076ae" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="8eb5a31f-8533-4a80-9672-2ede4c556bea" name="Evaluer le taux Investissement et solutions" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="6f2b5035-b018-446c-b3f5-0025421a6acc" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$563" tag="Work Item Reference">
+            <elementDefinition Id="a838624c-d1bc-442f-a19f-4887d3acd742" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="ea2a2f66-47a6-4392-8d30-8ae525d0dc54" />
+        <additions>
+          <include Id="57806223-7b1c-4d1a-af9a-25b91d679964">
+            <useCaseMoniker Id="4544f544-5783-4750-b9a9-b95316b57c07" LastKnownName="Evaluer  investissement sur le gain (en durée) total et interne" />
+            <elementDefinition Id="e59d42aa-368f-4a2b-a932-15da13fb98b8" />
+          </include>
+          <include Id="2cb4ff82-86d6-4734-869b-d74adb355ebf">
+            <useCaseMoniker Id="4f9a45d1-395e-46b5-b88b-e010556cc502" LastKnownName="Evaluer le rapport Difficulté*Cout sur Gain" />
+            <elementDefinition Id="aa778ab1-7d7f-4824-98b6-ca98b0f5856c" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="8ee6ee47-074d-4e81-8851-9051a33cbbbf" name="DECOMPOSER une activité à partir d'une video VSM" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="704a96fc-5a13-4297-a559-257b78dcf8c4" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$118" tag="Work Item Reference">
+            <elementDefinition Id="646543f5-beb7-4c0c-960c-9f8c18df3ec2" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="50b95bc8-8243-4f19-af7e-343f97df0a61" />
+        <generalsInternal>
+          <generalization Id="74f08277-d499-42ea-8a64-81cc8502a8a0" isSubstitutable="false">
+            <useCaseMoniker Id="f5ce798d-6515-4108-a8b2-8b0e28a83cb7" LastKnownName="Décomposer une activité effectuée par une ressource à partir de la vidéo POV" />
+            <elementDefinition Id="12e9f761-6c73-49f5-9a1e-2e5490e213fd" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="d8ef1be7-a53b-4ea8-acd2-5b428d2b4471" name="CONSTRUIRE le scénario " isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="ff84cfb4-4a05-4743-9261-14cf36415fd7" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$226" tag="Work Item Reference">
+            <elementDefinition Id="2aec7227-17be-4613-a56e-69b7c2b3c46f" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="73abaac0-9355-4b4d-b2c4-c4c94fa1f998" />
+        <additions>
+          <include Id="6cc815b6-fad8-416b-b5f2-60f6616c9b31">
+            <useCaseMoniker Id="798ca812-3953-4c19-8a66-1bebaf6be068" LastKnownName="SYNCHRONISER les activités décomposées à l'aide d'un GANTT" />
+            <elementDefinition Id="51dacd50-965d-4a24-b4a2-d786378a6677" />
+          </include>
+          <include Id="15b380ce-7062-4c8c-b394-ef0d0a22a87d">
+            <useCaseMoniker Id="d6111549-5f7a-44e0-81ee-5a75df71a36f" LastKnownName="CONSOLIDER la définition des actions du processus" />
+            <elementDefinition Id="a656958f-1b11-4f56-845e-0655f59a6103" />
+          </include>
+          <include Id="cb9ed280-76a8-43c5-b450-ce8f95d9f35c">
+            <useCaseMoniker Id="bd2f52e5-9aea-4cd7-99b8-6df07dfffd72" LastKnownName="Visualisation simplifiée de la répartition des temps par ressource" />
+            <elementDefinition Id="2905a5f0-61e6-44d0-883a-73e6dfc23e52" />
+          </include>
+          <include Id="3e9eae75-c1c3-4fad-9659-1faf7229d170">
+            <useCaseMoniker Id="4dda8c96-b519-4b85-a9ca-0e769f45baa6" LastKnownName="VALIDER le scenario " />
+            <elementDefinition Id="70120788-8a86-4ee9-8e63-87b3181f6f79" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a50a1968-4346-409b-b425-76c25b6a77f0" name="Importer un ou plusieurs éléments d'un projet vers un autre" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="c1fd4193-a4f2-4c10-b326-a9c339826f79" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$149" tag="Work Item Reference">
+            <elementDefinition Id="2eb60cee-d056-46d9-910b-0fcf40079b11" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="20a1f569-eac2-4e9f-8e7d-f470948a066c" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="d2c22d5f-849d-4898-af82-e7c225618400" name="Définir un chemin par défaut pour les vidéo" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="e10ce678-cb8b-4534-81d3-df8d22b14450" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$224" tag="Work Item Reference">
+            <elementDefinition Id="3039f000-ed0d-475e-88de-d6b53009a774" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="08210f92-8806-4c58-acf4-ae3f0b0581d9" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="bd2f52e5-9aea-4cd7-99b8-6df07dfffd72" name="Visualisation simplifiée de la répartition des temps par ressource" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="68dceb78-fe11-4f58-a551-67d55f7098bd" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$258" tag="Work Item Reference">
+            <elementDefinition Id="21290a01-5d48-4dbd-a22d-9420e20113c5" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="7a41fa4d-bd38-4c10-9f06-f235c714aacf" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="10bdb248-e9e2-4fa5-b52a-fd57c0b55707" name="Visualiser les séquences vidéo de toutes les ressources en //" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="b5793e7d-acdf-4f69-8651-c0319b7e17ea" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$126" tag="Work Item Reference">
+            <elementDefinition Id="4630d954-ad73-46a8-a166-c4c5c11ca5ce" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="605f3a40-5678-4388-8e44-9cf6a687252b" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a4ed9cf6-0d9c-4ccf-b35c-1d3afeb0b66f" name="Définit le libellé des customAttribut" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="974f7666-4889-4732-8833-794faaabf736" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$127" tag="Work Item Reference">
+            <elementDefinition Id="c4d6dcb2-b23b-46b2-bf3c-889b6c6689e6" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="ae2807fd-bafa-4f37-bb00-e3a3ebd71257" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="9a6f9f3a-675d-490f-a819-aa3f5d0ef9b0" name="Gérer Référentiels &quot;Standardisés&quot;" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="ff4c5f06-60fc-48dd-8395-411f0cea859d" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$195" tag="Work Item Reference">
+            <elementDefinition Id="1db6dbb0-0871-4f2b-b807-63c9c805f5b4" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="20aa036f-584a-4b84-bfb9-d1ee5a94f8fb" />
+        <additions>
+          <include Id="4f61518e-17af-477e-a7a9-df419cdd4323">
+            <useCaseMoniker Id="b5201108-f240-4801-84b9-4b66acd5a4ec" LastKnownName="Promouvoir un items Projet vers un item &quot;Standard&quot;" />
+            <elementDefinition Id="4ea8aa53-e37a-40de-af1b-957ec7133389" />
+          </include>
+          <include Id="283521f1-a642-47b8-996a-1e6a47b9d5ba">
+            <useCaseMoniker Id="3d8ee371-dc82-41c9-84a7-9de263d76121" LastKnownName="Importer un référentiel d'un KSMED à un autre" />
+            <elementDefinition Id="0e6b6dff-952c-4f70-8fca-ac74384d792f" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="b5201108-f240-4801-84b9-4b66acd5a4ec" name="Promouvoir un items Projet vers un item &quot;Standard&quot;" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="9e76e15f-b202-4689-88cb-97370b34800e" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$194" tag="Work Item Reference">
+            <elementDefinition Id="fb719054-875b-43aa-b13a-2c408eceda59" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="011a9dcc-d61d-4afd-acf7-921c39bc4707" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="3d8ee371-dc82-41c9-84a7-9de263d76121" name="Importer un référentiel d'un KSMED à un autre" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="080c5b16-d6cd-4db2-afe4-50aabf17605b" />
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="a1278d2e-436e-455c-bacf-5f218f15fa48" name="Visualiser la liste des solutions" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="f1b50a14-8c09-47d9-a604-364b9bc298b8" />
+        <additions>
+          <include Id="ff430476-08df-44ba-91ec-288f19d5bf35">
+            <useCaseMoniker Id="8eb5a31f-8533-4a80-9672-2ede4c556bea" LastKnownName="Evaluer le taux Investissement et solutions" />
+            <elementDefinition Id="c2d1a5f6-745b-4c9c-a6d2-36ec62b50eae" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <useCaseModelRootHasTypes>
+      <useCase Id="d0e98c67-51fc-4493-bf7e-320d8e4fbebb" name="Se déconnecter " isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="c25f3c76-a51c-4662-88af-d738c365c32d" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$223" tag="Work Item Reference">
+            <elementDefinition Id="cba4912e-13cb-45be-8122-ff8d6c261433" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="031c4c95-7b44-4c7f-a385-e76afec543f6" />
+        <suppliersInternal>
+          <dependency Id="95d74614-9f05-410d-8ebf-28a92b5e21a8">
+            <useCaseMoniker Id="3eb162a3-2d27-4879-b509-f45cbfd6f1ba" LastKnownName="S'authentifier" />
+            <elementDefinition Id="e887ebda-824a-472a-84c3-21679b87fce2" />
+          </dependency>
+        </suppliersInternal>
+      </useCase>
+    </useCaseModelRootHasTypes>
+    <packageHasNamedElement>
+      <useCase Id="110f117b-ed2a-4d81-b06a-a28c49b8b114" name="Convertir et Réduire le scenario d'origine" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="17f12dbe-184d-4a3b-97a0-c8ff1b40b1f9" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$537" tag="Work Item Reference">
+            <elementDefinition Id="e7c90723-d310-45bc-af61-84b418efa7f0" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="b2c49b7e-dc08-4579-82dc-330f05166446" />
+        <additions>
+          <include Id="5e84f7dc-4e33-4b1d-abfb-394b7a865706">
+            <useCaseMoniker Id="0536aa60-7fb3-4902-ab7b-6afadd69297b" LastKnownName="Définir Investissement, Coût et difficulté de la solution" />
+            <elementDefinition Id="56235151-8b77-4045-bfa6-111274648939" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="0536aa60-7fb3-4902-ab7b-6afadd69297b" name="Définir Investissement, Coût et difficulté de la solution" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="a7aaac02-d252-4001-b6b5-c49938e5fb1f" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$553" tag="Work Item Reference">
+            <elementDefinition Id="cbddb9d2-602c-4264-ac41-4ebf7c4296ca" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="06c497dc-d943-4d3b-ad70-42c6f0397593" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="bf8f7fe1-ff1e-481b-813e-e81ee6416cc6" name="Liste des lieux" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="d21e1acf-4a1c-4d0a-baae-3a7c117ac1e6" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$575" tag="Work Item Reference">
+            <elementDefinition Id="4925b00e-a43e-4a0c-babe-8a74a5ce3b31" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="68be0635-c42a-47d1-90ec-546b661f3108" />
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="22c01e29-99e3-4c23-9330-47815e840060" name="Définir une vignette représentant l'action/tache" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="0b06efc8-fa94-4a73-9a31-3f83ba7ff11a" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$613" tag="Work Item Reference">
+            <elementDefinition Id="78378c9f-b9a9-495c-a0c2-cec5827dd5c6" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="a56a5dd6-9d1b-4af3-be88-642aa88c6c00" />
+        <targetEnds>
+          <association Id="16657897-59dc-4616-b394-ed4ee3a9d37a" isDerived="false" sourceEndRoleName="Définir une vignette représentant l'action" targetEndRoleName="Décomposer une activité effectuée par une ressource à partir de la vidéo POV" isLeaf="false" isAbstract="false">
+            <useCaseMoniker Id="f5ce798d-6515-4108-a8b2-8b0e28a83cb7" LastKnownName="Décomposer une activité effectuée par une ressource à partir de la vidéo POV" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6c00f7ae-74c2-43bb-ab3d-e6249d1a1ab1" name="Définir une vignette représentant l'action" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="44244f83-dc6f-4c1d-9aef-ba5f7a5c452a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="807e3db1-65a0-4bb6-ade1-647312c6883d" name="Décomposer une activité effectuée par une ressource à partir de la vidéo POV" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="1dbc1d39-ee3a-4f47-a9d4-d8b88b460e10" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8bec58ae-5cb6-479d-a8f5-a94493fa2462" />
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker Id="b44b0553-4215-467b-af69-72d0e103b536" LastKnownName="ANALYSER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="7227a799-3dfb-43bb-bbbf-4d3e8cc754d7" name="Exporter un scenario" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="8cfb47c1-733d-48e0-9d19-4f7365c4a509" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$614" tag="Work Item Reference">
+            <elementDefinition Id="bcbbf93b-6d8c-4b88-a066-fe3fd4c8afd3" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="10ab793d-4ff9-42af-8fe3-743d491859d8" />
+        <generalsInternal>
+          <generalization Id="797b7445-d90e-48de-beb1-11f2566d741d" isSubstitutable="false">
+            <useCaseMoniker Id="f9c62c2e-1877-4420-b199-e1c567ba6d70" LastKnownName="Exporter  vers Excel" />
+            <elementDefinition Id="53ab320e-a0cf-44e4-95d6-bad1ba9f509a" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase Id="8aa24990-94c5-48e6-b887-63925d00551e" name="Exporter un scenario avec vignette" isAbstract="false" isLeaf="false">
+        <referencesInternal>
+          <reference Id="e032a72c-f365-43a0-8065-e7da45e5d626" handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$615" tag="Work Item Reference">
+            <elementDefinition Id="49624f06-879f-4686-a974-d0633b7b4eca" />
+          </reference>
+        </referencesInternal>
+        <elementDefinition Id="ff745ac0-26da-408c-8c11-34188eed53a8" />
+        <suppliersInternal>
+          <dependency Id="661dca37-ee7d-4cf8-aa83-bb9c3000f1e3">
+            <useCaseMoniker Id="22c01e29-99e3-4c23-9330-47815e840060" LastKnownName="Définir une vignette représentant l'action/tache" />
+            <elementDefinition Id="941393c7-0de1-4592-9699-818760c725e6" />
+          </dependency>
+        </suppliersInternal>
+        <generalsInternal>
+          <generalization Id="4d32a0dd-044a-452e-852e-5006a30989ff" isSubstitutable="false">
+            <useCaseMoniker Id="7227a799-3dfb-43bb-bbbf-4d3e8cc754d7" LastKnownName="Exporter un scenario" />
+            <elementDefinition Id="74d3c844-09cf-4a54-b30c-599d113cb5dc" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker Id="9702fcda-c058-44bb-b85d-2f2cb1e187e9" LastKnownName="PREPARER" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="9674697a-7ffb-464c-84a4-007886fac2cb" name="KProcess.KSmed.Modelisation">
+    <elementDefinition Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab" />
+    <profileInstances>
+      <packageHasProfileInstances Id="29250467-e6c2-49b1-9223-dfd4d0f354d2">
+        <profileInstance Id="14b44534-3796-489f-a69f-f4e496d7e654" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="694387b2-549e-46d1-889d-fb3c20b17463">
+        <profileInstance Id="87cd9ed8-c036-4a57-a027-9a0eb5e318d2" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</useCaseModelRoot>

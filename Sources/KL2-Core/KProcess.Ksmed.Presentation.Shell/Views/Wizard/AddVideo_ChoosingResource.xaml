@@ -1,0 +1,56 @@
+﻿<syncfusion:WizardPage x:Class="KProcess.Ksmed.Presentation.Shell.Views.Wizard.AddVideo_ChoosingResource"
+                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                       xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+                       mc:Ignorable="d"
+                       d:DesignHeight="450" d:DesignWidth="800"
+                       Title="{k:Localize Wizard_AddVideo_Title}"
+                       Style="{StaticResource WizardPageBaseStyle}">
+    <syncfusion:WizardPage.Resources>
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="2,4,2,2" />
+        </Style>
+
+        <CollectionViewSource x:Key="GroupedData" Source="{Binding DefaultResources}">
+            <CollectionViewSource.GroupDescriptions>
+                <PropertyGroupDescription PropertyName="ReferentialLabel"/>
+            </CollectionViewSource.GroupDescriptions>
+        </CollectionViewSource>
+
+        <DataTemplate x:Key="GroupHeader">
+            <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+        </DataTemplate>
+        <DataTemplate x:Key="ResourceTemplate">
+            <TextBlock Text="{Binding Resource.Label, FallbackValue={k:Localize View_DefaultResource_None}}"/>
+        </DataTemplate>
+
+        <Style x:Key="comboContainerStyle" TargetType="{x:Type GroupItem}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                        <GroupBox Header="{TemplateBinding Content}" HeaderTemplate="{StaticResource GroupHeader}">
+                            <ItemsPresenter />
+                        </GroupBox>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </syncfusion:WizardPage.Resources>
+    <StackPanel>
+        <TextBlock TextWrapping="Wrap" Text="{k:Localize Wizard_AddVideo_SpecifyResource}" Style="{StaticResource LabelStyle}" />
+        <ComboBox x:Name="ResourcesCombo" Margin="4,0,2,2"
+                  ItemsSource="{Binding Source={StaticResource GroupedData}}"
+                  ItemTemplate="{StaticResource ResourceTemplate}"
+                  SelectedItem="{Binding SelectedDefaultResource}">
+            <ComboBox.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource comboContainerStyle}" HeaderTemplate="{StaticResource GroupHeader}"/>
+            </ComboBox.GroupStyle>
+            <ComboBox.InputBindings>
+                <KeyBinding Key="Enter" Command="{Binding EnterCommand}" />
+            </ComboBox.InputBindings>
+        </ComboBox>
+    </StackPanel>
+</syncfusion:WizardPage>

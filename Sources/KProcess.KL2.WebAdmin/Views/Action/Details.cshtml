@@ -1,0 +1,190 @@
+@using KProcess.KL2.WebAdmin.Models.Action;
+@using System.Web.Configuration;
+@using KProcess;
+@using KProcess.KL2.Languages;
+
+@model GenericActionViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    var WBS = Model.ColumnValues["WBS"].Values.Select(v => v.Value).FirstOrDefault();
+}
+
+<style>
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+
+    .topMargin {
+        margin-top: 10px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="row">
+        <div class="col-md-12">
+            <button type="button" class="btn bg-light-blue btn-flat" onclick="LoadPartial('@Url.Action("Index", "Publication", new { PublishModeFilter = Model.PublishModeFilter, processId = Model.ProcessId, partial = true})', '#pageContainer')"><i class="fa fa-angle-double-left"></i> @LocalizedStrings.GetString("Back")</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h2>@($"{Model.ProcessLabel} (v{Model.PublicationVersion})")</h2>
+        </div>
+    </div>
+    <div class="innerContent" style="display: flex; flex-direction: column;">
+        <div class="row">
+            <div class="col-md-3">
+                @if (Model.PreviousActionId != 0)
+                {
+                    <button class="btn btn-app text-left" onclick="LoadPartial('@Url.Action("Details","Action", new { PublishModeFilter = Model.PublishModeFilter, id = Model.PreviousActionId, partial = true })', '#pageContainer')">
+                        <i class="fa fa-arrow-circle-left"></i>@LocalizedStrings.GetString("Common_Previous")
+                    </button>
+                }
+            </div>
+
+            <div class="col-md-7">
+                <h3 class="text-center">
+                    <span class="badge badge-secondary">@WBS</span> @Model.Label
+                    @if (Model.IsKeyTask)
+                    {
+                        <span class="badge badge-secondary" title="Key Task" style="background-color: darksalmon">!</span>
+                    }
+
+                </h3>
+            </div>
+            <div class="col-md-2">
+                @if (Model.NextActionId != 0)
+                {
+                    <button class="btn btn-app pull-right" onclick="LoadPartial('@Url.Action("Details","Action", new { PublishModeFilter = Model.PublishModeFilter, id = Model.NextActionId, partial = true })', '#pageContainer')">
+                        <i class="fa fa-arrow-circle-right"></i>@LocalizedStrings.GetString("Common_Next")
+                    </button>
+                }
+            </div>
+        </div>
+        <div class="row innerContent">
+            <div class="col-md-6" style="height: 100%;overflow: auto;">
+                @{
+                    int lineCounter = 0;
+                }
+                @foreach (var columnKeyPairValue in Model.ColumnValues.Where(_ => _.Value?.Values?.Any() == true && _.Value.Values.All(v => !string.IsNullOrEmpty(v.Value))))
+                {
+                    if (columnKeyPairValue.Key != "WBS" && columnKeyPairValue.Key != "Label" && (Model.DetailActionDispositions.Contains(columnKeyPairValue.Key) || columnKeyPairValue.Key == "Thumbnail"))
+                    {
+                        if (lineCounter == 0)
+                        {
+                            @Html.Raw("<div class=\"row\">");
+                        }
+                        <div class="col-md-6 text-center">
+                            <div class="e-card topMargin">
+                                <div class="e-card-header">
+                                    <div class="e-card-header-caption">
+                                        <div class="e-card-header-title"><label><b>@Model.ActionHeaders.GetOrDefault(columnKeyPairValue.Key, string.Empty)</b></label></div>
+                                    </div>
+                                </div>
+                                <div class="e-card-content">
+                                    @foreach (var value in columnKeyPairValue.Value.Values)
+                                    {
+                                        <div>
+                                            @switch (value.Type)
+                                            {
+                                                case "Text":
+                                                    <p style="word-wrap:break-word;overflow:hidden;">
+                                                        @if (value.Quantity != null)
+                                                        {
+                                                            <span class="badge bg-gray" style="margin:3px;margin-bottom:5px;">x@(value.Quantity)</span>
+                                                        }
+                                                        @value.Value
+                                                    </p>
+                                                    break;
+                                                case "Image":
+                                                    if (value.Quantity != null)
+                                                    {
+                                                        <span class="badge bg-gray" style="margin:3px;margin-bottom:5px;">x(@value.Quantity)</span><span>x</span>
+                                                    }
+                                                    <img height="100" class="imagePopUp" src="@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/@value.FileHash@value.FileExt" title="@value.Value" onclick="popUpImage(this)">
+                                                    break;
+                                                case "File":
+                                                    <div><a target="_blank" href="@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/@value.FileHash@value.FileExt">@value.Value</a></div>
+                                                    break;
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        if (lineCounter == 1)
+                        {
+                            @Html.Raw("</div>");
+                        }
+                        if (++lineCounter == 2)
+                        {
+                            lineCounter = 0;
+                        }
+                    }
+                }
+                @if (lineCounter == 1)
+                {
+                    @Html.Raw("</div>");
+                }
+            </div>
+            <div class="col-md-6" style="text-align:center; height: 100%; display: flex; flex-direction: column;">
+                <div class="panel panel-default" style="flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+                    <div class="panel-heading">
+                        <label><b>@LocalizedStrings.GetString("Video")</b></label>
+                    </div>
+                    <div class="panel-body" style="flex: 1; min-height: 0px;">
+                        @if (!string.IsNullOrEmpty(Model.VideoHash))
+                        {
+                            <video id="video" controls autoplay="" style="max-width:100%;max-height:100%;width:100%;">
+                                <source src="@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/Stream/@Model.VideoHash@Model.VideoExt">
+                            </video>
+                        }
+                        else
+                        {
+                            <p>@LocalizedStrings.GetString("NoVideo")</p>
+                        }
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<script>
+    docReady(function () {
+        // Start the video by default
+        //$('#video').get(0).play();
+
+        @if (ViewBag.ComputeReadNext == true && ViewBag.NextAction > 0)
+        {
+            <text>
+            $('#video').on('ended', function () {
+                var nextVideoUrl = '@Url.Action("Details", "Action", new { PublishModeFilter = ViewBag.publishModeFilter, @Id = ViewBag.NextAction, ComputeReadNext = ViewBag.ComputeReadNext, partial = true })';
+                nextVideoUrl = nextVideoUrl.replace(/&amp;/g, '&');
+                LoadPartial(nextVideoUrl, '#pageContainer');
+            });
+            </text>
+        }
+        setIsRefreshing(false);
+    });
+
+    function getParameterByName(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+    }
+</script>
+

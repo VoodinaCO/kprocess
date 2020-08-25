@@ -1,0 +1,204 @@
+﻿<UserControl x:Class="Kprocess.KL2.TabletClient.Views.SelectFormationSummary"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+             xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:app="clr-namespace:Kprocess.KL2.TabletClient"
+             xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+             xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sfGrid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
+             x:Name="myControl"
+             d:DesignHeight="800"
+             d:DesignWidth="1280"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <!--  Header Cell Style  -->
+        <Style TargetType="sfGrid:GridHeaderCellControl">
+            <Setter Property="Background" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource BlackBrush}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="Light" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Padding" Value="5,0,5,0" />
+            <Setter Property="BorderBrush" Value="#FCA7A9" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="sfGrid:GridHeaderCellControl">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                  VerticalAlignment="Center"
+                                                  Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={converter:HeaderVisibilityConverter}}" />
+
+                                <Grid Grid.Column="1" Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Converter={converter:HeaderVisibilityConverter}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="18" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Path Width="8.938"
+                                          Height="8.138"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M167.5,212.46L199.5,177.507 231.5,212.46 167.5,212.46z"
+                                          Fill="White"
+                                          Stretch="Fill"
+                                          Visibility="{Binding Path=SortDirection, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter=Ascending, Converter={converter:SortDirectionToVisibilityConverter}}">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <TransformGroup.Children>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup.Children>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+
+                                    <Path Width="8.938"
+                                          Height="8.138"
+                                          HorizontalAlignment="Center"
+                                          VerticalAlignment="Center"
+                                          Data="M454.165,177.507L422.165,212.46 390.165,177.507 454.165,177.507z"
+                                          Fill="White"
+                                          Stretch="Fill"
+                                          Visibility="{Binding Path=SortDirection, RelativeSource={RelativeSource TemplatedParent}, ConverterParameter=Decending, Converter={converter:SortDirectionToVisibilityConverter}}">
+                                        <Path.RenderTransform>
+                                            <TransformGroup>
+                                                <TransformGroup.Children>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup.Children>
+                                            </TransformGroup>
+                                        </Path.RenderTransform>
+                                    </Path>
+
+                                    <TextBlock Grid.Column="1"
+                                               Margin="0,-4,0,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="10"
+                                               Foreground="White"
+                                               Text="{TemplateBinding SortNumber}"
+                                               Visibility="{TemplateBinding SortNumberVisibility}" />
+
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <converter:PublishedRefItemDataGridTemplateSelector x:Key="PublishedRefItemDataGridTemplateSelector" />
+        <converter:LabelStyleSelector x:Key="LabelStyleSelector" />
+        <converter:PublishedResourceDataGridTemplateSelector x:Key="PublishedResourceDataGridTemplateSelector" />
+        <converter:PublishedCategoryDataGridTemplateSelector x:Key="PublishedCategoryDataGridTemplateSelector" />
+        <Style TargetType="sfGrid:VirtualizingCellsControl">
+            <Setter Property="Background" Value="{Binding Converter={converter:GroupColorConverter}, ConverterParameter={StaticResource AccentColorBrush}}" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel Margin="10">
+            <Grid Margin="0,0,0,10" DockPanel.Dock="Top">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        Command="{Binding ReturnCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Width="30"
+                                                    Height="30"
+                                                    VerticalAlignment="Center"
+                                                    Kind="ArrowLeftBold" />
+                        <TextBlock Margin="5,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="28"
+                                   Text="{k:Localize Common_Return}" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Center"
+                        Command="{Binding PlayCriticalPathCommand}">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Width="30"
+                                                    Height="30"
+                                                    VerticalAlignment="Center"
+                                                    Kind="Play" />
+                        <TextBlock Margin="5,0,0,0"
+                                   VerticalAlignment="Center"
+                                   FontSize="28"
+                                   Text="{k:Localize See_Training_Label}" />
+                    </StackPanel>
+                </Button>
+                <MahApps:ToggleSwitch Grid.Column="2"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Center"
+                                      CheckedCommand="{Binding SetReadCommand}"
+                                      FontSize="30"
+                                      IsChecked="{Binding PublicationIsRead, Mode=OneWay}"
+                                      IsEnabled="{Binding PublicationIsRead, Converter={converter:IsReadToEnabledConverter}}"
+                                      OffLabel="{k:Localize Unread_Label}"
+                                      OnLabel="{k:Localize Read_Label}"
+                                      UnCheckedCommand="{Binding SetUnreadCommand}"
+                                      Visibility="{Binding IsLoading, Converter={converter:InvertBoolToVisibilityConverter}, Source={x:Static app:Locator.Main}}" />
+            </Grid>
+            <Grid>
+                <sfGrid:SfDataGrid x:Name="DataGrid"
+                                   AllowDraggingColumns="False"
+                                   AllowEditing="False"
+                                   AllowResizingColumns="False"
+                                   AllowSorting="False"
+                                   AutoGenerateColumns="False"
+                                   CellTapped="DataGrid_CellTapped"
+                                   ColumnSizer="Star"
+                                   DetailsViewLoading="DataGrid_DetailsViewLoading"
+                                   FontSize="20"
+                                   HeaderRowHeight="35"
+                                   HideEmptyGridViewDefinition="True"
+                                   IsReadOnly="True"
+                                   ItemsSource="{Binding Publication.PublishedActions}"
+                                   ItemsSourceChanged="DataGrid_ItemsSourceChanged"
+                                   LiveDataUpdateMode="AllowDataShaping"
+                                   Loaded="DataGrid_Loaded"
+                                   RowHeight="178"
+                                   ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                                   SelectionMode="Single"
+                                   SelectionUnit="Row"
+                                   Style="{StaticResource PublicationDataGridStyle}"
+                                   Visibility="{Binding ShowDataGrid, Converter={converter:BoolToVisibilityConverter}}">
+                    <i:Interaction.Behaviors>
+                        <behaviors:SyncSfDataGridBehavior />
+                    </i:Interaction.Behaviors>
+                </sfGrid:SfDataGrid>
+                <StackPanel HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Visibility="Hidden">
+                    <TextBlock FontSize="20"
+                               Foreground="Red"
+                               Text="{k:Localize No_Process_Download}"
+                               TextWrapping="Wrap" />
+                    <TextBlock FontSize="20"
+                               Foreground="Red"
+                               Text="{k:Localize Log_In_Download}"
+                               TextWrapping="Wrap" />
+                </StackPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</UserControl>

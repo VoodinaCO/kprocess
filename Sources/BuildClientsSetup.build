@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<WorkingFolder>$(MSBuildProjectDirectory)</WorkingFolder>
+		<Configuration>Release</Configuration>
+	</PropertyGroup>
+
+	<Target Name="BuildAll" DependsOnTargets="Compile" />
+
+	<Target Name="Compile">
+		<Message Text="=== COMPILING Setup ===" />
+		<MSBuild Projects="KProcess.KL2.Setup\KProcess.KL2.Setup.csproj;KProcess.KL2.Tablet.Setup\KProcess.KL2.Tablet.Setup.csproj;" Properties="Configuration=$(Configuration);OutputPath=.\bin\Release\;AllowUnsafeBlocks=true" />
+	</Target>
+</Project>

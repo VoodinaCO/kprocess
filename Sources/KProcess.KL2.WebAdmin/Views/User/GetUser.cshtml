@@ -1,0 +1,233 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Users;
+@using System.Web.Mvc.Html;
+@using Syncfusion.EJ2;
+@using KProcess.Ksmed.Security;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@Styles.Render("~/Content/ej2/custom/multi-select-input.css")
+
+@model UserViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+
+    var parameters = new RouteValueDictionary();
+
+    for (var i = 0; i < Model.RoleCodes.Count; ++i)
+    {
+        parameters.Add($"RoleCodes[{i}]", Model.RoleCodes[i]);
+    }
+}
+
+<div id="template" style="min-width:500px;">
+
+    <div class="box-body row">
+        <div class="col-md-6">
+            @Html.HiddenFor(o => o.UserId)
+            <div class="form-group required">
+                <label class="control-label" for="Firstname">@LocalizedStrings.GetString("Web_View_User_Firstname_Header")</label>
+                <input id="Firstname" name="Firstname" tabindex="1" class="e-input" value="@Model.Firstname" />
+            </div>
+            <div class="form-group required">
+                <label class="control-label" for="Username">@LocalizedStrings.GetString("Web_View_User_Username_Header")</label>
+                <input id="Username" name="Username" tabindex="3" class="e-input" value="@Model.Username" />
+            </div>
+            <div class="form-group required">
+                <label class="control-label" for="Roles">@LocalizedStrings.GetString("Web_View_User_Roles_Header")</label>
+                @{
+                    @(Html.EJS().ListView("Roles")
+                        .DataSource(u => u.Url(@Url.Action("GetRolesWithCodes", parameters))
+                            .Adaptor("UrlAdaptor"))
+                        .ShowCheckBox(true)
+                        .Fields(new Syncfusion.EJ2.Lists.ListViewFieldSettings { Text = "ShortLabel", IsChecked = "isChecked", Tooltip = "Description" })
+                        .ActionComplete("rolesComplete")
+                        .Select("onSelectRoles")
+                        .Enable(!(Model.AdministratorCount == 1 && Model.RoleCodes.Contains(KnownRoles.Administrator)))
+                        .Render()
+                    )
+                }
+
+            </div>
+            <div class="form-group" id="InsertPasswordForm" style="display:none">
+                <label class="control-label" for="Password">@LocalizedStrings.GetString("Password")</label>
+                <input class="form-control e-input" id="Password" name="Password" value="" />
+            </div>
+            <div class="form-group">
+                <button id="changePasswordBtn" class="btn btn-block btn-info" type="button" onclick="changePassword(); return false;">@LocalizedStrings.GetString("ChangePassword")</button>
+                <div id="EditPasswordForm" style="display:none; padding-top:10px;">
+                    <label class="control-label" for="NewPassword">@LocalizedStrings.GetString("NewPassword")</label>
+                    <input class="form-control e-input" id="NewPassword" name="NewPassword" value="" />
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group required">
+                <label class="control-label" for="Name">@LocalizedStrings.GetString("Web_View_User_Name_Header")</label>
+                <input id="Name" name="Name" tabindex="2" class="e-input" value="@Model.Name" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="Email">@LocalizedStrings.GetString("Email")</label>
+                <input id="Email" name="Email" tabindex="4" class="e-input" value="@Model.Email" />
+            </div>
+            <div class="form-group">
+                <label class="control-label" for="PhoneNumber">@LocalizedStrings.GetString("PhoneNumber")</label>
+                <input id="PhoneNumber" name="PhoneNumber" tabindex="5" class="e-input" value="@Model.PhoneNumber" />
+            </div>
+            <div class="form-group required">
+                <!--Language code display for update or insert-->
+                @if (Model.DefaultLanguageCode != null)
+                {
+                    <label class="control-label" for="DefaultLanguageCode">@LocalizedStrings.GetString("DefaultLanguageCode")</label>
+                    @(Html.EJS().DropDownList("DefaultLanguageCode")
+                        .Value(Model.DefaultLanguageCode)
+                        .Width("80%")
+                        .DataSource(u => u.Url(Url.Action("GetLanguages"))
+                            .Adaptor("UrlAdaptor"))
+                        .Placeholder(LocalizedStrings.GetString("Common_SelectLanguage"))
+                        .Fields(df => df.Text("Label")
+                            .Value("LanguageCode"))
+                        .Render()
+                    )
+                }
+                else
+                {
+                    <label class="control-label" for="DefaultLanguageCode">@LocalizedStrings.GetString("DefaultLanguageCode")</label>
+                    @(Html.EJS().DropDownList("DefaultLanguageCode")
+                        .Width("80%")
+                        .DataSource(u => u.Url(Url.Action("GetLanguages"))
+                            .Adaptor("UrlAdaptor"))
+                        .Placeholder(LocalizedStrings.GetString("Common_SelectLanguage"))
+                        .Fields(df => df.Text("Label")
+                            .Value("LanguageCode"))
+                        .Render()
+                    )
+                }
+            </div>
+            <div class="form-group" id="TenuredDiv">
+                <label class="control-label" for="Tenured">@LocalizedStrings.GetString("Web_View_User_Position_Header")</label>
+                @(Html.EJS().DropDownList("Tenured")
+                        .Value(Model.Tenured.ToString())
+                        .Width("80%")
+                        .DataSource(u => u.Url(Url.Action("GetTenured"))
+                            .Adaptor("UrlAdaptor"))
+                        .Placeholder(LocalizedStrings.GetString("Web_View_User_SelectPosition"))
+                        .Fields(df => df.Text("Text")
+                            .Value("Value"))
+                        .Render()
+                )
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
+</style>
+<script type="text/javascript">
+    var ran2 = Math.floor(Math.random() * 10) + 10;
+    var templateMode;
+    var userList = [];
+
+    document.getElementById('Name').addEventListener("keyup", update);
+    document.getElementById('Firstname').addEventListener("keyup", update);
+    document.getElementById('Username').addEventListener("keyup", function () {
+        document.getElementById('Username').value = document.getElementById('Username').value.toLowerCase();
+    });
+
+    //Get all username list when partialview GetUser loaded
+    var ajax = new ej.base.Ajax({
+        url: "@Url.Action("GetUsernameLists", "User")", //render the partial view
+        type: "GET"
+    });
+    ajax.send().then(function (data) {
+        var result = JSON.parse(data);
+        var count = 0;
+        result.forEach(function (item) {
+            userList[count] = item.Username;
+            count++;
+        });
+    }).catch(function (xhr) {
+        console.log(xhr);
+    });
+
+    function update() {
+        document.getElementById('Password').value = document.getElementById('Firstname').value.substring(0, 1) + document.getElementById('Name').value.substring(0, 1) + ran2;
+        if (templateMode == "insert") {
+            var inputName = document.getElementById('Firstname').value.substring(0, 1) + document.getElementById('Name').value.replace(/\s/g, '')
+            var username = getUsernameLists(inputName.toLowerCase());
+            document.getElementById('Username').value = username;
+        }
+    }
+
+    function changePassword() {
+        document.getElementById('EditPasswordForm').style.display = "block";
+    }
+
+    if (document.getElementById('Firstname').value == "") {
+        //Template insert mode
+        templateMode = "insert";
+        document.getElementById('Username').setAttribute("readOnly", false);
+        document.getElementById('UserId').classList.add("e-disable");
+        document.getElementById('UserId').setAttribute("disabled", "disabled");
+        document.getElementById('InsertPasswordForm').style.display = "block";
+        document.getElementById('changePasswordBtn').style.display = "none";
+        document.getElementById('EditPasswordForm').style.display = "none";
+    }
+    else {
+        //Template edit mode
+        templateMode = "edit";
+        document.getElementById('Username').setAttribute("readOnly", true);
+        document.getElementById('InsertPasswordForm').style.display = "none";
+        document.getElementById('changePasswordBtn').style.display = "block";
+    }
+
+    function getUsernameLists(username) {
+        var digit = 1;
+        var defaultUsername = username;
+        for (var i = 0; i < userList.length; i++) {
+            if (userList[i] == username) {
+                digit++;
+                username = defaultUsername + digit;
+                i = 0;
+            }
+        }
+        return username;
+    }
+
+    function onSelectRoles(args) {
+        hide();
+    }
+
+    function rolesComplete(args) {
+        hide();
+    }
+
+    function hide() {
+        //Hide position input if Roles of user is Administrator
+        var roleList = document.getElementById('Roles').ej2_instances[0];
+        var selectedItems = roleList.getSelectedItems();
+        var toHide = false;
+        for (var i = 0; i < selectedItems.data.length; i++) {
+            var selectedItem = selectedItems.data[i];
+            //if (selectedItem.RoleCode == KnownRoles.Administrator) {
+            //    toHide = true;
+            //    break;
+            //}
+        }
+        if (toHide) {
+            document.getElementById("Tenured").value = null;
+            document.getElementById('TenuredDiv').style.display = "none";
+        }
+        else {
+            document.getElementById('TenuredDiv').style.display = "block";
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager() @*To render Syncfusion controls in partialview*@

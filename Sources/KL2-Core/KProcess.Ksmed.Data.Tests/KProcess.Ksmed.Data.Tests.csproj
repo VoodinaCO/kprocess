@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{73092CA5-FA56-4FE7-9C39-EF3CABD39B84}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KProcess.Ksmed.Data.Tests</RootNamespace>
+    <AssemblyName>KProcess.Ksmed.Data.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleaseInt|AnyCPU'">
+    <OutputPath>bin\ReleaseInt\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <CodeAnalysisDependentAssemblyPaths Condition=" '$(VS100COMNTOOLS)' != '' " Include="$(VS100COMNTOOLS)..\IDE\PrivateAssemblies">
+      <Visible>False</Visible>
+    </CodeAnalysisDependentAssemblyPaths>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ConnectionStringSecuTests.cs" />
+    <Compile Include="KsmedEntitiesExtTests.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41A8FD16-8AA1-48F2-AC75-CB27FFEEA2A4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5D4074AA-F569-4C2A-AC8F-A486C382BFD7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Data\KProcess.Data.csproj">
+      <Project>{DAB850B7-DF8F-401F-A1C6-5E9CE754D913}</Project>
+      <Name>KProcess.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579C-1C1B-4B94-B14C-52AB369AEEBA}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Data\KProcess.Ksmed.Data.csproj">
+      <Project>{CCB03B61-1966-4315-8149-DBF77C34D7C8}</Project>
+      <Name>KProcess.Ksmed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Security\KProcess.Ksmed.Security.csproj">
+      <Project>{4F602ABB-799B-4ED2-9C99-CB2F14380C3A}</Project>
+      <Name>KProcess.Ksmed.Security</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework.fr">
+      <Version>6.2.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- Application de la target post build -->
+  <Target Name="AfterBuild">
+    <CallTarget Targets="TransformAppConfig" />
+  </Target>
+  <!-- Référencement de la tache de transformation -->
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+  </PropertyGroup>
+  <UsingTask TaskName="TransformXml" AssemblyFile="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Web\Microsoft.Web.Publishing.Tasks.dll" />
+  <!-- Transformation -->
+  <Target Name="TransformAppConfig" Condition="exists('..\App.$(Configuration).Config')">
+    <TransformXml Source="App.Config" Destination="$(TargetPath).Config" Transform="..\app.$(Configuration).Config" />
+    <!-- Copy lors de l'execution en local sur *.vshost -->
+    <Copy Condition="'$(UseVSHostingProcess)' == 'true'" SourceFiles="$(TargetPath).Config" DestinationFiles="$(TargetDir)$(TargetName).vshost$(TargetExt).Config" />
+  </Target>
+</Project>

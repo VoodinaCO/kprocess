@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.kp.com"
+           xmlns="http://www.kp.com">
+  <xs:element name="resources">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" name="resource">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="source" type="sourceType" />
+              <xs:element name="de-DE" type="xs:string" nillable="true" minOccurs="0" />
+              <xs:element name="en-US" type="xs:string" nillable="true" />
+              <xs:element name="es-ES" type="xs:string" nillable="true" minOccurs="0" />
+              <xs:element name="fr-FR" type="xs:string" />
+              <xs:element name="pl-PL" type="xs:string" nillable="true" minOccurs="0" />
+              <xs:element name="pt-BR" type="xs:string" nillable="true" minOccurs="0" />
+              <xs:element name="comment" type="xs:string" nillable="true" />
+            </xs:sequence>
+            <xs:attribute name="key" type="xs:string" use="required" />
+          </xs:complexType>
+
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="sourceType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ApplicationDB"/>
+      <xs:enumeration value="ApplicationRes"/>
+      <xs:enumeration value="Bootstrapper"/>
+      <xs:enumeration value="InstallerRes"/>
+      <xs:enumeration value="InstallerErrors"/>
+      <xs:enumeration value="ExtWeber"/>
+      <xs:enumeration value="ExtPG"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

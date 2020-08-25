@@ -1,0 +1,436 @@
+﻿<UserControl x:Class="KProcess.Ksmed.Presentation.Shell.Views.AdminReferentialsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="http://schemas.kprocess.com/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+             xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+             xmlns:views="clr-namespace:KProcess.Ksmed.Presentation.Shell.Views"
+             d:DesignHeight="458"
+             d:DesignWidth="569.994"
+             mc:Ignorable="d">
+    <!--  d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:AdminReferentialsViewModel}}"  -->
+    <i:Interaction.Behaviors>
+        <core:ViewHandleBehavior />
+    </i:Interaction.Behaviors>
+    <UserControl.Resources>
+
+        <views:ReferentialTemplateSelector x:Key="ReferentialTemplateSelector" />
+
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="2,4,2,2" />
+        </Style>
+
+        <DataTemplate x:Key="ReferentialImageTemplate" DataType="{x:Type models:IActionReferential}">
+            <Grid Width="100" Height="100">
+                <Image HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Source="{Binding CloudFile, Converter={k:CloudFileToCachedImageConverter}}"
+                       Stretch="Uniform" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ReferentialUriTemplate" DataType="{x:Type models:IActionReferential}">
+            <Grid>
+                <TextBlock VerticalAlignment="Center">
+                    <Hyperlink Foreground="White" NavigateUri="{Binding CloudFile, Converter={k:CloudFileToUriConverter}}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="RequestNavigate">
+                                <mvvm:EventToCommand Command="{Binding DataContext.OpenUriCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=views:AdminReferentialsView}}" CommandParameter="{Binding CloudFile, Converter={k:CloudFileToUriConverter}}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <Run Foreground="White" Text="{Binding Label}" />
+                    </Hyperlink>
+                </TextBlock>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="ReferentialEmptyTemplate" DataType="{x:Type models:IActionReferential}">
+            <Grid />
+        </DataTemplate>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="0.88*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width=".4*" MinWidth="230" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.Resources>
+            <CollectionViewSource x:Key="GroupedViews" Source="{Binding Views}">
+                <CollectionViewSource.GroupDescriptions>
+                    <PropertyGroupDescription PropertyName="IsResource" />
+                </CollectionViewSource.GroupDescriptions>
+            </CollectionViewSource>
+        </Grid.Resources>
+
+        <ListBox x:Name="menu"
+                 Grid.ColumnSpan="3"
+                 Margin="0,-10,0,10"
+                 ItemsSource="{Binding Source={StaticResource GroupedViews}}"
+                 SelectedValue="{Binding SelectedView}"
+                 SelectedValuePath="Key"
+                 Style="{DynamicResource menuListboxStyle}">
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="GroupItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type GroupItem}">
+                                        <ItemsPresenter VerticalAlignment="Top" />
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding Name}" Value="True">
+                                    <Setter Property="Panel.ZIndex" Value="1000" />
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="GroupItem">
+                                                <Grid>
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="25" />
+                                                    </Grid.RowDefinitions>
+                                                    <ToggleButton x:Name="mainMenuToggle"
+                                                                  Content="{k:Localize View_AdminReferentials_Resources}"
+                                                                  IsChecked="True">
+                                                        <!--  The behavior of this component is in icode behind  -->
+                                                        <ToggleButton.Template>
+                                                            <ControlTemplate TargetType="ToggleButton">
+                                                                <Border x:Name="back"
+                                                                        Padding="10,2,6,2"
+                                                                        Background="Transparent">
+                                                                    <TextBlock x:Name="text"
+                                                                               FontFamily="{StaticResource SegoeWPFontFamily}"
+                                                                               Foreground="#70FFFFFF"
+                                                                               Text="{TemplateBinding Content}" />
+                                                                </Border>
+                                                                <ControlTemplate.Triggers>
+                                                                    <Trigger Property="IsChecked" Value="True">
+                                                                        <Setter TargetName="text" Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                                        <Setter TargetName="text" Property="Foreground" Value="White" />
+                                                                    </Trigger>
+                                                                </ControlTemplate.Triggers>
+                                                            </ControlTemplate>
+                                                        </ToggleButton.Template>
+                                                    </ToggleButton>
+                                                    <ItemsPresenter x:Name="subMenuPresenter"
+                                                                    Grid.Row="1"
+                                                                    Margin="0,0,-200,0"
+                                                                    TextBlock.FontSize="16" />
+                                                </Grid>
+                                                <ControlTemplate.Triggers>
+                                                    <DataTrigger Binding="{Binding ElementName=mainMenuToggle, Path=IsChecked}" Value="False">
+                                                        <Setter TargetName="subMenuPresenter" Property="Visibility" Value="Collapsed" />
+                                                    </DataTrigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                    <GroupStyle.Panel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </GroupStyle.Panel>
+                </GroupStyle>
+            </ListBox.GroupStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock MaxWidth="150"
+                               Text="{Binding Key, Mode=TwoWay}"
+                               TextTrimming="WordEllipsis" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <StackPanel Grid.Row="1"
+                    Grid.ColumnSpan="3"
+                    Width="200"
+                    HorizontalAlignment="Left"
+                    Visibility="{Binding SelectedView, Converter={StaticResource NotNullToVisibilityConverter}}">
+            <TextBlock Style="{StaticResource LabelStyle}"
+                       Text="{k:Localize View_AdminReferentials_Label}"
+                       TextWrapping="Wrap" />
+            <TextBox Margin="4,0,2,2"
+                     IsEnabled="{Binding CanEditReferentialLabel}"
+                     IsReadOnly="{Binding CurrentItem.IsEditable, Converter={StaticResource NegatedBooleanConverter}}"
+                     MaxLength="{x:Static models:ActionReferentialProperties.LabelMaxLength}"
+                     Text="{k:InstantValidatingBinding CurrentReferentialLabel}"
+                     TextWrapping="Wrap" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2"
+                    Margin="0,18,0,0"
+                    Visibility="{Binding SelectedView, Converter={StaticResource NotNullToVisibilityConverter}}">
+            <Button Command="{Binding AddStandardCommand}"
+                    Style="{DynamicResource ButtonLeftAddFileStandardStyle}"
+                    ToolTip="{k:Localize View_Common_AppReferentials_AddReferentialStandard}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <core:FocusAction TargetObject="{Binding ElementName=labelTB}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Command="{Binding AddProcessCommand}"
+                    Style="{DynamicResource ButtonLeftAddFileStyle}"
+                    ToolTip="{k:Localize View_Common_AppReferentials_AddReferentialProcess}"
+                    Visibility="{Binding SelectedReferential, Converter={core:CurrentReferentielViewToVisibilityConverter}}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <core:FocusAction TargetObject="{Binding ElementName=projectListPresenter}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Style="{DynamicResource ButtonLeftRemoveFileStyle}" ToolTip="{k:Localize View_AppReferentials_Remove_Tooltip, Shortcut=Delete}" />
+            <Button Command="{Binding MergeCommand}"
+                    Style="{DynamicResource ButtonLeftMergeStyle}"
+                    Visibility="{Binding SelectedReferential, Converter={core:CurrentReferentielViewToVisibilityConverter}}" />
+
+            <ItemsControl Style="{StaticResource ExtBarActionsLarge}" />
+
+        </StackPanel>
+
+        <core:ListFilter Grid.Row="2"
+                         Grid.Column="1"
+                         Margin="8,4"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
+                         ItemsControl="{Binding ElementName=listBox}"
+                         Visibility="{Binding SelectedView, Converter={StaticResource NotNullToVisibilityConverter}}" />
+
+        <ListBox x:Name="listBox"
+                 Grid.Row="2"
+                 Grid.Column="1"
+                 Margin="8,26,8,8"
+                 ItemContainerStyle="{StaticResource ReferentialValidationListBoxItemStyle}"
+                 ItemsSource="{Binding Items}"
+                 SelectedItem="{Binding CurrentItem}"
+                 Visibility="{Binding SelectedView, Converter={StaticResource NotNullToVisibilityConverter}}">
+            <ListBox.GroupStyle>
+                <GroupStyle>
+                    <GroupStyle.ContainerStyle>
+                        <Style TargetType="{x:Type GroupItem}">
+                            <Setter Property="Template" Value="{StaticResource AppReferentialsListGroupItemTemplate}" />
+                        </Style>
+                    </GroupStyle.ContainerStyle>
+                </GroupStyle>
+            </ListBox.GroupStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle x:Name="colorHost"
+                                   Width="16"
+                                   Height="16"
+                                   Margin="4,0,10,0"
+                                   HorizontalAlignment="Right"
+                                   VerticalAlignment="Center"
+                                   RadiusX="3"
+                                   RadiusY="3"
+                                   Stroke="#FFFFFFFF"
+                                   StrokeThickness="1">
+                            <Rectangle.Fill>
+                                <SolidColorBrush Color="{Binding Color}" />
+                            </Rectangle.Fill>
+                        </Rectangle>
+                        <TextBlock Grid.Column="1"
+                                   Margin="4,0,0,0"
+                                   Text="{Binding Label}" />
+                        <TextBlock Grid.Column="2"
+                                   Margin="2,0,0,0"
+                                   Text="*"
+                                   Visibility="{Binding IsNotMarkedAsUnchanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <DataTrigger Binding="{Binding Color}" Value="#FFFFFFFF">
+                            <Setter TargetName="colorHost" Property="Stroke" Value="#FFAAAAAA" />
+                        </DataTrigger>
+                    </DataTemplate.Triggers>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <ScrollViewer Grid.Row="2"
+                      Grid.Column="2"
+                      Margin="8"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto"
+                      Visibility="{Binding CurrentItem, Converter={StaticResource NotNullToVisibilityConverter}}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="20" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" MinHeight="19" />
+                    <RowDefinition Height="Auto" MinHeight="25" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="20" />
+                    <RowDefinition Height="Auto" MinHeight="45" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" MinHeight="45" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0"
+                            Grid.ColumnSpan="3"
+                            Visibility="{Binding ProcessesListVisibility}">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="{k:Localize View_Common_AppReferentials_Process}"
+                               TextWrapping="Wrap" />
+                    <ComboBox x:Name="projectListPresenter"
+                              Margin="4,0,2,2"
+                              DisplayMemberPath="Label"
+                              ItemsSource="{Binding Processes}"
+                              SelectedItem="{k:InstantValidatingBinding CurrentItem.Process}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Grid.ColumnSpan="3">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="{k:Localize View_AdminReferentials_Label}"
+                               TextWrapping="Wrap" />
+                    <TextBox x:Name="labelTB"
+                             Margin="4,0,2,2"
+                             IsReadOnly="{Binding CurrentItem.IsEditable, Converter={StaticResource NegatedBooleanConverter}}"
+                             MaxLength="{x:Static models:ActionReferentialProperties.LabelMaxLength}"
+                             Text="{k:InstantValidatingBinding CurrentItem.Label}"
+                             TextWrapping="Wrap" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" Grid.ColumnSpan="3">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="{k:Localize View_Common_AppReferentials_Description}"
+                               TextWrapping="Wrap" />
+                    <TextBox Height="130"
+                             Margin="4,0,2,2"
+                             AcceptsReturn="True"
+                             IsReadOnly="{Binding CurrentItem.IsEditable, Converter={StaticResource NegatedBooleanConverter}}"
+                             MaxLength="{x:Static models:ActionReferentialProperties.DescriptionMaxLength}"
+                             Text="{k:InstantValidatingBinding CurrentItem.Description}"
+                             TextWrapping="Wrap"
+                             VerticalScrollBarVisibility="Auto" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="3" Grid.ColumnSpan="3">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="{k:Localize View_AdminReferentials_Color}"
+                               TextWrapping="Wrap" />
+                    <core:ColorPicker Width="70"
+                                      Margin="4,0,2,2"
+                                      HorizontalAlignment="Left"
+                                      IsEnabled="{Binding CurrentItem.IsEditable}"
+                                      SelectedColor="{Binding CurrentActionColor, Mode=TwoWay}" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Grid.ColumnSpan="3">
+                    <TextBlock Style="{StaticResource LabelStyle}"
+                               Text="{k:Localize View_AdminReferentials_Document}"
+                               TextWrapping="Wrap" />
+                    <Grid Margin="5" IsEnabled="{Binding CurrentItem.IsEditable}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <UserControl Grid.Column="0" Content="{Binding CurrentItem}">
+                            <UserControl.Style>
+                                <Style TargetType="{x:Type UserControl}">
+                                    <Setter Property="ContentTemplate" Value="{StaticResource ReferentialEmptyTemplate}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CurrentItem, Converter={views:ReferentialHasImageConverter}}" Value="True">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource ReferentialImageTemplate}" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentItem, Converter={views:ReferentialHasUriConverter}}" Value="True">
+                                            <Setter Property="ContentTemplate" Value="{StaticResource ReferentialUriTemplate}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </UserControl.Style>
+                        </UserControl>
+                        <StackPanel Grid.Column="1" Margin="4,2">
+                            <Button Margin="4,2"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding BrowseCommand}"
+                                    Content="{Binding CurrentItem, Converter={core:AddOrUpdateReferentialDocumentConverter}}" />
+                            <Button Margin="4,2"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    Command="{Binding DeleteDocumentCommand}"
+                                    Content="{k:Localize View_AdminReferentials_RemoveDocument}"
+                                    Visibility="{Binding CurrentItem.CloudFile, Converter={k:NotNullToVisibilityConverter}}" />
+                        </StackPanel>
+                    </Grid>
+                </StackPanel>
+
+                <!--  PLACEHOLDER pour vue personnalisée  -->
+                <ContentControl Grid.Row="5"
+                                Grid.ColumnSpan="3"
+                                Content="{Binding CurrentView}" />
+
+                <!--<StackPanel Grid.ColumnSpan="3" Grid.Row="5" Visibility="{Binding ProjectsListVisibility}" >
+                <TextBlock TextWrapping="Wrap" Style="{StaticResource LabelStyle}" Text="{k:Localize View_Common_AppReferentials_Project}" />
+                <ComboBox ItemsSource="{Binding Projects}" SelectedItem="{k:InstantValidatingBinding CurrentItem.Project}" Margin="4,0,2,2" DisplayMemberPath="Label" />
+            </StackPanel>-->
+
+            </Grid>
+        </ScrollViewer>
+        <StackPanel Grid.Row="3"
+                    Grid.Column="2"
+                    Margin="4"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal"
+                    Visibility="{Binding HasChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="4"
+                    Command="{k:CommandBinding ValidateCommand}"
+                    Content="{k:Localize Common_OK}"
+                    ToolTip="{k:Localize Common_OK,
+                                         Shortcut=Save}">
+                <i:Interaction.Behaviors>
+                    <core:DataStateBehavior Binding="{Binding HasChanged}"
+                                            FalseState="ColorDefault"
+                                            TrueState="ColorGreen"
+                                            Value="true" />
+                </i:Interaction.Behaviors>
+            </Button>
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="4"
+                    Command="{k:CommandBinding CancelCommand}"
+                    Content="{k:Localize Common_Cancel}"
+                    ToolTip="{k:Localize Common_Cancel,
+                                         Shortcut=Cancel}">
+                <i:Interaction.Behaviors>
+                    <core:DataStateBehavior Binding="{Binding HasChanged}"
+                                            FalseState="ColorDefault"
+                                            TrueState="ColorGreen"
+                                            Value="true" />
+                </i:Interaction.Behaviors>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
+
+

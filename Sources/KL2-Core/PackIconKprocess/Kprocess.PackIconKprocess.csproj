@@ -1,0 +1,1079 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{99F9A32C-D18E-4D17-9FB3-930FCED4CDD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kprocess.PackIconKprocess</RootNamespace>
+    <AssemblyName>Kprocess.PackIconKprocess</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converter\StringToCountryConverter.cs" />
+    <Compile Include="Converter\KindToPathConverter.cs" />
+    <Compile Include="PackIconCountriesFlags.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PackIconCountriesFlags.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PackIconCountriesFlags.xaml.cs">
+      <DependentUpon>PackIconCountriesFlags.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PackIconKprocessKind.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PackIconKprocess.xaml.cs">
+      <DependentUpon>PackIconKprocess.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CountriesFlags\Afghanistan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Albania.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Algeria.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Andorra.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Angola.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Antigua_and_Barbuda.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Argentina.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Armenia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Australia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Austria.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Azerbaijan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Bahrain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Bangladesh.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Barbados.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Belarus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Belgium.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Belize.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Benin.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Bhutan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Bolivia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Bosnia_and_Herzegovina.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Botswana.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Brazil.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Brunei.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Bulgaria.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Burkina_Faso.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Burundi.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Cambodia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Cameroon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Canada.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Cape_Verde.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Chad.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Chile.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Colombia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Costa_Rica.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Croatia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Cuba.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Cyprus.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Denmark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Djibouti.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Dominica.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\East_Timor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Ecuador.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Egypt.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\El_Salvador.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Equatorial_Guinea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Eritrea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Estonia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Eswatini.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Ethiopia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Fiji.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Finland.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\France.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Gabon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Georgia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Germany.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Ghana.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Greece.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Grenada.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Guatemala.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Guinea_Bissau.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Guinea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Guyana.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Haiti.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Honduras.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Hungary.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Iceland.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\India.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Indonesia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Iran.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Iraq.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Ireland.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Israel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Italy.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Ivory_Coast.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Jamaica.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Japan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Jordan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Kazakhstan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Kenya.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Kiribati.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Kuwait.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Kyrgyzstan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Laos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Latvia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Lebanon.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Lesotho.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Liberia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Libya.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Liechtenstein.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Lithuania.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Luxembourg.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Madagascar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Malawi.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Malaysia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Maldives.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Mali.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Malta.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Mauritania.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Mauritius.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Mexico.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Moldova.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Monaco.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Mongolia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Montenegro.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Morocco.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Mozambique.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Myanmar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Namibia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Nauru.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Nepal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\New_Zealand.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Nicaragua.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Niger.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Nigeria.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Niue.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\North_Korea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\North_Macedonia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Norway.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Oman.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Pakistan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Palau.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Palestine.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Panama.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Papua_New_Guinea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Paraguay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Peru.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Poland.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Portugal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Qatar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Romania.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Russia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Rwanda.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Saint_Kitts_and_Nevis.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Saint_Lucia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Saint_Vincent_and_The_Grenadines.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Samoa.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\San_Marino.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Sao_Tome_and_Principe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Saudi_Arabia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Senegal.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Serbia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Seychelles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Sierra_Leone.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Singapore.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Slovakia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Slovenia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Somalia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\South_Africa.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\South_Korea.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\South_Sudan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Spain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Sri_Lanka.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Sudan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Suriname.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Sweden.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Switzerland.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Syria.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Tajikistan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Tanzania.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Thailand.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Bahamas.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Central_African_Republic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Comoros.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Cook_Islands.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Czech_Republic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Democratic_Republic_of_The_Congo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Dominican_Republic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Federated_States_of_Micronesia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Gambia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Marshall_Islands.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Netherlands.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Republic_of_China.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Philippines.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Republic_of_The_Congo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Solomon_Islands.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_United_Arab_Emirates.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_United_Kingdom.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_United_States.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\The_Vatican_City.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Togo.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Tonga.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Trinidad_and_Tobago.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Tunisia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Turkey.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Turkmenistan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Tuvalu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Uganda.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Ukraine.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Uruguay.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Uzbekistan.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Vanuatu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Venezuela.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Vietnam.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Yemen.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Zambia.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CountriesFlags\Zimbabwe.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Page Include="PackIconCountriesFlags.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PackIconKprocess.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PackIconCountriesFlags.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>PackIconCountriesFlags.cs</LastGenOutput>
+    </Content>
+    <Content Include="SVG_CountriesFlags\Afghanistan.svg" />
+    <Content Include="SVG_CountriesFlags\Albania.svg" />
+    <Content Include="SVG_CountriesFlags\Algeria.svg" />
+    <Content Include="SVG_CountriesFlags\Andorra.svg" />
+    <Content Include="SVG_CountriesFlags\Angola.svg" />
+    <Content Include="SVG_CountriesFlags\Antigua_and_Barbuda.svg" />
+    <Content Include="SVG_CountriesFlags\Argentina.svg" />
+    <Content Include="SVG_CountriesFlags\Armenia.svg" />
+    <Content Include="SVG_CountriesFlags\Australia.svg" />
+    <Content Include="SVG_CountriesFlags\Austria.svg" />
+    <Content Include="SVG_CountriesFlags\Azerbaijan.svg" />
+    <Content Include="SVG_CountriesFlags\Bahrain.svg" />
+    <Content Include="SVG_CountriesFlags\Bangladesh.svg" />
+    <Content Include="SVG_CountriesFlags\Barbados.svg" />
+    <Content Include="SVG_CountriesFlags\Belarus.svg" />
+    <Content Include="SVG_CountriesFlags\Belgium.svg" />
+    <Content Include="SVG_CountriesFlags\Belize.svg" />
+    <Content Include="SVG_CountriesFlags\Benin.svg" />
+    <Content Include="SVG_CountriesFlags\Bhutan.svg" />
+    <Content Include="SVG_CountriesFlags\Bolivia.svg" />
+    <Content Include="SVG_CountriesFlags\Bosnia_and_Herzegovina.svg" />
+    <Content Include="SVG_CountriesFlags\Botswana.svg" />
+    <Content Include="SVG_CountriesFlags\Brazil.svg" />
+    <Content Include="SVG_CountriesFlags\Brunei.svg" />
+    <Content Include="SVG_CountriesFlags\Bulgaria.svg" />
+    <Content Include="SVG_CountriesFlags\Burkina_Faso.svg" />
+    <Content Include="SVG_CountriesFlags\Burundi.svg" />
+    <Content Include="SVG_CountriesFlags\Cambodia.svg" />
+    <Content Include="SVG_CountriesFlags\Cameroon.svg" />
+    <Content Include="SVG_CountriesFlags\Canada.svg" />
+    <Content Include="SVG_CountriesFlags\Cape_Verde.svg" />
+    <Content Include="SVG_CountriesFlags\Chad.svg" />
+    <Content Include="SVG_CountriesFlags\Chile.svg" />
+    <Content Include="SVG_CountriesFlags\Colombia.svg" />
+    <Content Include="SVG_CountriesFlags\Costa_Rica.svg" />
+    <Content Include="SVG_CountriesFlags\Croatia.svg" />
+    <Content Include="SVG_CountriesFlags\Cuba.svg" />
+    <Content Include="SVG_CountriesFlags\Cyprus.svg" />
+    <Content Include="SVG_CountriesFlags\Denmark.svg" />
+    <Content Include="SVG_CountriesFlags\Djibouti.svg" />
+    <Content Include="SVG_CountriesFlags\Dominica.svg" />
+    <Content Include="SVG_CountriesFlags\East_Timor.svg" />
+    <Content Include="SVG_CountriesFlags\Ecuador.svg" />
+    <Content Include="SVG_CountriesFlags\Egypt.svg" />
+    <Content Include="SVG_CountriesFlags\El_Salvador.svg" />
+    <Content Include="SVG_CountriesFlags\Equatorial_Guinea.svg" />
+    <Content Include="SVG_CountriesFlags\Eritrea.svg" />
+    <Content Include="SVG_CountriesFlags\Estonia.svg" />
+    <Content Include="SVG_CountriesFlags\Eswatini.svg" />
+    <Content Include="SVG_CountriesFlags\Ethiopia.svg" />
+    <Content Include="SVG_CountriesFlags\Fiji.svg" />
+    <Content Include="SVG_CountriesFlags\Finland.svg" />
+    <Content Include="SVG_CountriesFlags\France.svg" />
+    <Content Include="SVG_CountriesFlags\Gabon.svg" />
+    <Content Include="SVG_CountriesFlags\Georgia.svg" />
+    <Content Include="SVG_CountriesFlags\Germany.svg" />
+    <Content Include="SVG_CountriesFlags\Ghana.svg" />
+    <Content Include="SVG_CountriesFlags\Greece.svg" />
+    <Content Include="SVG_CountriesFlags\Grenada.svg" />
+    <Content Include="SVG_CountriesFlags\Guatemala.svg" />
+    <Content Include="SVG_CountriesFlags\Guinea-Bissau.svg" />
+    <Content Include="SVG_CountriesFlags\Guinea.svg" />
+    <Content Include="SVG_CountriesFlags\Guyana.svg" />
+    <Content Include="SVG_CountriesFlags\Haiti.svg" />
+    <Content Include="SVG_CountriesFlags\Honduras.svg" />
+    <Content Include="SVG_CountriesFlags\Hungary.svg" />
+    <Content Include="SVG_CountriesFlags\Iceland.svg" />
+    <Content Include="SVG_CountriesFlags\India.svg" />
+    <Content Include="SVG_CountriesFlags\Indonesia.svg" />
+    <Content Include="SVG_CountriesFlags\Iran.svg" />
+    <Content Include="SVG_CountriesFlags\Iraq.svg" />
+    <Content Include="SVG_CountriesFlags\Ireland.svg" />
+    <Content Include="SVG_CountriesFlags\Israel.svg" />
+    <Content Include="SVG_CountriesFlags\Italy.svg" />
+    <Content Include="SVG_CountriesFlags\Ivory_Coast.svg" />
+    <Content Include="SVG_CountriesFlags\Jamaica.svg" />
+    <Content Include="SVG_CountriesFlags\Japan.svg" />
+    <Content Include="SVG_CountriesFlags\Jordan.svg" />
+    <Content Include="SVG_CountriesFlags\Kazakhstan.svg" />
+    <Content Include="SVG_CountriesFlags\Kenya.svg" />
+    <Content Include="SVG_CountriesFlags\Kiribati.svg" />
+    <Content Include="SVG_CountriesFlags\Kuwait.svg" />
+    <Content Include="SVG_CountriesFlags\Kyrgyzstan.svg" />
+    <Content Include="SVG_CountriesFlags\Laos.svg" />
+    <Content Include="SVG_CountriesFlags\Latvia.svg" />
+    <Content Include="SVG_CountriesFlags\Lebanon.svg" />
+    <Content Include="SVG_CountriesFlags\Lesotho.svg" />
+    <Content Include="SVG_CountriesFlags\Liberia.svg" />
+    <Content Include="SVG_CountriesFlags\Libya.svg" />
+    <Content Include="SVG_CountriesFlags\Liechtenstein.svg" />
+    <Content Include="SVG_CountriesFlags\Lithuania.svg" />
+    <Content Include="SVG_CountriesFlags\Luxembourg.svg" />
+    <Content Include="SVG_CountriesFlags\Madagascar.svg" />
+    <Content Include="SVG_CountriesFlags\Malawi.svg" />
+    <Content Include="SVG_CountriesFlags\Malaysia.svg" />
+    <Content Include="SVG_CountriesFlags\Maldives.svg" />
+    <Content Include="SVG_CountriesFlags\Mali.svg" />
+    <Content Include="SVG_CountriesFlags\Malta.svg" />
+    <Content Include="SVG_CountriesFlags\Mauritania.svg" />
+    <Content Include="SVG_CountriesFlags\Mauritius.svg" />
+    <Content Include="SVG_CountriesFlags\Mexico.svg" />
+    <Content Include="SVG_CountriesFlags\Moldova.svg" />
+    <Content Include="SVG_CountriesFlags\Monaco.svg" />
+    <Content Include="SVG_CountriesFlags\Mongolia.svg" />
+    <Content Include="SVG_CountriesFlags\Montenegro.svg" />
+    <Content Include="SVG_CountriesFlags\Morocco.svg" />
+    <Content Include="SVG_CountriesFlags\Mozambique.svg" />
+    <Content Include="SVG_CountriesFlags\Myanmar.svg" />
+    <Content Include="SVG_CountriesFlags\Namibia.svg" />
+    <Content Include="SVG_CountriesFlags\Nauru.svg" />
+    <Content Include="SVG_CountriesFlags\Nepal.svg" />
+    <Content Include="SVG_CountriesFlags\New_Zealand.svg" />
+    <Content Include="SVG_CountriesFlags\Nicaragua.svg" />
+    <Content Include="SVG_CountriesFlags\Niger.svg" />
+    <Content Include="SVG_CountriesFlags\Nigeria.svg" />
+    <Content Include="SVG_CountriesFlags\Niue.svg" />
+    <Content Include="SVG_CountriesFlags\North_Korea.svg" />
+    <Content Include="SVG_CountriesFlags\North_Macedonia.svg" />
+    <Content Include="SVG_CountriesFlags\Norway.svg" />
+    <Content Include="SVG_CountriesFlags\Oman.svg" />
+    <Content Include="SVG_CountriesFlags\Pakistan.svg" />
+    <Content Include="SVG_CountriesFlags\Palau.svg" />
+    <Content Include="SVG_CountriesFlags\Palestine.svg" />
+    <Content Include="SVG_CountriesFlags\Panama.svg" />
+    <Content Include="SVG_CountriesFlags\Papua_New_Guinea.svg" />
+    <Content Include="SVG_CountriesFlags\Paraguay.svg" />
+    <Content Include="SVG_CountriesFlags\Peru.svg" />
+    <Content Include="SVG_CountriesFlags\Poland.svg" />
+    <Content Include="SVG_CountriesFlags\Portugal.svg" />
+    <Content Include="SVG_CountriesFlags\Qatar.svg" />
+    <Content Include="SVG_CountriesFlags\Romania.svg" />
+    <Content Include="SVG_CountriesFlags\Russia.svg" />
+    <Content Include="SVG_CountriesFlags\Rwanda.svg" />
+    <Content Include="SVG_CountriesFlags\Saint_Kitts_and_Nevis.svg" />
+    <Content Include="SVG_CountriesFlags\Saint_Lucia.svg" />
+    <Content Include="SVG_CountriesFlags\Saint_Vincent_and_the_Grenadines.svg" />
+    <Content Include="SVG_CountriesFlags\Samoa.svg" />
+    <Content Include="SVG_CountriesFlags\San_Marino.svg" />
+    <Content Include="SVG_CountriesFlags\Sao_Tome_and_Principe.svg" />
+    <Content Include="SVG_CountriesFlags\Saudi_Arabia.svg" />
+    <Content Include="SVG_CountriesFlags\Senegal.svg" />
+    <Content Include="SVG_CountriesFlags\Serbia.svg" />
+    <Content Include="SVG_CountriesFlags\Seychelles.svg" />
+    <Content Include="SVG_CountriesFlags\Sierra_Leone.svg" />
+    <Content Include="SVG_CountriesFlags\Singapore.svg" />
+    <Content Include="SVG_CountriesFlags\Slovakia.svg" />
+    <Content Include="SVG_CountriesFlags\Slovenia.svg" />
+    <Content Include="SVG_CountriesFlags\Somalia.svg" />
+    <Content Include="SVG_CountriesFlags\South_Africa.svg" />
+    <Content Include="SVG_CountriesFlags\South_Korea.svg" />
+    <Content Include="SVG_CountriesFlags\South_Sudan.svg" />
+    <Content Include="SVG_CountriesFlags\Spain.svg" />
+    <Content Include="SVG_CountriesFlags\Sri_Lanka.svg" />
+    <Content Include="SVG_CountriesFlags\Sudan.svg" />
+    <Content Include="SVG_CountriesFlags\Suriname.svg" />
+    <Content Include="SVG_CountriesFlags\Sweden.svg" />
+    <Content Include="SVG_CountriesFlags\Switzerland.svg" />
+    <Content Include="SVG_CountriesFlags\Syria.svg" />
+    <Content Include="SVG_CountriesFlags\Tajikistan.svg" />
+    <Content Include="SVG_CountriesFlags\Tanzania.svg" />
+    <Content Include="SVG_CountriesFlags\Thailand.svg" />
+    <Content Include="SVG_CountriesFlags\The_Bahamas.svg" />
+    <Content Include="SVG_CountriesFlags\The_Central_African_Republic.svg" />
+    <Content Include="SVG_CountriesFlags\The_Comoros.svg" />
+    <Content Include="SVG_CountriesFlags\The_Cook_Islands.svg" />
+    <Content Include="SVG_CountriesFlags\The_Czech_Republic.svg" />
+    <Content Include="SVG_CountriesFlags\The_Democratic_Republic_of_the_Congo.svg" />
+    <Content Include="SVG_CountriesFlags\The_Dominican_Republic.svg" />
+    <Content Include="SVG_CountriesFlags\The_Federated_States_of_Micronesia.svg" />
+    <Content Include="SVG_CountriesFlags\The_Gambia.svg" />
+    <Content Include="SVG_CountriesFlags\The_Marshall_Islands.svg" />
+    <Content Include="SVG_CountriesFlags\The_Netherlands.svg" />
+    <Content Include="SVG_CountriesFlags\The_People%27s_Republic_of_China.svg" />
+    <Content Include="SVG_CountriesFlags\The_Philippines.svg" />
+    <Content Include="SVG_CountriesFlags\The_Republic_of_the_Congo.svg" />
+    <Content Include="SVG_CountriesFlags\The_Solomon_Islands.svg" />
+    <Content Include="SVG_CountriesFlags\The_United_Arab_Emirates.svg" />
+    <Content Include="SVG_CountriesFlags\The_United_Kingdom.svg" />
+    <Content Include="SVG_CountriesFlags\The_United_States_%28Pantone%29.svg" />
+    <Content Include="SVG_CountriesFlags\The_Vatican_City.svg" />
+    <Content Include="SVG_CountriesFlags\Togo.svg" />
+    <Content Include="SVG_CountriesFlags\Tonga.svg" />
+    <Content Include="SVG_CountriesFlags\Trinidad_and_Tobago.svg" />
+    <Content Include="SVG_CountriesFlags\Tunisia.svg" />
+    <Content Include="SVG_CountriesFlags\Turkey.svg" />
+    <Content Include="SVG_CountriesFlags\Turkmenistan.svg" />
+    <Content Include="SVG_CountriesFlags\Tuvalu.svg" />
+    <Content Include="SVG_CountriesFlags\Uganda.svg" />
+    <Content Include="SVG_CountriesFlags\Ukraine.svg" />
+    <Content Include="SVG_CountriesFlags\Uruguay.svg" />
+    <Content Include="SVG_CountriesFlags\Uzbekistan.svg" />
+    <Content Include="SVG_CountriesFlags\Vanuatu.svg" />
+    <Content Include="SVG_CountriesFlags\Venezuela.svg" />
+    <Content Include="SVG_CountriesFlags\Vietnam.svg" />
+    <Content Include="SVG_CountriesFlags\Yemen.svg" />
+    <Content Include="SVG_CountriesFlags\Zambia.svg" />
+    <Content Include="SVG_CountriesFlags\Zimbabwe.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

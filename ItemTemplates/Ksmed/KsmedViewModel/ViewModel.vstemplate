@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005">
+  <TemplateData>
+    <Name>Ksmed ViewModel</Name>
+    <Description>&lt;No description available&gt;</Description>
+    <Icon>ViewModel.ico</Icon>
+    <TemplateID>0a8503c8-1157-4e9d-8cd4-413a51835353</TemplateID>
+    <ProjectType>CSharp</ProjectType>
+    <RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+    <NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+    <DefaultName>ViewModel.cs</DefaultName>
+  </TemplateData>
+  <TemplateContent>
+		<References>
+			<Reference>
+				<Assembly>System</Assembly>
+			</Reference>
+		</References>
+
+    <ProjectItem ReplaceParameters="true">ViewModel.cs</ProjectItem>
+  </TemplateContent>
+</VSTemplate>

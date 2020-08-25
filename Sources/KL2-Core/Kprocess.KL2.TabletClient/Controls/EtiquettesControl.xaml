@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="Kprocess.KL2.TabletClient.Controls.EtiquettesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+             xmlns:controls="clr-namespace:Kprocess.KL2.TabletClient.Controls"
+             mc:Ignorable="d"
+             x:Name="myEtiquettes">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <UniformGrid Grid.Row="0" Columns="{Binding IsReadOnly, ElementName=myEtiquettes, Converter={converter:EtiquetteReadOnlyToColumnsCountConverter}}"
+                     TextElement.FontSize="24" TextElement.FontWeight="Bold" TextElement.Foreground="{StaticResource LightColorEtiquette}">
+            <Border x:Name="SecurityBorder" Background="{StaticResource DarkColorSecurity}"
+                    MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Border.Visibility>
+                    <MultiBinding Converter="{converter:AnomalyTypeEtiquetteToVisibilityConverter}">
+                        <Binding Path="Kind" ElementName="EtiquetteSecurity"/>
+                        <Binding Path="SelectedKind" ElementName="myEtiquettes"/>
+                        <Binding Path="IsReadOnly" ElementName="myEtiquettes"/>
+                    </MultiBinding>
+                </Border.Visibility>
+                <TextBlock Text="Sécurité" HorizontalAlignment="Center"/>
+            </Border>
+            <Border x:Name="MaintenanceBorder" Background="{StaticResource DarkColorMaintenance}"
+                    MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Border.Visibility>
+                    <MultiBinding Converter="{converter:AnomalyTypeEtiquetteToVisibilityConverter}">
+                        <Binding Path="Kind" ElementName="EtiquetteMaintenance"/>
+                        <Binding Path="SelectedKind" ElementName="myEtiquettes"/>
+                        <Binding Path="IsReadOnly" ElementName="myEtiquettes"/>
+                    </MultiBinding>
+                </Border.Visibility>
+                <TextBlock Text="Maintenance" HorizontalAlignment="Center"/>
+            </Border>
+            <Border x:Name="OperatorBorder" Background="{StaticResource DarkColorOperator}"
+                    MouseLeftButtonDown="Border_MouseLeftButtonDown">
+                <Border.Visibility>
+                    <MultiBinding Converter="{converter:AnomalyTypeEtiquetteToVisibilityConverter}">
+                        <Binding Path="Kind" ElementName="EtiquetteOperator"/>
+                        <Binding Path="SelectedKind" ElementName="myEtiquettes"/>
+                        <Binding Path="IsReadOnly" ElementName="myEtiquettes"/>
+                    </MultiBinding>
+                </Border.Visibility>
+                <TextBlock Text="Opérateur" HorizontalAlignment="Center"/>
+            </Border>
+        </UniformGrid>
+        <controls:EtiquetteAnomaly x:Name="EtiquetteSecurity" Grid.Row="1" Kind="Security"
+                                   IsReadOnly="{Binding IsReadOnly, ElementName=myEtiquettes}"
+                                   CaptureStream="{Binding CaptureStream, ElementName=myEtiquettes}"
+                                   RetryPhotoCommand="{Binding RetryPhotoCommand, ElementName=myEtiquettes}">
+            <MahApps:VisibilityHelper.IsVisible>
+                <MultiBinding Converter="{converter:AnomalyTypeEqualsConverter}">
+                    <Binding Path="Kind" ElementName="EtiquetteSecurity"/>
+                    <Binding Path="SelectedKind" ElementName="myEtiquettes"/>
+                </MultiBinding>
+            </MahApps:VisibilityHelper.IsVisible>
+        </controls:EtiquetteAnomaly>
+        <controls:EtiquetteAnomaly x:Name="EtiquetteMaintenance" Grid.Row="1" Kind="Maintenance"
+                                   IsReadOnly="{Binding IsReadOnly, ElementName=myEtiquettes}"
+                                   CaptureStream="{Binding CaptureStream, ElementName=myEtiquettes}"
+                                   RetryPhotoCommand="{Binding RetryPhotoCommand, ElementName=myEtiquettes}">
+            <MahApps:VisibilityHelper.IsVisible>
+                <MultiBinding Converter="{converter:AnomalyTypeEqualsConverter}">
+                    <Binding Path="Kind" ElementName="EtiquetteMaintenance"/>
+                    <Binding Path="SelectedKind" ElementName="myEtiquettes"/>
+                </MultiBinding>
+            </MahApps:VisibilityHelper.IsVisible>
+        </controls:EtiquetteAnomaly>
+        <controls:EtiquetteAnomaly x:Name="EtiquetteOperator" Grid.Row="1" Kind="Operator"
+                                   IsReadOnly="{Binding IsReadOnly, ElementName=myEtiquettes}"
+                                   CaptureStream="{Binding CaptureStream, ElementName=myEtiquettes}"
+                                   RetryPhotoCommand="{Binding RetryPhotoCommand, ElementName=myEtiquettes}">
+            <MahApps:VisibilityHelper.IsVisible>
+                <MultiBinding Converter="{converter:AnomalyTypeEqualsConverter}">
+                    <Binding Path="Kind" ElementName="EtiquetteOperator"/>
+                    <Binding Path="SelectedKind" ElementName="myEtiquettes"/>
+                </MultiBinding>
+            </MahApps:VisibilityHelper.IsVisible>
+        </controls:EtiquetteAnomaly>
+    </Grid>
+</UserControl>

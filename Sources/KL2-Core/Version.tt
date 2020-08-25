@@ -1,0 +1,56 @@
+<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" encoding="utf-8" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#
+// Modifier le numéro de version
+string versionNumber = "4.0.0.35";
+string company = "K-process";
+string productName = "KL²";
+DateTime now = DateTime.Now;
+
+var ver = Version.Parse(versionNumber);
+
+// On modifie le fichier Versions.xml et ajoute la version générée si elle n'existe pas
+var doc = XDocument.Load(this.Host.ResolvePath("Versions.xml"));
+if (!doc.Root.Elements("version").Any(x => Version.Parse(x.Attribute("Id").Value) == ver))
+{
+	var elt = new XElement("version");
+	elt.SetAttributeValue("Id", ver.ToString());
+	elt.SetAttributeValue("Guid", Guid.NewGuid().ToString());
+	doc.Root.Add(elt);
+	doc.Save(this.Host.ResolvePath("Versions.xml"));
+}
+
+// On modifie le fichier de script d'installation de base
+File.WriteAllText(this.Host.ResolvePath(@"KProcess.KL2.Database\Scripts\InitialData.sql"),
+    Regex.Replace(File.ReadAllText(this.Host.ResolvePath(@"KProcess.KL2.Database\Scripts\InitialData.sql")),
+        @"(EXEC InsertOrUpdateDatabaseVersion N'\w+.\w+.\w+.\w+';)",
+        string.Format("EXEC InsertOrUpdateDatabaseVersion N'{0}';", versionNumber)));
+#>
+// Ce contenu est autogénéré en modifiant le fichier Version.tt
+using System.Reflection;
+
+[assembly: AssemblyCompany("<#=company#>")]
+[assembly: AssemblyCopyright("Copyright © <#=company#> <#=now.Year#>")]
+
+//1er chiffre : Version majeur définie par le Marketing
+//2ieme chiffre : incrémentée lors d'une évolution fonctionnelle / métier
+//3ieme chiffre : Numéro d'itération
+//4ieme chiffre : Numéro de livrable dans l'itération
+
+[assembly: AssemblyVersion("<#=versionNumber#>")]
+[assembly: AssemblyFileVersion("<#=versionNumber#>")]
+
+[assembly: AssemblyProduct("<#=productName#>v<#=ver.Major#>")]
+[assembly: AssemblyInformationalVersion("<#=productName#>.<#=ver.Major#>.Packaging_<#=now.ToString("yyyyMMdd")#>")]

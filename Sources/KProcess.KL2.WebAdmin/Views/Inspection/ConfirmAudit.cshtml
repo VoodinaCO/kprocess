@@ -1,0 +1,103 @@
+﻿@using Syncfusion.EJ2;
+@using Syncfusion.EJ2.Popups;
+@using KProcess.KL2.Languages;
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+@(Html.EJS().Dialog("confirmAuditDialog")
+    .ShowCloseIcon(true)
+    .Target("#wrapper")
+    .CloseOnEscape(true)
+    .AnimationSettings(e => e.Effect(DialogEffect.None))
+    .IsModal(true)
+    .Visible(false)
+    .Header(LocalizedStrings.GetString("Audit"))
+    .Close("resetSurveyDdl")
+    .ContentTemplate(
+        @<div class="container" id="confirmAuditForm">
+            <div class="row">
+                <input id="inspectionId" type="hidden">
+                <p>@LocalizedStrings.GetString("CreateAuditConfirm1")</p>
+                <br />
+                <p>@LocalizedStrings.GetString("CreateAuditConfirm2")</p>
+                @Html.EJS().DropDownList("questionnaire").DataSource(u => u.Url(@Url.Action("GetSurveys")).Adaptor("UrlAdaptor")).Placeholder(LocalizedStrings.GetString("SelectQuestion")).Fields(df => df.Text("Name").Value("Id")).Width("100%").Open("questionnaireOpen").Render()
+            </div>
+            <div class="row justify-content-end" style="margin-top:20px;">
+                <button type="button" class="btn btn-default pull-left" onclick="document.getElementById('confirmAuditDialog').ej2_instances[0].hide();">@LocalizedStrings.GetString("Common_Cancel")</button>
+                <button type="submit" class="btn btn-primary" onclick="validateConfirmation()">@LocalizedStrings.GetString("Common_Yes")</button>
+            </div>
+        </div>
+    )
+    .Render()
+)
+
+@(Html.EJS().Dialog("confirmDeleteDialog")
+    .ShowCloseIcon(true)
+    .Target("#wrapper")
+    .CloseOnEscape(true)
+    .AnimationSettings(e => e.Effect(DialogEffect.None))
+    .IsModal(true)
+    .Visible(false)
+    .Header(LocalizedStrings.GetString("Audit"))
+    .ContentTemplate(
+        @<div class="container" id="confirmDeleteForm">
+            <div class="row">
+                <p id="confirmLabel"></p>
+            </div>
+            <div class="row justify-content-end" style="margin-top:20px;">
+                <button type="button" class="btn btn-default" id="btnYes" onclick="confirmDeleteAudit(true); return false;">
+                    @LocalizedStrings.GetString("Common_Yes")
+                </button>
+                <button type="button" class="btn btn-primary" id="btnNo" onclick="confirmDeleteAudit(false); return false;">
+                    @LocalizedStrings.GetString("Common_No")
+                </button>
+            </div>
+        </div>
+    )
+    .Render()
+)
+
+<script type="text/javascript">
+    function resetSurveyDdl(args) {
+        var surveyDdl = document.getElementById('questionnaire').ej2_instances[0];
+        surveyDdl.value = null;
+    }
+
+    function validateConfirmation() {
+        var Id = document.getElementById('inspectionId').value;
+        var surveyDdl = document.getElementById('questionnaire').ej2_instances[0];
+        var surveyId = surveyDdl.value;
+        $.ajax({
+            url: "/Audit/VerifyAndCreateAudit?InspectionId=" + Id + "&SurveyId=" + surveyId,
+            type: "GET",
+            success: function (data) {
+                if (data.verified) {
+                    document.getElementById('confirmAuditDialog').ej2_instances[0].hide();
+                    document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Success")", content: "@LocalizedStrings.GetString("CreateAuditSuccess")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+                    LoadPartial('/Inspection/Index?partial=true', '#pageContainer');
+                }
+                else {
+                    document.getElementById('confirmAuditDialog').ej2_instances[0].hide();
+                    document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("AuditInProgressError")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                }
+            },
+            error: function (data) {
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("AskSelectQuestion")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            }
+        });
+    }
+
+    function questionnaireOpen(args) {
+        var ele = this;
+        var datamanager = new ej.data.DataManager({
+            url: '@Url.Action("GetSurveys")',
+            adaptor: new ej.data.UrlAdaptor()
+        }); 
+        ele.dataSource = datamanager;
+        ele.dataBind();
+    }
+</script>
+
+@Html.EJS().ScriptManager()

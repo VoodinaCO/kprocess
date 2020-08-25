@@ -1,0 +1,154 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Survey;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model SurveyManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Questionnaire";
+
+    var surveyView = new SurveyViewModel();
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "Name", direction = "Ascending" });
+}
+
+<style>
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Grid("Surveys")
+                    .Height("100%").Width("100%")
+                    .DataSource(ds => ds.Json(Model.Surveys.ToArray()).UpdateUrl(Url.Action("UpdateSurvey")).InsertUrl(Url.Action("InsertSurvey")).RemoveUrl(Url.Action("DeleteSurvey")).Adaptor("RemoteSaveAdaptor"))
+                    .EditSettings(edit => { edit.AllowAdding(true).AllowDeleting(true).AllowEditing(true).ShowConfirmDialog(true).ShowDeleteConfirmDialog(true).Mode(Syncfusion.EJ2.Grids.EditMode.Dialog).AllowEditOnDblClick(false); })
+                    .AllowPaging()
+                    .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                    .PageSettings(p => p.PageSize(25))
+                    .AllowSorting()
+                    .SortSettings(sort => sort.Columns(cols))
+                    .Locale(ejLanguageCode)
+                    //Excel export
+                    .AllowExcelExport()
+                    .AllowTextWrap()
+                    .AllowFiltering()
+                    .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                    .EnableHover()
+                    .Toolbar(new List<string>() { "Add", "Edit", "Delete", "ExcelExport" })
+                    .ToolbarClick("toolbarClick")
+                    .Columns(col =>
+                    {
+                        col.Field("SurveyId").IsPrimaryKey(true).HeaderText("Survey Id").Visible(false).Width(15).Add();
+                        col.Field("Name").HeaderText(LocalizedStrings.GetString("QuestionnaireName")).ValidationRules(new { required = true }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Width("200").Add();
+                    })
+                    .ActionBegin("actionBegin")
+                    .ActionComplete("actionComplete")
+                    .ActionFailure("actionFailure")
+                    .RecordDoubleClick("recordDblClick")
+                    .RowSelecting("onSelectingCheck")
+                    .Render()
+        )
+    </div>
+</div>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Audit")" + "/" + "@LocalizedStrings.GetString("Web_Menu_Surveys")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function toolbarClick(args) {
+        if ((args.item.properties.id == "Surveys_delete" || args.item.properties.id == "Surveys_edit") && this.getSelectedRecords().length == 0) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (args.item.properties.id) {
+                case "Surveys_delete":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                    break;
+                case "Surveys_edit":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                    break;
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if (args.item.id === 'Surveys_excelexport') {
+            var gridObj = document.getElementById("Surveys").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "Surveys.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+    function actionFailure(args) {
+        var msg = "";
+        if (args.hasOwnProperty("error")) {
+            msg = args.error[0].error.statusText;
+        }
+        if (args.length > 0) {
+            msg = args[0].error.statusText;
+        }
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        this.cancel = true;
+    }
+    function actionBegin(args) {
+        //if (args.requestType == "save")
+        //    this.element.ejWaitingPopup("hide");
+    }
+    function recordDblClick(args) {
+        LoadPartial("/Questionnaire/Detail/" + args.rowData["SurveyId"] + "?partial=True", "#pageContainer");
+    }
+    function actionComplete(args) {
+        var type = args.requestType;
+        if (type === "beginEdit") {
+            //Set dialog of Edit mode title
+            args.dialog.width = "500px";
+            args.dialog.header = "@LocalizedStrings.GetString("QuestionnaireEditHeader") " + args.rowData.Name;
+        }
+        if (type === "add") {
+            //Set dialog of Add mode title
+            args.dialog.width = "500px";
+            args.dialog.header = '@LocalizedStrings.GetString("Common_NewRecordHeader")';
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

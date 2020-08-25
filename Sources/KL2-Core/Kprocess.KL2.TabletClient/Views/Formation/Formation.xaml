@@ -1,0 +1,292 @@
+﻿<UserControl x:Class="Kprocess.KL2.TabletClient.Views.Formation"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+             xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+             xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sfGrid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
+             d:DesignHeight="668"
+             d:DesignWidth="1278"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converter:LabelStyleSelector x:Key="LabelStyleSelector" />
+        <Style x:Key="RowStyleColor" TargetType="sfGrid:VirtualizingCellsControl">
+            <Setter Property="Background" Value="{Binding Converter={converter:FormationRowStyleColorConverter}}" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{k:Localize Trained_Person}"
+                   FontSize="20" />
+            <!--  Nom de la personne s'il n'y en a qu'une selectionnée  -->
+            <Label Grid.Row="1"
+                   Margin="0,0,0,2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding Operators[0].FullName}"
+                   FontSize="15"
+                   Visibility="{Binding OnlyOneOperator, Converter={converter:BoolToVisibilityConverter}}" />
+            <Button Grid.Row="1"
+                    Margin="0,0,0,2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Command="{Binding ShowOperatorCommand}"
+                    Visibility="{Binding OnlyOneOperator, Converter={converter:InvertBoolToVisibilityConverter}}">
+                <TextBlock Margin="5,0"
+                           FontSize="15"
+                           Text="{Binding NbOperatorsLabel}" />
+            </Button>
+        </Grid>
+
+        <!--  Nom de la formation  -->
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   FontSize="30"
+                   Text="{Binding Publication.Process.Label, FallbackValue=Debug}"
+                   TextWrapping="Wrap" />
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{k:Localize Start_Date_Training}"
+                   FontSize="20" />
+            <Label Grid.Row="1"
+                   Margin="0,0,0,2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding StartDate}"
+                   FontSize="15" />
+        </Grid>
+
+        <sfGrid:SfDataGrid x:Name="DataGrid"
+                           Grid.Row="1"
+                           Grid.ColumnSpan="3"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top"
+                           AllowDraggingColumns="False"
+                           AllowEditing="True"
+                           AllowResizingColumns="False"
+                           AllowSorting="False"
+                           AutoGenerateColumns="False"
+                           CellTapped="DataGrid_CellTapped"
+                           DetailsViewLoading="DataGrid_DetailsViewLoading"
+                           DetailsViewPadding="0,10,10,10"
+                           FontSize="20"
+                           HeaderRowHeight="35"
+                           HideEmptyGridViewDefinition="True"
+                           ItemsSource="{Binding Publication.PublishedActions}"
+                           LiveDataUpdateMode="AllowDataShaping"
+                           Loaded="DataGrid_Loaded"
+                           RowHeight="178"
+                           RowStyle="{StaticResource RowStyleColor}"
+                           SelectionMode="None">
+            <i:Interaction.Behaviors>
+                <behaviors:CustomColumnSizerBehavior />
+                <behaviors:WBSComparerBehavior />
+                <behaviors:SyncSfDataGridBehavior />
+            </i:Interaction.Behaviors>
+            <sfGrid:SfDataGrid.SortColumnDescriptions>
+                <sfGrid:SortColumnDescription ColumnName="WBS" SortDirection="Ascending" />
+            </sfGrid:SfDataGrid.SortColumnDescriptions>
+            <sfGrid:SfDataGrid.Columns>
+                <sfGrid:GridTextColumn x:Name="ColumnWBS"
+                                       Width="100"
+                                       DisplayBinding="{Binding WBS, Converter={converter:IndentWBSConverter}}"
+                                       HeaderText="{k:Localize Tablet_View_Formation_Header_WBS}"
+                                       IsReadOnly="True"
+                                       MappingName="WBS" />
+                <sfGrid:GridTextColumn x:Name="ColumnLabel"
+                                       Width="430"
+                                       CellTemplateSelector="{StaticResource LabelStyleSelector}"
+                                       HeaderText="{k:Localize Tablet_View_Formation_Header_Task}"
+                                       IsReadOnly="True"
+                                       MappingName="Label"
+                                       TextWrapping="Wrap" />
+                <sfGrid:GridTemplateColumn x:Name="ColumnThumbnail"
+                                           Width="300"
+                                           AllowFiltering="False"
+                                           AllowGrouping="False"
+                                           AllowResizing="False"
+                                           AllowSorting="False"
+                                           CellTemplate="{StaticResource ThumbnailTemplate}"
+                                           HeaderText="{k:Localize Tablet_View_Formation_Header_Thumbnail}"
+                                           IsReadOnly="True"
+                                           MappingName="Thumbnail" />
+                <sfGrid:GridTextColumn x:Name="ColumnDate"
+                                       Width="180"
+                                       AllowFiltering="False"
+                                       AllowGrouping="False"
+                                       AllowResizing="False"
+                                       AllowSorting="False"
+                                       HeaderText="{k:Localize Tablet_View_Formation_Header_Date}"
+                                       IsReadOnly="True"
+                                       MappingName="FormationDate"
+                                       TextAlignment="Center" />
+                <sfGrid:GridTextColumn x:Name="ColumnFormateur"
+                                       Width="200"
+                                       AllowFiltering="False"
+                                       AllowGrouping="False"
+                                       AllowResizing="False"
+                                       AllowSorting="False"
+                                       HeaderText="{k:Localize Tablet_View_Formation_Header_Trainer}"
+                                       IsReadOnly="True"
+                                       MappingName="TrainedBy"
+                                       TextWrapping="Wrap" />
+            </sfGrid:SfDataGrid.Columns>
+            <sfGrid:SfDataGrid.DetailsViewDefinition>
+                <sfGrid:GridViewDefinition RelationalColumn="LinkedPublication.PublishedActions">
+                    <sfGrid:GridViewDefinition.DataGrid>
+                        <sfGrid:SfDataGrid x:Name="DataGridInner"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Top"
+                                           AllowEditing="True"
+                                           AllowSorting="False"
+                                           AutoGenerateColumns="False"
+                                           CellTapped="DetailsViewDataGrid_CellTapped"
+                                           FontSize="20"
+                                           HeaderRowHeight="0"
+                                           HideEmptyGridViewDefinition="True"
+                                           RowHeight="40"
+                                           RowStyle="{StaticResource RowStyleColor}"
+                                           SelectionMode="Single">
+                            <i:Interaction.Behaviors>
+                                <behaviors:WBSComparerBehavior />
+                                <behaviors:CustomColumnSizerBehavior />
+                            </i:Interaction.Behaviors>
+                            <sfGrid:SfDataGrid.SortColumnDescriptions>
+                                <sfGrid:SortColumnDescription ColumnName="WBS" SortDirection="Ascending" />
+                            </sfGrid:SfDataGrid.SortColumnDescriptions>
+                            <sfGrid:SfDataGrid.Columns>
+                                <sfGrid:GridTextColumn x:Name="InnerColumnWBS"
+                                                       Width="100"
+                                                       DisplayBinding="{Binding WBS, Converter={converter:IndentWBSConverter}}"
+                                                       HeaderText="{k:Localize Tablet_View_Formation_Header_WBS}"
+                                                       IsReadOnly="True"
+                                                       MappingName="WBS" />
+                                <sfGrid:GridTextColumn x:Name="InnerColumnLabel"
+                                                       Width="430"
+                                                       CellTemplateSelector="{StaticResource LabelStyleSelector}"
+                                                       HeaderText="{k:Localize Tablet_View_Formation_Header_Task}"
+                                                       IsReadOnly="True"
+                                                       MappingName="Label"
+                                                       TextWrapping="Wrap" />
+                                <sfGrid:GridTemplateColumn x:Name="InnerColumnThumbnail"
+                                                           Width="300"
+                                                           AllowFiltering="False"
+                                                           AllowGrouping="False"
+                                                           AllowResizing="False"
+                                                           AllowSorting="False"
+                                                           CellTemplate="{StaticResource ThumbnailTemplate}"
+                                                           HeaderText="{k:Localize Tablet_View_Formation_Header_Thumbnail}"
+                                                           IsReadOnly="True"
+                                                           MappingName="Thumbnail" />
+                                <sfGrid:GridTextColumn x:Name="InnerColumnDate"
+                                                       Width="180"
+                                                       AllowFiltering="False"
+                                                       AllowGrouping="False"
+                                                       AllowResizing="False"
+                                                       AllowSorting="False"
+                                                       HeaderText="{k:Localize Tablet_View_Formation_Header_Date}"
+                                                       IsReadOnly="True"
+                                                       MappingName="FormationDate"
+                                                       TextWrapping="Wrap" />
+                                <sfGrid:GridTextColumn x:Name="InnerColumnFormateur"
+                                                       Width="200"
+                                                       AllowFiltering="False"
+                                                       AllowGrouping="False"
+                                                       AllowResizing="False"
+                                                       AllowSorting="False"
+                                                       HeaderText="{k:Localize Tablet_View_Formation_Header_Trainer}"
+                                                       IsReadOnly="True"
+                                                       MappingName="TrainedBy"
+                                                       TextWrapping="Wrap" />
+                            </sfGrid:SfDataGrid.Columns>
+                        </sfGrid:SfDataGrid>
+                    </sfGrid:GridViewDefinition.DataGrid>
+                </sfGrid:GridViewDefinition>
+            </sfGrid:SfDataGrid.DetailsViewDefinition>
+        </sfGrid:SfDataGrid>
+
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Margin="10"
+                HorizontalAlignment="Left"
+                Command="{Binding ReturnCommand}"
+                TextElement.FontSize="20"
+                Visibility="{Binding ShowSleepAction, Converter={converter:InvertBoolToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Width="22"
+                                            Height="22"
+                                            VerticalAlignment="Center"
+                                            Kind="ArrowLeftBold" />
+                <TextBlock Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="{k:Localize Common_Return}" />
+            </StackPanel>
+        </Button>
+
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Command="{Binding SleepCommand}"
+                TextElement.FontSize="20"
+                Visibility="{Binding ShowSleepAction, Converter={converter:BoolToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Width="20"
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            Kind="Pause" />
+                <TextBlock Margin="5,0"
+                           VerticalAlignment="Center"
+                           Text="{k:Localize Pause_Training_Return_Menu}" />
+            </StackPanel>
+        </Button>
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="3"
+                Margin="10"
+                HorizontalAlignment="Right"
+                Command="{Binding ReturnCommand}"
+                TextElement.FontSize="20"
+                Visibility="{Binding ShowSleepAction, Converter={converter:InvertBoolToVisibilityConverter}}">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Width="20"
+                                            Height="20"
+                                            VerticalAlignment="Center"
+                                            Kind="School" />
+                <TextBlock Margin="5,0"
+                           VerticalAlignment="Center"
+                           Text="{k:Localize Tablet_View_Training_ValidateTraining}" />
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

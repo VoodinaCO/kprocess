@@ -1,0 +1,130 @@
+@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using KProcess.KL2.WebAdmin.Models.Procedure;
+@using KProcess.KL2.Languages;
+
+@model DocumentationManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    .e-btn.expandButton {
+        padding: 2px;
+    }
+
+    .e-btn .e-btn-icon.expandIcon {
+        font-size: 20px;
+    }
+
+    #TreeNode {
+        flex: 1;
+        overflow: auto;
+    }
+</style>
+
+<div style="padding-left:14px; padding-top:10px">
+    @(Html.EJS().Button("btnExpandAll")
+        .IconCss("fa fa-plus-square expandIcon")
+        .CssClass("expandButton")
+        .Render()
+    )
+    @(Html.EJS().Button("btnCollapseAll")
+        .IconCss("fa fa-minus-square expandIcon")
+        .CssClass("expandButton")
+        .Render()
+    )
+</div>
+<div style="flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+    @(Html.EJS().TreeView("TreeNode")
+        .Fields(s => s.DataSource((IEnumerable<ProcedureNodeViewModel>)Model.TreeNode)
+            .Id("Id")
+            .ParentID("ParentId")
+            .Child(c => c.HtmlAttributes(""))
+            .IconCss("Sprite")
+            .Text("Name")
+            .HasChildren("HasChild")
+            .NavigateUrl("LinkAttribute")
+            .HtmlAttributes("NodeProperty")
+            .Expanded("IsExpanded"))
+        .NodeTemplate("#nodeTemplate")
+        .NodeClicked("onSelectProcess")
+        .NodeSelecting("onSelectingCheck")
+        .Render()
+    )
+</div>
+
+<script id="nodeTemplate" type="text/x-template">
+    <span>
+        ${if (Status == 0 || Status == 1)}
+        <span style="opacity:0.65;">${Name}</span>
+        <span style="margin-left:10px;" class="label ${StateAsString}">${StateAsLabel}</span>
+        ${else}
+        <span>${Name}</span>
+        ${/if}
+    </span>
+</script>
+
+<script type="text/javascript">
+    docReady(function () {
+        leaveFunction = localLeaveFunction;
+        cancelFunction = function () { };
+        saveAsDraftFunction = function () { };
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Documentation")" + "/" + "@LocalizedStrings.GetString("Web_Menu_Publication")");
+        updateWizardButtonsVisibility({ previous: false, cancel: false, saveasdraft: false, next: true, publish: false });
+        if (documentationStates.processId != null) {
+            var treeObj = document.getElementById('TreeNode').ej2_instances[0];
+            var selectedNode = treeObj.treeData.find(function (elt) { return elt.NodeProperty && elt.NodeProperty["d-ProcessId"] === documentationStates.processId; });
+            treeObj.selectedNodes.push(selectedNode.Id);
+            treeObj.refresh();
+        }
+    });
+
+    document.getElementById('btnExpandAll').onclick = function () {
+        var treeObj = document.getElementById('TreeNode').ej2_instances[0];
+        treeObj.expandAll(); // All the TreeView nodes will be expanded.
+    };
+
+    document.getElementById('btnCollapseAll').onclick = function () {
+        var treeObj = document.getElementById('TreeNode').ej2_instances[0];
+        treeObj.collapseAll(); // All the TreeView nodes will be collapsed.
+    };
+
+    // Save state
+    function localLeaveFunction() {
+        saveDocumentationStates();
+    }
+
+    function onSelectProcess(data) {
+        if (checkReadOnlyCondition()) {
+            return;
+        }
+        if (data.node.dataset.uid.startsWith("p")) {
+            updateWizardButtonsStates({ next: true });
+            var selectedProcessId = parseInt(data.node.attributes['d-processid'].value);
+            var selectedProjectId = parseInt(data.node.attributes['d-nodeprojectid'].value);
+            var selectedScenarioId = parseInt(data.node.attributes['d-nodescenarioid'].value);
+            // Clear documentationStates and disable next tabs if processId changes
+            if (documentationStates.processId != null && documentationStates.processId != selectedProcessId) {
+                clearDocumentationStates();
+                for (var i = wizardTabControl.items.length - 1; i > 1; i--) {
+                    var nextTab = wizardTabControl.items[i];
+                    nextTab.disabled = true;
+                }
+            }
+            documentationStates.processId = selectedProcessId;
+            documentationStates.projectId = selectedProjectId;
+            documentationStates.scenarioId = selectedScenarioId;
+        }
+        else {
+            updateWizardButtonsStates({ next: false });
+            clearDocumentationStates();
+            for (var i = wizardTabControl.items.length - 1; i > 0; i--) {
+                var nextTab = wizardTabControl.items[i];
+                nextTab.disabled = true;
+            }
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

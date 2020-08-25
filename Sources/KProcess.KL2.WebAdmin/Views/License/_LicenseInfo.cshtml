@@ -1,0 +1,251 @@
+@using KProcess.KL2.WebAdmin.Models.License;
+@using Syncfusion.EJ2.Popups;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model LicenseInfoViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<div style="width:50%;">
+    <div class="form-group">
+        <label class="control-label">@LocalizedStrings.GetString("Web_View_License_Name")</label>
+        @(Html.EJS().TextBox("Name")
+            .Value(Model.Name)
+            .CssClass("form-control")
+            .HtmlAttributes(new Dictionary<string, object>() { ["tabindex"] = "1" })
+            .Render()
+        )
+    </div>
+    <div class="form-group">
+        <label class="control-label">@LocalizedStrings.GetString("Web_View_License_Company")</label>
+        @(Html.EJS().TextBox("Company")
+            .Value(Model.Company)
+            .CssClass("form-control")
+            .HtmlAttributes(new Dictionary<string, object>() { ["tabindex"] = "2" })
+            .Render()
+        )
+    </div>
+    <div class="form-group">
+        <label class="control-label">@LocalizedStrings.GetString("Web_View_License_Email")</label>
+        @(Html.EJS().TextBox("Email")
+            .Value(Model.Email)
+            .CssClass("form-control")
+            .HtmlAttributes(new Dictionary<string, object>() { ["tabindex"] = "3" })
+            .Render()
+        )
+    </div>
+    <div class="form-group">
+        <label class="control-label">ID machine</label>
+        @(Html.EJS().TextBox("IDMachine")
+            .Value(Model.IDMachine)
+            .Readonly(true)
+            .CssClass("form-control")
+            .HtmlAttributes(new Dictionary<string, object>() { ["tabindex"] = "4" })
+            .Render()
+        )
+    </div>
+    <div class="form-group">
+        <button id="mailToBtn" class="e-control e-btn e-lib e-primary" onclick="MailToClick()">@LocalizedStrings.GetString("Web_View_License_MailTo")</button>
+        <button id="copyTextBtn" class="e-control e-btn e-lib e-primary" onclick="CopyToClipboard()">@LocalizedStrings.GetString("Web_View_License_CopyToClipboard")</button>
+    </div>
+</div>
+
+<hr />
+
+<div style="margin-top:30px;">
+    @if (Model.LicenseFile == null)
+    {
+    <div class="row">
+        @LocalizedStrings.GetString("Web_View_License_NoLicenseUploaded")
+    </div>
+    }
+    else
+    {
+    <div class="row">
+        <h3>@Html.Raw(Model.LicenseInformation)</h3>
+    </div>
+    <div class="row">
+        <table class="licenseInfo">
+            <tr>
+                <td>@LocalizedStrings.GetString("Web_View_License_ExpiredDate")</td>
+                <td>:</td>
+                <td>@(Model.Status == KProcess.Ksmed.Security.Activation.WebLicenseStatus.Licensed ? Model.StatusReason : Model.ExpiredDate.ToShortDateString())</td>
+            </tr>
+            <tr>
+                <td>@LocalizedStrings.GetString("Web_View_License_UsersPoolCount")</td>
+                <td>:</td>
+                <td>@Model.LicenseMaxActivateUser</td>
+            </tr>
+            <tr>
+                <td>@LocalizedStrings.GetString("Web_View_License_ActivatedUsersCount")</td>
+                <td>:</td>
+                <td>@Model.LicenseTotalActivatedUsers</td>
+            </tr>
+            @if (Model.LicenseTotalActivatedUsers != 0)
+            {
+            <tr>
+                <td>@LocalizedStrings.GetString("Web_View_License_ViewActivatedUsersList")</td>
+                <td>:</td>
+                <td>
+                    @(Html.EJS().Button("ActivatedUserList")
+                        .Content(LocalizedStrings.GetString("Web_View_License_SeeList"))
+                        .CssClass("e-primary")
+                        .HtmlAttributes(new Dictionary<string, object> { ["onclick"] = $"showActivatedUsers()" })
+                        .Render()
+                    )
+                </td>
+            </tr>
+            @(Html.EJS().Dialog("ActivatedUserListDialog")
+                .ShowCloseIcon(true)
+                .Target("#wrapper")
+                .CloseOnEscape(true)
+                .AnimationSettings(e => e.Effect(DialogEffect.None))
+                .IsModal(true)
+                .Visible(false)
+                .Header(LocalizedStrings.GetString("Web_View_License_ActivatedUsersHeader"))
+                .Render()
+            )
+            }
+        </table>
+    </div>
+    }
+</div>
+
+<script>
+    var nameTb, companyTb, emailTb, emailTarget;
+
+    docReady(function () {
+        nameTb = document.getElementById('Name').ej2_instances[0];
+        companyTb = document.getElementById('Company').ej2_instances[0];
+        emailTb = document.getElementById('Email').ej2_instances[0];
+        emailTarget = "@Html.Raw(Model.EmailTarget)";
+    });
+
+    function showActivatedUsers() {
+        $.ajax({
+            url: '@Url.Action("GetUsersActivated")',
+            type: "GET",
+            cache: false,
+            success: function (data) {
+                var ActivatedUserListDialog = document.getElementById('ActivatedUserListDialog').ej2_instances[0];
+                ActivatedUserListDialog.height = "auto";
+                ActivatedUserListDialog.width = "auto";
+                $('#ActivatedUserListDialog_dialog-content').html(data);
+                ActivatedUserListDialog.show();
+            },
+            error: function (data) {
+                location.reload();
+            }
+        });
+    }
+
+    function saveUserInfo() {
+        var ajax = new ej.base.Ajax({
+            url: "/License/SaveUserInfo",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                name: nameTb.value,
+                company: companyTb.value,
+                email: emailTb.value
+            })
+        });
+        ajax.send().then(function (data) {
+
+        }).catch(function (xhr) {
+
+        });
+    }
+
+    function MailToClick() {
+        saveUserInfo();
+        var validate = ValidateToGenerateBody();
+        if (validate == false) {
+            return false;
+        }
+        var ajax = new ej.base.Ajax({
+            url: "/License/GetEmailTemplate",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                name: nameTb.value,
+                company: companyTb.value,
+                email: emailTb.value
+            })
+        });
+        // TODO : email body as html
+        ajax.send().then(function (data) {
+            var mailToLink = "mailto:" + emailTarget + "?body=" + encodeURIComponent(data);
+            window.location.href = mailToLink;
+        }).catch(function (xhr) {
+
+        });
+    }
+
+    function CopyToClipboard() {
+        saveUserInfo();
+        var validate = ValidateToGenerateBody();
+        if (validate == false) {
+            return false;
+        }
+        var ajax = new ej.base.Ajax({
+            url: "/License/GetTextTemplate",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                name: nameTb.value,
+                company: companyTb.value,
+                email: emailTb.value
+            })
+        });
+        ajax.send().then(function (data) {
+            var el = document.createElement('textarea');
+            el.value = data;
+            el.setAttribute('readonly', '');                // Make it readonly to be tamper-proof
+            el.style.position = 'absolute';
+            el.style.left = '-9999px';
+            document.body.appendChild(el);                  // Append the <textarea> element to the HTML document
+            const selected =
+                document.getSelection().rangeCount > 0        // Check if there is any content selected previously
+                    ? document.getSelection().getRangeAt(0)     // Store selection if found
+                    : false;
+            el.select();
+            document.execCommand('copy');                   // Copy - only works as a result of a user action (e.g. click events)
+            document.body.removeChild(el);                  // Remove the <textarea> element
+            if (selected) {                                 // If a selection existed before copying
+                document.getSelection().removeAllRanges();    // Unselect everything on the HTML document
+                document.getSelection().addRange(selected);   // Restore the original selection
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Success")", content: "@LocalizedStrings.GetString("Web_View_License_CopiedToClipboard")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+        }).catch(function (xhr) {
+
+        });
+    }
+
+    function ValidateToGenerateBody() {
+        if ((nameTb.value == null || nameTb.value == "") || (companyTb.value == null || companyTb.value == "") || (emailTb.value == null || emailTb.value == "") || emailTarget == "") {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("Web_View_License_EmptyFields")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            return false;
+        }
+        return true;
+    }
+</script>
+
+

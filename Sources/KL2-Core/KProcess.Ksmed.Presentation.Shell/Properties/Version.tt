@@ -1,0 +1,73 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".cs" encoding="utf-8" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Xml.dll" #>
+<#@ Assembly Name="System.Xml.Linq.dll" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Text.RegularExpressions" #>
+<#
+// Modifier le numéro de version
+string versionNumber = "4.0.0.35";
+string company = "K-process";
+string productName = "KL² Analyst";
+DateTime now = DateTime.Now;
+
+var ver = Version.Parse(versionNumber);
+
+// On modifie le fichier Versions.xml et ajoute la version générée si elle n'existe pas
+var doc = XDocument.Load(this.Host.ResolvePath("Versions.xml"));
+if (!doc.Root.Elements("version").Any(x => Version.Parse(x.Attribute("Id").Value) == ver))
+{
+	var elt = new XElement("version");
+	elt.SetAttributeValue("Id", ver.ToString());
+	elt.SetAttributeValue("Guid", Guid.NewGuid().ToString());
+	doc.Root.Add(elt);
+	doc.Save(this.Host.ResolvePath("Versions.xml"));
+}
+
+// On modifie le fichier App.Config, en modifiant les BindingRedirect (util pour les extensions)
+var config = XDocument.Load(this.Host.ResolvePath(@"..\App.config"));
+foreach (XElement da in config.Root.Element("runtime").Element("{urn:schemas-microsoft-com:asm.v1}assemblyBinding").Elements("{urn:schemas-microsoft-com:asm.v1}dependentAssembly"))
+{
+	XElement assemblyId = da.Element("{urn:schemas-microsoft-com:asm.v1}assemblyIdentity");
+	if (assemblyId == null || !assemblyId.Attribute("name").Value.ToLower().StartsWith("kprocess."))
+		continue;
+	XElement br = da.Element("{urn:schemas-microsoft-com:asm.v1}bindingRedirect");
+	if (br == null)
+    {
+		br  = new XElement("{urn:schemas-microsoft-com:asm.v1}bindingRedirect");
+		br.SetAttributeValue("oldVersion", "0.0.0.0-65535.65535.65535.65535");
+		br.SetAttributeValue("newVersion", ver.ToString());
+		da.Add(br);
+    }
+	else
+    {
+		br.SetAttributeValue("oldVersion", "0.0.0.0-65535.65535.65535.65535");
+		br.SetAttributeValue("newVersion", ver.ToString());
+    }
+}
+config.Save(this.Host.ResolvePath(@"..\App.config"));
+#>
+// Ce contenu est autogénéré en modifiant le fichier Version.tt
+using System.Reflection;
+
+[assembly: AssemblyCompany("<#=company#>")]
+[assembly: AssemblyCopyright("Copyright © <#=company#> <#=now.Year#>")]
+
+//1er chiffre : Version majeur définie par le Marketing
+//2ieme chiffre : incrémentée lors d'une évolution fonctionnelle / métier
+//3ieme chiffre : Numéro d'itération
+//4ieme chiffre : Numéro de livrable dans l'itération
+
+[assembly: AssemblyVersion("<#=versionNumber#>")]
+[assembly: AssemblyFileVersion("<#=versionNumber#>")]
+
+[assembly: AssemblyProduct("<#=productName#> v<#=ver.Major#>")]
+[assembly: AssemblyInformationalVersion("<#=productName#>.<#=ver.Major#>.Packaging_<#=now.ToString("yyyyMMdd")#>")]

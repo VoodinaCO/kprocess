@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+
+    <ComponentGroup Id="CompGrp_ApplicationFiles" >
+
+      <Component Guid="{465E55B9-FD13-4017-9246-31AAA3EF7FF3}" Directory="Dir_KpExtensions">
+        <File Id="PrgFiles_KProcess.Ksmed.Ext.Kprocess.dll"
+              Source="$(var.KProcess.Ksmed.Ext.K-process.TargetPath)" KeyPath="yes" />
+      </Component>
+
+      <Component Guid="{998E0C2F-4B91-4711-97D0-C3B94ED8B384}" Directory="Dir_KpExtensionsResources">
+        <File Id="PrgFiles_exportexcelKp.png"
+              Source="$(var.KProcess.Ksmed.Ext.K-process.ProjectDir)Resources\exportexcelKp.png" KeyPath="yes" />
+      </Component>
+
+      <Component Guid="{00FAF69C-5C2E-4B5F-B326-F3E7698254E3}" Directory="Dir_KpExtensionsVideo">
+        <File Id="PrgFiles_videosplitter_32.exe"
+              Source="$(var.KProcess.Ksmed.Ext.K-process.ProjectDir)Video\videosplitter-32.exe" KeyPath="yes" />
+      </Component>
+
+      <Component Guid="{AF2ABBD2-7B99-48E2-9F0A-9F9D8A25053C}" Directory="Dir_KpExtensionsVideo">
+        <File Id="PrgFiles_videosplitter_64.exe"
+              Source="$(var.KProcess.Ksmed.Ext.K-process.ProjectDir)Video\videosplitter-64.exe" KeyPath="yes" />
+      </Component>
+
+      <Component Guid="{54A5CA13-E177-4A61-8BF1-DC8516424F37}" Directory="Dir_KpExtensionsVideo">
+        <File Id="PrgFiles_arial.ttf"
+              Source="$(var.KProcess.Ksmed.Ext.K-process.ProjectDir)Video\arial.ttf" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+
+  </Fragment>
+</Wix>

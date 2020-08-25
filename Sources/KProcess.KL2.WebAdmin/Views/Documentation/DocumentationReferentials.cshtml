@@ -1,0 +1,206 @@
+@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using KProcess.Ksmed.Models;
+@using KProcess.KL2.Languages;
+
+@model ManageReferentialsViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<div style="height: 100%;">
+    @(Html.EJS().Grid("ManageReferential")
+        .Height("100%")
+        .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+        .DataSource((DocumentationReferential[])ViewBag.DocumentationReferentials)
+        .Columns(col =>
+        {
+            col.Field("ReferentialId").IsPrimaryKey(true)
+                .Visible(false)
+                .Template("#ReferentialIdTemplate")
+                .Add();
+            col.Field("Category")
+                .Add();
+            col.Field("Label")
+                .HeaderText(LocalizedStrings.GetString("View_DocumentationReferentials_Label"))
+                .Template("#LabelTemplate")
+                .Add();
+            col.Field("IsEnabled")
+                .HeaderText(LocalizedStrings.GetString("View_DocumentationReferentials_IsEnabled"))
+                .Template("#IsEnabledTemplate")
+                .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                .Add();
+            col.Field("HasMultipleSelection")
+                .HeaderText(LocalizedStrings.GetString("View_DocumentationReferentials_MultipleSelection"))
+                .Template("#HasMultipleSelectionTemplate")
+                .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                .Add();
+            col.Field("HasQuantity")
+                .HeaderText(LocalizedStrings.GetString("View_DocumentationReferentials_Quantity"))
+                .Template("#HasQuantityTemplate")
+                .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                .Add();
+        })
+        .AllowGrouping()
+        .GroupSettings(group =>
+        {
+            group.ShowDropArea(false);
+            group.Columns(new[] { "Category" })
+                .CaptionTemplate("#captionTemplate");
+        })
+        .RowDataBound("rowDataBound")
+        .DataBound("dataBound")
+        .Render()
+    )
+</div>
+
+<script id="captionTemplate" type="text/x-template">
+    ${if (key == 0)}
+    <span>@LocalizedStrings.GetString("View_Common_Referential_Label")</span>
+    ${else}
+    ${if (key == 1)}
+    <span>@LocalizedStrings.GetString("View_Common_CustomFieldText_Label")</span>
+    ${else}
+    ${if (key == 2)}
+    <span>@LocalizedStrings.GetString("View_Common_CustomFieldNumeric_Label")</span>
+    ${else}
+    <span>@LocalizedStrings.GetString("View_Common_Other_Label")</span>
+    ${/if}
+    ${/if}
+    ${/if}
+</script>
+
+<script type="text/x-template" id="ReferentialIdTemplate">
+    <input id="ReferentialId" tag="${ReferentialId}" type="hidden" />
+</script>
+
+<script type="text/x-template" id="LabelTemplate">
+    ${if (11 <= ReferentialId && ReferentialId <= 24)}
+    <input id="Label" tag="${ReferentialId}" class="form-control" type="text" value="${Label}" />
+    ${else}
+    <div>
+        <input id="Label" tag="${ReferentialId}" type="hidden" value="${Label}" />
+        <span>${Label}</span>
+    </div>
+    ${/if}
+</script>
+
+<script type="text/x-template" id="IsEnabledTemplate">
+    ${if (IsEditable)}
+    ${if (IsEnabled)}
+    <input id="IsEnabled" tag="${ReferentialId}" type="checkbox" checked />
+    ${else}
+    <input id="IsEnabled" tag="${ReferentialId}" type="checkbox" />
+    ${/if}
+    ${else}
+    ${if (IsEnabled)}
+    <input id="IsEnabled" tag="${ReferentialId}" type="checkbox" checked disabled />
+    ${else}
+    <input id="IsEnabled" tag="${ReferentialId}" type="checkbox" disabled />
+    ${/if}
+    ${/if}
+</script>
+
+<script type="text/x-template" id="HasMultipleSelectionTemplate">
+    ${if (4 <= ReferentialId && ReferentialId <= 10)}
+    ${if (IsEditable)}
+    ${if (HasMultipleSelection)}
+    <input id="HasMultipleSelection" tag="${ReferentialId}" type="checkbox" checked />
+    ${else}
+    <input id="HasMultipleSelection" tag="${ReferentialId}" type="checkbox" />
+    ${/if}
+    ${else}
+    ${if (HasMultipleSelection)}
+    <input id="HasMultipleSelection" tag="${ReferentialId}" type="checkbox" checked disabled />
+    ${else}
+    <input id="HasMultipleSelection" tag="${ReferentialId}" type="checkbox" disabled />
+    ${/if}
+    ${/if}
+    ${else}
+    <input id="HasMultipleSelection" tag="${ReferentialId}" type="checkbox" hidden />
+    ${/if}
+</script>
+
+<script type="text/x-template" id="HasQuantityTemplate">
+    ${if (4 <= ReferentialId && ReferentialId <= 10)}
+    ${if (IsEditable)}
+    ${if (HasQuantity)}
+    <input id="HasQuantity" tag="${ReferentialId}" type="checkbox" checked />
+    ${else}
+    <input id="HasQuantity" tag="${ReferentialId}" type="checkbox" />
+    ${/if}
+    ${else}
+    ${if (HasQuantity)}
+    <input id="HasQuantity" tag="${ReferentialId}" type="checkbox" checked disabled />
+    ${else}
+    <input id="HasQuantity" tag="${ReferentialId}" type="checkbox" disabled />
+    ${/if}
+    ${/if}
+    ${else}
+    <input id="HasQuantity" tag="${ReferentialId}" type="checkbox" hidden />
+    ${/if}
+</script>
+
+<script>
+    docReady(function () {
+        leaveFunction = localLeaveFunction;
+        cancelFunction = function () { };
+        saveAsDraftFunction = function () { };
+        setHeader('/Documentation/DocumentationHeader', { processName: "@Html.Raw(ViewBag.ProcessName)", projectName: "@Html.Raw(ViewBag.ProjectName)" });
+        updateWizardButtonsVisibility({ previous: true, cancel: false, saveasdraft: false, next: true, publish: false });
+        updateWizardButtonsStates({ previous: true, next: true });
+    });
+
+    // Save state
+    function localLeaveFunction() {
+        var referentialsGridDatas = $("#ManageReferential").find("input").toArray();
+        var documentationReferentials = new Array();
+        referentialsGridDatas.filter(function (elt) { return elt.id == "ReferentialId"; }).forEach(function (elt) {
+            var docRef = {
+                ProcessId: documentationStates.processId,
+                ReferentialId: elt.attributes["tag"].value,
+                Label: referentialsGridDatas.filter(function (e) { return e.attributes["tag"].value == elt.attributes["tag"].value && e.id == "Label"; })[0].value,
+                IsEnabled: referentialsGridDatas.filter(function (e) { return e.attributes["tag"].value == elt.attributes["tag"].value && e.id == "IsEnabled"; })[0].checked,
+                HasMultipleSelection: referentialsGridDatas.filter(function (e) { return e.attributes["tag"].value == elt.attributes["tag"].value && e.id == "HasMultipleSelection"; })[0].checked,
+                HasQuantity: referentialsGridDatas.filter(function (e) { return e.attributes["tag"].value == elt.attributes["tag"].value && e.id == "HasQuantity"; })[0].checked
+            };
+            documentationReferentials.push(docRef);
+        });
+        documentationStates.documentationReferentials = documentationReferentials;
+        $.ajax({
+            url: '/Documentation/SaveDocumentationReferentials',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify(documentationStates.documentationReferentials),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+            },
+            error: function () {
+            }
+        });
+        saveDocumentationStates();
+    }
+
+    function rowDataBound(args) {
+        // Hide Operator = 1, Equipment = 2, Category = 3, Skill = 100
+        if (args.data.ReferentialId === 1
+            || args.data.ReferentialId === 2
+            || args.data.ReferentialId === 3
+            || args.data.ReferentialId === 100) {
+            args.row.hidden = true;
+        }
+    }
+
+    function dataBound(args) {
+        // Hide other row group
+        $("#ManageReferential").find("td.e-recordplusexpand").toArray()
+            .filter(function (elt) {
+                return elt.hasAttribute("ej-mappingname") && elt.hasAttribute("ej-mappingvalue")
+                    && elt.getAttribute("ej-mappingname") == "Category" && elt.getAttribute("ej-mappingvalue") == "3";
+            })[0].parentElement
+            .hidden = true;
+    }
+</script>
+
+@Html.EJS().ScriptManager()

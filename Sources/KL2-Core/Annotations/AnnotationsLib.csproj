@@ -1,0 +1,242 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7EA2D8F6-DD75-495B-BC9B-6DACFC59FF7D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>AnnotationsLib</RootNamespace>
+    <AssemblyName>AnnotationsLib</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
+    <Compile Include="AdornerTemplate.cs" />
+    <Compile Include="Adornment.cs" />
+    <Compile Include="AdornmentCollection.cs" />
+    <Compile Include="AnnotationsAdornment.cs" />
+    <Compile Include="AnnotationsControl.xaml.cs">
+      <DependentUpon>AnnotationsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="AnnotationsControlMenu.xaml.cs">
+      <DependentUpon>AnnotationsControlMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Annotations\ActionsAnnotationAdorner.xaml.cs">
+      <DependentUpon>ActionsAnnotationAdorner.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Annotations\ActionsAnnotationDataTemplateSelector.cs" />
+    <Compile Include="Annotations\Actions\AnnotationAction.cs" />
+    <Compile Include="Annotations\Actions\ChangeBrushAction.cs" />
+    <Compile Include="Annotations\Actions\DeleteAction.cs" />
+    <Compile Include="Annotations\Actions\EditTextAction.cs" />
+    <Compile Include="Annotations\Actions\ThicknessAction.cs" />
+    <Compile Include="Annotations\Actions\ZoomAction.cs" />
+    <Compile Include="Annotations\AnnotationBase.cs" />
+    <Compile Include="Annotations\DoubleArrowAnnotation.xaml.cs">
+      <DependentUpon>DoubleArrowAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Annotations\ArrowAnnotation.xaml.cs">
+      <DependentUpon>ArrowAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Annotations\LineAnnotation.xaml.cs">
+      <DependentUpon>LineAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Annotations\MagnifierAnnotation.xaml.cs">
+      <DependentUpon>MagnifierAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Annotations\RectangleAnnotation.xaml.cs">
+      <DependentUpon>RectangleAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Annotations\TextAnnotation.xaml.cs">
+      <DependentUpon>TextAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ButtonColorPicker.xaml.cs">
+      <DependentUpon>ButtonColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CanvasLayer.xaml.cs">
+      <DependentUpon>CanvasLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ColorPicker.xaml.cs">
+      <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\DoubleArrow.cs" />
+    <Compile Include="Controls\Arrow.cs" />
+    <Compile Include="Converters\ActionMenuPositionConverter.cs" />
+    <Compile Include="Converters\BooleansAndConverter.cs" />
+    <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\DoubleNegativeConverter.cs" />
+    <Compile Include="Converters\DragThumbMaxConverter.cs" />
+    <Compile Include="Converters\ScaleConverter.cs" />
+    <Compile Include="Converters\SubstractConverter.cs" />
+    <Compile Include="Converters\ThumbPositionConverter.cs" />
+    <Compile Include="Converters\ToVisualConverter.cs" />
+    <Compile Include="DelegateCommand.cs" />
+    <Compile Include="DependencyCollection.cs" />
+    <Compile Include="DragThumb.cs" />
+    <Compile Include="FrameworkElementAdorner.cs" />
+    <Compile Include="Localization.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadioButtonWithImage.xaml.cs">
+      <DependentUpon>RadioButtonWithImage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ResizingAdorner.cs" />
+    <Compile Include="StandardBrushes.cs" />
+    <Compile Include="ViewBoxExtra.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="AnnotationsControl.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AnnotationsControlMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Annotations\ActionsAnnotationAdorner.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Annotations\DoubleArrowAnnotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Annotations\ArrowAnnotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Annotations\LineAnnotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Annotations\MagnifierAnnotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Annotations\RectangleAnnotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Annotations\TextAnnotation.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ButtonColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CanvasLayer.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ColorPicker.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="RadioButtonWithImage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Arrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Color.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DeleteAction.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Line.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Minus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Plus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Rectangle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Text-Editor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Zoom-In.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Zoom-Out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\DoubleArrow.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

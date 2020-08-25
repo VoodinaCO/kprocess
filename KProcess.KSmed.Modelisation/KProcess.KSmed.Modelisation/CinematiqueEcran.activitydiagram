@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="141072a5-3da1-49e5-a318-ad861b217d3e" name="CinematiqueEcran" linkedPackageId="8fa9d327-bfe8-4942-a7ab-9f2d72f26f96" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="9f5ac987-8fb0-4a66-a147-6287cb8ffe59">
+      <elementDefinition Id="d39a92ef-64e8-48d2-b815-8aa330b99dfd" />
+      <body>Cinématique d'écran
+ général</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="e031a66e-fe74-4041-9672-c01e842782c3" name="CinematiqueEcran" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="cb63adce-46e3-40cc-9616-af7dd56884a3" />
+        <nodes>
+          <initialNode Id="1d2cce15-44b2-4ebf-9f3a-1c0a8e1ebca3" name="Initial1" isLeaf="false">
+            <elementDefinition Id="13337561-5702-4f92-9a38-3e22cb434b85" />
+            <flowNodeTargets>
+              <controlFlow Id="fefdf18c-c734-4442-9bc4-13ac4bff4050" isLeaf="false">
+                <opaqueActionMoniker Id="ff98d412-0cf7-40be-9c9a-11b022bcc11d" LastKnownName="Se connecter" />
+                <elementDefinition Id="c189eec6-389c-4f96-8391-0796fbd9dfe0" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="ff98d412-0cf7-40be-9c9a-11b022bcc11d" name="Se connecter" isLeaf="false">
+            <elementDefinition Id="ec798a87-8d4d-4a24-8ad2-a00dc39866b5" />
+            <flowNodeTargets>
+              <controlFlow Id="546f35b5-073c-4c45-a822-5c744b7726c3" isLeaf="false">
+                <opaqueActionMoniker Id="a41c3df7-25e9-492b-aa48-74bbcafcc53c" LastKnownName="Créér un nouveau projet" />
+                <elementDefinition Id="0bf289d5-e5de-440f-b346-836b3b0be0c1" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="8ab46b13-d63b-4bee-a2ba-3b0dbd963837" name="Ouvrir un projet parmi la liste" isLeaf="false">
+            <elementDefinition Id="7d02b457-b5de-45f4-a947-8e6b531939b6" />
+          </opaqueAction>
+          <opaqueAction Id="a41c3df7-25e9-492b-aa48-74bbcafcc53c" name="Créér un nouveau projet" isLeaf="false">
+            <elementDefinition Id="d3c67094-029a-434f-89e8-970a15a2857c" />
+            <flowNodeTargets>
+              <controlFlow Id="52e9cefc-4dfd-4e5a-8e8b-6f78b5280dce" isLeaf="false">
+                <opaqueActionMoniker Id="71f0cabb-2672-441a-90ad-e7b288c17995" LastKnownName="Décomposer" />
+                <elementDefinition Id="f5914701-65c2-4965-8bca-6b1aa1044b22" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="13381b0f-ea99-40ae-b144-538072dea289" name="Copier un projet" isLeaf="false">
+            <elementDefinition Id="8b913c92-9599-4520-bdd4-a89a881b433d" />
+          </opaqueAction>
+          <opaqueAction Id="71f0cabb-2672-441a-90ad-e7b288c17995" name="Décomposer" isLeaf="false">
+            <elementDefinition Id="e8d60eb0-f427-4ed1-a521-54871ec224b4" />
+            <flowNodeTargets>
+              <controlFlow Id="f3a13d1a-c543-4530-988e-7d3a0a9f11cd" isLeaf="false">
+                <opaqueActionMoniker Id="29037db3-f2fe-4132-ad41-8fe46d5d056a" LastKnownName="Construire" />
+                <elementDefinition Id="cd4e7d48-7b48-45de-92b2-a85609ccd63b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="29037db3-f2fe-4132-ad41-8fe46d5d056a" name="Construire" isLeaf="false">
+            <elementDefinition Id="27fd2285-dcc9-4662-b443-2b3d840d8fdc" />
+            <flowNodeTargets>
+              <controlFlow Id="374fe557-4686-4e3c-b1a1-c7557972b675" isLeaf="false">
+                <opaqueActionMoniker Id="71f0cabb-2672-441a-90ad-e7b288c17995" LastKnownName="Décomposer" />
+                <elementDefinition Id="9e287d5e-44dc-4848-96e1-95e7fce18bee" />
+              </controlFlow>
+              <controlFlow Id="84baeeb5-686f-405d-b1b7-317cd7c344f8" isLeaf="false">
+                <opaqueActionMoniker Id="2237815f-b754-4951-9d13-7a967096811f" LastKnownName="Valider" />
+                <elementDefinition Id="83703cb1-a6f0-4598-af86-0262a51989f4" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="7ff93071-6962-4f69-b5a2-f5219fb022ec" name="Simuler" isLeaf="false">
+            <elementDefinition Id="0391ccf1-7112-40fe-ae4d-4ff6b39a439c" />
+            <flowNodeTargets>
+              <controlFlow Id="c19cad52-d816-4bc0-a575-98036c4b2f86" isLeaf="false">
+                <opaqueActionMoniker Id="5eb003b6-c00b-4099-a7a7-668afb9d65a5" LastKnownName="Restituer" />
+                <elementDefinition Id="e407959e-91c1-458a-9506-a70e70adefbd" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="97179bd5-58d4-460e-8732-f5711b3a48d9" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="3376c5da-ca3a-4315-bd61-13ca6537b9c9" LastKnownName="Simulations de scénario cible" />
+                <elementDefinition Id="6560dd50-eec0-4387-8849-e5f21f2df099" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <opaqueAction Id="5eb003b6-c00b-4099-a7a7-668afb9d65a5" name="Restituer" isLeaf="false">
+            <elementDefinition Id="2819b4bb-def1-4b7d-9191-7f28b58a57f6" />
+            <flowNodeTargets>
+              <controlFlow Id="e044f9f2-08a5-4f28-b832-a72d47c20e40" isLeaf="false">
+                <opaqueActionMoniker Id="4b5ffd72-c1c3-427f-aaa2-7185b23ec935" LastKnownName="Valider" />
+                <elementDefinition Id="d3371dcd-6ffe-4e03-a065-504b55e09788" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="4b5ffd72-c1c3-427f-aaa2-7185b23ec935" name="Valider" isLeaf="false">
+            <elementDefinition Id="a70390c7-3d93-492c-8d7f-5c05a0aeb878" />
+            <objectFlowTargets>
+              <objectFlow Id="aa51787e-cfb6-4996-bec7-5c06db518d31" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="e6a7c538-8400-45e3-84f3-4f551715afe0" LastKnownName="Scénario Cible Validé" />
+                <elementDefinition Id="9823252f-fb37-4fed-8cfe-890f71852290" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <opaqueAction Id="2237815f-b754-4951-9d13-7a967096811f" name="Valider" isLeaf="false">
+            <elementDefinition Id="97e5b941-76ca-455f-9cd5-5565004bab30" />
+            <flowNodeTargets>
+              <controlFlow Id="65dd4591-fd6f-4a7e-b3ee-3baa69d5a1db" isLeaf="false">
+                <opaqueActionMoniker Id="7ff93071-6962-4f69-b5a2-f5219fb022ec" LastKnownName="Simuler" />
+                <elementDefinition Id="7d2933f6-e2b3-4b52-8628-a33eaf31e3a0" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="34a893f9-fbeb-4119-ab97-84424a8ed46e" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="5fef7a72-bc71-4817-b0fc-398c1cbc1ebe" LastKnownName="Scénario Initial validé" />
+                <elementDefinition Id="38827cb5-0ab5-4887-9496-abed4ea1763d" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="5fef7a72-bc71-4817-b0fc-398c1cbc1ebe" name="Scénario Initial validé" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="aa92b958-fe85-4d40-a49f-ed96a2940547" />
+            <upperBound>
+              <literalInteger Id="ed7ee23b-19d6-47ed-9db5-8d59347bdccc" name="2147483647" value="2147483647">
+                <elementDefinition Id="0b315ef1-5e07-4803-8fea-09be5a4eb50b" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="e6a7c538-8400-45e3-84f3-4f551715afe0" name="Scénario Cible Validé" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="35834b8d-2524-46a7-a734-d62623251ddc" />
+            <upperBound>
+              <literalInteger Id="128ad9e3-6154-4cc7-a3b5-71508520c634" name="2147483647" value="2147483647">
+                <elementDefinition Id="e40b5f60-4248-4872-be27-9091db84f69f" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="3376c5da-ca3a-4315-bd61-13ca6537b9c9" name="Simulations de scénario cible" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="bf6894d6-8c71-41ea-838d-2791b91e853e" />
+            <upperBound>
+              <literalInteger Id="b74c49da-9ee0-481a-aae1-a3e137026ea5" name="2147483647" value="2147483647">
+                <elementDefinition Id="c638e97e-3fe1-4d5c-b508-2f3d30e67874" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="8fa9d327-bfe8-4942-a7ab-9f2d72f26f96" name="KProcess.KSmed.Modelisation">
+    <elementDefinition Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab" />
+    <profileInstances>
+      <packageHasProfileInstances Id="1b427ec5-e66b-49d2-86d3-e907fe10c9da">
+        <profileInstance Id="71d4c869-622a-4d53-9498-08eedc7b466a" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="b3531d7d-62ea-47d7-b612-d6fae2bd192b">
+        <profileInstance Id="9510fa0f-7888-4ae4-bf5d-ff9d914c0fd0" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

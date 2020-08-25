@@ -1,0 +1,275 @@
+﻿<MahApps:CustomDialog x:Class="Kprocess.KL2.TabletClient.Dialog.ShowAnomaliesDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+                      xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:app="clr-namespace:Kprocess.KL2.TabletClient"
+                      xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System"
+                      xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+                      xmlns:sfGrid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
+                      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                      x:Name="myDetailsDialog"
+                      Height="720"
+                      d:DesignHeight="720"
+                      d:DesignWidth="1280"
+                      Style="{StaticResource FullScreenDialogStyle}"
+                      mc:Ignorable="d">
+    <MahApps:CustomDialog.Resources>
+        <sys:Double x:Key="ColorColumnWidth">30</sys:Double>
+        <sys:Double x:Key="PhotoColumnWidth">370</sys:Double>
+        <sys:Double x:Key="ColumnAnomalyTypeWidth">270</sys:Double>
+        <sys:Double x:Key="DescriptionColumnWidth">370</sys:Double>
+        <sys:Double x:Key="LabelColumnWidth">200</sys:Double>
+        <Style x:Key="HeaderShowSortStyle" TargetType="{x:Type sfGrid:GridHeaderCellControl}">
+            <Setter Property="Background" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource BlackBrush}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="Light" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Padding" Value="24,0,24,0" />
+            <Setter Property="BorderBrush" Value="#FCA7A9" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type sfGrid:GridHeaderCellControl}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                  VerticalAlignment="Center"
+                                                  Visibility="{Binding Converter={converter:HeaderVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                <Grid Grid.Column="1" Visibility="{Binding Converter={converter:HeaderVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="18" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel VerticalAlignment="Center">
+                                        <Path x:Name="pathASC"
+                                              Width="8.938"
+                                              Height="8.138"
+                                              Margin="0,0,0,5"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="M167.5,212.46L199.5,177.507 231.5,212.46 167.5,212.46z"
+                                              Stretch="Fill">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+
+                                        <Path x:Name="pathDESC"
+                                              Width="8.938"
+                                              Height="8.138"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="M454.165,177.507L422.165,212.46 390.165,177.507 454.165,177.507z"
+                                              Stretch="Fill">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Column="1"
+                                               Margin="0,-4,0,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="10"
+                                               Foreground="White"
+                                               Text="{TemplateBinding SortNumber}"
+                                               Visibility="{TemplateBinding SortNumberVisibility}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="SortDirection" Value="{x:Null}">
+                                <Setter TargetName="pathASC" Property="Fill" Value="White" />
+                                <Setter TargetName="pathDESC" Property="Fill" Value="White" />
+                            </Trigger>
+                            <Trigger Property="SortDirection" Value="{x:Static componentModel:ListSortDirection.Ascending}">
+                                <Setter TargetName="pathASC" Property="Fill" Value="Red" />
+                                <Setter TargetName="pathDESC" Property="Fill" Value="White" />
+                            </Trigger>
+                            <Trigger Property="SortDirection" Value="{x:Static componentModel:ListSortDirection.Descending}">
+                                <Setter TargetName="pathASC" Property="Fill" Value="White" />
+                                <Setter TargetName="pathDESC" Property="Fill" Value="Red" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </MahApps:CustomDialog.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+
+        <!--  Nom de l'inspection  -->
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   FontSize="30"
+                   TextWrapping="Wrap">
+            <Run Text="{k:Localize Anomaly_Label}" />
+            <Run Text="-" />
+            <Run Text="{Binding Inspection.Publication.Process.Label, Source={x:Static app:Locator.Main}}" />
+        </TextBlock>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{k:Localize Inspection_Start_Date}"
+                   FontSize="20" />
+            <Label Grid.Row="1"
+                   Margin="0,0,0,2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding StartDate}"
+                   FontSize="15" />
+        </Grid>
+
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                Margin="10"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                Command="{Binding CloseDetailsDialogCommand}"
+                TextElement.FontSize="20">
+            <TextBlock Margin="5,0" Text="{k:Localize Common_Return}" />
+        </Button>
+
+        <sfGrid:SfDataGrid x:Name="DataGrid"
+                           Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           AllowEditing="True"
+                           AllowSorting="False"
+                           AutoGenerateColumns="False"
+                           FontSize="20"
+                           HeaderRowHeight="35"
+                           HideEmptyGridViewDefinition="True"
+                           ItemsSource="{Binding AllAnomalies}"
+                           LiveDataUpdateMode="AllowDataShaping"
+                           RowHeight="178"
+                           SelectionMode="None">
+            <sfGrid:SfDataGrid.Columns>
+                <sfGrid:GridTemplateColumn Width="{StaticResource ColorColumnWidth}"
+                                           AllowSorting="True"
+                                           HeaderText=""
+                                           MappingName="IsHorsVisite">
+                    <sfGrid:GridTemplateColumn.HeaderStyle>
+                        <Style BasedOn="{StaticResource HeaderShowSortStyle}" TargetType="{x:Type sfGrid:GridHeaderCellControl}">
+                            <Setter Property="Padding" Value="5,0" />
+                        </Style>
+                    </sfGrid:GridTemplateColumn.HeaderStyle>
+                    <sfGrid:GridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:Anomaly}">
+                            <Grid x:Name="GridBackground" Background="Red" />
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsHorsVisite}" Value="True">
+                                    <Setter TargetName="GridBackground" Property="Background" Value="Orange" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </sfGrid:GridTemplateColumn.CellTemplate>
+                </sfGrid:GridTemplateColumn>
+                <sfGrid:GridTemplateColumn Width="{StaticResource PhotoColumnWidth}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           AllowSorting="False"
+                                           HeaderText="{k:Localize View_PublishFormat_Column_Thumbnail}"
+                                           MappingName="Photo">
+                    <sfGrid:GridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:Anomaly}">
+                            <Image Source="{Binding Photo, Converter={converter:StreamToBitmapImageConverter}}" Stretch="Uniform" />
+                        </DataTemplate>
+                    </sfGrid:GridTemplateColumn.CellTemplate>
+                </sfGrid:GridTemplateColumn>
+                <sfGrid:GridTemplateColumn x:Name="ColumnAnomalyType"
+                                           Width="{StaticResource ColumnAnomalyTypeWidth}"
+                                           AllowSorting="True"
+                                           HeaderStyle="{StaticResource HeaderShowSortStyle}"
+                                           HeaderText="{k:Localize Inspection_Encountered_Problem}"
+                                           IsReadOnly="True"
+                                           MappingName="AnomalyTypeAndName">
+                    <sfGrid:GridTemplateColumn.CellTemplate>
+                        <DataTemplate DataType="{x:Type models:Anomaly}">
+                            <TextBlock x:Name="txtTitle"
+                                       VerticalAlignment="Center"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap">
+                                <Hyperlink x:Name="hylink"
+                                           Command="{Binding Path=DataContext.ShowAddAnomalyCommand, ElementName=DataGrid}"
+                                           CommandParameter="{Binding}">
+                                    <Run Text="{Binding AnomalyTypeAndName}" />
+                                </Hyperlink>
+                            </TextBlock>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Type}" Value="{x:Static models:AnomalyType.Maintenance}">
+                                    <Setter TargetName="hylink" Property="Foreground" Value="Red" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Type}" Value="{x:Static models:AnomalyType.Operator}">
+                                    <Setter TargetName="hylink" Property="Foreground" Value="Blue" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Type}" Value="{x:Static models:AnomalyType.Security}">
+                                    <Setter TargetName="hylink" Property="Foreground" Value="Green" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </sfGrid:GridTemplateColumn.CellTemplate>
+                </sfGrid:GridTemplateColumn>
+                <sfGrid:GridTextColumn x:Name="ColumnDescription"
+                                       Width="{StaticResource DescriptionColumnWidth}"
+                                       AllowSorting="True"
+                                       HeaderStyle="{StaticResource HeaderShowSortStyle}"
+                                       HeaderText="{k:Localize Inspection_Description_Problem}"
+                                       IsReadOnly="True"
+                                       MappingName="Description"
+                                       TextWrapping="Wrap" />
+                <sfGrid:GridTextColumn Width="{StaticResource LabelColumnWidth}"
+                                       Padding="5,0"
+                                       AllowSorting="True"
+                                       HeaderStyle="{StaticResource HeaderShowSortStyle}"
+                                       HeaderText="{k:Localize Step_Label}"
+                                       IsReadOnly="True"
+                                       MappingName="ActionLabel"
+                                       TextWrapping="Wrap" />
+            </sfGrid:SfDataGrid.Columns>
+        </sfGrid:SfDataGrid>
+
+    </Grid>
+</MahApps:CustomDialog>

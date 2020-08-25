@@ -1,0 +1,409 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Inspection;
+@using System.Web.Mvc.Html;
+@using KProcess.Ksmed.Security;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model InspectionManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Inspection";
+    Dictionary<string, object> btn = new Dictionary<string, object>();
+    btn.Add("data-toggle", "modal");
+    bool allowCreateAudit = ViewBag.AllowCreateAudit;
+    if (allowCreateAudit == false)
+    {
+        btn.Add("disabled", "disabled");
+    }
+    var licenseExpired = false;
+    if (ViewBag.LicenseExpired != null)
+    {
+        licenseExpired = ViewBag.LicenseExpired;
+    }
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "Date", direction = "Descending" });
+
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .readCell {
+        background-color: lightgreen;
+    }
+
+    .notReadCell {
+        background-color: lightcoral;
+    }
+
+    .filterBar {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        padding-bottom: 10px;
+    }
+
+    .filterBar > .filterBtn {
+        margin-top: 23px;
+    }
+
+    .notOK {
+        background-color: lightcoral;
+    }
+
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    @if (user.Roles.Any(u => u == KnownRoles.Operator && !(user.Roles.Any(u2 => u2 == KnownRoles.Administrator || u2 == KnownRoles.Supervisor))) == false)
+    {
+        <div>
+            @using (Html.BeginForm("Index", "Inspection", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "onFilter(event)" }))
+            {
+                @Html.AntiForgeryToken();
+                <div class="filterBar">
+                    @Html.Label(LocalizedStrings.GetString("Team"))
+                    @(Html.EJS().DropDownList("team")
+                        .DataSource(u => u.Url(@Url.Action("GetTeams")).Adaptor("UrlAdaptor"))
+                        .Placeholder("Select team to filter")
+                        .Fields(df => df.Text("Name").Value("Id"))
+                        .Width("100%")
+                        .Index((Model.selectedIndexTeam.ToString() == "") ? 0 : Model.selectedIndexTeam)
+                        .Render()
+                    )
+                </div>
+                <div class="filterBar">
+                    @Html.Label(LocalizedStrings.GetString("Operators"))
+                    @(Html.EJS().DropDownList("userId")
+                        .DataSource(u => u.Url(@Url.Action("GetOperators")).Adaptor("UrlAdaptor"))
+                        .Placeholder("Select operator to filter")
+                        .Fields(df => df.Text("Name").Value("UserId"))
+                        .Width("100%")
+                        .Index((Model.selectedIndexOperator.ToString() == "") ? 0 : Model.selectedIndexOperator)
+                        .Render()
+                    )
+                </div>
+                <div class="filterBar">
+                    @Html.Label(LocalizedStrings.GetString("Inspections"))
+                    @(Html.EJS().DropDownList("publicationId")
+                        .DataSource(u => u.Url(@Url.Action("GetPublications")).Adaptor("UrlAdaptor"))
+                        .Placeholder("Select publication to filter")
+                        .Fields(df => df.Text("Label").Value("PublicationId"))
+                        .Width("100%")
+                        .Index((Model.selectedIndexPublication.ToString() == "") ? 0 : Model.selectedIndexPublication)
+                        .Render()
+                    )
+                </div>
+                <div class="filterBar">
+                    @(Html.EJS().Button("filterBtn")
+                        .Content(LocalizedStrings.GetString("Filter"))
+                        .CssClass("filterBtn")
+                        .Render())
+                </div>
+            }
+        </div>
+    }
+    <div class="innerContent">
+        @{
+            if (Model.Inspections.Count() != 0)
+            {
+                @(Html.EJS().Grid("InspectionManage")
+                    .Height("100%")
+                    .DataSource(ds => ds.Json(Model.Inspections.ToArray()).Adaptor("RemoteSaveAdaptor"))
+                    .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                    .AllowPaging()
+                    .PageSettings(p => p.PageSize(25))
+                    .Locale(ejLanguageCode)
+                    //Excel export
+                    .AllowExcelExport()
+                    .HeaderCellInfo("gridHeaderCellInfo")
+                    .ExcelQueryCellInfo("excelQueryCellInfo")
+                    .AllowTextWrap()
+                    .AllowFiltering()
+                    .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                    .EnableHover()
+                    .Toolbar(new List<string>() { "ExcelExport" })
+                    .ToolbarClick("toolbarClick")
+                    .AllowSorting()
+                    .SortSettings(sort => sort.Columns(cols))
+                    .Columns(col =>
+                    {
+                        col.Field("InspectionId").IsPrimaryKey(true).IsIdentity(true)
+                            .HeaderText("Id")
+                            .Visible(false)
+                            .Width(5)
+                            .Add();
+                        col.Field("ProcessName")
+                            .HeaderText(LocalizedStrings.GetString("Inspection"))
+                            .Template("#linkPublication")
+                            .Width(200)
+                            .AllowFiltering(false)
+                            .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                            .Add();
+                        col.Field("Date")
+                            .HeaderText(LocalizedStrings.GetString("Date"))
+                            .Format("yMd")
+                            .Width(200)
+                            .AllowFiltering(false)
+                            .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                            .Add();
+                        col.Field("Inspectors")
+                            .HeaderText(LocalizedStrings.GetString("Operator"))
+                            .Width(200)
+                            .AllowFiltering(false)
+                            .AllowSorting(true)
+                            .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                            .Add();
+                        col.Field("Teams")
+                            .HeaderText(LocalizedStrings.GetString("Teams"))
+                            .Width(200).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                            .Add();
+                        col.Field("IsOK")
+                            .HeaderText(LocalizedStrings.GetString("Result"))
+                            .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                            .Visible(false)
+                            .Width(200)
+                            .AllowFiltering(false)
+                            .Add();
+                        col.Field("AnomalyNumber")
+                            .HeaderText(LocalizedStrings.GetString("AnomalyNumber"))
+                            .Width(200).AllowFiltering(false)
+                            .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                            .Add();
+                        col.Field("InspectionId")
+                            .HeaderText(" ")
+                            .Width(200)
+                            .Template("#buttonAudit")
+                            .Visible(!licenseExpired && (user.Roles.Any(u => !(user.Roles.Any(u2 => u2 == KnownRoles.Administrator || u2 == KnownRoles.Supervisor))) ? false : true))
+                            .AllowFiltering(false)
+                            .AllowSorting(false)
+                            .Add();
+                    })
+                    .RecordDoubleClick("recordDblClick")
+                    .QueryCellInfo("gridQueryCellInfo")
+                    .Load("gridLoad")
+                    .RowSelecting("onSelectingCheck")
+                    .Render()
+                )
+            }
+            else
+            {
+                @Html.Label(LocalizedStrings.GetString("NoInspectionAvailable"));
+            }
+        }
+    </div>
+</div>
+
+<script type="text/x-template" id="buttonAudit">
+    <div style="text-align:center">
+        @if (@Model.CurrentAuditInspectionId == 0)
+        {
+            <text>
+                ${if (DoneByDeactivated)}
+                <button class="audit-create e-control e-btn e-lib" type="button" value="audit" data-id="${InspectionId}" disabled role="button" data-toggle="tooltip" title="Inspector deactivated. Cannot create an audit for this inspection." onclick="onCreateAuditClick(this)" style="height: 28px;">@LocalizedStrings.GetString("CreateAudit")</button>
+                ${else}
+                <button class="audit-create e-control e-btn e-lib" type="button" value="audit" data-id="${InspectionId}" role="button" data-toggle="modal" onclick="onCreateAuditClick(this)" style="height: 28px;">@LocalizedStrings.GetString("CreateAudit")</button>
+                ${/if}
+            </text>
+        }
+        else if (Model.IsCurrentAuditStarted)
+        {
+            <text>
+
+                ${if (InspectionId == @Model.CurrentAuditInspectionId)}
+                <button class="audit-create e-control e-btn e-lib" type="button" value="audit" data-id="${InspectionId}" ${if (DoneByDeactivated)} disabled ${/if} role="button" data-toggle="modal" onclick="onCreateAuditClick(this)" rel="tooltip" title="@Model.Question" style="height: 28px;">@LocalizedStrings.GetString("AuditInProgress")</button>
+                ${/if}
+
+            </text>
+        }
+        else
+        {
+            <text>
+
+                ${if (InspectionId == @Model.CurrentAuditInspectionId)}
+                <button class="e-control e-btn e-lib" type="button" data-id="${InspectionId}" role="button" ${if (DoneByDeactivated)} disabled ${/if} data-url="@Url.Action("DeleteInspectionCurrentAuditAsync")" data-confirm="Etes-vous sûr de vouloir annuler cet audit?" onclick="onDeleteAuditClick(this)" rel="tooltip" title="@Model.Question" style="height: 28px; width: 150px;">@LocalizedStrings.GetString("Common_Cancel")</button>
+                ${/if}
+            </text>
+        }
+    </div>
+</script>
+
+<script type="text/template" id="linkPublication">
+    <a class="linkPublication" onclick="GoToDetail(${InspectionId})" href="javascript:void(0)">${ProcessName}</a>
+</script>
+
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Inspections")" + "/" + "@LocalizedStrings.GetString("FollowedInspection")");
+        document.querySelectorAll('[rel="tooltip"]').forEach(function (elt) {
+            elt.tooltip({ trigger: "hover" });
+        });
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function GoToDetail(inspectionId) {
+        LoadPartial('/Inspection/Detail?id=' + inspectionId + '&partial=true', '#pageContainer');
+    }
+
+    function gridCreate(args) {
+        var textWidth = $(".orientationcss > div").outerWidth();//Obtain the width of the headerText content.
+        $(".e-headercell").css("height", 125); //Assign the obtained textWidth as the height of the headerCell
+        $(".e-stackedHeaderCell").css("height", 50);
+    }
+
+    function gridLoad(args) {
+        var len = this.columns.length;
+        for (var i = 0; i < len; i++) {
+            if (this.columns[i].field.includes("date") || this.columns[i].field.includes("Date"))
+                this.columns[i].format = { type: 'date', format: 'dd/MM/yyyy' }; //apply the format to corresponding date column
+        }
+    }
+
+    function excelQueryCellInfo(args) {
+        if (args.data.IsOK == false && args.column.field != "InspectionId") {
+            args.style = { backColor: '#F08080' };
+        }
+        if (args.column.field == "InspectionId") {
+            args.value = "";
+        }
+    }
+
+    function gridHeaderCellInfo(args) {
+        if (args.cell.column.allowSorting === false) {
+            args.node.style.cursor = "default";
+        }
+    }
+
+    function toolbarClick(args) {
+        if (args.item.id === 'InspectionManage_excelexport') {
+            var gridObj = document.getElementById("InspectionManage").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "Inspection.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Teams") {
+            var teams = args.data["Teams"];
+            args.cell.innerText = String(teams).replace(/\,/g, ', ');
+        }
+        if (args.column.field == "Inspectors") {
+            var inspectors = args.data["Inspectors"];
+            args.cell.innerText = String(inspectors).replace(/\,/g, ', ');
+        }
+        if (args.data.IsOK == false) {
+            args.cell.classList.add('notOK');
+        }
+    }
+    function recordDblClick(args) {
+        GoToDetail(args.rowData["InspectionId"]);
+    }
+    function onCreateAuditClick(args) {
+        document.getElementById('inspectionId').value = $(args).data('id');
+        var confirmAuditDialog = document.getElementById("confirmAuditDialog").ej2_instances[0];
+        confirmAuditDialog.height = "auto";
+        confirmAuditDialog.width = "auto";
+        confirmAuditDialog.show();
+        var ele = document.getElementById("questionnaire").ej2_instances[0];
+        var datamanager = new ej.data.DataManager({
+            url: '@Url.Action("GetSurveys")',
+            adaptor: new ej.data.UrlAdaptor()
+        }); 
+        ele.dataSource = datamanager;
+        ele.dataBind();
+    }
+    var urlDeleteAuditClick = "";
+    function onDeleteAuditClick(args) {
+        urlDeleteAuditClick = $(args).data('url');
+        $("#confirmLabel").text($(args).data('confirm'));
+        var confirmDeleteDialog = document.getElementById("confirmDeleteDialog").ej2_instances[0];
+        confirmDeleteDialog.height = "auto";
+        confirmDeleteDialog.width = "auto";
+        confirmDeleteDialog.show();
+    }
+
+    function confirmDeleteAudit(confirm) {
+        document.getElementById("confirmDeleteDialog").ej2_instances[0].hide();
+        if (confirm) {
+            var token = $(':input:hidden[name*="RequestVerificationToken"]');
+            var data = {};
+            data[token.attr('name')] = token.val();
+            $.ajax({
+                url: urlDeleteAuditClick,
+                type: 'POST',
+                data: data,
+                success: function (result) {
+                    if (result.Success) {
+                        document.getElementById('confirmDeleteDialog').ej2_instances[0].hide();
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Success")", content: "@LocalizedStrings.GetString("CancelAuditSuccess")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+                        LoadPartial('/Inspection/Index?partial=true', '#pageContainer');
+                    }
+                    else {
+                        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: result.Message, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+                        LoadPartial('/Inspection/Index?partial=true', '#pageContainer');
+                    }
+                },
+                error: function () {
+
+                }
+            });
+        }
+        return false;
+    };
+
+    function onFilter(event) {
+        event = event || window.event || event.srcElement;
+        event.preventDefault();
+        var team = document.getElementById("team").ej2_instances[0].value;
+        var userId = document.getElementById("userId").ej2_instances[0].value;
+        var publicationId = document.getElementById("publicationId").ej2_instances[0].value;
+        var link =  "/Inspection?partial=True&team=-1&userId=-2&publicationId=-3";
+        link = link.replace("-1", team);
+        link = link.replace("-2", userId);
+        link = link.replace("-3", publicationId);
+        LoadPartial(link, '#pageContainer');
+    }
+</script>
+
+@Html.Partial("ConfirmAudit")
+
+@Html.EJS().ScriptManager()

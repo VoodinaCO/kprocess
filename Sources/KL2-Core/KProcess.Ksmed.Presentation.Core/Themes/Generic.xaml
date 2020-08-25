@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/Generic.xaml" />
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/NotificationBar.xaml" />
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/ProcessPicker.xaml" />
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/ReferentialPicker.xaml" />
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/ColorPicker.xaml" />
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/DropDownButton.xaml" />
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/ToggleSwitch.xaml" />
+        <ResourceDictionary Source="/KProcess.Ksmed.Presentation.Core;component/Controls/Themes/KActionOverrideHighlighter.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+</ResourceDictionary>

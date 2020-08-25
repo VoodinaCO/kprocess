@@ -1,0 +1,169 @@
+﻿<MahApps:MetroWindow x:Class="Kprocess.KL2.TabletClient.MainWindow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:Dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                     xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+                     xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                     xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+                     xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                     xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+                     xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+                     x:Name="myMain"
+                     Dialogs:DialogParticipation.Register="{Binding}"
+                     IgnoreTaskbarOnMaximize="False"
+                     IsWindowDraggable="False"
+                     ResizeMode="NoResize"
+                     ShowMaxRestoreButton="False"
+                     ShowMinButton="False"
+                     Template="{DynamicResource CustomWindowTemplateKey}"
+                     TitleCharacterCasing="Normal"
+                     TitlebarHeight="50"
+                     WindowState="Maximized"
+                     mc:Ignorable="d">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <mvvm:EventToCommand Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Closing">
+            <mvvm:EventToCommand Command="{Binding ConfirmExitCommand}" PassEventArgsToCommand="True" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <MahApps:MetroWindow.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Margin="10,0"
+                       VerticalAlignment="Center"
+                       FontSize="30"
+                       Text="{Binding DataContext.PublicationName, RelativeSource={RelativeSource FindAncestor, AncestorType=MahApps:MetroWindow}}" />
+        </DataTemplate>
+    </MahApps:MetroWindow.TitleTemplate>
+    <MahApps:MetroWindow.LeftWindowCommands>
+        <MahApps:WindowCommands ShowLastSeparator="False">
+            <Image Width="38"
+                   Height="38"
+                   Margin="1"
+                   MahApps:VisibilityHelper.IsCollapsed="{Binding IsEnabled, ElementName=HomeButton}"
+                   Source="Resources/kl2_FieldService.png" />
+            <Button x:Name="HomeButton"
+                    MahApps:VisibilityHelper.IsVisible="{Binding IsEnabled, RelativeSource={RelativeSource Self}}"
+                    Command="{Binding NavigateToHome}"
+                    Content="{iconPacks:Material Kind=Home,
+                                                 Width=40,
+                                                 Height=40}" />
+        </MahApps:WindowCommands>
+    </MahApps:MetroWindow.LeftWindowCommands>
+    <MahApps:MetroWindow.RightWindowCommands>
+        <MahApps:WindowCommands ShowLastSeparator="False">
+            <MahApps:Badged x:Name="OnlineUserControl"
+                            Badge="{k:Localize View_MainWindow_Disconnect}"
+                            BadgePlacementMode="Bottom">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <i:InvokeCommandAction Command="{Binding DisconnectCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <MahApps:Badged.Visibility>
+                    <MultiBinding Converter="{k:BooleansToVisibilityConverter}">
+                        <Binding Path="IsOnlineIcon" />
+                        <Binding Path="IsConnected" />
+                    </MultiBinding>
+                </MahApps:Badged.Visibility>
+                <Button x:Name="DisconnectButton"
+                        Command="{Binding DisconnectCommand}"
+                        Content="{Binding SelectedUser}"
+                        TextElement.FontSize="20" />
+            </MahApps:Badged>
+            <TextBlock x:Name="OfflineUserControl"
+                       Margin="5"
+                       VerticalAlignment="Center"
+                       FontSize="20"
+                       Text="{Binding SelectedUser}"
+                       Visibility="{Binding IsOnlineIcon, Converter={k:NegatedBooleanToVisibilityConverter}}" />
+            <iconPacks:PackIconMaterial Width="30"
+                                        Height="30"
+                                        Margin="5,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Foreground="White">
+                <iconPacks:PackIconMaterial.Style>
+                    <Style TargetType="{x:Type iconPacks:PackIconMaterial}">
+                        <Setter Property="Kind" Value="WifiOff" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsOnlineIcon, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                                <Setter Property="Kind" Value="Wifi" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </iconPacks:PackIconMaterial.Style>
+            </iconPacks:PackIconMaterial>
+        </MahApps:WindowCommands>
+    </MahApps:MetroWindow.RightWindowCommands>
+    <MahApps:MetroWindow.Flyouts>
+        <MahApps:FlyoutsControl ItemsSource="{Binding Flyouts}" />
+    </MahApps:MetroWindow.Flyouts>
+    <Grid>
+        <MahApps:TransitioningContentControl Content="{Binding CurrentView}" />
+    </Grid>
+    <i:Interaction.Behaviors>
+        <behaviors:LoadingContentBehavior>
+            <behaviors:LoadingContentBehavior.Content>
+                <Border Grid.Row="2"
+                        Grid.ColumnSpan="7"
+                        Panel.ZIndex="9999"
+                        Background="#90808080"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        Visibility="{Binding IsLoading, Converter={converter:BoolToVisibilityConverter}, FallbackValue=Hidden}">
+                    <Grid>
+                        <syncfusion:SfBusyIndicator Margin="5"
+                                                    VerticalAlignment="Center"
+                                                    AnimationType="Gear"
+                                                    Foreground="{StaticResource AccentColorBrush}"
+                                                    IsBusy="{Binding IsLoading}"
+                                                    ViewboxHeight="100"
+                                                    ViewboxWidth="100" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   MahApps:VisibilityHelper.IsCollapsed="{Binding LoadingText, Converter={converter:NullConverter}}"
+                                   Text="{Binding LoadingText}" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="30"
+                                   Text="{k:Localize Transfer_Disconnection}">
+                            <TextBlock.RenderTransform>
+                                <TranslateTransform Y="-80" />
+                            </TextBlock.RenderTransform>
+                            <TextBlock.Visibility>
+                                <MultiBinding Converter="{k:BooleansToVisibilityConverter}" FallbackValue="{x:Static Visibility.Collapsed}">
+                                    <Binding Converter="{k:NegatedBooleanConverter}" Path="IsOnlineIcon" />
+                                    <Binding Path="ShowDisconnectedMessage" />
+                                </MultiBinding>
+                            </TextBlock.Visibility>
+                        </TextBlock>
+                        <Button Padding="10"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                MahApps:ButtonHelper.PreserveTextCase="True"
+                                MahApps:VisibilityHelper.IsCollapsed="{Binding LoadingText, Converter={converter:NullConverter}}"
+                                Command="{Binding CancelCommand}"
+                                FontSize="20">
+                            <Button.RenderTransform>
+                                <TranslateTransform Y="80" />
+                            </Button.RenderTransform>
+                            <Button.Content>
+                                <MultiBinding Converter="{converter:CancelDownloadToLabelConverter}">
+                                    <Binding Path="IsOnlineIcon" />
+                                    <Binding Path="CurrentView.DataContext" />
+                                </MultiBinding>
+                            </Button.Content>
+                        </Button>
+                    </Grid>
+                </Border>
+            </behaviors:LoadingContentBehavior.Content>
+        </behaviors:LoadingContentBehavior>
+    </i:Interaction.Behaviors>
+</MahApps:MetroWindow>

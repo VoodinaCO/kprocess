@@ -1,0 +1,24 @@
+﻿@using Syncfusion.EJ2.Popups;
+<style>
+    .imagePop {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) !important;
+    }
+    #imgPop {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
+
+@(Html.EJS().Dialog("imageDialog")
+        .ShowCloseIcon(true)
+        .Target("#wrapper")
+        .CloseOnEscape(true)
+        .AnimationSettings(e => e.Effect(DialogEffect.None))
+        .IsModal(true)
+        .Visible(false)
+        .ContentTemplate(@<img id="imgPop">)
+        .Render()
+    )

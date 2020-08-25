@@ -1,0 +1,35 @@
+﻿<views:InstallScreen x:Class="KProcess.KL2.SetupUI.Views.Finish"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:app="clr-namespace:KProcess.KL2.SetupUI"
+                     xmlns:views="clr-namespace:KProcess.KL2.SetupUI.Views"
+                     xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                     xmlns:deploy="clr-namespace:Microsoft.Deployment.WindowsInstaller;assembly=Microsoft.Deployment.WindowsInstaller"
+                     mc:Ignorable="d" 
+                     d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{x:Static app:MainViewModel.Instance}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Margin="0,5" Text="{app:Localization Finish_Success}"
+                   MahApps:VisibilityHelper.IsVisible="{Binding ActionResult, Source={x:Static app:ManagedBA.Instance}, Converter={app:IntEnumEqualsConverter}, ConverterParameter={x:Static deploy:ActionResult.Success}}"/>
+        <TextBlock Grid.Row="1" Margin="0,5" Text="{app:Localization Finish_Canceled}"
+                   MahApps:VisibilityHelper.IsVisible="{Binding ActionResult, Source={x:Static app:ManagedBA.Instance}, Converter={app:IntEnumEqualsConverter}, ConverterParameter={x:Static deploy:ActionResult.UserExit}}"/>
+        <TextBlock Grid.Row="2" Margin="0,5" Text="{app:Localization Finish_Failed}"
+                   MahApps:VisibilityHelper.IsVisible="{Binding ActionResult, Source={x:Static app:ManagedBA.Instance}, Converter={app:IntEnumEqualsConverter}, ConverterParameter={x:Static deploy:ActionResult.Failure}}"/>
+        <TextBlock Grid.Row="3" Margin="0,5" Text="{app:Localization Finish_Thanks}"
+                   MahApps:VisibilityHelper.IsVisible="{Binding ActionResult, Source={x:Static app:ManagedBA.Instance}, Converter={app:IntEnumEqualsConverter}, ConverterParameter={x:Static deploy:ActionResult.Success}}"/>
+        <CheckBox Grid.Row="4" Margin="0,30" Content="{app:Localization Finish_LaunchKL2OnExit}" IsChecked="{Binding LaunchKL2OnExit}"
+                  MahApps:VisibilityHelper.IsVisible="{Binding ActionResult, Source={x:Static app:ManagedBA.Instance}, Converter={app:IntEnumEqualsConverter}, ConverterParameter={x:Static deploy:ActionResult.Success}}"/>
+        <Button Grid.Row="5" Margin="0,30" Content="{app:Localization SendLogButton}" HorizontalAlignment="Left"
+                Command="{Binding SendLogCommand}"
+                MahApps:VisibilityHelper.IsVisible="{Binding ActionResult, Source={x:Static app:ManagedBA.Instance}, Converter={app:IntEnumEqualsConverter}, ConverterParameter={x:Static deploy:ActionResult.Failure}}"/>
+    </Grid>
+</views:InstallScreen>

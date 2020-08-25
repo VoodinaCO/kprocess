@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('SourceSansPro-Bold.eot');
+    src: url('SourceSansPro-Bold.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-Bold.woff2') format('woff2'),
+        url('SourceSansPro-Bold.woff') format('woff'),
+        url('SourceSansPro-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('SourceSansPro-LightItalic.eot');
+    src: url('SourceSansPro-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-LightItalic.woff2') format('woff2'),
+        url('SourceSansPro-LightItalic.woff') format('woff'),
+        url('SourceSansPro-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('SourceSansPro-Regular.eot');
+    src: url('SourceSansPro-Regular.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-Regular.woff2') format('woff2'),
+        url('SourceSansPro-Regular.woff') format('woff'),
+        url('SourceSansPro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Regular.eot');
+    src: url('Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+        url('Roboto-Regular.woff2') format('woff2'),
+        url('Roboto-Regular.woff') format('woff'),
+        url('Roboto-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('SourceSansPro-SemiBold.eot');
+    src: url('SourceSansPro-SemiBold.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-SemiBold.woff2') format('woff2'),
+        url('SourceSansPro-SemiBold.woff') format('woff'),
+        url('SourceSansPro-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('SourceSansPro-Italic.eot');
+    src: url('SourceSansPro-Italic.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-Italic.woff2') format('woff2'),
+        url('SourceSansPro-Italic.woff') format('woff'),
+        url('SourceSansPro-Italic.ttf') format('truetype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('Roboto-Medium.eot');
+    src: url('Roboto-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Roboto-Medium.woff2') format('woff2'),
+        url('Roboto-Medium.woff') format('woff'),
+        url('Roboto-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('SourceSansPro-SemiBoldItalic.eot');
+    src: url('SourceSansPro-SemiBoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-SemiBoldItalic.woff2') format('woff2'),
+        url('SourceSansPro-SemiBoldItalic.woff') format('woff'),
+        url('SourceSansPro-SemiBoldItalic.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Source Sans Pro';
+    src: url('SourceSansPro-Light.eot');
+    src: url('SourceSansPro-Light.eot?#iefix') format('embedded-opentype'),
+        url('SourceSansPro-Light.woff2') format('woff2'),
+        url('SourceSansPro-Light.woff') format('woff'),
+        url('SourceSansPro-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+

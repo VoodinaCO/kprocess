@@ -1,0 +1,224 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Referentials;
+@using KProcess.KL2.Languages;
+
+@model ReferentialsViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    .e-addRef:before {
+        content: '\e823';
+    }
+
+    .e-editRef:before {
+        content: '\e7a3';
+    }
+
+    .e-mergeRef:before {
+        content: '\e70a';
+    }
+
+    .e-editLabel:before {
+        content: '\e81e';
+    }
+
+    .e-labelSave:before {
+        content: '\e98e';
+    }
+
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div>
+        @(Html.EJS().Tab("ReferentialsTab")
+                    .Items(builder =>
+                    {
+                        builder.Header(header => header.Text(LocalizedStrings.GetString("Web_Resources")))
+                            .CssClass("Resources")
+                            .Add();
+                        foreach (var refs in Model.Referentials.Where(r => r.isResource == false))
+                        {
+                            builder.Header(header => header.Text(refs.Label))
+                                .CssClass(refs.refId.ToString())
+                                .Add();
+                        }
+                    })
+                    .Selected("refTabSelected")
+                    .Render()
+        )
+    </div>
+    <div id="refTabContainer" class="innerContent">
+    </div>
+    @Html.Partial("~/Views/Referentials/ReferentialList.cshtml")
+</div>
+
+<script type="text/javascript">
+    var refId = @Html.Raw(Model.IntRefIdentifier);
+    var isAddProcess = false;
+
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Administration")" + "/" + "@LocalizedStrings.GetString("Web_Menu_ManageReferentials")");
+
+        if (sessionStorage.getItem("isRefreshing") == "true") {
+            var refTabs = document.getElementById('ReferentialsTab').ej2_instances[0];
+            var indexToSelect = 0;
+            var classToSelect = "";
+            switch (refId) {
+                case 1:
+                case 2:
+                    classToSelect = "Resources";
+                    break;
+                case 3:
+                    classToSelect = "Category";
+                    break;
+                case 4:
+                    classToSelect = "Ref1";
+                    break;
+                case 5:
+                    classToSelect = "Ref2";
+                    break;
+                case 6:
+                    classToSelect = "Ref3";
+                    break;
+                case 7:
+                    classToSelect = "Ref4";
+                    break;
+                case 8:
+                    classToSelect = "Ref5";
+                    break;
+                case 9:
+                    classToSelect = "Ref6";
+                    break;
+                case 10:
+                    classToSelect = "Ref7";
+                    break;
+                case 100:
+                    classToSelect = "Skill";
+                    break;
+            }
+            for (var i = 0; i < refTabs.items.length; i++) {
+                if (refTabs.items[i].cssClass == classToSelect) {
+                    indexToSelect = i;
+                    break;
+                }
+            }
+            if (refTabs.selectedItem == indexToSelect) {
+                loadRefTab(refTabs.items[indexToSelect].cssClass);
+            } else {
+                refTabs.select(indexToSelect);
+            }
+        } else {
+            if (refId === 1 || refId === 2) {
+                LoadPartial('/Referentials/Resources', '#refTabContainer', null, null, -1);
+            }
+            setIsRefreshing(false);
+        }
+    });
+
+    function setLocationRefId(newRefId) {
+        var location = JSON.parse(sessionStorage.getItem('location'));
+        var splittedAction = location[0].action.split('?');
+        var splittedParams = splittedAction[1].split('&');
+        var params = splittedParams.map(function (p) {
+            var newP = p;
+            if (p.split('=')[0] == "refId") {
+                newP = "refId=" + newRefId;
+            }
+            return newP;
+        }).reduce(function (a, b) { return a + "&" + b; });
+        location[0].action = splittedAction[0] + "?" + params;
+        sessionStorage.setItem('location', JSON.stringify(location));
+    }
+
+    function loadRefTab(classRef) {
+        if (classRef == 'Resources') {
+            LoadPartial('/Referentials/Resources', '#refTabContainer', null, null, -1);
+        } else if (classRef == 'Category') {
+            LoadPartial('/Referentials/Referentials?refId=3', '#refTabContainer', null, null, -1);
+            setLocationRefId("3");
+            setIsRefreshing(false);
+        } else if (classRef == 'Ref1') {
+            LoadPartial('/Referentials/Referentials?refId=4', '#refTabContainer', null, null, -1);
+            setLocationRefId("4");
+            setIsRefreshing(false);
+        } else if (classRef == 'Ref2') {
+            LoadPartial('/Referentials/Referentials?refId=5', '#refTabContainer', null, null, -1);
+            setLocationRefId("5");
+            setIsRefreshing(false);
+        } else if (classRef == 'Ref3') {
+            LoadPartial('/Referentials/Referentials?refId=6', '#refTabContainer', null, null, -1);
+            setLocationRefId("6");
+            setIsRefreshing(false);
+        } else if (classRef == 'Ref4') {
+            LoadPartial('/Referentials/Referentials?refId=7', '#refTabContainer', null, null, -1);
+            setLocationRefId("7");
+            setIsRefreshing(false);
+        } else if (classRef == 'Ref5') {
+            LoadPartial('/Referentials/Referentials?refId=8', '#refTabContainer', null, null, -1);
+            setLocationRefId("8");
+            setIsRefreshing(false);
+        } else if (classRef == 'Ref6') {
+            LoadPartial('/Referentials/Referentials?refId=9', '#refTabContainer', null, null, -1);
+            setLocationRefId("9");
+            setIsRefreshing(false);
+        } else if (classRef == 'Ref7') {
+            LoadPartial('/Referentials/Referentials?refId=10', '#refTabContainer', null, null, -1);
+            setLocationRefId("10");
+            setIsRefreshing(false);
+        } else if (classRef == 'Skill') {
+            LoadPartial('/Referentials/Referentials?refId=100', '#refTabContainer', null, null, -1);
+            setLocationRefId("100");
+            setIsRefreshing(false);
+        }
+    }
+
+    function refTabSelected(args) {
+        if (args.selectedItem.classList.contains('Resources')) {
+            loadRefTab('Resources');
+        } else if (args.selectedItem.classList.contains('Category')) {
+            loadRefTab('Category')
+        } else if (args.selectedItem.classList.contains('Ref1')) {
+            loadRefTab('Ref1')
+        } else if (args.selectedItem.classList.contains('Ref2')) {
+            loadRefTab('Ref2')
+        } else if (args.selectedItem.classList.contains('Ref3')) {
+            loadRefTab('Ref3')
+        } else if (args.selectedItem.classList.contains('Ref4')) {
+            loadRefTab('Ref4')
+        } else if (args.selectedItem.classList.contains('Ref5')) {
+            loadRefTab('Ref5')
+        } else if (args.selectedItem.classList.contains('Ref6')) {
+            loadRefTab('Ref6')
+        } else if (args.selectedItem.classList.contains('Ref7')) {
+            loadRefTab('Ref7')
+        } else if (args.selectedItem.classList.contains('Skill')) {
+            loadRefTab('Skill')
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()
+

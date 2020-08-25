@@ -1,0 +1,9 @@
+[ODBC]
+DRIVER=SQL Server Native Client 10.0
+UID=odupont
+DATABASE=KProcess.KSmed
+WSID=WSODU2
+APP=Enterprise Architect 7.1
+Trusted_Connection=Yes
+SERVER=vpctekigo
+Description=DB locales sur VPCTEKIGO

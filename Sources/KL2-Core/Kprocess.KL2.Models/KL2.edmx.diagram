@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fdaea35bf9bf43ae8e1840da94d55489" Name="Diagram1" ZoomLevel="63">
+        <EntityTypeShape EntityType="Kprocess.KL2Model.KAction" Width="1.5" PointX="12.75" PointY="57.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.KActionReduced" Width="1.5" PointX="5.25" PointY="49" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.ActionType" Width="1.5" PointX="3" PointY="49" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.ActionValue" Width="1.5" PointX="3" PointY="52.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.AppResourceKey" Width="1.5" PointX="0.75" PointY="57.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.AppResourceValue" Width="1.5" PointX="6" PointY="58" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.AppSetting" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Language" Width="1.5" PointX="3" PointY="76" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Objective" Width="1.5" PointX="3" PointY="59.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Project" Width="1.5" PointX="8.25" PointY="56.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.ProjectDir" Width="1.5" PointX="6" PointY="45.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.ProjectReferential" Width="1.5" PointX="10.5" PointY="59.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref1" Width="1.5" PointX="10.5" PointY="63.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref1Action" Width="1.5" PointX="21" PointY="61.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref2" Width="1.5" PointX="15.5" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref2Action" Width="1.5" PointX="20.75" PointY="64.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref3" Width="1.5" PointX="15.5" PointY="57.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref3Action" Width="1.5" PointX="20.75" PointY="58.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref4" Width="1.5" PointX="15.5" PointY="67.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref4Action" Width="1.5" PointX="23.75" PointY="64.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref5" Width="1.5" PointX="10.5" PointY="68.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref5Action" Width="1.5" PointX="23" PointY="68" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref6" Width="1.5" PointX="10.5" PointY="54.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref6Action" Width="1.5" PointX="16" PointY="54.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref7" Width="1.5" PointX="18.5" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Ref7Action" Width="1.5" PointX="23.75" PointY="60.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.ActionCategory" Width="1.5" PointX="5.25" PointY="52.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Equipment" Width="1.5" PointX="13.5" PointY="54.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Referential" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Operator" Width="1.5" PointX="18.5" PointY="59.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Resource" Width="1.5" PointX="7.5" PointY="66.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Role" Width="1.5" PointX="3" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Scenario" Width="1.5" PointX="18.5" PointY="67.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.ScenarioNature" Width="1.5" PointX="3" PointY="65.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.ScenarioState" Width="1.5" PointX="3" PointY="69" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Solution" Width="1.5" PointX="20.75" PointY="68.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.UISetting" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.User" Width="1.5" PointX="5.25" PointY="62.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.UserRoleProject" Width="1.5" PointX="18.5" PointY="56.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Video" Width="1.5" PointX="13.5" PointY="72.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.VideoNature" Width="1.5" PointX="3" PointY="72.125" IsExpanded="true" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Action_ActionCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Action_Orignal" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Action_Resource" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Action_Scenario" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Action_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Action_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Action_Video" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionReduced_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefConsumableAction_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefDocumentAction_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra1Action_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra2Action_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra3Action_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefPlaceAction_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefToolAction_Action" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionReduced_ActionType" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionCategory_ActionType" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionType_AppResourceKey" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionType_AppResourceKey_ShortLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionCategory_ActionValue" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionValue_AppResourceKey_LongLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionValue_AppResourceKey_ShortLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_AppResourceValue_AppResourceKey" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Objective_LongLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Objective_ShortLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Role_AppResourceKey_LongLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Role_AppResourceKey_ShortLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ScenarioNature_AppResourceKey_LongLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ScenarioNature_AppResourceKey_ShortLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_State_AppResourceKey_LongLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_State_AppResourceKey_ShortLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_VideoNature_AppResourceKey_LongLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_VideoNature_AppResourceKey_ShortLabel" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_AppResourceValue_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_AppResourceValue_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_AppResourceValue_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_User_Language" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Project_Objective" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Project_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Project_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Project_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ProjectReferential_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Scenario_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_UserRoleProject_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Video_Project" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ProjectDir_ProjectDir" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefToolAction_RefTool" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Tool_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Tool_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Consumable_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Consumable_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefConsumableAction_RefConsumable" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Place_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Place_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefPlaceAction_RefPlace" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Document_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Document_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefDocumentAction_RefDocument" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra1_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra1_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra1Action_RefExtra1" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra2_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra2_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra2Action_RefExtra2" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra3_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra3_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_RefExtra3Action_RefExtra3" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionCategory_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_ActionCategory_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Resource_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Resource_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Video_Resource" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_UserRoleProject_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Scenario_Scenario_Original" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Scenario_ScenarioNature" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Scenario_State" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Scenario_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Scenario_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Solution_Scenario" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_User_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_User_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_UserRoleProject_User" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Video_User_CreatedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Video_User_ModifiedBy" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Video_Nature" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.ActionPredecessorSuccessor" ManuallyRouted="false" />
+        <AssociationConnector Association="Kprocess.KL2Model.UserRole" ManuallyRouted="false" />
+        <InheritanceConnector EntityType="Kprocess.KL2Model.Equipment" />
+        <InheritanceConnector EntityType="Kprocess.KL2Model.Operator" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Process" Width="1.5" PointX="3.375" PointY="3.875" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Project_Process" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.CutVideo" Width="1.5" PointX="25.75" PointY="57.375" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Publication" Width="1.5" PointX="25.75" PointY="68" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.PublishedAction" Width="1.5" PointX="28" PointY="58" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.PublishedActionCategory" Width="1.5" PointX="8.25" PointY="50.375" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.PublishedReferential" Width="1.5" PointX="28" PointY="55" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.PublishedReferentialAction" Width="1.5" PointX="30.25" PointY="60" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.PublishedResource" Width="1.5" PointX="25.75" PointY="53.5" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedActionCategory_ActionType" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedActionCategory_ActionValue" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Publication_Project" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Publication_Scenario" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_Publication_User" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedAction_Publication" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedAction_PublishedActionCategory" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedAction_PublishedResource" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedReferentialAction_PublishedAction" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedReferentialAction_PublishedReferential" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.PublishedFile" Width="1.5" PointX="3" PointY="56.5" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedActionCategory_PublishedFile" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedReferential_PublishedFile" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedResource_PublishedFile" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedAction_CutVideo" />
+        <AssociationConnector Association="Kprocess.KL2Model.FK_PublishedAction_PublishedFile" />
+        <EntityTypeShape EntityType="Kprocess.KL2Model.Team" Width="1.5" PointX="3.375" PointY="3.875" />
+        <AssociationConnector Association="Kprocess.KL2Model.UserTeam" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

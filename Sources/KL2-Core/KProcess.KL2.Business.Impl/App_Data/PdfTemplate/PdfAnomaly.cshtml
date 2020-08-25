@@ -1,0 +1,145 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="bootstrap.min.css">
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>*@
+</head>
+<body>
+    <style>
+    .notChoosen {
+        margin: 10px;
+        margin-bottom: 5px;
+        margin-top: 0px;
+    }
+    .Choosen {
+        background-color: @Html.Raw(Model.TypeColor);
+        margin: 10px;
+        margin-bottom: 5px;
+        margin-top: 0px;
+    }
+    .TypeLabel {
+        background-color: @Html.Raw(Model.TypeColor);
+        color : white;
+    }
+    .TypeBorder {
+        background-color: white;
+        border : solid;
+        border-color : @Html.Raw(Model.TypeColor);
+    }
+    .TypeWord {
+        color : @Html.Raw(Model.TypeColor);
+    }
+    .TypeModalBody {
+        background-color: @Html.Raw(Model.TypeColor);
+    }
+    </style>
+    <div class="TypeModalBody">
+        <div class="row" style="text-align:center;">
+            <h1>@Model.TypeLabel</h1>
+        </div>
+        <div class="row" style="display:flex; flex-wrap:wrap">
+            <div class="col-md-6 TypeWord TypeBorder">
+                <div class="col-md-2">
+                    <label>LIGNE</label>
+                    <br />
+                    <label>MACHINE</label>
+                </div>
+                <div class="col-md-1">
+                    <label>:</label>
+                    <br />
+                    <label>:</label>
+                </div>
+                <div class="col-md-3">
+                    <label id="Line">@Model.Line</label>
+                    <br />
+                    <label id="Machine">@Model.Machine</label>
+                </div>
+            </div>
+
+            <div class="col-md-6 TypeWord TypeBorder" style="justify-content:center;text-align:center;">
+                <label>PRIORITE</label>
+                <br />
+                <span style="display:inline;">
+                    @if (Model.PriorityLists != null)
+                    {
+                        foreach (var priority in Model.PriorityLists)
+                        {
+                            if (Model.Priority == priority.Item1)
+                            {
+                                @:<span class="badge badge-primary Choosen">@priority.Item2</span>
+                                    }
+                            else
+                            {
+                                @:<span class="badge badge-primary notChoosen">@priority.Item2</span>
+                                    }
+                        }
+                    }
+                </span>
+            </div>
+        </div>
+        <div class="row TypeBorder TypeWord">
+            @if (Model.KindItems != null)
+            {
+                int itemCounter = 0;
+                for (int i = 0; i < Model.KindItems.Count; i++)
+                {
+                    var kindItem = Model.KindItems[i];
+                    var item = Model.Items[itemCounter];
+                    var type = kindItem.GetType().Name;
+                    if (type == "AnomalyKindItemTitle")
+                    {
+                        @:<div class="col-md-4">
+                            @:<h5>@kindItem.Label</h5>
+                    }
+                    else if (type == "AnomalyKindItem")
+                    {
+                        itemCounter++;
+                        if (Model.Label == item.Label && Model.Category == item.Category)
+                        {
+                            @:<h6 style="margin-bottom:2px;margin-top:2px;"><span class="badge badge-primary Choosen">@item.Number</span>@item.Label</h6>
+                        }
+                        else
+                        {
+                            @:<h6 style="margin-bottom:2px;margin-top:2px;"><span class="badge badge-primary notChoosen">@item.Number</span>@item.Label</h6>
+                        }
+                    }
+
+                    if (i + 1 < Model.KindItems.Count)
+                    {
+                        var nextKindItem = Model.KindItems[i + 1];
+                        var nextType = nextKindItem.GetType().Name;
+                        if (nextType == "AnomalyKindItemTitle")
+                        {
+                            @:</div>
+                        }
+                    }
+                    else
+                    {
+                        @:</div>
+                    }
+                }
+            }
+        </div>
+        @if (Model.HasPhoto)
+        {
+            <div class="row TypeBorder">
+                <div class="col-md-12">
+                    <img src="@Model.Photo" class="img-responsive center-block" />
+                </div>
+            </div>
+        }
+        <div class="row TypeBorder TypeWord">
+            <div class="col-md-12">
+                <h4><strong>Description du problème</strong></h4>
+                <p id="Description">
+                    @Model.Description
+                </p>
+            </div>
+        </div>
+</body>
+</html>

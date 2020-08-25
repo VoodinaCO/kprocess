@@ -1,0 +1,361 @@
+﻿@using KProcess.KL2.WebAdmin.Models.NotificationSetting;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model NotificationManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "SMTP";
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    @@font-face {
+        font-family: 'Mail';
+        src: url(data:application/x-font-ttf;charset=utf-8;base64,AAEAAAAKAIAAAwAgT1MvMj1tSfYAAAEoAAAAVmNtYXDnGOdnAAABmAAAAD5nbHlmB5NrZQAAAegAAAUgaGVhZBVsoO8AAADQAAAANmhoZWEIUQQHAAAArAAAACRobXR4GAAAAAAAAYAAAAAYbG9jYQQKAvQAAAHYAAAADm1heHABHQD8AAABCAAAACBuYW1lsn1WTwAABwgAAAIxcG9zdHtwaPgAAAk8AAAAVgABAAAEAAAAAFwEAAAAAAAD9AABAAAAAAAAAAAAAAAAAAAABgABAAAAAQAAe8B/ql8PPPUACwQAAAAAANktLf8AAAAA2S0t/wAAAAAD9AP0AAAACAACAAAAAAAAAAEAAAAGAPAADQAAAAAAAgAAAAoACgAAAP8AAAAAAAAAAQQAAZAABQAAAokCzAAAAI8CiQLMAAAB6wAyAQgAAAIABQMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAUGZFZABA5wDnBAQAAAAAXAQAAAAAAAABAAAAAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAAAAAgAAAAMAAAAUAAMAAQAAABQABAAqAAAABAAEAAEAAOcE//8AAOcA//8AAAABAAQAAAABAAIAAwAEAAUAAAAAAAAAOgCQAUACZAKQAAAAAQAAAAAC8gPzACwAAAEVIxUzETMRMz8BIzU/CDUjDxQBdmho2JALCaMBAwQGBwQICXmfFRMSEBAODgwLCgoICAcGBQUHBgQDAyqPr/4gAeBQYHgHBwcGBgMDAgG2AQECBAQEBgYGCAcICAkICQkSERAWAAACAAAAAAP0A2wAJgA5AAATER8HIT8HES8DAQ8CLwMBDwU3AR8DPwMBPwI1IRUfAQwBAgMEBQYGBwOkBwYGBQQDAgEBAwUH/jMGBwcIBwcG/jgFBAMCAgJQAY0FBgYHBgYGBQGQBAMC/KICAwL//bcHBgYFBAMCAQECAwQFBgYHAkkICAcF/jYEAgEBAgQFAcgDAwMEBQRL/nYEAwEBAQEDBAGNBQUGBgcHBgAAAwAAAAAD9APdAAMAVwCXAAA3MxEjBRUjNzUjETMRPw4fDxEzES8bDwwBHw8/DjUvDw8OGdbWAiMBAdbWAgMFCAoLBwcHCAkJCgoLDg0MCwoICAcHBQQEAgIBAdYBAgICBAMFBQUGBgcHBwkICQkKCgoLCwsMGBkaFBQREQ8ODQwLCgkJDv3EAQEDAwUGBgcICQoLCwwMDg8NDAsLCgkJBwYGBQMDAgEBAwQEBgYICAkKCgsNDA4NDQwMCgoJCQcHBgQEAwEiAoVbAgJb/XsBdxQMDQ4ODAYFBQQEAwIBAQECAwUFBwgKCgsMDQ0PDxD+pwGEEhEQEA8PDg0NDAwLCgoJCQgIBwYGBQUEAwYDAQECAwQGBgcICAgJCRIBEgwLCwoKCQgICAYFBQQDAQEBAQMEBQUGCAgICQoKCwsMCwsLCwkKCAgHBgYEBAMBAQEBAwQEBgYHCAgKCQsLCwAAAA0AAAAAA/QDsgAYACcAOQBIAFEAVwBoAHEAfACWAMsA2QDvAAAlDwM/DyMPAz8MIwcfDTcjFyUzPwcjFQ8DMz8FIw8BFzM1IyUzLwcjHwUHMy8FIwczNSMPBgEfBDMvDx8CARUjFzcjNT8ODx4lMy8LDwQzNw8OAwAODg8QEhIRERARDw8PDg4NDAwLCokICQqwCAkJCAgREA8ODhQNCJyyBwcPEAkICQgJCQkJCgkDqQgBoZMJCAcGBQQDAqwCAQbhqAYFAwQEBL9xcwayLwFCrAIDBAUGBwgJkwUEAwICAua/AQECAwcIqfTLsgUFBQMDAgEBmAYGCggIhgoLCw0MDg0PDw8QEBEREhIQDw79oY3h5JABBAUICgsHBwcHCA8ODxAQEBAPDw8ODg4NDQwMCwsKCgoICQcHBwYFBAQEAgIBAcicDggJDQ8OEA8QEQgIsgkJCQeoAwkJCgkJCQkJCQgJCAgHCLIXFhMSBwcHCQkKCwsMDA4NDg8PEBoaGHkCBAQEBgwPERQXJh8VTg4MFxQJCAcHBgUEAwMByBU9FBUUFRYVFhYWFhUrPRQVFBUrLBl0HKkpFxcWFxUWFBUVFBYVFxYuFxcWFyspr68UFBQWFhcYASMKDBgZGhEPDw4ODQwMCwsJCQkHBwcUFBb+nhbn5BYYLy8tLCkTExIREBcWExIGBgYHCAkJCQsKCwwMDQ0NDg8ODxAPEBEQERESERIS2CkTExcVExANDAgEAnMUFBUVyAEDAwQEBgYHCAkJCgsMDAAAAQAAAAAC7wP0AB4AAAERNxcRLw0hHwoBe7y4CgUGBwgJDAwHCAgICQr+mQ8PCQkKCQkICAYFA278nv39A2IpDA0MDAsLCAQDAwIBAQQHBQcHCgsMDxESAAAAEgDeAAEAAAAAAAAAAQAAAAEAAAAAAAEACAABAAEAAAAAAAIABwAJAAEAAAAAAAMACAAQAAEAAAAAAAQACAAYAAEAAAAAAAUACwAgAAEAAAAAAAYACAArAAEAAAAAAAoALAAzAAEAAAAAAAsAEgBfAAMAAQQJAAAAAgBxAAMAAQQJAAEAEABzAAMAAQQJAAIADgCDAAMAAQQJAAMAEACRAAMAAQQJAAQAEAChAAMAAQQJAAUAFgCxAAMAAQQJAAYAEADHAAMAAQQJAAoAWADXAAMAAQQJAAsAJAEvIExvZ2luS0wyUmVndWxhckxvZ2luS0wyTG9naW5LTDJWZXJzaW9uIDEuMExvZ2luS0wyRm9udCBnZW5lcmF0ZWQgdXNpbmcgU3luY2Z1c2lvbiBNZXRybyBTdHVkaW93d3cuc3luY2Z1c2lvbi5jb20AIABMAG8AZwBpAG4ASwBMADIAUgBlAGcAdQBsAGEAcgBMAG8AZwBpAG4ASwBMADIATABvAGcAaQBuAEsATAAyAFYAZQByAHMAaQBvAG4AIAAxAC4AMABMAG8AZwBpAG4ASwBMADIARgBvAG4AdAAgAGcAZQBuAGUAcgBhAHQAZQBkACAAdQBzAGkAbgBnACAAUwB5AG4AYwBmAHUAcwBpAG8AbgAgAE0AZQB0AHIAbwAgAFMAdAB1AGQAaQBvAHcAdwB3AC4AcwB5AG4AYwBmAHUAcwBpAG8AbgAuAGMAbwBtAAAAAAIAAAAAAAAACgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgECAQMBBAEFAQYBBwAJZmFjZWJvb2sxBG1haWwIbGlua2VkaW4Dd2ViCGJvb2ttYXJrAAAAAA==) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    .cb-icons {
+        font-family: 'Mail';
+        speak: none;
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 18px !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+    }
+
+    .e-mailsent.cb-icons::before {
+        content: '\e701';
+    }
+
+    .e-mailsent::before {
+        content: '\e701';
+        font-family: 'Mail';
+        font-size: 18px !important;
+    }
+</style>
+
+<div class="e-card topMargin">
+    <div class="e-card-content" style="display: flex; flex-direction: column;">
+        <div style="margin-bottom: 10px;">
+            <label>@LocalizedStrings.GetString("Web_Controller_Notification_SMTPUseAnonymMode") : </label>
+            @(Html.EJS().SwitchFor(m => m.UseAnonymMode)
+                .Change("setHasChanged")
+                .Render()
+            )
+        </div>
+        <div>
+            <label>@LocalizedStrings.GetString("Web_Controller_Notification_EmailSenderAddress") : </label>
+            @(Html.EJS().TextBoxFor(m => m.SenderEmail)
+                .Type("email")
+                .Change("setHasChanged")
+                .Render()
+            )
+        </div>
+        <div>
+            <label>@LocalizedStrings.GetString("Web_Controller_Notification_EmailSenderPassword") : </label>
+            @(Html.EJS().TextBoxFor(m => m.Password)
+                .Type("password")
+                .Change("setHasChanged")
+                .Render()
+            )
+        </div>
+        <div>
+            <label>@LocalizedStrings.GetString("Web_Controller_Notification_SMTPClient") : </label>
+            @(Html.EJS().TextBoxFor(m => m.ServerAddress)
+                .Change("setHasChanged")
+                .Render()
+            )
+        </div>
+        <div>
+            <label>@LocalizedStrings.GetString("Web_Controller_Notification_SMTPPort") : </label>
+            @(Html.EJS().NumericTextBoxFor(m => m.ServerPort)
+                .Width("150px")
+                .Format("#####").Decimals(0).Min(1).Max(99999).ValidateDecimalOnType(true)
+                .Change("setHasChanged")
+                .Render()
+            )
+        </div>
+        <div style="margin-top: 10px;">
+            <label>@LocalizedStrings.GetString("Web_Controller_Notification_SMTPEnableSsl") : </label>
+            @(Html.EJS().SwitchFor(m => m.UseSSL)
+                .Change("setHasChanged")
+                .Render()
+            )
+        </div>
+    </div>
+    <div class="e-card-actions">
+        @(Html.EJS().Button("SMTPManagement_TestSMTP")
+            .Content(LocalizedStrings.GetString("Web_View_NotificationSetting_SMTP_TestParameters"))
+            .IconCss("e-mailsent")
+            .HtmlAttributes(new Dictionary<string, object>
+            {
+                ["tooltip"] = LocalizedStrings.GetString("Web_View_NotificationSetting_SMTP_TestParameters"),
+                ["onclick"] = "onClickTestSMTP();"
+            })
+            .Render()
+        )
+        @(Html.EJS().Button("SMTP_Cancel")
+            .Content(LocalizedStrings.GetString("Common_Cancel"))
+            .CssClass("e-warning")
+            .HtmlAttributes(new Dictionary<string, object>
+            {
+                ["style"] = "display: none;",
+                ["onclick"] = "onClickCancelSMTP();"
+            })
+            .Disabled(true)
+            .Render()
+        )
+        @(Html.EJS().Button("SMTP_Save")
+            .Content(LocalizedStrings.GetString("Common_Save"))
+            .CssClass("e-success")
+            .HtmlAttributes(new Dictionary<string, object>
+            {
+                ["style"] = "display: none;",
+                ["onclick"] = "onClickSaveSMTP();"
+            })
+            .Disabled(true)
+            .Render()
+        )
+    </div>
+</div>
+
+<script type="text/template" id="valueDisplay">
+    ${if (IsPassword)}
+    <span>*****</span>
+    ${else}
+    <span>${Value}</span>
+    ${/if}
+</script>
+
+<script>
+    var canSendMail = @Html.Raw(Model.CanSendMail ? "true" : "false");
+
+    docReady(function () {
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        refreshCanSendMail();
+        document.getElementById('SenderEmail').oninput = function () {
+            setHasChanged();
+        };
+        document.getElementById('Password').oninput = function () {
+            setHasChanged();
+        };
+        document.getElementById('ServerAddress').oninput = function () {
+            setHasChanged();
+        };
+        document.getElementById('ServerPort').oninput = function () {
+            setHasChanged();
+        };
+        applyReadOnlyIfExpired();
+    });
+
+    function setHasChanged() {
+        setState('SMTP_Cancel', true);
+        setState('SMTP_Save', true);
+        setVisibility('SMTP_Cancel', true);
+        setVisibility('SMTP_Save', true);
+        setState('SMTPManagement_TestSMTP', false);
+
+        if (document.getElementById('UseAnonymMode').ej2_instances[0].checked === true) {
+            document.getElementById('Password').ej2_instances[0].enabled = false;
+        } else {
+            document.getElementById('Password').ej2_instances[0].enabled = true;
+        }
+    }
+
+    function setState(eltId, state) {
+        if (state === true) {
+            document.getElementById(eltId).ej2_instances[0].disabled = false;
+        } else if (state === false) {
+            document.getElementById(eltId).ej2_instances[0].disabled = true;
+        }
+    }
+
+    function setVisibility(eltId, visible) {
+        if (visible === true) {
+            document.getElementById(eltId).style.display = "block";
+        } else if (visible === false) {
+            document.getElementById(eltId).style.display = "none";
+        }
+    }
+
+    function onClickTestSMTP() {
+        var testSmtpDialogObj = new ej.popups.Dialog({
+            width: '500px',
+            header: "<span style='padding-left:5px;'>@Html.Raw(LocalizedStrings.GetString("Web_View_NotificationSetting_SMTP_PleaseEnterRecipient"))</span>",
+            content: '<input id="recipientsToTestSmtp" type="text" class="e-input" oninput="onInputRecipient()">',
+            target: document.getElementById('wrapper'),
+            animationSettings: { effect: 'Fade' },
+            isModal: true,
+            visible: false,
+            showCloseIcon: true,
+            closeOnEscape: false,
+            buttons: [
+                {
+                    click: function () {
+                        var recipientValue = document.getElementById('recipientsToTestSmtp').value;
+                        testSmtpDialogObj.hide();
+                        testSMTP(recipientValue);
+                    },
+                    buttonModel: { content: "@Html.Raw(LocalizedStrings.GetString("Common_Send"))", isPrimary: true }
+                },
+                {
+                    click: function () {
+                        testSmtpDialogObj.hide();
+                    },
+                    buttonModel: { content: "@Html.Raw(LocalizedStrings.GetString("Common_Close"))" }
+                }
+            ]
+        });
+        $('#modalDialogContainer').html("");
+        testSmtpDialogObj.appendTo('#modalDialogContainer');
+        testSmtpDialogObj.show();
+        document.querySelector("#modalDialogContainer>.e-footer-content>.e-primary").ej2_instances[0].disabled = true;
+    }
+
+    function onClickCancelSMTP() {
+        var ajax = new ej.base.Ajax({
+            url: "@Url.Action("GetSmtpParameters")",
+            type: "GET",
+            contentType: "application/json"
+        });
+        ajax.send().then(function (data) {
+            var oldData = JSON.parse(data);
+            document.getElementById('UseAnonymMode').ej2_instances[0].checked = oldData.useAnonymMode;
+            document.getElementById('SenderEmail').ej2_instances[0].value = oldData.senderEmail;
+            document.getElementById('Password').ej2_instances[0].value = oldData.password;
+            document.getElementById('ServerAddress').ej2_instances[0].value = oldData.serverAddress;
+            document.getElementById('ServerPort').ej2_instances[0].value = oldData.serverPort;
+            document.getElementById('UseSSL').ej2_instances[0].checked = oldData.useSSL;
+
+            setTimeout(function () {
+                setState('SMTP_Cancel', false);
+                setState('SMTP_Save', false);
+                setVisibility('SMTP_Cancel', false);
+                setVisibility('SMTP_Save', false);
+                document.getElementById('SMTP_Cancel').ej2_instances[0].dataBind();
+                document.getElementById('SMTP_Save').ej2_instances[0].dataBind();
+                refreshCanSendMail()
+            }, 0);
+
+            if (oldData.useAnonymMode === true) {
+                document.getElementById('Password').ej2_instances[0].enabled = false;
+            } else {
+                document.getElementById('Password').ej2_instances[0].enabled = true;
+            }
+        }).catch(function (xhr) {
+            console.log(xhr);
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("Web_Controller_Notification_CantGetSmtpParameters")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        });
+    }
+
+    function onClickSaveSMTP() {
+        var ajax = new ej.base.Ajax({
+            url: "@Url.Action("SaveSmtpParameters")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                useAnonymMode: document.getElementById('UseAnonymMode').ej2_instances[0].checked,
+                senderEmail: document.getElementById('SenderEmail').ej2_instances[0].value,
+                password: document.getElementById('Password').ej2_instances[0].value,
+                serverAddress: document.getElementById('ServerAddress').ej2_instances[0].value,
+                serverPort: document.getElementById('ServerPort').ej2_instances[0].value,
+                useSSL: document.getElementById('UseSSL').ej2_instances[0].checked
+            })
+        });
+        ajax.send().then(function (data) {
+            if (data === "OK") {
+                setState('SMTP_Cancel', false);
+                setState('SMTP_Save', false);
+                setVisibility('SMTP_Cancel', false);
+                setVisibility('SMTP_Save', false);
+                document.getElementById('SMTP_Cancel').ej2_instances[0].dataBind();
+                document.getElementById('SMTP_Save').ej2_instances[0].dataBind();
+
+                if (document.getElementById('UseAnonymMode').ej2_instances[0].checked === true) {
+                    document.getElementById('Password').ej2_instances[0].enabled = false;
+                } else {
+                    document.getElementById('Password').ej2_instances[0].enabled = true;
+                }
+                refreshCanSendMail();
+            } else {
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: data, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            }
+        }).catch(function (xhr) {
+            console.log(xhr);
+        });
+    }
+
+    function onInputRecipient() {
+        var recipientValue = document.getElementById('recipientsToTestSmtp').value;
+        var mailIsValid = (new RegExp(/\S+@@\S+\.\S+/)).test(recipientValue);
+        if (mailIsValid) {
+            document.querySelector("#modalDialogContainer>.e-footer-content>.e-primary").ej2_instances[0].disabled = false;
+        } else {
+            document.querySelector("#modalDialogContainer>.e-footer-content>.e-primary").ej2_instances[0].disabled = true;
+        }
+    }
+
+    function refreshCanSendMail() {
+        canSendMail = true;
+        var useAnonymMode = document.getElementById('UseAnonymMode').ej2_instances[0].checked;
+        var senderEmail = document.getElementById('SenderEmail').ej2_instances[0].value;
+        var password = document.getElementById('Password').ej2_instances[0].value;
+        var serverAddress = document.getElementById('ServerAddress').ej2_instances[0].value;
+        var serverPort = document.getElementById('ServerPort').ej2_instances[0].value;
+        var useSSL = document.getElementById('UseSSL').ej2_instances[0].checked;
+        if (senderEmail === undefined || senderEmail.length === 0 || senderEmail.trim().length === 0)
+            canSendMail = false;
+        if (useAnonymMode === false && (password === undefined || password.length === 0 || password.trim().length === 0))
+            canSendMail = false;
+        if (serverAddress === undefined || serverAddress.length === 0 || serverAddress.trim().length === 0)
+            canSendMail = false;
+        if (serverPort === undefined || serverPort.length === 0)
+            canSendMail = false;
+
+        setState('SMTPManagement_TestSMTP', canSendMail);
+        document.getElementById('SMTPManagement_TestSMTP').ej2_instances[0].dataBind();
+    }
+
+    function testSMTP(recipients) {
+        var ajax = new ej.base.Ajax({
+            url: "@Url.Action("TestSMTP")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                to: recipients
+            })
+        });
+        ajax.send().then(function (data) {
+            if (data === "OK") {
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "", content: "@LocalizedStrings.GetString("Common_EmailSent")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+            } else {
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: data, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            }
+        }).catch(function (xhr) {
+            console.log(xhr);
+        });
+    }
+</script>
+
+@Html.EJS().ScriptManager()

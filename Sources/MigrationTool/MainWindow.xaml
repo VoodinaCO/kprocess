@@ -1,0 +1,121 @@
+﻿<Window x:Class="MigrationTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MigrationTool"
+        mc:Ignorable="d"
+        Title="Outil de migration KL² v2 vers KL² v3" Height="480" Width="640" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Column="0" Header="Paramètres de connexion à la base de donnée source :">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Margin="2" Grid.Column="0" Grid.Row="0" Content="Serveur : "/>
+                <Label Margin="2" Grid.Column="0" Grid.Row="1" Content="Instance : "/>
+                <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="Utilisateur : "/>
+                <Label Margin="2" Grid.Column="0" Grid.Row="3" Content="Mode de passe : "/>
+                <TextBox Margin="2" Grid.Column="1" Grid.Row="0" Text="{Binding Source_ServerName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="2" Grid.Column="1" Grid.Row="1" Text="{Binding Source_InstanceName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="2" Grid.Column="1" Grid.Row="2" x:Name="Source_DataBaseUsernameTextBox"
+                         Text="{Binding Source_UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                <PasswordBox Margin="2" Grid.Column="1" Grid.Row="3" x:Name="Source_DatabasePasswordBox" PasswordChanged="Source_DatabasePasswordBox_PasswordChanged"/>
+                <Button Margin="0,10,0,5" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Center"
+                        Content="Tester la connexion"
+                        Command="{Binding Source_TestInstanceConnectionCommand}"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Column="1" Header="Paramètres de connexion à la base de donnée cible :">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Label Margin="2" Grid.Column="0" Grid.Row="0" Content="Serveur : "/>
+                <Label Margin="2" Grid.Column="0" Grid.Row="1" Content="Instance : "/>
+                <Label Margin="2" Grid.Column="0" Grid.Row="2" Content="Utilisateur : "/>
+                <Label Margin="2" Grid.Column="0" Grid.Row="3" Content="Mode de passe : "/>
+                <TextBox Margin="2" Grid.Column="1" Grid.Row="0" Text="{Binding Target_ServerName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="2" Grid.Column="1" Grid.Row="1" Text="{Binding Target_InstanceName, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox Margin="2" Grid.Column="1" Grid.Row="2" x:Name="Target_DataBaseUsernameTextBox"
+                         Text="{Binding Target_UserName, UpdateSourceTrigger=PropertyChanged}"/>
+                <PasswordBox Margin="2" Grid.Column="1" Grid.Row="3" x:Name="Target_DatabasePasswordBox" PasswordChanged="Target_DatabasePasswordBox_PasswordChanged"/>
+                <Button Margin="0,10,0,5" Grid.ColumnSpan="2" Grid.Row="4" HorizontalAlignment="Center"
+                        Content="Tester la connexion"
+                        Command="{Binding Target_TestInstanceConnectionCommand}"/>
+            </Grid>
+        </GroupBox>
+        <ProgressBar Grid.Column="0" Grid.Row="1" Margin="10,0" IsIndeterminate="True" Height="10" Visibility="{Binding Source_IsLoading, Converter={local:IsVisibleConverter}}"/>
+        <ProgressBar Grid.Column="1" Grid.Row="1" Margin="10,0" IsIndeterminate="True" Height="10" Visibility="{Binding Target_IsLoading, Converter={local:IsVisibleConverter}}"/>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="2" Margin="10">
+            <TextBlock Text="Connexion source non testée ou incorrecte."
+                       Visibility="{Binding Source_InstanceTestOK, Converter={local:IsCollapsedConverter}}"/>
+            <TextBlock Text="Connexion cible non testée ou incorrecte."
+                       Visibility="{Binding Target_InstanceTestOK, Converter={local:IsCollapsedConverter}}"/>
+            <TextBlock Text="Aucune ancienne base trouvée.">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{local:AndIsVisibleConverter}">
+                        <Binding Path="Source_InstanceTestOK"/>
+                        <Binding Path="HasOldDb" Converter="{local:NotConverter}"/>
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+            <TextBlock Text="Une ancienne base a été trouvée.">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{local:AndIsVisibleConverter}">
+                        <Binding Path="Source_InstanceTestOK"/>
+                        <Binding Path="HasOldDb"/>
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+            <TextBlock Text="Aucune nouvelle base trouvée. Elle sera créée.">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{local:AndIsVisibleConverter}">
+                        <Binding Path="Target_InstanceTestOK"/>
+                        <Binding Path="HasNewDb" Converter="{local:NotConverter}"/>
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+            <TextBlock Text="Une nouvelle base existe déjà. Elle sera écrasée.">
+                <TextBlock.Visibility>
+                    <MultiBinding Converter="{local:AndIsVisibleConverter}">
+                        <Binding Path="Target_InstanceTestOK"/>
+                        <Binding Path="HasNewDb"/>
+                    </MultiBinding>
+                </TextBlock.Visibility>
+            </TextBlock>
+        </StackPanel>
+        <StackPanel Grid.ColumnSpan="2" Grid.Row="3" Margin="10" Visibility="{Binding IsLoading, Converter={local:IsVisibleConverter}}">
+            <TextBlock Text="{Binding ProgressText}" Margin="0,10"/>
+            <ProgressBar Minimum="0" Maximum="100" Value="{Binding ProgressValue}" Height="10"/>
+        </StackPanel>
+        <Button Grid.ColumnSpan="2" Grid.Row="4" Margin="20" Content="Procéder à la migration" Command="{Binding MigrateCommand}"/>
+    </Grid>
+</Window>

@@ -1,0 +1,185 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Publications;
+@using System.Web.Mvc.Html;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model OperatorQualificationsViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "OperatorQualification";
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "Fullname", direction = "Ascending" });
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .filterBar {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        padding-bottom: 10px;
+    }
+
+        .filterBar > .filterBtn {
+            margin-top: 23px;
+        }
+
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div>
+        @using (Html.BeginForm("OperatorQualification", "Publication", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "onFilter(event)" }))
+        {
+            <div class="filterBar">
+                @Html.Label(LocalizedStrings.GetString("Team"))
+                @(Html.EJS().DropDownList("team")
+                            .DataSource(u => u.Url(@Url.Action("GetTeams")).Adaptor("UrlAdaptor"))
+                            .Placeholder("Select team to filter")
+                            .Fields(df => df.Text("Name").Value("Id"))
+                            .Width("100%")
+                            .Index((Model.selectedIndexTeam.ToString() == "") ? 0 : Model.selectedIndexTeam)
+                            .Render()
+                )
+            </div>
+            <div class="filterBar">
+                @Html.Label(LocalizedStrings.GetString("Position"))
+                @(Html.EJS().DropDownList("position")
+                            .DataSource(u => u.Url(@Url.Action("GetTenured")).Adaptor("UrlAdaptor"))
+                            .Placeholder("Select position to filter")
+                            .Fields(df => df.Text("Text").Value("Value"))
+                            .Width("100%")
+                            .Index((Model.selectedIndexPosition.ToString() == "") ? 0 : Model.selectedIndexPosition)
+                            .Render()
+                )
+            </div>
+            <div class="filterBar">
+                @(Html.EJS().Button("filterBtn")
+                            .Content(LocalizedStrings.GetString("Filter"))
+                            .CssClass("filterBtn")
+                            .Render()
+                )
+            </div>
+        }
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Grid("PublicationQualification")
+                    .Height("100%").Width("100%")
+                    .DataSource(ds => ds.Json(Model.OperatorQualificationViewModel.ToArray()).Adaptor("RemoteSaveAdaptor"))
+                    .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                    .AllowPaging()
+                    .PageSettings(p => p.PageSize(25))
+                    .Locale(ejLanguageCode)
+                    //Excel export
+                    .AllowExcelExport()
+                    .ExcelQueryCellInfo("excelQueryCellInfo")
+                    .AllowSelection(false)
+                    .AllowTextWrap()
+                    .AllowFiltering()
+                    .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                    .EnableHover()
+                    .Toolbar(new List<string>() { "ExcelExport" })
+                    .ToolbarClick("toolbarClick")
+                    .AllowSorting()
+                    .SortSettings(sort =>
+                        sort.Columns(cols)
+                    )
+                    .Columns(col =>
+                    {
+                        col.Field("UserId").IsPrimaryKey(true).HeaderText("Id").Visible(false).IsIdentity(true).Width(5).Add();
+                        col.Field("Fullname").HeaderText(LocalizedStrings.GetString("Operators")).Width(200).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                        col.Field("Success").HeaderText(LocalizedStrings.GetString("EvaluationSuccess")).Width(100).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                        col.Field("Failed").HeaderText(LocalizedStrings.GetString("EvaluationFailed")).Width(100).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                        col.Field("Total").HeaderText(LocalizedStrings.GetString("EvaluationTotal")).Width(100).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                        col.Field("PercentageRate").HeaderText(LocalizedStrings.GetString("EvaluationRate")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Width(100).Add();
+                    })
+                    .QueryCellInfo("gridQueryCellInfo")
+                    .RowSelecting("onSelectingCheck")
+                    .Render()
+        )
+    </div>
+</div>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Training")" + "/" + "@LocalizedStrings.GetString("OperatorQualification")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "PercentageRate") {
+            var percentageResult = args.data["PercentageRate"];
+            if (percentageResult >= 0)
+                args.cell.innerText = percentageResult + " %";
+            else
+                args.cell.innerText = "";
+        }
+    }
+    function excelQueryCellInfo(args) {
+        if (args.column.field == "PercentageRate") {
+            var percentageResult = args.data["PercentageRate"];
+            if (percentageResult >= 0)
+                args.value = percentageResult + " %";
+            else
+                args.value = "";
+        }
+    }
+    function toolbarClick(args) {
+        if (args.item.id === 'PublicationQualification_excelexport') {
+            var gridObj = document.getElementById("PublicationQualification").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "PublicationQualification.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+    function onFilter(event) {
+        event = event || window.event || event.srcElement;
+        event.preventDefault();
+        var team = document.getElementById("team").ej2_instances[0].value;
+        var position = document.getElementById("position").ej2_instances[0].value;
+        var link = "/Publication/OperatorQualification?partial=True&team=-1&position=-2";
+        link = link.replace("-1", team);
+        link = link.replace("-2", position);
+        LoadPartial(link, '#pageContainer');
+    }
+</script>
+
+@Html.EJS().ScriptManager()

@@ -1,0 +1,1137 @@
+﻿<UserControl x:Class="KProcess.Ksmed.Presentation.Shell.Views.SimulateView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="http://schemas.kprocess.com/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:hd="clr-namespace:DlhSoft.Windows.Controls;assembly=DlhSoft.HierarchicalData.LightWPF.Controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:ivm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels;assembly=KProcess.Ksmed.Presentation.ViewModels.Interfaces"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pdgcc="clr-namespace:DlhSoft.Windows.Controls;assembly=DlhSoft.ProjectData.GanttChart.LightWPF.Controls"
+             xmlns:views="clr-namespace:KProcess.Ksmed.Presentation.Shell.Views"
+             d:DesignHeight="421"
+             d:DesignWidth="793"
+             mc:Ignorable="d">
+    <!--  d:DataContext="{d:DesignInstance Type={x:Type vm:AnalyzeSimulateViewModel}, IsDesignTimeCreatable=True}"  -->
+    <UserControl.Resources>
+        <core:MultiGanttZoomer x:Key="Zoomer" />
+
+        <views:ActionGanttItemIconTemplateSelector x:Key="actionGanttItemIconTemplateSelector" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="0.5*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Margin="0,4,4,4"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <Button Click="CollapseAll_Click"
+                    Style="{DynamicResource ButtonFolderMinusSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_CollapseAll}" />
+            <Button Click="ExpandAll_Click"
+                    Style="{DynamicResource ButtonFolderPlusSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_ExpandAll}" />
+
+            <ItemsControl Style="{StaticResource ExtBarActionsSmall}" />
+
+        </StackPanel>
+
+        <ListBox Margin="100,4,4,4"
+                 HorizontalAlignment="Left"
+                 Background="{DynamicResource DarkControlBackgroundBrush}"
+                 DisplayMemberPath="Label"
+                 ItemsSource="{Binding IESFilters}"
+                 ScrollViewer.CanContentScroll="False"
+                 SelectedItem="{Binding SelectedIESFilter}"
+                 Style="{StaticResource radioListBoxStyle}">
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+        <StackPanel Margin="4"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button Click="AutoZoomHorizontal_Click"
+                    Style="{DynamicResource ButtonAutoScaleHorizontalSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_ZoomAutoX}" />
+            <Button Click="AutoZoomVertical_Click"
+                    Style="{DynamicResource ButtonAutoScaleVerticalRevertSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_ZoomAutoY}" />
+            <Button Click="AutoZoomVerticalRevert_Click"
+                    Style="{DynamicResource ButtonAutoScaleVerticalSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_ZoomAutoXReverse}" />
+            <Button Click="AutoZoomBoth_Click"
+                    Style="{DynamicResource ButtonAutoScaleBothSmallStyle}"
+                    ToolTip="{k:Localize View_AnalyzeGridCommon_ZoomAutoXY}" />
+            <ToggleButton x:Name="PredecessorsLinks"
+                          Checked="PredecessorsLinks_CheckedChanged"
+                          Style="{DynamicResource ToggleButtonLinksSmallStyle}"
+                          ToolTip="{k:Localize View_AnalyzeGridCommon_ShowPredecessorsLinks}"
+                          Unchecked="PredecessorsLinks_CheckedChanged" />
+        </StackPanel>
+
+        <Grid Grid.Row="1" Visibility="{Binding SelectedOriginalScenario, Converter={StaticResource NotNullToVisibilityConverter}, ConverterParameter=Hidden}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ListBox Margin="0"
+                     ItemsSource="{Binding AvailableOriginalScenarios}"
+                     SelectedItem="{Binding SelectedOriginalScenario}"
+                     Style="{StaticResource tabbedListBoxStyle}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Label}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <ContentControl Grid.Row="1" Style="{StaticResource tabbedContentStyle}">
+
+                <core:KGanttChartDataGrid x:Name="analyzeSimulateGrid1"
+                                          ChartWidth="{Binding ChartWidth, ElementName=analyzeSimulateGrid2, Mode=TwoWay}"
+                                          CurrentTimelinePosition="{k:UCBinding DataContext.CurrentTimelinePosition,
+                                                                                Converter={StaticResource GanttTicksToDateTimeConverter},
+                                                                                Mode=TwoWay}"
+                                          DataGridWidth="{Binding DataGridWidth, ElementName=analyzeSimulateGrid2, Mode=TwoWay}"
+                                          Items="{Binding SelectedOriginalActionItems}"
+                                          Loaded="analyzeSimulateGrid1_Loaded"
+                                          OriginalGainVisibility="Visible"
+                                          ScrollHorizontalOffset="{Binding GanttHorizontalScrollOffset, Mode=TwoWay}"
+                                          Style="{DynamicResource baseGanttChartDataGridStyle}">
+
+                    <core:KGanttChartDataGrid.ToolTipTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <ContentControl Content="{Binding LabelOrWBS}" IsTabStop="False" />
+                                <TextBlock Text="{Binding Action.DifferenceReasonManaged}" />
+                                <Image MaxWidth="{Binding Converter={core:ImageResizerConverter}}"
+                                       MaxHeight="{Binding Converter={core:ImageResizerConverter}}"
+                                       Source="{Binding Action.Thumbnail.Uri}"
+                                       Stretch="Uniform" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </core:KGanttChartDataGrid.ToolTipTemplate>
+
+                    <i:Interaction.Behaviors>
+                        <core:ExportGridBehavior />
+                        <core:WheelZoomableBehavior ExternalZoomable="{StaticResource Zoomer}" />
+                        <core:KSmedDataGridBehavior x:Name="TopGridBehavior" CurrentView="WBS" />
+                    </i:Interaction.Behaviors>
+
+                    <core:KGanttChartDataGrid.Resources>
+                        <DataTemplate x:Key="ActionGanttItemWithoutLinkedProcessIconTemplate" DataType="{x:Type ivm:ActionGanttItem}">
+                            <Grid Background="Transparent">
+                                <Border Background="{Binding VideoColor}" Visibility="{Binding VideoName, Converter={StaticResource NotNullToVisibilityConverter}}">
+                                    <Rectangle>
+                                        <Rectangle.Fill>
+                                            <DrawingBrush>
+                                                <DrawingBrush.Drawing>
+                                                    <GeometryDrawing Brush="{StaticResource ControlBackgroundNormal}" Geometry="F1 M 888.616,555.303L 888.616,562.22L 878.933,562.22L 878.933,555.303L 870.632,555.303L 870.632,558.07L 806.996,558.07L 806.996,555.303L 798.695,555.303L 798.695,562.22L 789.012,562.22L 789.012,555.303L 782.095,555.303L 782.095,667.358L 789.012,667.358L 789.012,660.441L 798.695,660.441L 798.695,667.358L 806.996,667.358L 806.996,664.591L 870.632,664.591L 870.632,667.358L 878.933,667.358L 878.933,660.441L 888.616,660.441L 888.616,667.358L 896.917,667.358L 896.917,555.303L 888.616,555.303 Z M 798.695,653.524L 789.012,653.524L 789.012,642.457L 798.695,642.457L 798.695,653.524 Z M 798.695,635.54L 789.012,635.54L 789.012,624.473L 798.695,624.473L 798.695,635.54 Z M 798.695,616.172L 789.012,616.172L 789.012,605.105L 798.695,605.105L 798.695,616.172 Z M 798.695,598.188L 789.012,598.188L 789.012,587.121L 798.695,587.121L 798.695,598.188 Z M 798.695,580.204L 789.012,580.204L 789.012,569.137L 798.695,569.137L 798.695,580.204 Z M 870.632,660.441L 806.996,660.441L 806.996,613.406L 870.632,613.406L 870.632,660.441 Z M 870.632,609.255L 806.996,609.255L 806.996,562.22L 870.632,562.22L 870.632,609.255 Z M 888.616,653.524L 878.933,653.524L 878.933,642.457L 888.616,642.457L 888.616,653.524 Z M 888.616,635.54L 878.933,635.54L 878.933,624.473L 888.616,624.473L 888.616,635.54 Z M 888.616,616.172L 878.933,616.172L 878.933,605.105L 888.616,605.105L 888.616,616.172 Z M 888.616,598.188L 878.933,598.188L 878.933,587.121L 888.616,587.121L 888.616,598.188 Z M 888.616,580.204L 878.933,580.204L 878.933,569.137L 888.616,569.137L 888.616,580.204 Z " />
+                                                </DrawingBrush.Drawing>
+                                            </DrawingBrush>
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                </Border>
+                                <Image Width="12"
+                                       Height="12"
+                                       Margin="2"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       Source="pack://siteoforigin:,,,/Resources/Images/Picture.png"
+                                       Visibility="{Binding Action.Thumbnail, Converter={StaticResource NotNullToVisibilityConverter}}" />
+                            </Grid>
+                        </DataTemplate>
+                        <DataTemplate x:Key="ActionGanttItemWithLinkedProcessIconTemplate" DataType="{x:Type ivm:ActionGanttItem}">
+                            <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Kind="CogsSolid" />
+                        </DataTemplate>
+                    </core:KGanttChartDataGrid.Resources>
+
+                    <core:KGanttChartDataGrid.Columns>
+
+                        <pdgcc:DataGridColumnCollection>
+
+                            <DataGridTemplateColumn x:Name="ColumnTopVideo"
+                                                    core:KSmedDataGridBehavior.Id="video"
+                                                    core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopVideo"
+                                                    CellTemplateSelector="{StaticResource actionGanttItemIconTemplateSelector}"
+                                                    IsReadOnly="True">
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding VideoName}" Header="{k:Localize View_AnalyzeAcquire_Column_Video}" />
+                                </i:Interaction.Behaviors>
+                            </DataGridTemplateColumn>
+
+                            <core:KDataGridTextColumn x:Name="ColumnTopWBS"
+                                                      core:KSmedDataGridBehavior.Id="wbs"
+                                                      core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopWBS"
+                                                      Binding="{Binding Action.WBS}"
+                                                      Header="{k:Localize View_AnalyzeAcquire_Column_WBS}"
+                                                      IsReadOnly="True">
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.WBS}" />
+                                </i:Interaction.Behaviors>
+                            </core:KDataGridTextColumn>
+
+                            <DataGridTemplateColumn x:Name="ColumnTopKeyTask"
+                                                    Width="20"
+                                                    core:KSmedDataGridBehavior.Id="IsKeyTaskManaged"
+                                                    core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopKeyTask"
+                                                    Header="{k:Localize View_AnalyzeAcquire_IsKeyTask}"
+                                                    IsReadOnly="True">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Border x:Name="PackIcon"
+                                                HorizontalAlignment="Center"
+                                                ToolTip="{k:Localize View_AnalyzeAcquire_IsKeyTask}"
+                                                Visibility="Collapsed">
+                                            <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                                           VerticalAlignment="Center"
+                                                                           Kind="ExclamationSolid" />
+                                        </Border>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding Action.IsKeyTaskManaged}" Value="True">
+                                                <Setter TargetName="PackIcon" Property="Visibility" Value="Visible" />
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.IsKeyTaskManaged}" />
+                                </i:Interaction.Behaviors>
+                            </DataGridTemplateColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopTask"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Label"
+                                                   core:KSmedDataGridBehavior.Id="task"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopTask"
+                                                   CellTemplate="{StaticResource TaskCellTemplate}"
+                                                   Header="{k:Localize View_AnalyzeAcquire_Column_Task}"
+                                                   IsReadOnly="true">
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.Label}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopDuration"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource TicksToStringConverter}"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="BuildDuration"
+                                                   core:KSmedDataGridBehavior.Id="duration"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopDuration"
+                                                   CellStyle="{StaticResource KGanttChartDataGridCellSingleClickEditStyle}"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{k:Localize View_AnalyzeAcquire_Column_Duration}"
+                                                   IsReadOnly="True">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding ManagedDuration, Converter={StaticResource TicksToStringConverter}}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding ManagedDuration, Converter={StaticResource TicksToStringConverter}}" CellDataType="TimeSpan" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <core:KDataGridCheckBoxColumn x:Name="ColumnTopIsRandom"
+                                                          core:KSmedDataGridBehavior.Id="isRandom"
+                                                          core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopIsRandom"
+                                                          Binding="{Binding Action.IsRandom}"
+                                                          CellStyle="{StaticResource KGanttChartDataGridCellSingleClickEditStyle}"
+                                                          ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupCheckBoxElementStyle}"
+                                                          IsReadOnly="True"
+                                                          Visibility="Collapsed">
+                                <core:KDataGridCheckBoxColumn.HeaderTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <Path Width="{Binding (TextElement.FontSize), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                                  Height="{Binding (TextElement.FontSize), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                                  Margin="1,0,0,0"
+                                                  HorizontalAlignment="Left"
+                                                  Data="M307 384h120v-213h-150l-8 42h-120v-149h-42v363h192z"
+                                                  Fill="{Binding (TextElement.Foreground), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                                  RenderTransformOrigin="0.5,0.5"
+                                                  Stretch="Uniform">
+                                                <Path.RenderTransform>
+                                                    <ScaleTransform ScaleY="-1" />
+                                                </Path.RenderTransform>
+                                            </Path>
+                                        </Grid>
+                                    </DataTemplate>
+                                </core:KDataGridCheckBoxColumn.HeaderTemplate>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.IsRandom}" />
+                                </i:Interaction.Behaviors>
+                            </core:KDataGridCheckBoxColumn>
+
+                            <core:KDataGridTextColumn x:Name="ColumnTopDifferenceReason"
+                                                      core:KSmedDataGridBehavior.CanChangeVisibility="false"
+                                                      core:KSmedDataGridBehavior.Id="differenceReason"
+                                                      core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopDifferenceReason"
+                                                      Binding="{Binding Action.DifferenceReasonManaged}"
+                                                      CellStyle="{StaticResource KGanttChartDataGridCellSingleClickEditStyle}"
+                                                      Header="{k:Localize View_Simulate_Column_DifferenceReason}"
+                                                      Visibility="Collapsed">
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.DifferenceReasonManaged}" CellDataType="String" />
+                                </i:Interaction.Behaviors>
+                            </core:KDataGridTextColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopCategory"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Category.Label"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Category.Id"
+                                                   core:KSmedDataGridBehavior.Id="category"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopCategory"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Category}"
+                                                   IsReadOnly="True">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.Category.Label}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.Category.Label}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnSkill"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Skill.Label"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Skill.Id"
+                                                   core:KSmedDataGridBehavior.Id="skill"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnSkill"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Skill}"
+                                                   IsReadOnly="True">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.Skill.Label}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.Skill.Label}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopResource"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Resource.Label"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Resource.Id"
+                                                   core:KSmedDataGridBehavior.Id="resource"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopResource"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{k:Localize View_AnalyzeAcquire_Column_Resource}"
+                                                   IsReadOnly="True">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.Reduced.Resource.Label}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.Reduced.Resource.Label}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <core:KDataGridTextColumn x:Name="ColumnTopPredecessors"
+                                                      core:KSmedDataGridBehavior.Id="predecessors"
+                                                      core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopPredecessors"
+                                                      Binding="{Binding PredecessorsString}"
+                                                      CellStyle="{StaticResource DataGridCellPredecessorsSingleClickEditStyle}"
+                                                      EditingElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBoxStyle}"
+                                                      ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                                                      Header="{k:Localize View_AnalyzeAcquire_Column_Predecessors}"
+                                                      IsReadOnly="True">
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding PredecessorsString}" />
+                                </i:Interaction.Behaviors>
+                            </core:KDataGridTextColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopRef1"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref1"
+                                                   core:KSmedDataGridBehavior.Id="ref1"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopRef1"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Ref1}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Ref1Labels}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Ref1Labels}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopRef2"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref2"
+                                                   core:KSmedDataGridBehavior.Id="ref2"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopRef2"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Ref2}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Ref2Labels}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Ref2Labels}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopRef3"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref3"
+                                                   core:KSmedDataGridBehavior.Id="ref3"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopRef3"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Ref3}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Ref3Labels}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Ref3Labels}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopRef4"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref4"
+                                                   core:KSmedDataGridBehavior.Id="ref4"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopRef4"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Ref4}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Ref4Labels}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Ref4Labels}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopRef5"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref5"
+                                                   core:KSmedDataGridBehavior.Id="ref5"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopRef5"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Ref5}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Ref5Labels}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Ref5Labels}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopRef6"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref6"
+                                                   core:KSmedDataGridBehavior.Id="ref6"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopRef6"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Ref6}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Ref6Labels}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Ref6Labels}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn x:Name="ColumnTopRef7"
+                                                   core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref7"
+                                                   core:KSmedDataGridBehavior.Id="ref7"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopRef7"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   Header="{x:Static core:ReferentialsUse.Ref7}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Ref7Labels}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Ref7Labels}" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <core:KDataGridTextColumn x:Name="ColumnTopAmeliorationDescription"
+                                                      core:KSmedDataGridBehavior.Id="ameliorationDescription"
+                                                      core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTopAmeliorationDescription"
+                                                      Binding="{Binding Action.AmeliorationDescription}"
+                                                      ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                                                      Header="{k:Localize View_AnalyzeAcquire_Column_Improvement}"
+                                                      IsReadOnly="True"
+                                                      Visibility="Collapsed">
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.AmeliorationDescription}" />
+                                </i:Interaction.Behaviors>
+                            </core:KDataGridTextColumn>
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn1"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="1" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue2"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn2"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue2}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue2}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="2" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue3"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn3"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue3}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue3}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="3" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue4"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn4"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue4}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue4}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="4" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn1"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="1" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue2"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn2"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue2}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue2}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="2" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue3"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn3"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue3}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue3}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="3" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                            <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                                   core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue4"
+                                                   core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn4"
+                                                   CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                                   IsReadOnly="True"
+                                                   Visibility="Collapsed">
+                                <core:KDataGridFeatures.Binding>
+                                    <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue4}" />
+                                </core:KDataGridFeatures.Binding>
+                                <i:Interaction.Behaviors>
+                                    <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue4}" />
+                                    <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="4" />
+                                </i:Interaction.Behaviors>
+                            </hd:DataTreeGridColumn>
+
+                        </pdgcc:DataGridColumnCollection>
+
+                    </core:KGanttChartDataGrid.Columns>
+                </core:KGanttChartDataGrid>
+
+
+            </ContentControl>
+        </Grid>
+
+        <TextBlock Grid.Row="2"
+                   Margin="0,4,0,0"
+                   HorizontalAlignment="Left"
+                   VerticalAlignment="Top"
+                   Style="{DynamicResource Heading5}"
+                   Text="{Binding SelectedTargetScenario.Label}"
+                   TextWrapping="Wrap" />
+
+        <core:KGanttChartDataGrid x:Name="analyzeSimulateGrid2"
+                                  Grid.Row="3"
+                                  Margin="5"
+                                  CurrentTimelinePosition="{Binding CurrentTimelinePosition, Converter={StaticResource GanttTicksToDateTimeConverter}, Mode=TwoWay}"
+                                  Items="{Binding SelectedTargetActionItems}"
+                                  Loaded="analyzeSimulateGrid2_Loaded"
+                                  ScrollHorizontalOffset="{Binding GanttHorizontalScrollOffset, Mode=TwoWay}"
+                                  SelectedItem="{Binding CurrentTargetGridItem}"
+                                  Style="{StaticResource baseGanttChartDataGridStyle}">
+
+            <i:Interaction.Behaviors>
+                <core:ExportGridBehavior />
+                <core:WheelZoomableBehavior ExternalZoomable="{StaticResource Zoomer}" />
+                <core:KSmedDataGridBehavior x:Name="BottomGridBehavior" CurrentView="WBS" />
+            </i:Interaction.Behaviors>
+
+            <core:KGanttChartDataGrid.ToolTipTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <ContentControl Content="{Binding LabelOrWBS}" IsTabStop="False" />
+                        <TextBlock Text="{Binding Action.DifferenceReasonManaged}" />
+                        <Image MaxWidth="{Binding Converter={core:ImageResizerConverter}}"
+                               MaxHeight="{Binding Converter={core:ImageResizerConverter}}"
+                               Source="{Binding Action.Thumbnail.Uri}"
+                               Stretch="Uniform" />
+                    </StackPanel>
+                </DataTemplate>
+            </core:KGanttChartDataGrid.ToolTipTemplate>
+
+            <core:KGanttChartDataGrid.Resources>
+                <DataTemplate x:Key="ActionGanttItemWithoutLinkedProcessIconTemplate" DataType="{x:Type ivm:ActionGanttItem}">
+                    <Grid Background="Transparent">
+                        <Border Background="{Binding VideoColor}" Visibility="{Binding VideoName, Converter={StaticResource NotNullToVisibilityConverter}}">
+                            <Rectangle>
+                                <Rectangle.Fill>
+                                    <DrawingBrush>
+                                        <DrawingBrush.Drawing>
+                                            <GeometryDrawing Brush="{StaticResource ControlBackgroundNormal}" Geometry="F1 M 888.616,555.303L 888.616,562.22L 878.933,562.22L 878.933,555.303L 870.632,555.303L 870.632,558.07L 806.996,558.07L 806.996,555.303L 798.695,555.303L 798.695,562.22L 789.012,562.22L 789.012,555.303L 782.095,555.303L 782.095,667.358L 789.012,667.358L 789.012,660.441L 798.695,660.441L 798.695,667.358L 806.996,667.358L 806.996,664.591L 870.632,664.591L 870.632,667.358L 878.933,667.358L 878.933,660.441L 888.616,660.441L 888.616,667.358L 896.917,667.358L 896.917,555.303L 888.616,555.303 Z M 798.695,653.524L 789.012,653.524L 789.012,642.457L 798.695,642.457L 798.695,653.524 Z M 798.695,635.54L 789.012,635.54L 789.012,624.473L 798.695,624.473L 798.695,635.54 Z M 798.695,616.172L 789.012,616.172L 789.012,605.105L 798.695,605.105L 798.695,616.172 Z M 798.695,598.188L 789.012,598.188L 789.012,587.121L 798.695,587.121L 798.695,598.188 Z M 798.695,580.204L 789.012,580.204L 789.012,569.137L 798.695,569.137L 798.695,580.204 Z M 870.632,660.441L 806.996,660.441L 806.996,613.406L 870.632,613.406L 870.632,660.441 Z M 870.632,609.255L 806.996,609.255L 806.996,562.22L 870.632,562.22L 870.632,609.255 Z M 888.616,653.524L 878.933,653.524L 878.933,642.457L 888.616,642.457L 888.616,653.524 Z M 888.616,635.54L 878.933,635.54L 878.933,624.473L 888.616,624.473L 888.616,635.54 Z M 888.616,616.172L 878.933,616.172L 878.933,605.105L 888.616,605.105L 888.616,616.172 Z M 888.616,598.188L 878.933,598.188L 878.933,587.121L 888.616,587.121L 888.616,598.188 Z M 888.616,580.204L 878.933,580.204L 878.933,569.137L 888.616,569.137L 888.616,580.204 Z " />
+                                        </DrawingBrush.Drawing>
+                                    </DrawingBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                        </Border>
+                        <Image Width="12"
+                               Height="12"
+                               Margin="2"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Bottom"
+                               Source="pack://siteoforigin:,,,/Resources/Images/Picture.png"
+                               Visibility="{Binding Action.Thumbnail, Converter={StaticResource NotNullToVisibilityConverter}}" />
+                    </Grid>
+                </DataTemplate>
+                <DataTemplate x:Key="ActionGanttItemWithLinkedProcessIconTemplate" DataType="{x:Type ivm:ActionGanttItem}">
+                    <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   Kind="CogsSolid" />
+                </DataTemplate>
+            </core:KGanttChartDataGrid.Resources>
+
+            <core:KGanttChartDataGrid.Columns>
+
+                <pdgcc:DataGridColumnCollection>
+
+                    <DataGridTemplateColumn x:Name="ColumnBottomVideo"
+                                            core:KSmedDataGridBehavior.Id="video"
+                                            core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomVideo"
+                                            CellTemplateSelector="{StaticResource actionGanttItemIconTemplateSelector}"
+                                            IsReadOnly="True">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding VideoName}" Header="{k:Localize View_AnalyzeAcquire_Column_Video}" />
+                        </i:Interaction.Behaviors>
+                    </DataGridTemplateColumn>
+
+                    <core:KDataGridTextColumn x:Name="ColumnBottomWBS"
+                                              core:KSmedDataGridBehavior.Id="wbs"
+                                              core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomWBS"
+                                              Binding="{Binding Action.WBS}"
+                                              Header="{k:Localize View_AnalyzeAcquire_Column_WBS}"
+                                              IsReadOnly="True">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.WBS}" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridTextColumn>
+
+                    <DataGridTemplateColumn x:Name="ColumnBottomKeyTask"
+                                            Width="20"
+                                            core:KSmedDataGridBehavior.Id="IsKeyTaskManaged"
+                                            core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomKeyTask"
+                                            Header="{k:Localize View_AnalyzeAcquire_IsKeyTask}"
+                                            IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border x:Name="PackIcon"
+                                        HorizontalAlignment="Center"
+                                        ToolTip="{k:Localize View_AnalyzeAcquire_IsKeyTask}"
+                                        Visibility="Collapsed">
+                                    <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"
+                                                                   Kind="ExclamationSolid" />
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Action.IsKeyTaskManaged}" Value="True">
+                                        <Setter TargetName="PackIcon" Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.IsKeyTaskManaged}" />
+                        </i:Interaction.Behaviors>
+                    </DataGridTemplateColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomTask"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Label"
+                                           core:KSmedDataGridBehavior.Id="task"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomTask"
+                                           CellTemplate="{StaticResource TaskCellTemplate}"
+                                           Header="{k:Localize View_AnalyzeAcquire_Column_Task}"
+                                           IsReadOnly="true">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomDuration"
+                                           core:KDataGridFeatures.CellVisibleWhenViewWBSTextBlock="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource TicksToStringConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="BuildDuration"
+                                           core:KSmedDataGridBehavior.Id="duration"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomDuration"
+                                           CellStyle="{StaticResource KGanttChartDataGridCellSingleClickEditStyle}"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{k:Localize View_AnalyzeAcquire_Column_Duration}"
+                                           IsReadOnly="true">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding ManagedDuration, Converter={StaticResource TicksToStringConverter}}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding ManagedDuration, Converter={StaticResource TicksToStringConverter}}" CellDataType="TimeSpan" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <core:KDataGridCheckBoxColumn x:Name="ColumnBottomIsRandom"
+                                                  core:KSmedDataGridBehavior.Id="isRandom"
+                                                  core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomIsRandom"
+                                                  Binding="{Binding Action.IsRandom}"
+                                                  CellStyle="{StaticResource KGanttChartDataGridCellSingleClickEditStyle}"
+                                                  ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupCheckBoxElementStyle}"
+                                                  IsReadOnly="True"
+                                                  Visibility="Collapsed">
+                        <core:KDataGridCheckBoxColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Path Width="{Binding (TextElement.FontSize), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                          Height="{Binding (TextElement.FontSize), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                          Margin="1,0,0,0"
+                                          HorizontalAlignment="Left"
+                                          Data="M307 384h120v-213h-150l-8 42h-120v-149h-42v363h192z"
+                                          Fill="{Binding (TextElement.Foreground), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                          RenderTransformOrigin="0.5,0.5"
+                                          Stretch="Uniform">
+                                        <Path.RenderTransform>
+                                            <ScaleTransform ScaleY="-1" />
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Grid>
+                            </DataTemplate>
+                        </core:KDataGridCheckBoxColumn.HeaderTemplate>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.IsRandom}" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridCheckBoxColumn>
+
+                    <core:KDataGridTextColumn x:Name="ColumnBottomDifferenceReason"
+                                              core:KSmedDataGridBehavior.CanChangeVisibility="false"
+                                              core:KSmedDataGridBehavior.Id="differenceReason"
+                                              core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomDifferenceReason"
+                                              Binding="{Binding Action.DifferenceReasonManaged}"
+                                              CellStyle="{StaticResource KGanttChartDataGridCellSingleClickEditStyle}"
+                                              Header="{k:Localize View_Simulate_Column_DifferenceReason}"
+                                              Visibility="Collapsed">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.DifferenceReasonManaged}" CellDataType="String" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridTextColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomCategory"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Category.Label"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Category.Id"
+                                           core:KSmedDataGridBehavior.Id="category"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomCategory"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Category}"
+                                           IsReadOnly="True">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.Category.Label}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Category.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomSkill"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Skill.Label"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Skill.Id"
+                                           core:KSmedDataGridBehavior.Id="skill"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomSkill"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Skill}"
+                                           IsReadOnly="True">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.Skill.Label}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Skill.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomResource"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Resource.Label"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Resource.Id"
+                                           core:KSmedDataGridBehavior.Id="resource"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomResource"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{k:Localize View_AnalyzeAcquire_Column_Resource}"
+                                           IsReadOnly="True">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.Resource.Label}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Reduced.Resource.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <core:KDataGridTextColumn x:Name="ColumnBottomPredecessors"
+                                              core:KSmedDataGridBehavior.Id="predecessors"
+                                              core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomPredecessors"
+                                              Binding="{Binding PredecessorsString}"
+                                              CellStyle="{StaticResource DataGridCellPredecessorsSingleClickEditStyle}"
+                                              EditingElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBoxStyle}"
+                                              ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                                              Header="{k:Localize View_AnalyzeAcquire_Column_Predecessors}"
+                                              IsReadOnly="true">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding PredecessorsString}" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridTextColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomRef1"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref1"
+                                           core:KSmedDataGridBehavior.Id="ref1"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomRef1"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref1}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref1Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref1Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomRef2"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref2"
+                                           core:KSmedDataGridBehavior.Id="ref2"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomRef2"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref2}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref2Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref2Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomRef3"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref3"
+                                           core:KSmedDataGridBehavior.Id="ref3"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomRef3"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref3}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref3Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref3Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomRef4"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref4"
+                                           core:KSmedDataGridBehavior.Id="ref4"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomRef4"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref4}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref4Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref4Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomRef5"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref5"
+                                           core:KSmedDataGridBehavior.Id="ref5"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomRef5"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref5}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref5Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref5Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomRef6"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref6"
+                                           core:KSmedDataGridBehavior.Id="ref6"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomRef6"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref6}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref6Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref6Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnBottomRef7"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref7"
+                                           core:KSmedDataGridBehavior.Id="ref7"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomRef7"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref7}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref7Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref7Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <core:KDataGridTextColumn x:Name="ColumnBottomAmeliorationDescription"
+                                              core:KSmedDataGridBehavior.Id="ameliorationDescription"
+                                              core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnBottomAmeliorationDescription"
+                                              Binding="{Binding Action.AmeliorationDescription}"
+                                              ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                                              Header="{k:Localize View_AnalyzeAcquire_Column_Improvement}"
+                                              IsReadOnly="True"
+                                              Visibility="Collapsed">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.AmeliorationDescription}" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridTextColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn1"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="1" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue2"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn2"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue2}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue2}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="2" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue3"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn3"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue3}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue3}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="3" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue4"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn4"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue4}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue4}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="4" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn1"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="1" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue2"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn2"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue2}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue2}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="2" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue3"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn3"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue3}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue3}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="3" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue4"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn4"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue4}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue4}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="4" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                </pdgcc:DataGridColumnCollection>
+
+            </core:KGanttChartDataGrid.Columns>
+        </core:KGanttChartDataGrid>
+
+    </Grid>
+</UserControl>
+
+

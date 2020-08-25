@@ -1,0 +1,29 @@
+﻿@using KProcess.KL2.Languages;
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Home Page";
+}
+
+
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1>@LocalizedStrings.GetString("WelcomeWebHeader")</h1>
+    </div>
+</div>
+
+<style>
+    #control-container {
+        padding: 0px !important;
+    }
+</style>
+
+<script>
+    docReady(function () {
+        setHeader(null);
+        setIsRefreshing(false);
+    });
+</script>
+
+@Html.EJS().ScriptManager()

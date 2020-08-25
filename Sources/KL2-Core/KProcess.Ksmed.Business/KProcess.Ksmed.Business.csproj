@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A53F3357-B177-4C21-BC01-89C173694B4E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KProcess.Ksmed.Business</RootNamespace>
+    <AssemblyName>KProcess.Ksmed.Business</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionsManagement\RangeIntervalsHelper.cs" />
+    <Compile Include="ActionsManagement\WBSTreeVirtualizer.cs" />
+    <Compile Include="ActionsManagement\WBSTreeVirtualizerExtensions.cs" />
+    <Compile Include="Dtos\CustomFieldsLabels.cs" />
+    <Compile Include="Dtos\Export\ProjectImport.cs" />
+    <Compile Include="Dtos\Export\VideoDecompositionImport.cs" />
+    <Compile Include="INotificationService.cs" />
+    <Compile Include="IPublicationService.cs" />
+    <Compile Include="IDataBaseService.cs" />
+    <Compile Include="Migration\IScenarioCloneManager.cs" />
+    <Compile Include="IUISettingsService.cs" />
+    <Compile Include="KnownCodes\KnownProjectObjectiveTypes.cs" />
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Version.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Referentials\ReferentialsFactory.cs" />
+    <Compile Include="Referentials\ReferentialsHelper.cs" />
+    <Compile Include="ActionsManagement\ScenarioActionHierarchyHelper.cs" />
+    <Compile Include="ActionsManagement\UnindentationBehavior.cs" />
+    <Compile Include="Dtos\AcquireData.cs" />
+    <Compile Include="Dtos\BuildData.cs" />
+    <Compile Include="Dtos\ModificationsUsers.cs" />
+    <Compile Include="Dtos\Prepare\ProjectsData.cs" />
+    <Compile Include="Dtos\Prepare\ScenariosData.cs" />
+    <Compile Include="Dtos\RestituationData.cs" />
+    <Compile Include="Dtos\SimulateData.cs" />
+    <Compile Include="Dtos\Export\ProjectExport.cs" />
+    <Compile Include="Dtos\Export\VideoDecompositionExport.cs" />
+    <Compile Include="Dtos\Prepare\VideoLoad.cs" />
+    <Compile Include="Dtos\SystemBasicInformation.cs" />
+    <Compile Include="IAnalyzeService.cs" />
+    <Compile Include="IReferentialsService.cs" />
+    <Compile Include="IApplicationUsersService.cs" />
+    <Compile Include="IAppResourceService.cs" />
+    <Compile Include="IImportExportService.cs" />
+    <Compile Include="IPrepareService.cs" />
+    <Compile Include="ISharedDatabaseService.cs" />
+    <Compile Include="ISystemInformationService.cs" />
+    <Compile Include="IValidateService.cs" />
+    <Compile Include="KnownCodes\KnownActionCategoryTypes.cs" />
+    <Compile Include="KnownCodes\KnownActionCategoryValues.cs" />
+    <Compile Include="KnownCodes\KnownErrorCodes.cs" />
+    <Compile Include="KnownCodes\KnownReducedActionValues.cs" />
+    <Compile Include="KnownCodes\KnownScenarioNatures.cs" />
+    <Compile Include="KnownCodes\KnownScenarioStates.cs" />
+    <Compile Include="KnownCodes\KnownTimeScales.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ActionsManagement\ActionsTimingsMoveManagement.cs" />
+    <Compile Include="ActionsManagement\CriticalAction.cs" />
+    <Compile Include="ActionsManagement\WBSHelper.cs" />
+    <Compile Include="Services\ISharedDatabaseSettingsService.cs" />
+    <Compile Include="DataBase\SqlExecutionResult.cs" />
+    <Compile Include="Migration\ISharedScenarioActionsOperations.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41A8FD16-8AA1-48F2-AC75-CB27FFEEA2A4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5D4074AA-F569-4C2A-AC8F-A486C382BFD7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Data\KProcess.Data.csproj">
+      <Project>{DAB850B7-DF8F-401F-A1C6-5E9CE754D913}</Project>
+      <Name>KProcess.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579c-1c1b-4b94-b14c-52ab369aeeba}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Data\KProcess.Ksmed.Data.csproj">
+      <Project>{CCB03B61-1966-4315-8149-DBF77C34D7C8}</Project>
+      <Name>KProcess.Ksmed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Supervision\KProcess.Supervision.csproj">
+      <Project>{8271055C-57C4-460E-B715-730D38F86227}</Project>
+      <Name>KProcess.Supervision</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dtos\Export\OlderVersions\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\Version.tt">
+      <Link>Properties\Version.tt</Link>
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Version.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.Razor">
+      <Version>3.2.7</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

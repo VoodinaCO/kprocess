@@ -1,0 +1,346 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Audit;
+@using KProcess.KL2.WebAdmin.Models.Inspection;
+@using System.Web.Mvc.Html;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model AuditViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Detail";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .readCell {
+        background-color: lightgreen;
+    }
+
+    .notReadCell {
+        background-color: lightcoral;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+        <button type="button" class="btn bg-light-blue btn-flat" onclick="LoadPartial('@Url.Action("Index", "Audit", new { partial = true })', '#pageContainer')"><i class="fa fa-angle-double-left"></i> @LocalizedStrings.GetString("Common_Return")</button>
+    </div>
+    <div class="innerContent">
+        <div style="display:flex; flex-wrap:wrap">
+            <div class="col-md-6">
+                <div>
+                    <label>@LocalizedStrings.GetString("Inspection")</label>
+                    <a href="javascript:void(0)" onclick="LoadPartial('@Url.Action("Detail", "Inspection", new { partial = true, id = Model.InspectionId })', '#pageContainer')"><p>@Model.ProcessName</p></a>
+                </div>
+                <div>
+                    <label>@LocalizedStrings.GetString("Auditor")</label>
+                    <p>@Model.AuditorName</p>
+                </div>
+                <div>
+                    <label>@LocalizedStrings.GetString("Auditee")</label>
+                    <p>@Model.AuditeeName</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div>
+                    <label>@LocalizedStrings.GetString("Questionnaire")</label>
+                    <p>@Model.SurveyName</p>
+                </div>
+                <div>
+                    <label>@LocalizedStrings.GetString("AuditDate")</label>
+                    <p>@Model.EndDate.Value.ToShortDateString()</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="nav-tabs-collection">
+            <ul class="nav nav-tabs">
+                <li class="nav-item"><a class="nav-link active" href="#AuditGrid" data-toggle="tab">@LocalizedStrings.GetString("Audit")</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#InspectionGrid" data-toggle="tab">@LocalizedStrings.GetString("Inspection")</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#AnomalyGrid" data-toggle="tab">
+                        @LocalizedStrings.GetString("Anomalies")
+                    </a>
+                    @if (Model.Inspection.Anomalies.Count > 0)
+                    {
+                        <span class="badge bg-red" style="z-index:1;position:absolute;bottom:0;right:0;font-size:10px">@Model.Inspection.Anomalies.Where(a => a.AnomalyTypeIdentifier == 1).Count()</span>
+                        <span class="badge bg-yellow" style="z-index:1;position:absolute;top:0;right:0;font-size:10px">@Model.Inspection.Anomalies.Where(a => a.AnomalyTypeIdentifier == 2).Count()</span>
+                    }
+                </li>
+            </ul>
+        </div>
+
+        <div class="nav-tabs-custom" style="overflow:auto;">
+            <div class="tab-content col-md-12" style="flex: 1; min-height: 0px;">
+                <div id="AuditGrid" class="tab-pane active">
+                    <div id="auditItems">
+                        @{
+                            if (Model.AuditItems.Count() != 0)
+                            {
+                                @(Html.EJS().Grid("AuditItems")
+                                            .DataSource(ds => ds.Json(Model.AuditItems.ToArray()).Adaptor("RemoteSaveAdaptor"))
+                                            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                                            .AllowPaging()
+                                            .PageSettings(p => p.PageSize(25))
+                                            .Locale(ejLanguageCode)
+                                            //Excel export
+                                            .AllowExcelExport()
+                                            .ExcelQueryCellInfo("excelQueryCellInfo")
+                                            .AllowTextWrap()
+                                            .AllowFiltering()
+                                            .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                                            .EnableHover()
+                                            .Toolbar(new List<string>() { "ExcelExport" })
+                                            .ToolbarClick("toolbarClick")
+                                            .Columns(col =>
+                                            {
+                                                col.Field("AuditId").IsPrimaryKey(true).HeaderText("Id").Visible(false).IsIdentity(true).Width(5).Add();
+                                                col.Field("Question").HeaderText(LocalizedStrings.GetString("Question")).Width(200).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                                col.Field("IsOK")
+                                                    .HeaderText("OK / NOK").Template("${getAuditItemResultTemplate(data)}").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                                    .Width(80).AllowFiltering(false).Add();
+                                                col.Field("Comment")
+                                                    .HeaderText(LocalizedStrings.GetString("Comment"))
+                                                    .AllowFiltering(false).Width(200).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                            })
+                                            .Height("100%")
+                                            .QueryCellInfo("gridQueryCellInfo")
+                                            .RowSelecting("onSelectingCheck")
+                                            .Render()
+                                )
+                            }
+                            else
+                            {
+                                @Html.Label(LocalizedStrings.GetString("NoInformationAvailable"));
+                            }
+                        }
+                    </div>
+                </div>
+                <div id="InspectionGrid" class="tab-pane">
+                    @Html.Partial("_InspectionDetailPartial", Model.Inspection)
+
+                </div>
+                <div id="AnomalyGrid" class="tab-pane">
+                    @Html.Partial("_InspectionAnomaliesDetailPartial", Model.Inspection)
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="AnomalyDetailPartial">
+    @{Html.RenderPartial("~/Views/Inspection/AnomalyDetail.cshtml", new AnomalyViewModel());}
+</div>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Audit")" + "/" + "@LocalizedStrings.GetString("AuditList")" + "/" + "@Html.Raw(Model.ProcessName)");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Teams") {
+            var teams = args.rowData["Teams"];
+            args.cell.innerText = String(teams).replace(/\,/g, ', ');
+        }
+        if (args.column.field == "IsKeyTask" && args.data.IsKeyTask) {
+            //$($(args.cell).parent()).css("backgroundColor", "lavenderblush");
+        }
+        if (args.column.field == "ActionLabel" && args.data.IsKeyTask) {
+            args.cell.innerHTML = "<strong>" + args.cell.innerHTML + "</strong>"
+        }
+        if (args.column.field == "IsOK") {
+            if (args.data["IsOK"] == true)
+                args.cell.classList.add('readCell');
+            else
+                args.cell.classList.add('notReadCell');
+        }
+    }
+
+    function excelQueryCellInfo(args) {
+        if (args.column.field === "IsOK") {
+            if (args.data.hasOwnProperty("colorCondition")) {
+                if (args.data.ChildTask == true)
+                    args.value = "OK";
+                else if (args.data.ChildTask == false)
+                    args.value = "NOK";
+
+                if (args.data.colorCondition !== "") {
+                    if (args.data.colorCondition == "readCell")
+                        args.style = { backColor: '#90EE90' };
+                    if (args.data.colorCondition == "notReadCell")
+                        args.style = { backColor: '#F08080' };
+                }
+            }
+            else {
+                if (args.data["IsOK"] == true) {
+                    args.value = "OK";
+                    args.style = { backgroundColor: '#90EE90' };
+                }
+                else {
+                    args.value = "NOK";
+                    args.style = { backgroundColor: '#F08080' };
+                }
+            }
+        }
+        if (args.column.field == "ActionLabel" /*&& args.data.IsKeyTask*/) {
+            //bold the text, not yet
+        }
+        if (args.column.headerText === "Photo" && args.data.HasThumbnail == true) {
+            @*var image = document.images[0];
+            image.src = "@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + args.data.ThumbnailHash + args.data.ThumbnailExt;*@
+        }
+    }
+
+    function toolbarClick(args) {
+        if (args.item.id === 'InspectionDetail_excelexport') {
+            var gridObj = document.getElementById("InspectionDetail").ej2_instances[0];
+            var gridJson = JSON.stringify(gridObj.properties.columns);
+            var gridHeaders = JSON.stringify(gridObj.properties.columns.map(function (a) { return { HeaderText: a.headerText, Field: a.field }; }));
+            $.ajax({
+                url: "/Inspection/ExportToExcelInspectionDetail",
+                type: "POST",
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                data: {
+                    gridColumns: gridJson,
+                    gridHeaders: gridHeaders,
+                    id: @Html.Raw(Model.InspectionId),
+                    process: "@Html.Raw(Model.ProcessName)"
+                },
+                success: function (response, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('inline') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+                    var a = document.createElement('a');
+                    a.setAttribute("type", "hidden");
+                    var url = window.URL.createObjectURL(response);
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        window.navigator.msSaveOrOpenBlob(response, filename);
+                    } else {
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        a.remove();
+                    }
+                }
+            });
+        } else if (args.item.id === 'Anomaly_excelexport') {
+            var gridObj = document.getElementById("Anomaly").ej2_instances[0];
+            var gridJson = JSON.stringify(gridObj.properties.columns);
+            var gridHeaders = JSON.stringify(gridObj.properties.columns.map(function (a) { return { HeaderText: a.headerText, Field: a.field }; }));
+            $.ajax({
+                url: "/Inspection/ExportToExcelAnomaly",
+                type: "POST",
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                data: {
+                    gridColumns: gridJson,
+                    gridHeaders: gridHeaders,
+                    id: @Html.Raw(Model.InspectionId),
+                    process: "@Html.Raw(Model.ProcessName)"
+                },
+                success: function (response, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('inline') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+                    var a = document.createElement('a');
+                    a.setAttribute("type", "hidden");
+                    var url = window.URL.createObjectURL(response);
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        window.navigator.msSaveOrOpenBlob(response, filename);
+                    } else {
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        a.remove();
+                    }
+                }
+            });
+        } else if (args.item.id === 'AuditItems_excelexport') {
+            var gridObj = document.getElementById("AuditItems").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "AuditItems.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+
+    function NOKclick(AnomalyId) {
+        $.ajax({
+            url: "/Inspection/GetAnomalyDetail?AnomalyId=" + AnomalyId,
+            type: "GET",
+            success: function (data) {
+                $("#AnomalyDetailPartial").html(data);
+                $("#AnomalyForm").modal("show");
+            },
+            error: function (data) {
+                alert("Error");
+                location.reload();
+            }
+        });
+    }
+
+    function getAuditItemResultTemplate(data) {
+        if (data.IsOK === true) {
+            return "<span style='text-align:center'>OK</span>";
+        } else if (data.IsOK === false) {
+            return "<span style='text-align:center'>NOK</span>";
+        } else {
+            return "";
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()
+

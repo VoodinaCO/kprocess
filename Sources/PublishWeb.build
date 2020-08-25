@@ -1,0 +1,13 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup>
+		<WorkingFolder>$(MSBuildProjectDirectory)</WorkingFolder>
+		<Configuration>Release</Configuration>
+	</PropertyGroup>
+
+	<Target Name="BuildAll" DependsOnTargets="Deploy" />
+
+	<Target Name="Deploy">
+		<Message Text="=== DEPLOYING Web Admin ===" />
+		<MSBuild Projects="KProcess.KL2.WebAdmin\KProcess.KL2.WebAdmin.csproj" Properties="Configuration=$(Configuration);OutputPath=.\bin\;DeployOnBuild=True;PublishProfile=$(Configuration)" />
+	</Target>
+</Project>

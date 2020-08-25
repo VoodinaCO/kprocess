@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <?define ProductCode={0D5F07FD-39A1-49ED-A0DE-6006BC9C5F31}?> <!--1.2-->
+  <!--<?define ProductCode={E58FB6E1-FA9C-4BC5-872E-51331D7BADE4}?>--> <!--v1.1-->
+  <?define UpgradeCode={A663EA3A-28CE-416C-A127-44A9FEC2F811}?>
+</Include>

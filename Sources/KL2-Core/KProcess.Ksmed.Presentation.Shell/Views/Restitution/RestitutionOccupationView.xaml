@@ -1,0 +1,19 @@
+﻿<UserControl
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:k="http://schemas.kprocess.com/xaml/framework"
+  xmlns:core="http://schemas.kprocess.com/xaml/core"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+  xmlns:views="clr-namespace:KProcess.Ksmed.Presentation.Shell.Views"
+  x:Class="KProcess.Ksmed.Presentation.Shell.Views.RestitutionOccupationView"
+  mc:Ignorable="d" 
+  d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:RestitutionOccupationViewModel}}" 
+  d:DesignWidth="675.888" d:DesignHeight="491.841">
+  
+  <views:RestitutionViewByResourceView />
+
+</UserControl>
+
+

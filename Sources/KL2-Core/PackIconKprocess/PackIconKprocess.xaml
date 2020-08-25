@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="Kprocess.PackIconKprocess.PackIconKprocess"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converter="clr-namespace:Kprocess.PackIconKprocess.Converter"
+             xmlns:local="clr-namespace:Kprocess.PackIconKprocess"
+             mc:Ignorable="d" d:DesignHeight="32" d:DesignWidth="32"
+             x:Name="myControl">
+    <Viewbox>
+        <Canvas Width="32" Height="32">
+            <Path Fill="{Binding Foreground, ElementName=myControl}"
+                  Data="{Binding Kind, ElementName=myControl, Converter={converter:KindToPathConverter}, ConverterParameter={x:Static local:PackIconKprocess.IconData}}"/>
+        </Canvas>
+    </Viewbox>
+</UserControl>

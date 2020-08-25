@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  
+  <!-- Default -->
+  <String Id="Language">1033</String>
+  
+  <!-- Upgrade Management -->
+  <String Id="NoDownGrade">A newer version of [ProductName] is already installed.</String>
+  
+  <!-- Launch Conditions -->
+  <String Id="KsmedNotInstalled">Ksmed must be installed to perform an extension installation. Please install KL² first.</String>
+  
+  <!-- Features -->
+  <String Id="ApplicationFilesFeature">Application Files</String>
+
+</WixLocalization>

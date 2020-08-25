@@ -1,0 +1,99 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,1200,600" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing x:Name="rect5" Brush="#FF00247D">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,1200,600" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="path7" Brush="#FF000000">
+      <GeometryDrawing.Pen>
+        <Pen Brush="#FFFFFFFF" Thickness="60" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+      </GeometryDrawing.Pen>
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,0L600,300 M600,0L0,300" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup>
+      <DrawingGroup.ClipGeometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,0L0,150 700,150 700,300 600,300z M0,300L0,350 300,350 300,0 600,0z" />
+      </DrawingGroup.ClipGeometry>
+      <GeometryDrawing x:Name="path9" Brush="#FF000000">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFCF142B" Thickness="40" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,0L600,300 M600,0L0,300" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <GeometryDrawing x:Name="path11" Brush="#FF000000">
+      <GeometryDrawing.Pen>
+        <Pen Brush="#FFFFFFFF" Thickness="100" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+      </GeometryDrawing.Pen>
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,150L700,150 M300,0L300,350" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="path13" Brush="#FF000000">
+      <GeometryDrawing.Pen>
+        <Pen Brush="#FFCF142B" Thickness="60" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+      </GeometryDrawing.Pen>
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,150L700,150 M300,0L300,350" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="path15" Brush="#FF0096C8">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,300L600,300 600,0 1200,0 1200,600 0,600z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use21" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M645.3396,490.91279L674.7764,581.50979 597.7099,525.51779 692.9693,525.51779 615.9028,581.51079z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use23" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M817.46233,463.99977L788.02562,554.5968 758.58878,463.99977 835.65526,519.99184 740.39529,519.99258z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use25" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M817.46233,342.01619L788.02562,432.61322 758.58878,342.01619 835.65526,398.00826 740.39529,398.009z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use27" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M943.46715,433.16817L914.03044,523.7652 884.59361,433.16817 961.66008,489.16024 866.40011,489.16097z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use29" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M943.46715,167.75458L914.03044,258.35161 884.59361,167.75458 961.66008,223.74665 866.40011,223.74738z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use31" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M996.44159,339.96479L1025.8784,430.56179 948.81189,374.56979 1044.0713,374.56979 967.00479,430.56279z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use33" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M1049.3647,131.56139L1019.928,222.15842 990.49119,131.56139 1067.5577,187.55346 972.29769,187.55419z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use35" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M1102.8361,271.47361L1132.2729,362.07061 1055.2064,306.07861 1150.4658,306.07861 1073.3993,362.07161z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="use37" Brush="#FFFFCE00">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M1102.8361,37.4052L1132.2729,128.0022 1055.2064,72.0102 1150.4658,72.0102 1073.3993,128.0032z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+  </DrawingGroup>
+</DrawingGroup>

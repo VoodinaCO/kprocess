@@ -1,0 +1,45 @@
+﻿<views:InstallScreen x:Class="KProcess.KL2.Server.SetupUI.Views.InstallPath"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                     xmlns:app="clr-namespace:KProcess.KL2.Server.SetupUI"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:views="clr-namespace:KProcess.KL2.Server.SetupUI.Views"
+                     d:DataContext="{x:Static app:MainViewModel.Instance}"
+                     d:DesignHeight="300"
+                     d:DesignWidth="300"
+                     mc:Ignorable="d">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="{app:Localization KL2LocationHeader}">
+            <Grid Margin="0,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBox Grid.Column="0"
+                         MahApps:TextBoxHelper.Watermark="{Binding Default_KL2InstallPath}"
+                         IsReadOnly="True"
+                         Text="{Binding FormattedKL2InstallPath, Mode=OneWay}" />
+                <Button Grid.Column="1"
+                        Margin="5,0,0,0"
+                        Command="{Binding KL2InstallPathButtonCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type views:InstallPath}}}"
+                        Content="{app:Localization EditButton}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="{app:Localization ShortcutsHeader}">
+            <StackPanel Margin="0,5">
+                <CheckBox Margin="0,0,0,5"
+                          Content="{app:Localization Shortcut_DesktopLabel}"
+                          IsChecked="{Binding CreateShorcutOnDesktop}" />
+                <CheckBox Margin="0,5,0,0"
+                          Content="{app:Localization Shortcut_StartMenuLabel}"
+                          IsChecked="{Binding CreateShortcutOnStartMenu}" />
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</views:InstallScreen>

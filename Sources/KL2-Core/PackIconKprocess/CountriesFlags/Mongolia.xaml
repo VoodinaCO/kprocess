@@ -1,0 +1,71 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,4800,2400" />
+    </DrawingGroup.ClipGeometry>
+    <DrawingGroup>
+      <DrawingGroup Transform="5,0,0,5,0,0">
+        <GeometryDrawing Brush="#FFDA2032">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M0,0L960,0 960,480 0,480z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF0066B3">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M320,0L640,0 640,480 320,480z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD900">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="44" RadiusY="44" Center="160,164" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFDA2032">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="48" RadiusY="48" Center="160,144" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD900">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="32" RadiusY="32" Center="160,152" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD900">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M72,216L72,408 112,408 112,216z M208,216L208,408 248,408 248,216z M120,248L120,264 200,264 200,248z M120,360L120,376 200,376 200,360z M120,216L200,216 160,240z M120,384L200,384 160,408z M139.786,92.032C139.786,103.212 148.803,112.28 159.922,112.28 171.042,112.28 180.058,103.213 180.058,92.032 180.058,83.932 175.024,82.92 175.024,79.882 175.024,76.846 178.044,72.796 172.004,67.734 175.024,72.796 169.99,73.808 169.99,78.87 169.99,83.932 172.003,83.932 172.003,87.982 172.003,90.218 170.2,92.032 167.976,92.032 165.752,92.032 163.949,90.217 163.949,87.982 163.949,83.932 167.975,79.882 167.975,73.808 167.975,67.734 166.968,65.708 163.948,60.648 160.928,55.585 155.893,51.536 159.92,47.486 153.88,49.511 156.9,57.61 156.9,62.672 156.9,67.734 152.872,70.772 152.872,76.846 152.872,82.92 155.892,83.932 155.892,87.982 155.892,90.218 154.09,92.032 151.866,92.032 149.641,92.032 147.838,90.217 147.838,87.982 147.838,83.932 149.852,83.932 149.852,78.87 149.852,73.808 144.818,72.796 147.838,67.734 141.798,72.796 144.818,76.846 144.818,79.884 144.818,82.92 139.784,83.932 139.784,92.032z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FFFFD900">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFDA2032" Thickness="24" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="212" RadiusY="212" Center="800,1560" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD900">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFDA2032" Thickness="24" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M800,1348A106,106,0,0,1,800,1560A106,106,0,0,0,800,1772" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+    <DrawingGroup>
+      <GeometryDrawing Brush="#FFDA2032">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="40" RadiusY="40" Center="800,1454" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFDA2032">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="40" RadiusY="40" Center="800,1666" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+  </DrawingGroup>
+</DrawingGroup>

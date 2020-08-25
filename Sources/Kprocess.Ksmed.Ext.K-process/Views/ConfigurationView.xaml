@@ -1,0 +1,438 @@
+﻿<UserControl x:Class="KProcess.Ksmed.Ext.Kprocess.Views.ConfigurationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:core="http://schemas.kprocess.com/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:converters="clr-namespace:KProcess.Ksmed.Ext.Kprocess.Converters"
+             xmlns:enums="clr-namespace:KProcess.Ksmed.Ext.Kprocess.Enums"
+             xmlns:views="clr-namespace:KProcess.Ksmed.Ext.Kprocess.Views"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             mc:Ignorable="d"
+             d:DesignWidth="800" d:DesignHeight="600">
+    <UserControl.Resources>
+
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="2,6,2,2" />
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="{x:Type ToggleButton}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
+            <Setter Property="Background" Value="{StaticResource DarkBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource DarkBorder}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="4"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource DarkBorder}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource InputSelectionBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsChecked" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="{StaticResource InputSelectionBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <TabControl>
+            <TabItem Header="General">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="63" MinWidth="63" />
+                    </Grid.ColumnDefinitions>
+                    
+                    <TextBlock Grid.Row="0"  Grid.ColumnSpan="3" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_ExportExcelModelPath}" Style="{StaticResource LabelStyle}" />
+                    <TextBox Grid.Row="1" Grid.ColumnSpan="4" TextWrapping="Wrap" Text="{Binding Settings.ExportExcelModelPath}" Margin="4,4,2,2" />
+                    <Button Grid.Row="1" Grid.Column="4" Content="..." Margin="4,4,2,2" Command="{k:CommandBinding BrowseModelFileCommand}" />
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal"  Grid.ColumnSpan="3">
+                        <CheckBox Margin="4,7,2,2"  Name="cbx_archivage" IsChecked="{Binding Settings.ArchivageIsEnabled}" />
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{k:Localize ExtKp_ConfigurationView_ArchivageLabel}" Style="{StaticResource Heading3}" />
+                        <Image Margin="4" Width="20" Height="20" Source="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Help.png" ToolTip="{k:Localize ExtKp_ConfigurationView_ArchivageTooltip}" ToolTipService.ShowDuration="20000"/>
+                    </StackPanel>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" IsEnabled="{Binding ElementName=cbx_archivage, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_DefaultExportDirectory}" Style="{StaticResource LabelStyle}" />
+                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" IsEnabled="{Binding ElementName=cbx_archivage, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{Binding Settings.DefaultExportDirectory_Archivage}" Margin="4,4,2,2" />
+                    <Button Grid.Row="4" Grid.Column="4" IsEnabled="{Binding ElementName=cbx_archivage, Path=IsChecked, TargetNullValue=false}" Content="..." Margin="4,4,2,2" Command="{k:CommandBinding BrowseDefaultExportDirectoryArchivageCommand}" />
+                    <StackPanel Grid.Row="5" Grid.Column="1" IsEnabled="{Binding ElementName=cbx_archivage, Path=IsChecked, TargetNullValue=false}" Orientation="Horizontal"  Grid.ColumnSpan="4">
+                        <CheckBox Margin="4,7,2,2" IsChecked="{Binding Settings.IsReadOnlyEnabled_Archivage}"/>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{k:Localize ExtKp_ConfigurationView_EnableReadOnly}"  />
+                    </StackPanel>
+                    <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="4" IsEnabled="{Binding ElementName=cbx_archivage, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_DefaultExportVideoDirectory}" Style="{StaticResource LabelStyle}" />
+                    <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" IsEnabled="{Binding ElementName=cbx_archivage, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{Binding Settings.DefaultExportVideoDirectory}" Margin="4,4,2,2" />
+                    <Button Grid.Row="7" Grid.Column="4" IsEnabled="{Binding ElementName=cbx_archivage, Path=IsChecked, TargetNullValue=false}" Content="..." Margin="4,4,2,2" Command="{k:CommandBinding BrowseDefaultExportVideoDirectoryCommand}" />
+
+
+                    <StackPanel Grid.Row="8" Orientation="Horizontal"  Grid.ColumnSpan="3">
+                        <CheckBox Margin="4,7,2,2"  Name="cbx_redistribuable" IsChecked="{Binding Settings.RedistribuableIsEnabled}" />
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{k:Localize ExtKp_ConfigurationView_RedistribuableLabel}" Style="{StaticResource Heading3}" />
+                        <Image Margin="4" Width="20" Height="20" Source="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Help.png" ToolTip="{k:Localize ExtKp_ConfigurationView_RedistribuableTooltip}" ToolTipService.ShowDuration="20000"/>
+                    </StackPanel>
+                    <TextBlock Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="4" IsEnabled="{Binding ElementName=cbx_redistribuable, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_DefaultExportDirectory}" Style="{StaticResource LabelStyle}" />
+                    <TextBox Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="3" IsEnabled="{Binding ElementName=cbx_redistribuable, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{Binding Settings.DefaultExportDirectory_Redistribuable}" Margin="4,4,2,2" />
+                    <Button Grid.Row="10" Grid.Column="4" IsEnabled="{Binding ElementName=cbx_redistribuable, Path=IsChecked, TargetNullValue=false}" Content="..." Margin="4,4,2,2" Command="{k:CommandBinding BrowseDefaultExportDirectoryRedistribuableCommand}" />
+                    <StackPanel Grid.Row="11" Grid.Column="1" IsEnabled="{Binding ElementName=cbx_redistribuable, Path=IsChecked, TargetNullValue=false}" Orientation="Horizontal"  Grid.ColumnSpan="4">
+                        <CheckBox Margin="4,7,2,2" IsChecked="{Binding Settings.IsReadOnlyEnabled_Redistribuable}"/>
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{k:Localize ExtKp_ConfigurationView_EnableReadOnly}"  />
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="{k:Localize ExtKp_ConfigurationView_ExportExcel}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="65*"/>
+                        <ColumnDefinition Width="332*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal"  Grid.ColumnSpan="2">
+                        <CheckBox Margin="4,7,2,2"  Name="cbx_enableExcelExport" IsChecked="{Binding Settings.ExcelExportIsEnabled}" />
+                        <TextBlock TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_ExcelExportIsEnabled}" Style="{StaticResource Heading3}" />
+                    </StackPanel>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,48" IsEnabled="{Binding ElementName=cbx_enableExcelExport, Path=IsChecked, TargetNullValue=false}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="150*" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="150*" />
+                            <ColumnDefinition Width="63" MinWidth="63" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Row="0" Grid.ColumnSpan="3" Margin="8,8,0,8" TextWrapping="Wrap" Text="Key tasks" Style="{StaticResource Heading3}" />
+
+                        <TextBlock Grid.Row="1"  Grid.ColumnSpan="3" TextWrapping="Wrap" Text="Key task definition" Style="{StaticResource LabelStyle}" />
+                        <StackPanel Grid.Row="2" Grid.ColumnSpan="5" Orientation="Horizontal">
+                            <TextBlock Text="Select used fields : " VerticalAlignment="Center"/>
+                            <ToggleButton x:Name="TextField1" IsChecked="{Binding Settings.KeyTaskFreeTextField1}" Margin="2,0">Free Text Field 1</ToggleButton>
+                            <ToggleButton x:Name="TextField2" IsChecked="{Binding Settings.KeyTaskFreeTextField2}" Margin="2,0">Free Text Field 2</ToggleButton>
+                            <ToggleButton x:Name="TextField3" IsChecked="{Binding Settings.KeyTaskFreeTextField3}" Margin="2,0">Free Text Field 3</ToggleButton>
+                            <ToggleButton x:Name="TextField4" IsChecked="{Binding Settings.KeyTaskFreeTextField4}" Margin="2,0">Free Text Field 4</ToggleButton>
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Orientation="Horizontal" Grid.ColumnSpan="5" Margin="0,4,0,0">
+                            <TextBlock Text="Formula : " MinHeight="21" VerticalAlignment="Center" />
+                            <TextBlock Text="{Binding ElementName=TextField1, Path=Content}" Margin="2" VerticalAlignment="Center"
+                                       Visibility="{Binding Settings.KeyTaskFreeTextField1, Converter={converters:TextFieldVisibilityConverter}}"/>
+                            <views:AndOrComboBox SelectedValuePath="Key" DisplayMemberPath="Value" Margin="2"
+                                                 SelectedValue="{Binding Settings.KeyTaskOperator1}">
+                                <views:AndOrComboBox.Visibility>
+                                    <MultiBinding Converter="{converters:AndOrComboBoxVisibilityConverter}">
+                                        <Binding ElementName="TextField1" Path="IsChecked"/>
+                                        <Binding ElementName="TextField2" Path="IsChecked"/>
+                                        <Binding ElementName="TextField3" Path="IsChecked"/>
+                                        <Binding ElementName="TextField4" Path="IsChecked"/>
+                                    </MultiBinding>
+                                </views:AndOrComboBox.Visibility>
+                            </views:AndOrComboBox>
+                            <TextBlock Text="{Binding ElementName=TextField2, Path=Content}" Margin="2" VerticalAlignment="Center"
+                                       Visibility="{Binding Settings.KeyTaskFreeTextField2, Converter={converters:TextFieldVisibilityConverter}}"/>
+                            <views:AndOrComboBox SelectedValuePath="Key" DisplayMemberPath="Value" Margin="2"
+                                                 SelectedValue="{Binding Settings.KeyTaskOperator2}">
+                                <views:AndOrComboBox.Visibility>
+                                    <MultiBinding Converter="{converters:AndOrComboBoxVisibilityConverter}">
+                                        <Binding ElementName="TextField2" Path="IsChecked"/>
+                                        <Binding ElementName="TextField3" Path="IsChecked"/>
+                                        <Binding ElementName="TextField4" Path="IsChecked"/>
+                                    </MultiBinding>
+                                </views:AndOrComboBox.Visibility>
+                            </views:AndOrComboBox>
+                            <TextBlock Text="{Binding ElementName=TextField3, Path=Content}" Margin="2" VerticalAlignment="Center"
+                                       Visibility="{Binding Settings.KeyTaskFreeTextField3, Converter={converters:TextFieldVisibilityConverter}}"/>
+                            <views:AndOrComboBox SelectedValuePath="Key" DisplayMemberPath="Value" Margin="2"
+                                                 SelectedValue="{Binding Settings.KeyTaskOperator3}">
+                                <views:AndOrComboBox.Visibility>
+                                    <MultiBinding Converter="{converters:AndOrComboBoxVisibilityConverter}">
+                                        <Binding ElementName="TextField3" Path="IsChecked"/>
+                                        <Binding ElementName="TextField4" Path="IsChecked"/>
+                                    </MultiBinding>
+                                </views:AndOrComboBox.Visibility>
+                            </views:AndOrComboBox>
+                            <TextBlock Text="{Binding ElementName=TextField4, Path=Content}" Margin="2" VerticalAlignment="Center"
+                                       Visibility="{Binding Settings.KeyTaskFreeTextField4, Converter={converters:TextFieldVisibilityConverter}}"/>
+                        </StackPanel>
+                        <TextBlock Grid.Row="4"  Grid.ColumnSpan="3" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_ImportantTaskColor}" Style="{StaticResource LabelStyle}" />
+                        <core:ColorPicker Grid.Row="5" SelectedColor="{Binding Settings.ImportantTaskColor}"></core:ColorPicker>
+
+                        <TextBlock Grid.Row="6"  Grid.ColumnSpan="3" Margin="8,8,0,8" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_MEFTitle}" Style="{StaticResource Heading3}" />
+                        <TextBlock Grid.Row="7"  Grid.ColumnSpan="3" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_TaskTitleSize}" Style="{StaticResource LabelStyle}" />
+                        <xctk:IntegerUpDown Grid.Row="8" Value="{Binding Settings.TaskTitleSize}" Margin="4,4,2,2"/>
+                        <TextBlock Grid.Row="9"  Grid.ColumnSpan="3" TextWrapping="Wrap" Text="Thumbnail height" Style="{StaticResource LabelStyle}" />
+                        <xctk:IntegerUpDown Grid.Row="10" Text="{Binding Settings.ThumbnailHeight}" Margin="4,4,2,2"/>
+                        <TextBlock Grid.Row="11" Grid.ColumnSpan="3" Margin="0,20,0,0" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_MaxNumberScenarioRefImagesPerCell}" FontWeight="Bold" />
+                        <Grid Grid.Row="12" Grid.ColumnSpan="5" Margin="4,4,2,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Referentials[4].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Referentials[5].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Referentials[6].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Referentials[7].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="5" Text="{Binding Referentials[8].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding Referentials[9].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="7" Text="{Binding Referentials[10].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Images height" VerticalAlignment="Center" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Minimum="1" Value="{Binding Settings.ImageHeightRef1}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="2" Minimum="1" Value="{Binding Settings.ImageHeightRef2}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="3" Minimum="1" Value="{Binding Settings.ImageHeightRef3}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="4" Minimum="1" Value="{Binding Settings.ImageHeightRef4}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="5" Minimum="1" Value="{Binding Settings.ImageHeightRef5}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="6" Minimum="1" Value="{Binding Settings.ImageHeightRef6}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="7" Minimum="1" Value="{Binding Settings.ImageHeightRef7}" Margin="1" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Max images/line" VerticalAlignment="Center" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Minimum="1" Value="{Binding Settings.NbImagesPerLineRef1}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="2" Minimum="1" Value="{Binding Settings.NbImagesPerLineRef2}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="3" Minimum="1" Value="{Binding Settings.NbImagesPerLineRef3}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="4" Minimum="1" Value="{Binding Settings.NbImagesPerLineRef4}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="5" Minimum="1" Value="{Binding Settings.NbImagesPerLineRef5}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="6" Minimum="1" Value="{Binding Settings.NbImagesPerLineRef6}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="7" Minimum="1" Value="{Binding Settings.NbImagesPerLineRef7}" Margin="1" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Add caption" VerticalAlignment="Center" />
+                            <CheckBox Grid.Row="3" Grid.Column="1" x:Name="AddCaptionToRef1" IsChecked="{Binding Settings.AddCaptionToRef1}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="2" x:Name="AddCaptionToRef2" IsChecked="{Binding Settings.AddCaptionToRef2}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="3" x:Name="AddCaptionToRef3" IsChecked="{Binding Settings.AddCaptionToRef3}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="4" x:Name="AddCaptionToRef4" IsChecked="{Binding Settings.AddCaptionToRef4}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="5" x:Name="AddCaptionToRef5" IsChecked="{Binding Settings.AddCaptionToRef5}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="6" x:Name="AddCaptionToRef6" IsChecked="{Binding Settings.AddCaptionToRef6}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="7" x:Name="AddCaptionToRef7" IsChecked="{Binding Settings.AddCaptionToRef7}" HorizontalAlignment="Center" Margin="1" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Caption size" VerticalAlignment="Center" />
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Value="{Binding Settings.CaptionSizeRef1}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToRef1, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="2" Value="{Binding Settings.CaptionSizeRef2}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToRef2, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="3" Value="{Binding Settings.CaptionSizeRef3}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToRef3, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="4" Value="{Binding Settings.CaptionSizeRef4}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToRef4, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="5" Value="{Binding Settings.CaptionSizeRef5}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToRef5, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="6" Value="{Binding Settings.CaptionSizeRef6}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToRef6, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="7" Value="{Binding Settings.CaptionSizeRef7}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToRef7, Path=IsChecked}"/>
+                        </Grid>
+                        <TextBlock Grid.Row="13" Grid.ColumnSpan="3" Margin="0,20,0,0" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_MaxNumberActionRefImagePerCell}" FontWeight="Bold" />
+                        <Grid Grid.Row="14" Grid.ColumnSpan="5" Margin="4,4,2,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Referentials[4].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="2" Text="{Binding Referentials[5].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="3" Text="{Binding Referentials[6].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="4" Text="{Binding Referentials[7].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="5" Text="{Binding Referentials[8].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="6" Text="{Binding Referentials[9].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="0" Grid.Column="7" Text="{Binding Referentials[10].Label}" HorizontalAlignment="Center" />
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Images height" VerticalAlignment="Center" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="1" Minimum="1" Value="{Binding Settings.ImageHeightLineRef1}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="2" Minimum="1" Value="{Binding Settings.ImageHeightLineRef2}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="3" Minimum="1" Value="{Binding Settings.ImageHeightLineRef3}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="4" Minimum="1" Value="{Binding Settings.ImageHeightLineRef4}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="5" Minimum="1" Value="{Binding Settings.ImageHeightLineRef5}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="6" Minimum="1" Value="{Binding Settings.ImageHeightLineRef6}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="1" Grid.Column="7" Minimum="1" Value="{Binding Settings.ImageHeightLineRef7}" Margin="1" />
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Max images/line" VerticalAlignment="Center" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="1" Minimum="1" Value="{Binding Settings.NbImagesPerLineLineRef1}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="2" Minimum="1" Value="{Binding Settings.NbImagesPerLineLineRef2}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="3" Minimum="1" Value="{Binding Settings.NbImagesPerLineLineRef3}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="4" Minimum="1" Value="{Binding Settings.NbImagesPerLineLineRef4}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="5" Minimum="1" Value="{Binding Settings.NbImagesPerLineLineRef5}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="6" Minimum="1" Value="{Binding Settings.NbImagesPerLineLineRef6}" Margin="1" />
+                            <xctk:IntegerUpDown Grid.Row="2" Grid.Column="7" Minimum="1" Value="{Binding Settings.NbImagesPerLineLineRef7}" Margin="1" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Add caption" VerticalAlignment="Center" />
+                            <CheckBox Grid.Row="3" Grid.Column="1" x:Name="AddCaptionToLineRef1Action" IsChecked="{Binding Settings.AddCaptionToLineRef1Action}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="2" x:Name="AddCaptionToLineRef2Action" IsChecked="{Binding Settings.AddCaptionToLineRef2Action}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="3" x:Name="AddCaptionToLineRef3Action" IsChecked="{Binding Settings.AddCaptionToLineRef3Action}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="4" x:Name="AddCaptionToLineRef4Action" IsChecked="{Binding Settings.AddCaptionToLineRef4Action}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="5" x:Name="AddCaptionToLineRef5Action" IsChecked="{Binding Settings.AddCaptionToLineRef5Action}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="6" x:Name="AddCaptionToLineRef6Action" IsChecked="{Binding Settings.AddCaptionToLineRef6Action}" HorizontalAlignment="Center" Margin="1" />
+                            <CheckBox Grid.Row="3" Grid.Column="7" x:Name="AddCaptionToLineRef7Action" IsChecked="{Binding Settings.AddCaptionToLineRef7Action}" HorizontalAlignment="Center" Margin="1" />
+                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Caption size" VerticalAlignment="Center" />
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="1" Value="{Binding Settings.CaptionSizeLineRef1}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToLineRef1Action, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="2" Value="{Binding Settings.CaptionSizeLineRef2}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToLineRef2Action, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="3" Value="{Binding Settings.CaptionSizeLineRef3}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToLineRef3Action, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="4" Value="{Binding Settings.CaptionSizeLineRef4}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToLineRef4Action, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="5" Value="{Binding Settings.CaptionSizeLineRef5}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToLineRef5Action, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="6" Value="{Binding Settings.CaptionSizeLineRef6}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToLineRef6Action, Path=IsChecked}"/>
+                            <xctk:IntegerUpDown Grid.Row="4" Grid.Column="7" Value="{Binding Settings.CaptionSizeLineRef7}" Margin="1" Minimum="2" IsEnabled="{Binding ElementName=AddCaptionToLineRef7Action, Path=IsChecked}"/>
+                        </Grid>
+
+                        <TextBlock Grid.Row="15"  Grid.ColumnSpan="3" Margin="8,8,0,8" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_GantTitle}" Style="{StaticResource Heading3}" />
+
+                        <TextBlock Grid.Row="16"  Grid.ColumnSpan="2" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_GanttGroupColor}" Style="{StaticResource LabelStyle}" />
+                        <core:ColorPicker Grid.Row="17" SelectedColor="{Binding Settings.GanttGroupColor}"></core:ColorPicker>
+                        <TextBlock Grid.Row="16" Grid.Column="2" Grid.ColumnSpan="3" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_GanttNoCategoryColor}" Style="{StaticResource LabelStyle}"  />
+                        <core:ColorPicker Grid.Row="17" SelectedColor="{Binding Settings.GanttNoCategoryColor}" Grid.Column="2" Margin="0,0,0,0"></core:ColorPicker>
+                    </Grid>
+
+                    <!--<CheckBox Grid.Row="3" Margin="4,20,2,2" Grid.ColumnSpan="2" IsChecked="{Binding Settings.MultiThreading}" Content="{k:Localize ExtKp_ConfigurationView_Multithreading}"></CheckBox>-->
+                </Grid>
+            </TabItem>
+            <TabItem Header="{k:Localize ExtKp_ConfigurationView_VideoEncodingTitle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="80" />
+                        <ColumnDefinition Width="150*" />
+                        <ColumnDefinition Width="63" MinWidth="63" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal"  Grid.ColumnSpan="3">
+                        <CheckBox Margin="4,7,2,2"  Name="cbx_enableMarking" IsChecked="{Binding Settings.VideoMarkingIsEnabled}" />
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{k:Localize ExtKp_ConfigurationView_VideoMarkingEnable}" Style="{StaticResource Heading3}" />
+                    </StackPanel>
+                    <TextBox Grid.Row="1" Grid.Column="1" IsEnabled="{Binding ElementName=cbx_enableMarking, Path=IsChecked, TargetNullValue=false}" MaxLength="60" Grid.ColumnSpan="4" TextWrapping="Wrap" Text="{Binding Settings.OverlayTextVideo}" Margin="4,4,2,2" />
+
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal"  Grid.ColumnSpan="3">
+                        <CheckBox Margin="4,7,2,2"  IsChecked="{Binding Settings.ExcelFileNameMarkingIsEnabled}" IsEnabled="{Binding ElementName=cbx_enableMarking, Path=IsChecked, TargetNullValue=false}"/>
+                        <TextBlock TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_ExcelFileNameMarkingIsEnabled}" Style="{StaticResource LabelStyle}" IsEnabled="{Binding ElementName=cbx_enableMarking, Path=IsChecked, TargetNullValue=false}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal"  Grid.ColumnSpan="3">
+                        <CheckBox  Margin="4,7,2,2"  IsChecked="{Binding Settings.WBSMarkingIsEnabled}" IsEnabled="{Binding ElementName=cbx_enableMarking, Path=IsChecked, TargetNullValue=false}"/>
+                        <TextBlock   TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_WBSMarkingIsEnabled}" Style="{StaticResource LabelStyle}" IsEnabled="{Binding ElementName=cbx_enableMarking, Path=IsChecked, TargetNullValue=false}"/>
+                    </StackPanel>
+
+                    <TextBlock Grid.Row="4" Grid.Column="1"   Grid.ColumnSpan="2"  IsEnabled="{Binding ElementName=cbx_enableMarking, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_VerticalAlignement}" Style="{StaticResource LabelStyle}" />
+                    <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <views:RadioButtonWithImage Command="{Binding SetHorizontalAlign}" CommandParameter="{x:Static enums:EHorizontalAlign.Left}" NormalBrush="Black" CheckedBrush="#81A00E" ImageSource="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Horizontal-Align-Left.png"  Width="25" Height="25" IsChecked="{Binding Settings.HorizontalAlignement, Converter={converters:RadioButtonConverter}, ConverterParameter={x:Static enums:EHorizontalAlign.Left}}"/>
+                        <views:RadioButtonWithImage Command="{Binding SetHorizontalAlign}" CommandParameter="{x:Static enums:EHorizontalAlign.Center}" NormalBrush="Black" CheckedBrush="#81A00E" ImageSource="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Horizontal-Align-Center.png" Width="25" Height="25" IsChecked="{Binding Settings.HorizontalAlignement, Converter={converters:RadioButtonConverter}, ConverterParameter={x:Static enums:EHorizontalAlign.Center}}"/>
+                        <views:RadioButtonWithImage Command="{Binding SetHorizontalAlign}" CommandParameter="{x:Static enums:EHorizontalAlign.Right}" NormalBrush="Black" CheckedBrush="#81A00E" ImageSource="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Horizontal-Align-Right.png" Width="25" Height="25" IsChecked="{Binding Settings.HorizontalAlignement, Converter={converters:RadioButtonConverter}, ConverterParameter={x:Static enums:EHorizontalAlign.Right}}"/>
+                    </StackPanel>
+                    <TextBlock Grid.Row="4" Grid.Column="3"   Grid.ColumnSpan="2"  IsEnabled="{Binding ElementName=cbx_enableMarking, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="{k:Localize ExtKp_ConfigurationView_HorizontalAlignement}" Style="{StaticResource LabelStyle}" />
+                    <StackPanel Grid.Row="5" Grid.Column="3" Orientation="Horizontal" HorizontalAlignment="Center">
+                        <views:RadioButtonWithImage Command="{Binding SetVerticalAlign}" CommandParameter="{x:Static enums:EVerticalAlign.Top}" NormalBrush="Black" CheckedBrush="#81A00E" ImageSource="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Vertical-Align-Top.png"  Width="25" Height="25" IsChecked="{Binding Settings.VerticalAlignement, Converter={converters:RadioButtonConverter}, ConverterParameter={x:Static enums:EVerticalAlign.Top}}"/>
+                        <views:RadioButtonWithImage Command="{Binding SetVerticalAlign}" CommandParameter="{x:Static enums:EVerticalAlign.Center}" NormalBrush="Black" CheckedBrush="#81A00E" ImageSource="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Vertical-Align-Center.png" Width="25" Height="25" IsChecked="{Binding Settings.VerticalAlignement, Converter={converters:RadioButtonConverter}, ConverterParameter={x:Static enums:EVerticalAlign.Center}}"/>
+                        <views:RadioButtonWithImage Command="{Binding SetVerticalAlign}" CommandParameter="{x:Static enums:EVerticalAlign.Bottom}" NormalBrush="Black" CheckedBrush="#81A00E" ImageSource="pack://application:,,,/KProcess.Ksmed.Ext.K-process;component/Resources/Vertical-Align-Bottom.png" Width="25" Height="25" IsChecked="{Binding Settings.VerticalAlignement, Converter={converters:RadioButtonConverter}, ConverterParameter={x:Static enums:EVerticalAlign.Bottom}}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="6" Orientation="Horizontal"  Grid.ColumnSpan="3">
+                        <CheckBox Margin="4,7,2,2"  Name="cbx_enableVideoExport" IsChecked="{Binding Settings.VideoExportIsEnabled}" />
+                        <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{k:Localize ExtKp_ConfigurationView_VideoExportIsEnabled}" Style="{StaticResource Heading3}" />
+                    </StackPanel>
+
+                    <Grid Grid.Row="7" Grid.ColumnSpan="5" IsEnabled="{Binding ElementName=cbx_enableVideoExport, Path=IsChecked, TargetNullValue=false}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="80" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <CheckBox Margin="4,7,2,2" IsChecked="{Binding Settings.ExportOnlyKeyTasksVideos}" />
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="{k:Localize ExtKp_ConfigurationView_OnlyVideosOfKeyTasks}" Style="{StaticResource LabelStyle}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <CheckBox Margin="4,7,2,2"  Name="cbx_enableSlowMotion" IsChecked="{Binding Settings.SlowMotionIsEnabled}" />
+                            <TextBlock TextWrapping="Wrap" VerticalAlignment="Center" Text="SlowMotion" Style="{StaticResource LabelStyle}" />
+                        </StackPanel>
+                        <TextBlock Grid.Row="2" Grid.Column="2" IsEnabled="{Binding ElementName=cbx_enableSlowMotion, Path=IsChecked, TargetNullValue=false}" TextWrapping="Wrap" Text="Duration mini (seconds)" Style="{StaticResource LabelStyle}" />
+                        <xctk:DoubleUpDown Grid.Row="3" Grid.Column="2" IsEnabled="{Binding ElementName=cbx_enableSlowMotion, Path=IsChecked, TargetNullValue=false}" Text="{Binding Settings.DurationMini}" Margin="4,4,2,2" />
+                    </Grid>
+
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</UserControl>

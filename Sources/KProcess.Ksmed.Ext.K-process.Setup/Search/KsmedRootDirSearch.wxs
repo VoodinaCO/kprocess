@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <Property Id="RefProperty_KsmedRootDirSearch" Value="1" />
+    <PropertyRef Id="ApplicationInstallHKLMPath" />
+    
+    <Property Id="KSMEDROOTDIR">
+      <RegistrySearch Id="KsmedRootDirRegSearch"
+                      Key="[ApplicationInstallHKLMPath]"
+                      Root="HKLM"
+                      Type="directory" 
+                      Name="InstallLocation" />
+    </Property>
+	</Fragment>
+</Wix>

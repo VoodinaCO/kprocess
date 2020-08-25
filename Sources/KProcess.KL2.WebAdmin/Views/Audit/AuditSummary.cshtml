@@ -1,0 +1,109 @@
+﻿@using Syncfusion.EJ2.Charts;
+@using KProcess.KL2.WebAdmin.Models.Audit;
+@using System.Globalization;
+@using KProcess.KL2.Languages;
+
+@model List<AuditSummaryViewModel>
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "AuditSummary";
+    TextInfo textInfo = new CultureInfo("en-US", false).TextInfo;
+    DateTime filter = ViewBag.selectedMonth;
+    var month = textInfo.ToTitleCase(DateTimeFormatInfo.CurrentInfo.MonthNames.ToList().ElementAt(filter.Month - 1));
+    var year = filter.Year;
+}
+
+<style>
+    .filterBar {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        <div class="row">
+            <div class="col-md-12">
+                @using (Html.BeginForm("AuditSummary", "Audit", FormMethod.Post, new { enctype = "multipart/form-data", onsubmit = "onFilter(event)" }))
+                {
+                    <div class="filterBar">
+                        @(Html.EJS().DatePicker("month")
+                            .Start(Syncfusion.EJ2.Calendars.CalendarView.Year)
+                            .Depth(Syncfusion.EJ2.Calendars.CalendarView.Year)
+                            .Format("MMM-yyyy")
+                            .Value(ViewBag.selectedMonth)
+                            .Render()
+                        )
+                    </div>
+                    <div class="filterBar">
+                        @(Html.EJS().Button("filterBtn")
+                            .Content(LocalizedStrings.GetString("Filter"))
+                            .Render()
+                        )
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                @(Html.EJS().Chart("AuditSummary")
+                    .Series(series =>
+                    {
+                        series.Type(Syncfusion.EJ2.Charts.ChartSeriesType.Column)
+                            .Name(LocalizedStrings.GetString("TotalAudits"))
+                            .XName("TeamName")
+                            .YName("Total")
+                            .DataSource(Model)
+                            .Marker(mr => mr.DataLabel(dl => dl.Visible(true).Name("stringTotal").Position(LabelPosition.Top).Font(new { fontWeight = "600", color = "#ffffff" })))
+                            .PointColorMapping("Color")
+                            .Add();
+                    })
+                    .PrimaryXAxis(px =>
+                    {
+                        px.ValueType(Syncfusion.EJ2.Charts.ValueType.Category)
+                            .MajorGridLines(m => m.Width(0.00001))
+                            .Interval(1)
+                            .LabelIntersectAction(LabelIntersectAction.Wrap);
+                    })
+                    .PrimaryYAxis(py =>
+                    {
+                        py.Minimum(0)
+                            .Maximum(12)
+                            .Interval(3)
+                            .LineStyle(l => l.Width(0.00001))
+                            .LabelStyle(l => l.Color("transparent"))
+                            .MajorGridLines(m => m.Width(0.00001))
+                            .MajorTickLines(m => m.Width(0.00001));
+                    })
+                    .EnableSideBySidePlacement(false)
+                    .Title(LocalizedStrings.GetStringFormat("Web_AuditSummaryMonthlyTitle", month, year.ToString()))
+                    .ChartArea(area => area.Border(new ChartBorder { Color = "transparent" }))
+                    .Tooltip(tt => { tt.Enable(true).Shared(true); })
+                    .Render()
+                )
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Audit")" + "/" + "@LocalizedStrings.GetString("Web_Menu_AuditMonitoring")");
+        setIsRefreshing(false);
+    });
+    function onFilter(event) {
+        event = event || window.event || event.srcElement;
+        event.preventDefault();
+        var month = document.getElementById("month").ej2_instances[0].value;
+        var link = "/Audit/AuditSummary?partial=True&month=-1";
+        link = link.replace("-1", month.toString());
+        LoadPartial(link, '#pageContainer');
+    }
+</script>
+
+@Html.EJS().ScriptManager()

@@ -1,0 +1,242 @@
+﻿<UserControl x:Class="KProcess.Ksmed.Presentation.Shell.Views.ApplicationUsersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:core="http://schemas.kprocess.com/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+             xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+             d:DesignHeight="477"
+             d:DesignWidth="679"
+             mc:Ignorable="d">
+    <!--  d:DataContext="{d:DesignInstance Type={x:Type vm:ApplicationUsersViewModel}, IsDesignTimeCreatable=True}"  -->
+    <UserControl.Resources>
+
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="2,4,2,2" />
+        </Style>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width=".4*" MinWidth="230" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Margin="0,18,0,0">
+            <Button Command="{Binding AddCommand}"
+                    Style="{DynamicResource ButtonLeftAddFileStyle}"
+                    ToolTip="{k:Localize View_ApplicationUsers_Add_ToolTip,
+                                         Shortcut=Add}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="Click">
+                        <core:FocusAction TargetObject="{Binding ElementName=labelTB}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Button>
+            <Button Style="{DynamicResource ButtonLeftRemoveFileStyle}" ToolTip="{k:Localize View_ApplicationUsers_Remove_ToolTip, Shortcut=Delete}" />
+
+            <ItemsControl Style="{StaticResource ExtBarActionsLarge}" />
+
+        </StackPanel>
+        <core:ListFilter Grid.Column="1"
+                         Margin="8,4"
+                         HorizontalAlignment="Right"
+                         VerticalAlignment="Top"
+                         DatePropertyName="LastModificationDate"
+                         ItemsControl="{Binding ElementName=listBox}"
+                         LabelPropertyName="FullName" />
+        <ListBox x:Name="listBox"
+                 Grid.Column="1"
+                 Margin="8,26,8,8"
+                 ItemsSource="{Binding Users}"
+                 SelectedItem="{Binding CurrentUser}">
+            <ListBox.ItemContainerStyle>
+                <Style BasedOn="{StaticResource listBoxItemStyleBase}" TargetType="{x:Type ListBoxItem}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsValidatedAndIsNotValid}" Value="true">
+                            <Setter Property="Background" Value="{StaticResource ErrorLightBrush}" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding FullName}" />
+                        <TextBlock Margin="2,0,0,0"
+                                   Text="*"
+                                   Visibility="{Binding IsNotMarkedAsUnchanged, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Grid Grid.Column="2"
+              Margin="8"
+              Visibility="{Binding CurrentUser, Converter={StaticResource NotNullToVisibilityConverter}}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MinHeight="45" />
+                <RowDefinition Height="Auto" MinHeight="45" />
+                <RowDefinition Height="Auto" MinHeight="45" />
+                <RowDefinition Height="19" />
+                <RowDefinition Height="Auto" MinHeight="45" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_Username}"
+                           TextWrapping="Wrap" />
+                <TextBox x:Name="labelTB"
+                         Margin="4,0,2,2"
+                         IsReadOnly="{Binding CurrentUser.IsUsernameReadOnly}"
+                         MaxLength="{x:Static models:User.UsernameMaxLength}"
+                         Text="{k:InstantValidatingBinding CurrentUser.Username}"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Column="2">
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_DefaultLanguage}"
+                           TextWrapping="Wrap" />
+                <ComboBox Margin="4,0,2,2"
+                          DisplayMemberPath="Label"
+                          ItemsSource="{Binding Languages}"
+                          SelectedItem="{Binding CurrentUser.DefaultLanguage}" />
+            </StackPanel>
+            <StackPanel Grid.Row="1">
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_Firstname}"
+                           TextWrapping="Wrap" />
+                <TextBox Margin="4,0,2,2"
+                         MaxLength="{x:Static models:User.FirstnameMaxLength}"
+                         Text="{k:InstantValidatingBinding CurrentUser.Firstname}"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_Name}"
+                           TextWrapping="Wrap" />
+                <TextBox Margin="4,0,2,2"
+                         MaxLength="{x:Static models:User.NameMaxLength}"
+                         Text="{k:InstantValidatingBinding CurrentUser.Name}"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_Email}"
+                           TextWrapping="Wrap" />
+                <TextBox Margin="4,0,2,2"
+                         MaxLength="{x:Static models:User.EmailMaxLength}"
+                         Text="{k:InstantValidatingBinding CurrentUser.Email}"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+            <StackPanel Grid.Row="2" Grid.Column="2">
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_PhoneNumber}"
+                           TextWrapping="Wrap" />
+                <TextBox Margin="4,0,2,2"
+                         MaxLength="{x:Static models:User.PhoneNumberMaxLength}"
+                         Text="{k:InstantValidatingBinding CurrentUser.PhoneNumber}"
+                         TextWrapping="Wrap" />
+            </StackPanel>
+            <TextBlock Grid.Row="4"
+                       Margin="4,0,0,0"
+                       VerticalAlignment="Top"
+                       Style="{DynamicResource Heading5}"
+                       Text="{k:Localize View_ApplicationMembers_Roles}" />
+            <ItemsControl Grid.Row="4"
+                          Grid.RowSpan="2"
+                          Margin="8,25,0,0"
+                          ItemsSource="{Binding Roles}"
+                          d:LayoutOverrides="GridBox">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <CheckBox Command="{k:UCBinding DataContext.ChangeRoleCommand}"
+                                  CommandParameter="{Binding Role}"
+                                  Content="{Binding Role.ShortLabel}"
+                                  IsChecked="{Binding IsChecked}">
+                            <CheckBox.Style>
+                                <Style BasedOn="{StaticResource baseCheckBoxStyle}" TargetType="{x:Type CheckBox}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasSeparator}" Value="true">
+                                            <Setter Property="Margin" Value="0,8,0,0" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </CheckBox.Style>
+                        </CheckBox>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel Grid.Row="4" Grid.Column="2">
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_NewPassword}"
+                           TextWrapping="Wrap" />
+                <PasswordBox Margin="4,0,2,2">
+                    <i:Interaction.Behaviors>
+                        <k:PasswordBoxBindingBehavior Password="{k:ValidatingBinding CurrentUser.NewPassword}" />
+                    </i:Interaction.Behaviors>
+                </PasswordBox>
+            </StackPanel>
+            <StackPanel Grid.Row="15" Grid.Column="2">
+                <TextBlock Style="{StaticResource LabelStyle}"
+                           Text="{k:Localize View_ApplicationMembers_ConfirmNewPassword}"
+                           TextWrapping="Wrap" />
+                <PasswordBox Margin="4,0,2,2">
+                    <i:Interaction.Behaviors>
+                        <k:PasswordBoxBindingBehavior Password="{k:InstantValidatingBinding CurrentUser.ConfirmNewPassword}" />
+                    </i:Interaction.Behaviors>
+                </PasswordBox>
+            </StackPanel>
+
+        </Grid>
+
+        <StackPanel Grid.Row="2"
+                    Grid.Column="2"
+                    Margin="4"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal"
+                    Visibility="{Binding HasChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="4"
+                    Command="{k:CommandBinding ValidateCommand}"
+                    Content="{k:Localize Common_OK}"
+                    ToolTip="{k:Localize Common_OK,
+                                         Shortcut=Save}">
+                <i:Interaction.Behaviors>
+                    <core:DataStateBehavior Binding="{Binding HasChanged}"
+                                            FalseState="ColorDefault"
+                                            TrueState="ColorGreen"
+                                            Value="true" />
+                </i:Interaction.Behaviors>
+            </Button>
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="4"
+                    Command="{k:CommandBinding CancelCommand}"
+                    Content="{k:Localize Common_Cancel}"
+                    ToolTip="{k:Localize Common_Cancel,
+                                         Shortcut=Cancel}">
+                <i:Interaction.Behaviors>
+                    <core:DataStateBehavior Binding="{Binding HasChanged}"
+                                            FalseState="ColorDefault"
+                                            TrueState="ColorGreen"
+                                            Value="true" />
+                </i:Interaction.Behaviors>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
+
+

@@ -1,0 +1,634 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:hd="clr-namespace:DlhSoft.Windows.Controls;assembly=DlhSoft.HierarchicalData.LightWPF.Controls"
+                    xmlns:local="clr-namespace:DlhSoft.Windows.Controls"
+                    xmlns:converters="clr-namespace:DlhSoft.Windows.Converters"                       
+                    xmlns:shapes="clr-namespace:DlhSoft.Windows.Shapes">
+  <converters:DateTimeStringConverter x:Key="DateTimeStringConverter"/>
+  <DataTemplate x:Key="ScaleHeaderContentTemplate">
+    <ContentControl Content="{Binding}" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Margin="2" IsTabStop="False"/>
+  </DataTemplate>
+  <Color x:Key="ControlMouseOverColor">#FF3843C4</Color>
+  <Color x:Key="ControlPressedColor">#FF211AA9</Color>
+  <Color x:Key="BorderLightColor">#FF888888</Color>
+  <Color x:Key="BorderDarkColor">#FF444444</Color>
+  <Color x:Key="GlyphColor">#FF444444</Color>
+  <ControlTemplate x:Key="UpdateTimelinePageButtonTemplate" TargetType="Button">
+    <Border x:Name="Border" Margin="0,1,1,1" CornerRadius="1" BorderThickness="1">
+      <Border.BorderBrush>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+              <GradientStop Color="{DynamicResource BorderLightColor}" Offset="0.0" />
+              <GradientStop Color="{DynamicResource BorderDarkColor}" Offset="1.0" />
+            </GradientStopCollection>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Border.BorderBrush>
+      <Border.Background>
+        <LinearGradientBrush EndPoint="0.5,0" StartPoint="0.5,1">
+          <GradientStop Color="{DynamicResource ControlLightColor}" Offset="0" />
+          <GradientStop Color="{DynamicResource ControlMediumColor}" Offset="1" />
+        </LinearGradientBrush>
+      </Border.Background>
+      <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="CommonStates">
+          <VisualState x:Name="Normal"/>
+          <VisualState x:Name="MouseOver">
+            <Storyboard>
+              <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="Border">
+                <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlMouseOverColor}"/>
+              </ColorAnimationUsingKeyFrames>
+            </Storyboard>
+          </VisualState>
+          <VisualState x:Name="Pressed">
+            <Storyboard>
+              <ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Panel.Background).(GradientBrush.GradientStops)[0].(GradientStop.Color)" Storyboard.TargetName="Border">
+                <EasingColorKeyFrame KeyTime="0" Value="{StaticResource ControlPressedColor}"/>
+              </ColorAnimationUsingKeyFrames>
+            </Storyboard>
+          </VisualState>
+        </VisualStateGroup>
+      </VisualStateManager.VisualStateGroups>
+      <Path x:Name="Arrow" HorizontalAlignment="Center" VerticalAlignment="Center" Data="{Binding Content, RelativeSource={RelativeSource TemplatedParent}}">
+        <Path.Fill>
+          <SolidColorBrush Color="{DynamicResource GlyphColor}"/>
+        </Path.Fill>
+      </Path>
+    </Border>
+  </ControlTemplate>
+  <Style TargetType="local:GanttChartView">
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Background" Value="#FFFFFFFF"/>
+    <Setter Property="Foreground" Value="#FF000000"/>
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="VerticalContentAlignment" Value="Top"/>
+    <Setter Property="IsTabStop" Value="False"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="BorderBrush">
+      <Setter.Value>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+          <GradientStop Color="#FFA3AEB9" Offset="0"/>
+          <GradientStop Color="#FF8399A9" Offset="0.375"/>
+          <GradientStop Color="#FF718597" Offset="0.375"/>
+          <GradientStop Color="#FF617584" Offset="1"/>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="HeaderHeight" Value="40"/>
+    <Setter Property="HeaderBackground" Value="#f4f5f7"/>
+    <Setter Property="ScaleHeaderHeight" Value="20"/>
+    <Setter Property="NonworkingTimeBackground" Value="#f8f8f8"/>
+    <Setter Property="CurrentTimeLineStroke" Value="#808080"/>
+    <Setter Property="ItemHeight" Value="21"/>
+    <Setter Property="BarHeight" Value="14"/>
+    <Setter Property="CompletedBarHeight" Value="4"/>
+    <Setter Property="StandardBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Transparent" Offset="0"/>
+            <GradientStop Color="LightBlue" Offset="0.25"/>
+            <GradientStop Color="Blue" Offset="1"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="StandardBarStroke" Value="Blue"/>
+    <Setter Property="StandardBarStrokeThickness" Value="1"/>
+    <Setter Property="StandardBarCornerRadius" Value="4"/>
+    <Setter Property="StandardCompletedBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Transparent" Offset="0"/>
+            <GradientStop Color="Black" Offset="0.15"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="StandardCompletedBarStroke" Value="Black"/>
+    <Setter Property="StandardCompletedBarStrokeThickness" Value="1"/>
+    <Setter Property="StandardCompletedBarCornerRadius" Value="2"/>
+    <Setter Property="SummaryBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="0.1"/>
+            <GradientStop Color="Gray" Offset="0.2"/>
+            <GradientStop Color="Black" Offset="0.6"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="SummaryBarStroke" Value="Black"/>
+    <Setter Property="SummaryBarStrokeThickness" Value="1"/>
+    <Setter Property="MilestoneBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="0.1"/>
+            <GradientStop Color="Gray" Offset="0.2"/>
+            <GradientStop Color="Black" Offset="0.6"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="MilestoneBarStroke" Value="Black"/>
+    <Setter Property="MilestoneBarStrokeThickness" Value="1"/>
+    <Setter Property="DependencyLineStroke" Value="Blue"/>
+    <Setter Property="DependencyLineStrokeThickness" Value="1"/>
+    <Setter Property="StandardTaskTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <Grid>
+              <Rectangle Fill="{Binding Path=(local:GanttChartView.StandardBarFill)}" Stroke="{Binding Path=(local:GanttChartView.StandardBarStroke)}" StrokeThickness="{Binding GanttChartView.StandardBarStrokeThickness}" RadiusX="{Binding GanttChartView.StandardBarCornerRadius}" RadiusY="{Binding GanttChartView.StandardBarCornerRadius}"/>
+              <local:DragTaskThumb Role="UpdateStart" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+              <local:DragTaskThumb Role="UpdateFinish" Width="2" HorizontalAlignment="Right" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding GanttChartView.TaskCompletedEffortVisibility}">
+              <Rectangle Width="{Binding ComputedCompletedBarWidth}" Height="{Binding GanttChartView.CompletedBarHeight}" VerticalAlignment="Center" Fill="{Binding Path=(local:GanttChartView.StandardCompletedBarFill)}" Stroke="{Binding Path=(local:GanttChartView.StandardCompletedBarStroke)}" StrokeThickness="{Binding GanttChartView.StandardCompletedBarStrokeThickness}" RadiusX="{Binding GanttChartView.StandardCompletedBarCornerRadius}" RadiusY="{Binding GanttChartView.StandardCompletedBarCornerRadius}" IsHitTestVisible="False"/>
+              <local:DragTaskThumb Role="UpdateCompletedFinish" Width="2" Height="{Binding GanttChartView.BarHeight}" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+            </StackPanel>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="SummaryTaskTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+              </Grid.RowDefinitions>
+              <Rectangle Grid.Column="1" Grid.Row="1" Fill="{Binding Path=(local:GanttChartView.SummaryBarFill)}" Stroke="{Binding Path=(local:GanttChartView.SummaryBarStroke)}" StrokeThickness="{Binding GanttChartView.SummaryBarStrokeThickness}"/>
+              <Line Grid.Column="1" Grid.Row="2" Stroke="{Binding Path=(local:GanttChartView.StandardBarStroke)}" StrokeThickness="1" StrokeDashArray="1,1" Y1="1" Y2="1" X1="0" X2="{Binding ComputedBarWidth}" Visibility="{Binding ExpansionVisibility}"/>
+              <Polygon Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Fill="{Binding Path=(local:GanttChartView.SummaryBarFill)}" Stroke="{Binding Path=(local:GanttChartView.SummaryBarStroke)}" StrokeThickness="{Binding GanttChartView.SummaryBarStrokeThickness}" Width="{Binding GanttChartView.BarHeight}" Stretch="Fill"
+                                    Points="0,0 0,0.5 0.5,0.8 1,0.5 1,0"/>
+              <Polygon Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Fill="{Binding Path=(local:GanttChartView.SummaryBarFill)}" Stroke="{Binding Path=(local:GanttChartView.SummaryBarStroke)}" StrokeThickness="{Binding GanttChartView.SummaryBarStrokeThickness}" Width="{Binding GanttChartView.BarHeight}" Stretch="Fill"
+                                    Points="1,0 1,0.5 0.5,0.8 0,0.5 0,0"/>
+            </Grid>
+            <local:TaskExpander/>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="MilestoneTaskTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <Polygon Fill="{Binding Path=(local:GanttChartView.MilestoneBarFill)}" Stroke="{Binding Path=(local:GanttChartView.MilestoneBarStroke)}" StrokeThickness="{Binding GanttChartView.MilestoneBarStrokeThickness}" Stretch="UniformToFill"
+                                    Points="0.5,0 1,0.5 0.5,1 0,0.5"/>
+            <local:DragTaskThumb Role="UpdateStart" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ToolTipTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <ContentControl Content="{Binding Content}" IsTabStop="False"/>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="DependencyLineTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <ToolTipService.ToolTip>
+              <ToolTip Content="{Binding}" ContentTemplate="{Binding GanttChartView.PredecessorToolTipTemplate}" Visibility="{Binding GanttChartView.DependencyToolTipVisibility}"/>
+            </ToolTipService.ToolTip>
+            <shapes:DependencyArrowLine Stroke="Transparent" StrokeThickness="3" Points="{Binding ComputedDependencyLinePoints}"/>
+            <shapes:DependencyArrowLine Stroke="{Binding Path=DependentItem.(local:GanttChartView.DependencyLineStroke)}" StrokeThickness="{Binding GanttChartView.DependencyLineStrokeThickness}" Points="{Binding ComputedDependencyLinePoints}"/>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="PredecessorToolTipTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <ContentControl Content="{Binding Item.Content}" VerticalAlignment="Center" IsTabStop="False"/>
+            <TextBlock Text="-" Margin="1,0" VerticalAlignment="Center"/>
+            <ContentControl Content="{Binding DependentItem.Content}" VerticalAlignment="Center" IsTabStop="False"/>
+          </StackPanel>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <local:TaskPresenter IsVirtuallyVisible="{Binding IsVirtuallyVisible}"/>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <Canvas IsItemsHost="True"/>
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+    <Setter Property="Scales">
+      <Setter.Value>
+        <local:ScaleCollection>
+          <local:Scale ScaleType="Weeks" HeaderBorderBrush="Silver" HeaderBorderThickness="0,0,1,1" HeaderContentTemplate="{StaticResource ScaleHeaderContentTemplate}" BorderBrush="Silver" BorderThickness="0,0,1,0"/>
+          <local:Scale ScaleType="Days" HeaderContentFormat="DayOfWeekInitial" HeaderBorderBrush="Silver" HeaderBorderThickness="0,0,1,1" HeaderContentTemplate="{StaticResource ScaleHeaderContentTemplate}"/>
+        </local:ScaleCollection>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="UpdateScaleInterval" Value="00:15:00"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:GanttChartView">
+          <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <ScrollViewer x:Name="ScrollViewer" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" local:GanttChartView.ComputedWidth="{TemplateBinding ComputedWidth}" local:GanttChartView.HeaderHeight="{TemplateBinding HeaderHeight}" local:GanttChartView.HeaderBackground="{TemplateBinding HeaderBackground}" IsTabStop="True"
+                                      local:GanttChartView.ComputedIncreaseTimelinePageButtonVisibility="{TemplateBinding ComputedIncreaseTimelinePageButtonVisibility}" local:GanttChartView.ComputedDecreaseTimelinePageButtonVisibility="{TemplateBinding ComputedDecreaseTimelinePageButtonVisibility}"
+                                      local:GanttChartView.Scales="{TemplateBinding Scales}">
+              <ScrollViewer.Template>
+                <ControlTemplate TargetType="ScrollViewer">
+                  <Grid Background="{TemplateBinding Background}">
+                    <DockPanel Margin="{TemplateBinding Padding}">
+                      <Grid DockPanel.Dock="Top">
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="*"/>
+                          <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ScrollViewer x:Name="HeaderScrollViewer" Grid.Column="0" Focusable="False" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Hidden" IsTabStop="False" IsHitTestVisible="False">
+                          <Grid HorizontalAlignment="Left" Height="{TemplateBinding local:GanttChartView.HeaderHeight}" Background="{TemplateBinding local:GanttChartView.HeaderBackground}">
+                            <ItemsControl ItemsSource="{TemplateBinding local:GanttChartView.Scales}" Width="{TemplateBinding local:GanttChartView.ComputedWidth}" IsTabStop="False">
+                              <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                  <ItemsControl ItemsSource="{Binding Intervals}" Height="{Binding HeaderHeight}" IsTabStop="False">
+                                    <ItemsControl.ItemsPanel>
+                                      <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Stretch" HorizontalAlignment="Left" IsItemsHost="True"/>
+                                      </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                      <DataTemplate>
+                                        <Border Background="{Binding Scale.HeaderBackground}" BorderBrush="{Binding Scale.HeaderBorderBrush}" BorderThickness="{Binding Scale.HeaderBorderThickness}" Width="{Binding ComputedWidth}">
+                                          <ContentControl Content="{Binding HeaderContent}" ContentTemplate="{Binding Scale.HeaderContentTemplate}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" IsTabStop="False"/>
+                                        </Border>
+                                      </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                  </ItemsControl>
+                                </DataTemplate>
+                              </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                          </Grid>
+                        </ScrollViewer>
+                        <Border Grid.Column="1" Width="17" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}"/>
+                      </Grid>
+                      <Grid>
+                        <Grid.RowDefinitions>
+                          <RowDefinition Height="*"/>
+                          <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                          <ColumnDefinition Width="*"/>
+                          <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ScrollContentPresenter x:Name="PART_ScrollContentPresenter" Grid.Row="0" Grid.Column="0" KeyboardNavigation.DirectionalNavigation="Local"/>
+                        <Rectangle Grid.Column="1" Grid.Row="1" Fill="#f0f0f0"/>
+                        <ScrollBar x:Name="PART_VerticalScrollBar" Width="17" IsTabStop="False" Visibility="{TemplateBinding ComputedVerticalScrollBarVisibility}" Grid.Column="1" Grid.Row="0" Orientation="Vertical" ViewportSize="{TemplateBinding ViewportHeight}" Maximum="{TemplateBinding ScrollableHeight}" Minimum="0" Value="{TemplateBinding VerticalOffset}"/>
+                        <Grid Height="17" Grid.Column="0" Grid.Row="1">
+                          <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                          </Grid.ColumnDefinitions>
+                          <ScrollBar x:Name="PART_HorizontalScrollBar" Grid.ColumnSpan="3" IsTabStop="False" Visibility="{TemplateBinding ComputedHorizontalScrollBarVisibility}" Orientation="Horizontal" ViewportSize="{TemplateBinding ViewportWidth}" Maximum="{TemplateBinding ScrollableWidth}" Minimum="0" Value="{TemplateBinding HorizontalOffset}"/>
+                          <Button x:Name="DecreaseTimelinePageButton" Grid.Column="0" Width="17" Visibility="{TemplateBinding local:GanttChartView.ComputedDecreaseTimelinePageButtonVisibility}" Template="{StaticResource UpdateTimelinePageButtonTemplate}" Content="M 4 0 L 4 8 L 0 4 Z"/>
+                          <Button x:Name="IncreaseTimelinePageButton" Grid.Column="2" Width="17" Visibility="{TemplateBinding local:GanttChartView.ComputedIncreaseTimelinePageButtonVisibility}" Template="{StaticResource UpdateTimelinePageButtonTemplate}" Content="M 0 0 L 4 4 L 0 8 Z"/>
+                        </Grid>
+                      </Grid>
+                    </DockPanel>
+                  </Grid>
+                </ControlTemplate>
+              </ScrollViewer.Template>
+              <Grid Background="{TemplateBinding WorkingTimeBackground}">
+                <ItemsControl ItemsSource="{TemplateBinding Scales}" Width="{TemplateBinding ComputedWidth}" IsTabStop="False">
+                  <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                      <Grid Background="Transparent" IsItemsHost="True"/>
+                    </ItemsPanelTemplate>
+                  </ItemsControl.ItemsPanel>
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <ItemsControl ItemsSource="{Binding Intervals}" Height="{Binding ComputedHeight}" IsTabStop="False">
+                        <ItemsControl.ItemsPanel>
+                          <ItemsPanelTemplate>
+                            <Grid IsItemsHost="True"/>
+                          </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                          <DataTemplate>
+                            <Canvas>
+                              <Border Background="{Binding Scale.Background}" BorderBrush="{Binding Scale.BorderBrush}" BorderThickness="{Binding Scale.BorderThickness}" Canvas.Left="{Binding ComputedLeft}" Width="{Binding ComputedWidth}" Height="{Binding GanttChartView.ActualChartHeight}"/>
+                            </Canvas>
+                          </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                      </ItemsControl>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsPresenter Width="{TemplateBinding ComputedWidth}" Height="{TemplateBinding ComputedHeight}" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+              </Grid>
+            </ScrollViewer>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+  <Style TargetType="local:GanttChartDataGrid">
+    <Setter Property="Padding" Value="0"/>
+    <Setter Property="Background" Value="#FFFFFFFF"/>
+    <Setter Property="RowBackground" Value="Transparent"/>
+    <Setter Property="AlternatingRowBackground" Value="Transparent"/>
+    <Setter Property="Foreground" Value="#FF000000"/>
+    <Setter Property="HorizontalContentAlignment" Value="Left"/>
+    <Setter Property="VerticalContentAlignment" Value="Top"/>
+    <Setter Property="IsTabStop" Value="False"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="BorderBrush">
+      <Setter.Value>
+        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+          <GradientStop Color="#FFA3AEB9" Offset="0"/>
+          <GradientStop Color="#FF8399A9" Offset="0.375"/>
+          <GradientStop Color="#FF718597" Offset="0.375"/>
+          <GradientStop Color="#FF617584" Offset="1"/>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+    <Setter Property="GridLinesVisibility" Value="None"/>
+    <Setter Property="ColumnWidth" Value="Auto"/>
+    <Setter Property="HeaderHeight" Value="40"/>
+    <Setter Property="Columns">
+      <Setter.Value>
+        <local:DataGridColumnCollection>
+          <hd:DataTreeGridColumn Header="Task"/>
+          <DataGridTextColumn Header="Start" Binding="{Binding Start, Mode=TwoWay, Converter={StaticResource DateTimeStringConverter}}"/>
+          <DataGridTextColumn Header="Finish" Binding="{Binding Finish, Mode=TwoWay, Converter={StaticResource DateTimeStringConverter}}"/>
+          <DataGridCheckBoxColumn Header="Is milestone" Binding="{Binding IsMilestone, Mode=TwoWay}"/>
+          <DataGridCheckBoxColumn Header="Is completed" Binding="{Binding IsCompleted, Mode=TwoWay}"/>
+          <DataGridTextColumn Header="Assignments" Binding="{Binding AssignmentsContent, Mode=TwoWay}"/>
+        </local:DataGridColumnCollection>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="HeaderBackground" Value="#f4f5f7"/>
+    <Setter Property="NonworkingTimeBackground" Value="#f8f8f8"/>
+    <Setter Property="CurrentTimeLineStroke" Value="#808080"/>
+    <Setter Property="ScaleHeaderHeight" Value="20"/>
+    <Setter Property="ItemHeight" Value="22"/>
+    <Setter Property="BarHeight" Value="14"/>
+    <Setter Property="CompletedBarHeight" Value="4"/>
+    <Setter Property="StandardBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Transparent" Offset="0"/>
+            <GradientStop Color="LightBlue" Offset="0.25"/>
+            <GradientStop Color="Blue" Offset="1"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="StandardBarStroke" Value="Blue"/>
+    <Setter Property="StandardBarStrokeThickness" Value="1"/>
+    <Setter Property="StandardBarCornerRadius" Value="4"/>
+    <Setter Property="StandardCompletedBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Transparent" Offset="0"/>
+            <GradientStop Color="Black" Offset="0.15"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="StandardCompletedBarStroke" Value="Black"/>
+    <Setter Property="StandardCompletedBarStrokeThickness" Value="1"/>
+    <Setter Property="StandardCompletedBarCornerRadius" Value="2"/>
+    <Setter Property="SummaryBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="0.1"/>
+            <GradientStop Color="Gray" Offset="0.2"/>
+            <GradientStop Color="Black" Offset="0.6"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="SummaryBarStroke" Value="Black"/>
+    <Setter Property="SummaryBarStrokeThickness" Value="1"/>
+    <Setter Property="MilestoneBarFill">
+      <Setter.Value>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+          <LinearGradientBrush.GradientStops>
+            <GradientStop Color="Black" Offset="0"/>
+            <GradientStop Color="Transparent" Offset="0.1"/>
+            <GradientStop Color="Gray" Offset="0.2"/>
+            <GradientStop Color="Black" Offset="0.6"/>
+          </LinearGradientBrush.GradientStops>
+        </LinearGradientBrush>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="MilestoneBarStroke" Value="Black"/>
+    <Setter Property="MilestoneBarStrokeThickness" Value="1"/>
+    <Setter Property="DependencyLineStroke" Value="Blue"/>
+    <Setter Property="DependencyLineStrokeThickness" Value="1"/>
+    <Setter Property="StandardTaskTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <Grid>
+              <Rectangle Fill="{Binding Path=(local:GanttChartView.StandardBarFill)}" Stroke="{Binding Path=(local:GanttChartView.StandardBarStroke)}" StrokeThickness="{Binding GanttChartView.StandardBarStrokeThickness}" RadiusX="{Binding GanttChartView.StandardBarCornerRadius}" RadiusY="{Binding GanttChartView.StandardBarCornerRadius}"/>
+              <local:DragTaskThumb Role="UpdateStart" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+              <local:DragTaskThumb Role="UpdateFinish" Width="2" HorizontalAlignment="Right" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="{Binding GanttChartView.TaskCompletedEffortVisibility}">
+              <Rectangle Width="{Binding ComputedCompletedBarWidth}" Height="{Binding GanttChartView.CompletedBarHeight}" VerticalAlignment="Center" Fill="{Binding Path=(local:GanttChartView.StandardCompletedBarFill)}" Stroke="{Binding Path=(local:GanttChartView.StandardCompletedBarStroke)}" StrokeThickness="{Binding GanttChartView.StandardCompletedBarStrokeThickness}" RadiusX="{Binding GanttChartView.StandardCompletedBarCornerRadius}" RadiusY="{Binding GanttChartView.StandardCompletedBarCornerRadius}" IsHitTestVisible="False"/>
+              <local:DragTaskThumb Role="UpdateCompletedFinish" Width="2" Height="{Binding GanttChartView.BarHeight}" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+            </StackPanel>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="SummaryTaskTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.3*"/>
+              </Grid.RowDefinitions>
+              <Rectangle Grid.Column="1" Grid.Row="1" Fill="{Binding Path=(local:GanttChartView.SummaryBarFill)}" Stroke="{Binding Path=(local:GanttChartView.SummaryBarStroke)}" StrokeThickness="{Binding GanttChartView.SummaryBarStrokeThickness}"/>
+              <Line Grid.Column="1" Grid.Row="2" Stroke="{Binding Path=(local:GanttChartView.StandardBarStroke)}" StrokeThickness="1" StrokeDashArray="1,1" Y1="1" Y2="1" X1="0" X2="{Binding ComputedBarWidth}" Visibility="{Binding ExpansionVisibility}"/>
+              <Polygon Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" Fill="{Binding Path=(local:GanttChartView.SummaryBarFill)}" Stroke="{Binding Path=(local:GanttChartView.SummaryBarStroke)}" StrokeThickness="{Binding GanttChartView.SummaryBarStrokeThickness}" Width="{Binding GanttChartView.BarHeight}" Stretch="Fill"
+                                     Points="0,0 0,0.5 0.5,0.8 1,0.5 1,0"/>
+              <Polygon Grid.Column="3" Grid.Row="1" Grid.RowSpan="2" Fill="{Binding Path=(local:GanttChartView.SummaryBarFill)}" Stroke="{Binding Path=(local:GanttChartView.SummaryBarStroke)}" StrokeThickness="{Binding GanttChartView.SummaryBarStrokeThickness}" Width="{Binding GanttChartView.BarHeight}" Stretch="Fill"
+                                     Points="1,0 1,0.5 0.5,0.8 0,0.5 0,0"/>
+            </Grid>
+            <local:TaskExpander/>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="MilestoneTaskTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <Polygon Fill="{Binding Path=(local:GanttChartView.MilestoneBarFill)}" Stroke="{Binding Path=(local:GanttChartView.MilestoneBarStroke)}" StrokeThickness="{Binding GanttChartView.MilestoneBarStrokeThickness}" Stretch="UniformToFill"
+                                 Points="0.5,0 1,0.5 0.5,1 0,0.5"/>
+            <local:DragTaskThumb Role="UpdateStart" Visibility="{Binding GanttChartView.ThumbVisibility}"/>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ToolTipTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <ContentControl Content="{Binding Content}" IsTabStop="False"/>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="DependencyLineTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <Grid>
+            <ToolTipService.ToolTip>
+              <ToolTip Content="{Binding}" ContentTemplate="{Binding GanttChartView.PredecessorToolTipTemplate}" Visibility="{Binding GanttChartView.DependencyToolTipVisibility}"/>
+            </ToolTipService.ToolTip>
+            <shapes:DependencyArrowLine Stroke="Transparent" StrokeThickness="3" Points="{Binding ComputedDependencyLinePoints}"/>
+            <shapes:DependencyArrowLine Stroke="{Binding Path=DependentItem.(local:GanttChartView.DependencyLineStroke)}" StrokeThickness="{Binding GanttChartView.DependencyLineStrokeThickness}" Points="{Binding ComputedDependencyLinePoints}"/>
+          </Grid>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="PredecessorToolTipTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <ContentControl Content="{Binding Item.Content}" VerticalAlignment="Center" IsTabStop="False"/>
+            <TextBlock Text="-" Margin="1,0" VerticalAlignment="Center"/>
+            <ContentControl Content="{Binding DependentItem.Content}" VerticalAlignment="Center" IsTabStop="False"/>
+          </StackPanel>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemTemplate">
+      <Setter.Value>
+        <DataTemplate>
+          <local:TaskPresenter IsVirtuallyVisible="{Binding IsVirtuallyVisible}"/>
+        </DataTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="ItemsPanel">
+      <Setter.Value>
+        <ItemsPanelTemplate>
+          <Canvas IsItemsHost="True"/>
+        </ItemsPanelTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="Scales">
+      <Setter.Value>
+        <local:ScaleCollection>
+          <local:Scale ScaleType="Weeks" HeaderBorderBrush="Silver" HeaderBorderThickness="0,0,1,1" HeaderContentTemplate="{StaticResource ScaleHeaderContentTemplate}" BorderBrush="Silver" BorderThickness="0,0,1,0"/>
+          <local:Scale ScaleType="Days" HeaderContentFormat="DayOfWeekInitial" HeaderBorderBrush="Silver" HeaderBorderThickness="0,0,1,1" HeaderContentTemplate="{StaticResource ScaleHeaderContentTemplate}"/>
+        </local:ScaleCollection>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="UpdateScaleInterval" Value="00:15:00"/>
+    <Setter Property="IndentationUnitSize" Value="16"/>
+    <Setter Property="ExpanderTemplate">
+      <Setter.Value>
+        <ControlTemplate TargetType="ToggleButton">
+          <Border Width="16" Height="16" Background="#00FFFFFF" Padding="5,5,5,5">
+            <Path Name="ExpandPath" Fill="#00FFFFFF" Stroke="#FF989898">
+              <Path.Data>
+                <PathGeometry Figures="M 0 0 L 0 6 L 6 0 Z"/>
+              </Path.Data>
+              <Path.RenderTransform>
+                <RotateTransform CenterX="3" CenterY="3" Angle="135"/>
+              </Path.RenderTransform>
+            </Path>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+              <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF1BBBFA"/>
+              <Setter Property="Fill" TargetName="ExpandPath" Value="#00FFFFFF"/>
+            </Trigger>
+            <Trigger Property="IsChecked" Value="True">
+              <Setter Property="RenderTransform" TargetName="ExpandPath">
+                <Setter.Value>
+                  <RotateTransform CenterX="3" CenterY="3" Angle="180"/>
+                </Setter.Value>
+              </Setter>
+              <Setter Property="Fill" TargetName="ExpandPath" Value="#FF595959"/>
+              <Setter Property="Stroke" TargetName="ExpandPath" Value="#FF262626"/>
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+    <Setter Property="SplitterBorderBrush" Value="Silver"/>
+    <Setter Property="SplitterBorderThickness" Value="1,0"/>
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="local:GanttChartDataGrid">
+          <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="{TemplateBinding DataGridWidth}" MinWidth="{TemplateBinding MinDataGridWidth}" MaxWidth="{TemplateBinding MaxDataGridWidth}"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="{TemplateBinding ChartWidth}" MinWidth="{TemplateBinding MinChartWidth}" MaxWidth="{TemplateBinding MaxChartWidth}"/>
+              </Grid.ColumnDefinitions>
+              <hd:DataTreeGrid x:Name="DataTreeGrid" Grid.Column="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}" BorderThickness="0" Background="Transparent" RowBackground="{TemplateBinding RowBackground}" AlternatingRowBackground="{TemplateBinding AlternatingRowBackground}" GridLinesVisibility="{TemplateBinding GridLinesVisibility}"
+                                             AlternationCount="{TemplateBinding AlternationCount}" CellStyle="{TemplateBinding CellStyle}" ClipboardCopyMode="{TemplateBinding ClipboardCopyMode}" ColumnHeaderStyle="{TemplateBinding ColumnHeaderStyle}" ColumnWidth="{TemplateBinding ColumnWidth}" FrozenColumnCount="{TemplateBinding FrozenColumnCount}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalGridLinesBrush="{TemplateBinding HorizontalGridLinesBrush}" VerticalGridLinesBrush="{TemplateBinding VerticalGridLinesBrush}" IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}" IsTextSearchCaseSensitive="{TemplateBinding IsTextSearchCaseSensitive}" MaxColumnWidth="{TemplateBinding MaxColumnWidth}" MinColumnWidth="{TemplateBinding MinColumnWidth}" RowStyle="{TemplateBinding RowStyle}" RowStyleSelector="{TemplateBinding RowStyleSelector}" RowValidationErrorTemplate="{Binding RowValidationErrorTemplate}" SelectionMode="{TemplateBinding SelectionMode}" SelectedValuePath="{TemplateBinding SelectedValuePath}"
+                                             ColumnHeaderHeight="{TemplateBinding HeaderHeight}" RowHeight="{TemplateBinding ItemHeight}"
+                                             ExpanderTemplate="{TemplateBinding ExpanderTemplate}" IndentationUnitSize="{TemplateBinding IndentationUnitSize}"
+                                             IsReadOnly="{TemplateBinding IsReadOnly}" 
+                                             IsAsyncPresentationEnabled="False"/>
+              <GridSplitter Grid.Column="1" HorizontalAlignment="Center" Width="{TemplateBinding SplitterWidth}" IsEnabled="{TemplateBinding IsSplitterEnabled}" Background="{TemplateBinding SplitterBackground}" BorderBrush="{TemplateBinding SplitterBorderBrush}" BorderThickness="{TemplateBinding SplitterBorderThickness}"/>
+              <local:GanttChartView x:Name="GanttChartView" Grid.Column="2" Background="Transparent" BorderBrush="Transparent" BorderThickness="0" ItemTemplate="{TemplateBinding ItemTemplate}" ItemsPanel="{TemplateBinding ItemsPanel}" ScrollViewer.CanContentScroll="False"
+                                                  AlternationCount="{TemplateBinding AlternationCount}" IsTextSearchEnabled="{TemplateBinding IsTextSearchEnabled}" IsTextSearchCaseSensitive="{TemplateBinding IsTextSearchCaseSensitive}"
+                                                  HeaderHeight="{TemplateBinding HeaderHeight}" ScaleHeaderHeight="{TemplateBinding ScaleHeaderHeight}" ItemHeight="{TemplateBinding ItemHeight}" TimelinePageStart="{TemplateBinding TimelinePageStart}" TimelinePageFinish="{TemplateBinding TimelinePageFinish}" VisibleWeekStart="{TemplateBinding VisibleWeekStart}" VisibleWeekFinish="{TemplateBinding VisibleWeekFinish}" VisibleDayStart="{TemplateBinding VisibleDayStart}" VisibleDayFinish="{TemplateBinding VisibleDayFinish}" WorkingWeekStart="{TemplateBinding WorkingWeekStart}" WorkingWeekFinish="{TemplateBinding WorkingWeekFinish}" WorkingDayStart="{TemplateBinding WorkingDayStart}" WorkingDayFinish="{TemplateBinding WorkingDayFinish}" NonworkingIntervals="{TemplateBinding NonworkingIntervals}" HourWidth="{TemplateBinding HourWidth}" Scales="{TemplateBinding Scales}" UpdateScaleInterval="{TemplateBinding UpdateScaleInterval}"
+                                                  IsReadOnly="{TemplateBinding IsReadOnly}" IsTaskToolTipVisible="{TemplateBinding IsTaskToolTipVisible}" IsDependencyToolTipVisible="{TemplateBinding IsTaskToolTipVisible}" IsTaskCompletedEffortVisible="{TemplateBinding IsTaskCompletedEffortVisible}" IsNonworkingTimeHighlighted="{TemplateBinding IsNonworkingTimeHighlighted}" IsCurrentTimeLineVisible="{TemplateBinding IsCurrentTimeLineVisible}" AreUpdateTimelinePageButtonsVisible="{TemplateBinding AreUpdateTimelinePageButtonsVisible}" UpdateTimelinePageAmount="{TemplateBinding UpdateTimelinePageAmount}" DependencyCreationValidator="{TemplateBinding DependencyCreationValidator}" DependencyDeletionValidator="{TemplateBinding DependencyDeletionValidator}"
+                                                  HeaderBackground="{TemplateBinding HeaderBackground}" WorkingTimeBackground="{TemplateBinding WorkingTimeBackground}" NonworkingTimeBackground="{TemplateBinding NonworkingTimeBackground}" CurrentTimeLineStroke="{TemplateBinding CurrentTimeLineStroke}"
+                                                  StandardBarFill="{TemplateBinding StandardBarFill}" StandardBarStroke="{TemplateBinding StandardBarStroke}" StandardBarStrokeThickness="{TemplateBinding StandardBarStrokeThickness}" StandardBarCornerRadius="{TemplateBinding StandardBarCornerRadius}" StandardCompletedBarFill="{TemplateBinding StandardCompletedBarFill}" StandardCompletedBarStroke="{TemplateBinding StandardCompletedBarStroke}" StandardCompletedBarStrokeThickness="{TemplateBinding StandardCompletedBarStrokeThickness}" StandardCompletedBarCornerRadius="{TemplateBinding StandardCompletedBarCornerRadius}" StandardTaskTemplate="{TemplateBinding StandardTaskTemplate}"
+                                                  SummaryBarFill="{TemplateBinding SummaryBarFill}" SummaryBarStroke="{TemplateBinding SummaryBarStroke}" SummaryBarStrokeThickness="{TemplateBinding SummaryBarStrokeThickness}" SummaryTaskTemplate="{TemplateBinding SummaryTaskTemplate}"
+                                                  MilestoneBarFill="{TemplateBinding MilestoneBarFill}" MilestoneBarStroke="{TemplateBinding MilestoneBarStroke}" MilestoneBarStrokeThickness="{TemplateBinding MilestoneBarStrokeThickness}" MilestoneTaskTemplate="{TemplateBinding MilestoneTaskTemplate}"
+                                                  AssignmentsTemplate="{TemplateBinding AssignmentsTemplate}" DependencyLineStroke="{TemplateBinding DependencyLineStroke}" DependencyLineStrokeThickness="{TemplateBinding DependencyLineStrokeThickness}" DependencyLineTemplate="{TemplateBinding DependencyLineTemplate}" ToolTipTemplate="{TemplateBinding ToolTipTemplate}" PredecessorToolTipTemplate="{TemplateBinding PredecessorToolTipTemplate}"
+                                                  BarHeight="{TemplateBinding BarHeight}" CompletedBarHeight="{TemplateBinding CompletedBarHeight}" IsVirtualizing="{TemplateBinding IsVirtualizing}"
+                                                  DependencyDeletionContextMenuItemHeader="{TemplateBinding DependencyDeletionContextMenuItemHeader}" 
+                                                  IsAsyncPresentationEnabled="False" DisableParentTimingCoercion="{TemplateBinding DisableParentTimingCoercion}" />
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+</ResourceDictionary>

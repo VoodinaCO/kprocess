@@ -1,0 +1,251 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Documentation;
+@using Syncfusion.EJ2.Lists;
+@using KProcess.Ksmed.Models;
+@using KProcess.KL2.Languages;
+
+@model FormatActionsViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    #FormatActionModeTab > .e-content,
+    #FormatActionModeTab > .e-content > .e-item.e-active,
+    #FormatActionModeTab > .e-content > .e-item.e-active > #TrainingFormatActionsTabContent,
+    #FormatActionModeTab > .e-content > .e-item.e-active > #EvaluationFormatActionsTabContent,
+    #FormatActionModeTab > .e-content > .e-item.e-active > #InspectionFormatActionsTabContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+@(Html.EJS().Tab("FormatActionModeTab")
+    .Items(builder =>
+    {
+        if (Model.PublishForTraining)
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_TrainingLabel")))
+                .Content("#TrainingFormatActionsTabContent")
+                .Add();
+        if (Model.PublishForEvaluation)
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_EvaluationLabel")))
+                .Content("#EvaluationFormatActionsTabContent")
+                .Add();
+        if (Model.PublishForInspection)
+            builder.Header(header => header.Text(LocalizedStrings.GetString("View_Documentation_InspectionLabel")))
+                .Content("#InspectionFormatActionsTabContent")
+                .Add();
+    })
+    .Height("100%")
+    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+    .Render()
+)
+
+@if (Model.PublishForTraining)
+{
+    <div id="TrainingFormatActionsTabContent" style="display: none;">
+        <form class="form-horizontal" role="form" style="padding:20px; flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+            <h4>@LocalizedStrings.GetString("View_Documentation_TrainingFormatActionLabel")</h4>
+            <div style="flex: 1; min-height: 0px; display: flex; flex-direction: row;">
+                <label for="TrainingActionFormat">@LocalizedStrings.GetString("View_Documentation_FormatActionInformationsLabel")</label>
+                <div style="margin-left: 10px;">
+                    @(Html.EJS().ListView("TrainingActionFormat")
+                        .ShowCheckBox(true)
+                        .DataSource(Model.TrainingReferentials)
+                        .Fields(new ListViewFieldSettings { Text = "Text", GroupBy = "TranslatedCategory", IsChecked = "IsChecked" })
+                        .Height("100%").Width("300")
+                        .CssClass("training")
+                        .Select("onItemSelection")
+                        .Render()
+                    )
+                </div>
+            </div>
+        </form>
+    </div>
+}
+@if (Model.PublishForEvaluation)
+{
+    <div id="EvaluationFormatActionsTabContent" style="display: none">
+        <form class="form-horizontal" role="form" style="padding:20px; flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+            <h4>@LocalizedStrings.GetString("View_Documentation_EvaluationFormatActionLabel")</h4>
+            <div style="flex: 1; min-height: 0px; display: flex; flex-direction: row;">
+                <label for="EvaluationActionFormat">@LocalizedStrings.GetString("View_Documentation_FormatActionInformationsLabel")</label>
+                <div style="margin-left: 10px;">
+                    @(Html.EJS().ListView("EvaluationActionFormat")
+                        .ShowCheckBox(true)
+                        .DataSource(Model.EvaluationReferentials)
+                        .Fields(new Syncfusion.EJ2.Lists.ListViewFieldSettings { Text = "Text", GroupBy = "TranslatedCategory", IsChecked = "IsChecked" })
+                        .Height("100%").Width("300")
+                        .CssClass("evaluation")
+                        .Select("onItemSelection")
+                        .Render()
+                    )
+                </div>
+            </div>
+        </form>
+    </div>
+}
+@if (Model.PublishForInspection)
+{
+    <div id="InspectionFormatActionsTabContent" style="display: none">
+        <form class="form-horizontal" role="form" style="padding:20px; flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+            <h4>@LocalizedStrings.GetString("View_Documentation_InspectionFormatActionLabel")</h4>
+            <div style="flex: 1; min-height: 0px; display: flex; flex-direction: row;">
+                <label for="InspectionActionFormat">@LocalizedStrings.GetString("View_Documentation_FormatActionInformationsLabel")</label>
+                <div style="margin-left: 10px;">
+                    @(Html.EJS().ListView("InspectionActionFormat")
+                        .ShowCheckBox(true)
+                        .DataSource(Model.InspectionReferentials)
+                        .Fields(new Syncfusion.EJ2.Lists.ListViewFieldSettings { Text = "Text", GroupBy = "TranslatedCategory", IsChecked = "IsChecked" })
+                        .Height("100%").Width("300")
+                        .CssClass("inspection")
+                        .Select("onItemSelection")
+                        .Render()
+                    )
+                </div>
+            </div>
+        </form>
+    </div>
+}
+
+<script>
+    docReady(function () {
+        document.getElementById("FormatActionModeTab").ej2_instances[0].refresh();
+
+        leaveFunction = localLeaveFunction;
+        cancelFunction = localCancelFunction;
+        saveAsDraftFunction = localSaveAsDraftFunction;
+        setHeader('/Documentation/DocumentationHeader', { processName: "@Html.Raw(ViewBag.ProcessName)", projectName: "@Html.Raw(ViewBag.ProjectName)" });
+        updateWizardButtonsVisibility({ previous: true, cancel: true, saveasdraft: true, next: true, publish: false });
+        updateWizardButtonsStates({ previous: true, cancel: false, saveasdraft: false, next: true });
+    });
+
+    // Save state
+    function localLeaveFunction() {
+        var hasError = false;
+
+        var trainingActionDisposition = null;
+        var evaluationActionDisposition = null;
+        var inspectionActionDisposition = null;
+        if (documentationStates.publishForTraining === true) {
+            trainingActionDisposition = document.getElementById('TrainingActionFormat').ej2_instances[0].getSelectedItems().data.map(function (elt) { return elt.MappingName; }).toString();
+        }
+        if (documentationStates.publishForEvaluation === true) {
+            evaluationActionDisposition = document.getElementById('EvaluationActionFormat').ej2_instances[0].getSelectedItems().data.map(function (elt) { return elt.MappingName; }).toString();
+        }
+        if (documentationStates.publishForInspection === true) {
+            inspectionActionDisposition = document.getElementById('InspectionActionFormat').ej2_instances[0].getSelectedItems().data.map(function (elt) { return elt.MappingName; }).toString();
+        }
+
+        $.ajax({
+            url: '/Documentation/UpdateActionDispositionDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                ActionDisposition: trainingActionDisposition,
+                PublishMode: @((int)PublishModeEnum.Formation)
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+        $.ajax({
+            url: '/Documentation/UpdateActionDispositionDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                ActionDisposition: evaluationActionDisposition,
+                PublishMode: @((int)PublishModeEnum.Evaluation)
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+        $.ajax({
+            url: '/Documentation/UpdateActionDispositionDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify({
+                Draft: documentationStates.draft,
+                ActionDisposition: inspectionActionDisposition,
+                PublishMode: @((int)PublishModeEnum.Inspection)
+            }, function replacer(key, value) { return value }),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+
+        $.ajax({
+            url: '/Documentation/SaveDocumentationDraft',
+            type: 'POST',
+            async: false,
+            data: JSON.stringify(documentationStates.draft, function replacer(key, value) { return value}),
+            contentType: "application/json",
+            dataType: 'json',
+            success: function (result) {
+                documentationStates.draft = result;
+                documentationStates.documentationDraftId = documentationStates.draft.DocumentationDraftId;
+            },
+            error: function () {
+                hasError = true;
+            }
+        });
+        saveDocumentationStates();
+
+        return !hasError;
+    }
+
+    function localCancelFunction() {
+        setIsRefreshing(true);
+        docTabSelected();
+        setIsRefreshing(false);
+    }
+
+    function localSaveAsDraftFunction() {
+        var targetElement = $('#pageContainer')[0];
+        var spinner = ej.popups.createSpinner({ target: targetElement });
+        ej.popups.showSpinner(targetElement);
+
+        // Save states
+        var success = localLeaveFunction();
+
+        if (success === true) {
+            document.getElementById('toast_container').ej2_instances[0].show({ content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraft")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+            setHasChanged(false);
+        }
+        else {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@(LocalizedStrings.GetString("Common_Error"))", content: "@LocalizedStrings.GetString("View_Documentation_PublicationSaveAsDraftError")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+
+        ej.popups.hideSpinner(targetElement);
+    }
+
+    function setHasChanged(value) {
+        updateWizardButtonsStates({ cancel: value, saveasdraft: value });
+    }
+
+    function onItemSelection(args) {
+        setHasChanged(true);
+    }
+</script>
+
+@Html.EJS().ScriptManager()

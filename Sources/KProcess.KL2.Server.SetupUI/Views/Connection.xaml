@@ -1,0 +1,203 @@
+﻿<views:InstallScreen x:Class="KProcess.KL2.Server.SetupUI.Views.Connection"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                     xmlns:MahAppsBehaviors="http://metro.mahapps.com/winfx/xaml/shared"
+                     xmlns:app="clr-namespace:KProcess.KL2.Server.SetupUI"
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                     xmlns:views="clr-namespace:KProcess.KL2.Server.SetupUI.Views"
+                     d:DataContext="{x:Static app:MainViewModel.Instance}"
+                     d:DesignHeight="300"
+                     d:DesignWidth="300"
+                     mc:Ignorable="d">
+    <Grid MahApps:VisibilityHelper.IsCollapsed="{Binding IsLoading}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <GroupBox Grid.Row="0" Header="{app:Localization DatabaseConnectionTitle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="2"
+                       Content="{app:Localization DataSourceLabel}" />
+                <TextBox Grid.Row="0"
+                         Grid.Column="1"
+                         Margin="2"
+                         MahApps:TextBoxHelper.Watermark="{app:Localization DataSourceWatermark}"
+                         Text="{Binding DataSource, UpdateSourceTrigger=PropertyChanged}" />
+            </Grid>
+        </GroupBox>
+        <GroupBox Grid.Row="1" Header="{app:Localization FileConnectionTitle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="2"
+                       Content="{app:Localization FileServerTypeLabel}" />
+                <StackPanel Grid.Row="0"
+                            Grid.Column="1"
+                            Margin="2"
+                            Orientation="Horizontal">
+                    <RadioButton x:Name="SFTP_Storage"
+                                 VerticalAlignment="Center"
+                                 Checked="SFTP_Storage_Checked"
+                                 IsChecked="True">
+                        <TextBlock Text="{app:Localization SFtpStorageName}" />
+                    </RadioButton>
+                    <RadioButton x:Name="LocalStorage"
+                                 Margin="10,0"
+                                 VerticalAlignment="Center"
+                                 Checked="LocalStorage_Checked">
+                        <TextBlock Text="{app:Localization LocalStorageName}" />
+                    </RadioButton>
+                </StackPanel>
+                <!--  SFTP Part  -->
+                <Grid Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      MahApps:VisibilityHelper.IsVisible="{Binding ElementName=SFTP_Storage, Path=IsChecked}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization ServerLabel}" />
+                    <TextBox Grid.Row="0"
+                             Grid.Column="1"
+                             Margin="2"
+                             MahApps:TextBoxHelper.Watermark="{app:Localization ServerWatermark}"
+                             Text="{Binding Server, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization PortLabel}" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Margin="2"
+                             MahApps:TextBoxHelper.Watermark="{app:Localization PortWatermark}"
+                             Text="{Binding Port, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization UserLabel}" />
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
+                             Margin="2"
+                             MahApps:TextBoxHelper.Watermark="{app:Localization UserWatermark}"
+                             Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization PasswordLabel}" />
+                    <PasswordBox Grid.Row="3"
+                                 Grid.Column="1"
+                                 Margin="2"
+                                 MahApps:TextBoxHelper.Watermark="{app:Localization PasswordWatermark}"
+                                 MahAppsBehaviors:PasswordBoxBindingBehavior.Password="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization PublishedFilesLabel}" />
+                    <TextBox Grid.Row="4"
+                             Grid.Column="1"
+                             Margin="2"
+                             MahApps:TextBoxHelper.Watermark="{app:Localization SFtp_PublishedFilesWatermark}"
+                             Text="{Binding SFtp_PublishedFiles, UpdateSourceTrigger=PropertyChanged}" />
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization UploadedFilesLabel}" />
+                    <TextBox Grid.Row="5"
+                             Grid.Column="1"
+                             Margin="2"
+                             MahApps:TextBoxHelper.Watermark="{app:Localization SFtp_UploadedFilesWatermark}"
+                             Text="{Binding SFtp_UploadedFiles, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
+                <!--  Local Part  -->
+                <Grid Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      MahApps:VisibilityHelper.IsVisible="{Binding ElementName=LocalStorage, Path=IsChecked}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization PublishedFilesLabel}" />
+                    <Grid Grid.Row="0" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 Margin="2"
+                                 MahApps:TextBoxHelper.Watermark="{app:Localization Local_PublishedFilesWatermark}"
+                                 IsReadOnly="True"
+                                 Text="{Binding Local_PublishedFiles, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="1"
+                                Margin="2"
+                                Command="{Binding BrowsePublishedFilesDirectory}">
+                            <iconPacks:Material Kind="Folder" />
+                        </Button>
+                    </Grid>
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="2"
+                           Content="{app:Localization UploadedFilesLabel}" />
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0"
+                                 Margin="2"
+                                 MahApps:TextBoxHelper.Watermark="{app:Localization Local_UploadedFilesWatermark}"
+                                 IsReadOnly="True"
+                                 Text="{Binding Local_UploadedFiles, UpdateSourceTrigger=PropertyChanged}" />
+                        <Button Grid.Column="1"
+                                Margin="2"
+                                Command="{Binding BrowseUploadedFilesDirectory}">
+                            <iconPacks:Material Kind="Folder" />
+                        </Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </GroupBox>
+        <Button Grid.Row="2"
+                Grid.ColumnSpan="2"
+                Margin="0,10,0,5"
+                HorizontalAlignment="Center"
+                Command="{Binding TestConnectionsCommand}"
+                Content="{app:Localization TestConnectionButton}" />
+    </Grid>
+</views:InstallScreen>

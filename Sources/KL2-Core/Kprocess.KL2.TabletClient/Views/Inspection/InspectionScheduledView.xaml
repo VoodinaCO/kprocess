@@ -1,0 +1,209 @@
+﻿<UserControl x:Class="Kprocess.KL2.TabletClient.Views.InspectionScheduledView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+             xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+             xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=System"
+             xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+             xmlns:sfGrid="clr-namespace:Syncfusion.UI.Xaml.Grid;assembly=Syncfusion.SfGrid.WPF"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="RowStyleColor" TargetType="sfGrid:VirtualizingCellsControl">
+            <Setter Property="Background" Value="{Binding Converter={converter:FormationRowStyleColorConverter}}" />
+        </Style>
+
+        <Style x:Key="HeaderShowSortStyle" TargetType="{x:Type sfGrid:GridHeaderCellControl}">
+            <Setter Property="Background" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="Foreground" Value="{StaticResource BlackBrush}" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontWeight" Value="Light" />
+            <Setter Property="FontSize" Value="24" />
+            <Setter Property="Padding" Value="24,0,24,0" />
+            <Setter Property="BorderBrush" Value="#FCA7A9" />
+            <Setter Property="BorderThickness" Value="0.5" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type sfGrid:GridHeaderCellControl}">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+
+                            <Grid Margin="{TemplateBinding Padding}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                                                  VerticalAlignment="Center"
+                                                  Visibility="{Binding Converter={converter:HeaderVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}" />
+
+                                <Grid Grid.Column="2" Visibility="{Binding Converter={converter:HeaderVisibilityConverter}, RelativeSource={RelativeSource TemplatedParent}}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="18" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <StackPanel VerticalAlignment="Center">
+                                        <Path x:Name="pathASC"
+                                              Width="8.938"
+                                              Height="8.138"
+                                              Margin="0,0,0,5"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="M167.5,212.46L199.5,177.507 231.5,212.46 167.5,212.46z"
+                                              Stretch="Fill">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+
+                                        <Path x:Name="pathDESC"
+                                              Width="8.938"
+                                              Height="8.138"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Data="M454.165,177.507L422.165,212.46 390.165,177.507 454.165,177.507z"
+                                              Stretch="Fill">
+                                            <Path.RenderTransform>
+                                                <TransformGroup>
+                                                    <RotateTransform Angle="0" />
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </TransformGroup>
+                                            </Path.RenderTransform>
+                                        </Path>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Column="1"
+                                               Margin="0,-4,0,0"
+                                               VerticalAlignment="Center"
+                                               FontSize="10"
+                                               Foreground="White"
+                                               Text="{TemplateBinding SortNumber}"
+                                               Visibility="{TemplateBinding SortNumberVisibility}" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="SortDirection" Value="{x:Null}">
+                                <Setter TargetName="pathASC" Property="Fill" Value="White" />
+                                <Setter TargetName="pathDESC" Property="Fill" Value="White" />
+                            </Trigger>
+                            <Trigger Property="SortDirection" Value="{x:Static componentModel:ListSortDirection.Ascending}">
+                                <Setter TargetName="pathASC" Property="Fill" Value="Red" />
+                                <Setter TargetName="pathDESC" Property="Fill" Value="White" />
+                            </Trigger>
+                            <Trigger Property="SortDirection" Value="{x:Static componentModel:ListSortDirection.Descending}">
+                                <Setter TargetName="pathASC" Property="Fill" Value="White" />
+                                <Setter TargetName="pathDESC" Property="Fill" Value="Red" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <mvvm:EventToCommand Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <sfGrid:SfDataGrid x:Name="DataGrid"
+                           Grid.Row="0"
+                           Margin="10,20,10,10"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Stretch"
+                           AllowDraggingColumns="False"
+                           AllowEditing="True"
+                           AllowResizingColumns="False"
+                           AllowSorting="False"
+                           AutoGenerateColumns="False"
+                           CellTapped="DataGrid_OnCellTapped"
+                           FontSize="20"
+                           HeaderRowHeight="35"
+                           HideEmptyGridViewDefinition="True"
+                           ItemsSource="{Binding InspectionScheduleCollection}"
+                           LiveDataUpdateMode="AllowDataShaping"
+                           Loaded="DataGrid_Loaded"
+                           RowHeight="178"
+                           RowStyle="{StaticResource RowStyleColor}"
+                           SelectionMode="None">
+            <i:Interaction.Behaviors>
+                <behaviors:CustomColumnSizerBehavior />
+                <behaviors:SyncSfDataGridBehavior />
+            </i:Interaction.Behaviors>
+            <sfGrid:SfDataGrid.Columns>
+                <sfGrid:GridTemplateColumn Width="1240"
+                                           AllowSorting="True"
+                                           HeaderStyle="{StaticResource HeaderShowSortStyle}"
+                                           HeaderText="{k:Localize Intervention_Label}"
+                                           HorizontalHeaderContentAlignment="Stretch"
+                                           IsReadOnly="True"
+                                           MappingName="Procedure.Label">
+                    <sfGrid:GridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock Padding="10,0"
+                                           HorizontalAlignment="Left"
+                                           VerticalAlignment="Center"
+                                           TextWrapping="Wrap">
+                                    <!--<Run Text="{Binding InspectionScheduleId}"/>-->
+                                    <Run Text="{Binding Procedure.Label}" />
+                                </TextBlock>
+
+                                <iconPacks:PackIconMaterial x:Name="IconMaterial"
+                                                            Width="30"
+                                                            Height="30"
+                                                            Margin="20,0"
+                                                            HorizontalAlignment="Right"
+                                                            VerticalAlignment="Center"
+                                                            Foreground="White"
+                                                            Kind="Check"
+                                                            Visibility="Collapsed" />
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding IsClosed}" Value="True">
+                                    <Setter TargetName="IconMaterial" Property="Visibility" Value="Visible" />
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </sfGrid:GridTemplateColumn.CellTemplate>
+                </sfGrid:GridTemplateColumn>
+            </sfGrid:SfDataGrid.Columns>
+        </sfGrid:SfDataGrid>
+
+        <Button Grid.Row="1"
+                Margin="10"
+                HorizontalAlignment="Left"
+                Command="{Binding ReturnCommand}"
+                TextElement.FontSize="20">
+            <StackPanel Orientation="Horizontal">
+                <iconPacks:PackIconMaterial Width="22"
+                                            Height="22"
+                                            VerticalAlignment="Center"
+                                            Kind="ArrowLeftBold" />
+                <TextBlock Margin="5,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="{k:Localize Common_Return}" />
+            </StackPanel>
+        </Button>
+    </Grid>
+</UserControl>

@@ -1,0 +1,250 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Referentials;
+@using KProcess.Ksmed.Models;
+@using System.Web.Mvc.Html;
+@using Syncfusion.JavaScript;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model RefResourceViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<div id="template" style="max-height:700px;">
+    <div class="box-body">
+        @if (ViewBag.LinkToProcess == true || ViewBag.Projects != null)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    @Html.LabelFor(o => o.ProcessId)
+                    @(Html.EJS().DropDownListFor(o => o.ProcessId)
+                                .DataSource((IEnumerable<ProcedureViewModel>)Model.ProcedureViewModels)
+                                .Placeholder(LocalizedStrings.GetString("View_AdminReferentials_Process_Select"))
+                                .Fields(df => df.Text("Label").Value("Id"))
+                                .Width("100%")
+                                .Select("onSelect")
+                                .Change("toggleSaveButton")
+                                //.HtmlAttributes(new Dictionary<string, object>() { ["required"] = "required", ["data-required-message"] = LocalizedStrings.GetString("Common_RequiredField"), ["data-msg-containerid"] = "requiredLabelError" })
+                                .Render()
+                    )
+                </div>
+            </div>
+            <input type="hidden" id="IsProcessLink" name="IsProcessLink" value="true" />
+        }
+        else
+        {
+            @Html.HiddenFor(o => o.ProcessId)
+        }
+        <div class="row">
+            <div class="col-md-12">
+                <label>@LocalizedStrings.GetString("View_AdminReferentials_Label")</label>
+                @Html.TextBoxFor(o => o.Label, new { @class = "form-control e-input" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>@LocalizedStrings.GetString("View_Common_AppReferentials_Description")</label>
+                @Html.TextAreaFor(o => o.Description, new { @class = "form-control e-input", @style = "width:100%;" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label>@LocalizedStrings.GetString("View_AdminReferentials_Color")</label>
+                @(Html.EJS().ColorPicker("Color")
+                            .Locale(ejLanguageCode)
+                            .HtmlAttributes(new Dictionary<string, object> { ["name"] = "Color" })
+                            .Value(Model.Color).Render()
+                )
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label class="control-label">@LocalizedStrings.GetString("Web_View_Referentials_LinkedFileLocation")</label>
+                <div id="uploadboxDiv">
+                    @(Html.EJS().Uploader("uploadFile")
+                                .Locale(ejLanguageCode)
+                                .Multiple(false)
+                                .AutoUpload(true)
+                                .AsyncSettings(new Syncfusion.EJ2.Inputs.UploaderAsyncSettings { SaveUrl = Url.Action("SaveDefault") })
+                                .Success("uploadSuccess")
+                                .Failure("uploadFailure")
+                                .Clearing("uploadClearing")
+                                .Buttons(new Syncfusion.EJ2.Inputs.UploaderButtonsProps
+                                {
+                                    Browse = LocalizedStrings.GetString("View_Documentation_Browse")
+                                })
+                                .Files(f =>
+                                {
+                                    if (Model.Hash == null)
+                                        f.Add();
+                                    else
+                                        f.Name(Model.Hash)
+                                            .Size(Model.CloudFileSize.Value)
+                                            .Type(Model.Extension)
+                                            .Add();
+                                })
+                                .Render()
+                    )
+                </div>
+                @*@if (Model.ServerImagePath != null && Model.ServerImagePath.Substring(Model.ServerImagePath.LastIndexOf('.') + 1) == "png")
+                    {
+                        <img height="200" src="@Model.ServerImagePath" class="imagePopUp" onclick="popUpImage(this)" />
+                    }*@
+                <br />
+            </div>
+        </div>
+        @*@if (Model.RefIdentifier == ProcessReferentialIdentifier.Operator || Model.RefIdentifier == ProcessReferentialIdentifier.Equipment)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        @Html.LabelFor(o => o.PaceRating)
+                        @Html.TextBoxFor(o => o.PaceRating, new { @class = "form-control", @required = "required", @Value = (Model.PaceRating > 0 ? Model.PaceRating : 1) })
+                    </div>
+                </div>
+            }*@
+        @if (Model.RefIdentifier == ProcessReferentialIdentifier.Category)
+        {
+            <div class="row">
+                <div class="col-md-6">
+                    <label class="control-label">@LocalizedStrings.GetString("View_AppActionCategories_ActionType")</label>
+                    @{
+                        @(Html.EJS().DropDownList("ActionTypeCode").DataSource((IEnumerable<ActionTypeViewModel>)ViewBag.ActionType)
+                                            .Fields(f => f.Text("Label").Value("Code")).Change("toggleSaveButton").Value(Model.ActionTypeCode == null ? "-1" : Model.ActionTypeCode).Render())
+                    }
+                </div>
+                <div class="col-md-6">
+                    <label class="control-label">@LocalizedStrings.GetString("View_AppActionCategories_ActionValue")</label>
+                    @{
+                        @(Html.EJS().DropDownList("ActionValueCode").DataSource((IEnumerable<ActionValueViewModel>)ViewBag.ActionValue)
+                                                    .Fields(f => f.Text("Label").Value("Code")).Change("toggleSaveButton").Value(Model.ActionValueCode).Render())
+                    }
+                </div>
+            </div>
+        }
+        @Html.HiddenFor(o => o.itemId)
+        @Html.HiddenFor(o => o.RefIdentifier)
+        @Html.HiddenFor(o => o.ProcessLabel)
+        @Html.HiddenFor(o => o.Hash)
+        @Html.HiddenFor(o => o.Extension)
+    </div>
+</div>
+<script>
+    var uploadList = document.querySelector("#upload-list");
+    var formValidator;
+    docReady(function () {
+        $('button.e-control.e-btn.e-lib.e-primary.e-flat').eq(2).attr('id', 'submitReferential');
+        var validatorOptions = {
+            rules: {
+                'Label': {
+                    required: [true, '@LocalizedStrings.GetString("Common_RequiredField")'],
+                    maxLength: [labelFV, '@LocalizedStrings.GetStringFormat("Common_MaxLength", ActionReferentialProperties.LabelMaxLength.ToString())']
+                },
+                "Description": {
+                    maxLength: [descriptionFV, '@LocalizedStrings.GetStringFormat("Common_MaxLength", ActionReferentialProperties.DescriptionMaxLength.ToString())']
+                },
+                @if (ViewBag.LinkToProcess == true || ViewBag.Projects != null)
+                {
+                    <text>
+                    'ProcessId': {
+                        required: [true, "@LocalizedStrings.GetString("Common_RequiredField")"]
+                    },
+                    </text>
+                }
+                @if (Model.RefIdentifier == ProcessReferentialIdentifier.Category)
+                {
+                    <text>
+                    'ActionTypeCode': {
+                        required: [true, "@LocalizedStrings.GetString("Common_RequiredField")"]
+                    },
+                    'ActionValueCode': {
+                        required: [true, "@LocalizedStrings.GetString("Common_RequiredField")"]
+                    },
+                    </text>
+                }
+            },
+            customPlacement: function (inputElement, errorElement) {
+                if(inputElement.localName == "select")
+                    inputElement.parentNode.parentNode.appendChild(errorElement);
+                else
+                    inputElement.parentElement.appendChild(errorElement);
+            },
+            focusout: function (args) {
+                toggleSaveButton();
+            },
+            validationComplete: function (args) {
+                if (args.status == "failure") {
+                    if (args.element.localName == "select")
+                        args.element.parentElement.parentElement.classList.add("e-error");
+                    else
+                        args.element.parentElement.classList.add("e-error");
+                        
+                }
+                else if (args.status == "success") {
+                    if (args.element.localName == "select")
+                        args.element.parentElement.parentElement.classList.remove("e-error");
+                    else
+                        args.element.parentElement.classList.remove("e-error");
+                }
+            }
+        };
+        formValidator = new ej.inputs.FormValidator('#RefsEditForm', validatorOptions);
+        formValidator.validate();
+    });
+
+    function onSelect(args) {
+        var text = args.item.innerText;
+        $('#ProcessLabel').val(text);
+    }
+
+    function toggleSaveButton() {
+        var validateButtonEle = document.getElementById('submitReferential');
+        if (validateButtonEle == null)
+            return;
+        var validateButton = validateButtonEle.ej2_instances[0];
+        if (formValidator.validate() == true) {
+            validateButton.disabled = false;
+        }
+        else {
+            validateButton.disabled = true;
+        }
+    }
+
+    function uploadSuccess(args) {
+        var currentFile = JSON.parse(args.e.currentTarget.response);
+        var uploader = document.getElementById('uploadFile').ej2_instances[0];
+        args.file.name = currentFile.FileName;
+        args.file.rawFile = null;
+        var fileElement = $(uploader.fileList[0])[0];
+        fileElement.setAttribute("data-file-name", currentFile.FileName);
+        var fileNameElement = fileElement.querySelector('.e-file-name');
+        fileNameElement.title = currentFile.FileName;
+        fileNameElement.innerText = currentFile.Hash;
+        $('#Hash').val(currentFile.Hash);
+        $('#Extension').val(currentFile.Extension);
+    }
+
+    function uploadFailure(args) {
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@(LocalizedStrings.GetString("Common_Error"))", content: "L'upload a échoué", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+    }
+
+    function uploadClearing(args) {
+        $('#Hash').val("");
+        $('#Extension').val("");
+    }
+</script>
+@Html.EJS().ScriptManager()

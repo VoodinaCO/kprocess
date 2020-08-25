@@ -1,0 +1,136 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,600,300" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FFCE1126">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,600,300" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup>
+      <GeometryDrawing Brush="#FFFCD116">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M349.39,141.29C358.15,143.64 371.4,143.05 377.35,150 368.6,147.65 357.8,161.81 349.39,158.71 356.82,163.91 241.35,158.71 250.61,158.71 241.85,156.36 228.6,156.95 222.65,150 231.4,152.35 242.2,138.19 250.61,141.29 243.18,136.09 230.3,132.06 227.31,123.54 234.74,128.74 249.85,119.1 256.57,124.92 251.37,117.5 240.5,109.35 240.74,100.28 245.94,107.71 263.45,103.73 267.76,111.58 265.42,102.82 258.35,91.53 261.32,83.01 263.67,91.768 281.3,93.943 282.85,102.87 283.64,93.839 280.45,80.767 286.57,73.821 285.78,82.854 301.7,90.918 300,99.847 303.83,91.63 305.95,78.355 313.43,73.821 309.6,82.039 322.1,95.02 317.15,102.87 323.56,96.461 329.75,84.584 338.68,83.01 332.27,89.421 339.1,105.75 332.24,111.58 340.45,107.75 350.15,98.703 359.26,100.28 351.04,104.11 351.85,121.82 343.43,124.92 352.47,124.13 364.6,119.01 372.69,123.54 363.66,124.33 358.65,141.29 349.39,141.29z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFCD116">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.5" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M258.36,150L226.77,137.09 260.87,135.76 235.6,112.82 268.1,123.24 252.2,93.042 279.18,113.94 274.57,80.131 292.77,109 300,75.647 307.23,109 325.43,80.131 320.82,113.94 347.79,93.042 331.9,123.24 364.39,112.82 339.13,135.76 373.22,137.09 341.64,150 373.22,162.91 226.77,162.91 258.36,150z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFCD116">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.8" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="41.358" RadiusY="41.358" Center="300,150" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFCD116">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M313.6,49.862L335.78,50.009C335.92,49.071 333.88,47.204 332.13,46.931 326.52,46.049 322.31,47.867 315.49,47.937L313.6,49.862z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFCD116">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M269.43,44.643C274.64,51.223 284.74,55.796 294.38,55.856 307.38,55.936 321.8,45.415 339.23,42.194L282.32,41.022C274.95,35.977,269.36,36.617,265.55,39.745L254.67,40.074C253.13,40.913,255.94,44.417,258.22,44.545L269.43,44.643z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFCD116">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M295.16,40.868C293.09,31.35 285.45,27.248 276.27,26.031 265.66,24.625 241.25,23.184 225.03,18.526 232.05,25.427 246.74,28.872 256.95,30.43 267.76,32.08 278.28,34.484 286.62,40.781L295.16,40.868z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFCD116">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M288.27,47.221C291.66,51.575 296.92,51.329 302.58,47.53 308.22,43.744 314.35,33.083 317.31,32.908 338,31.706 363.03,22.972 374.97,16.227 359.83,18.37 344.83,20.8 329.56,20.86 303.51,20.964 300.43,32.828 289.81,41.146" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M292.31,42.103C297.86,38.567 302.37,33.952 307.57,30.097 316.18,23.715 326.12,23.528 336.8,23.396 346.26,23.28 362.84,19.327 371.84,17.218" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M286.53,40.436C284.9,31.925 276.93,29.371 266.87,27.842 255.92,26.179 244.75,25.253 233.83,22.235 231.12,21.487 228.6,20.165 225.98,19.13" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M290.02,52.983C300.3,53.737,307.93,50.647,316.7,46.277" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FFBD9C08" Thickness="1.2" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M254.63,41.831L267.59,41.831" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFBD9C08">
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="1.62" RadiusY="1.62" Center="271.75,40.437" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <GeometryDrawing Brush="#FF003F87">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,165,600,135" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="w" Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,257.14C20,257.14 40,270 60,270 80,270 100,257.14 120,257.14 140,257.14 160,270 180,270 200,270 220,257.14 240,257.14 260,257.14 280,270 300,270 320,270 340,257.14 360,257.14 380,257.14 400,270 420,270 440,270 460,257.14 480,257.14 500,257.14 520,270 540,270 560,270 580,257.14 600,257.14L600,235.71C580,235.71 560,248.57 540,248.57 520,248.57 500,235.71 480,235.71 460,235.71 440,248.57 420,248.57 400,248.57 380,235.71 360,235.71 340,235.71 320,248.57 300,248.57 280,248.57 260,235.71 240,235.71 220,235.71 200,248.57 180,248.57 160,248.57 140,235.71 120,235.71 100,235.71 80,248.57 60,248.57 40,248.57 20,235.71 0,235.71L0,257.14z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup Transform="1,0,0,1,0,-42.8571">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,257.14C20,257.14 40,270 60,270 80,270 100,257.14 120,257.14 140,257.14 160,270 180,270 200,270 220,257.14 240,257.14 260,257.14 280,270 300,270 320,270 340,257.14 360,257.14 380,257.14 400,270 420,270 440,270 460,257.14 480,257.14 500,257.14 520,270 540,270 560,270 580,257.14 600,257.14L600,235.71C580,235.71 560,248.57 540,248.57 520,248.57 500,235.71 480,235.71 460,235.71 440,248.57 420,248.57 400,248.57 380,235.71 360,235.71 340,235.71 320,248.57 300,248.57 280,248.57 260,235.71 240,235.71 220,235.71 200,248.57 180,248.57 160,248.57 140,235.71 120,235.71 100,235.71 80,248.57 60,248.57 40,248.57 20,235.71 0,235.71L0,257.14z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="1,0,0,1,0,-85.7142">
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,257.14C20,257.14 40,270 60,270 80,270 100,257.14 120,257.14 140,257.14 160,270 180,270 200,270 220,257.14 240,257.14 260,257.14 280,270 300,270 320,270 340,257.14 360,257.14 380,257.14 400,270 420,270 440,270 460,257.14 480,257.14 500,257.14 520,270 540,270 560,270 580,257.14 600,257.14L600,235.71C580,235.71 560,248.57 540,248.57 520,248.57 500,235.71 480,235.71 460,235.71 440,248.57 420,248.57 400,248.57 380,235.71 360,235.71 340,235.71 320,248.57 300,248.57 280,248.57 260,235.71 240,235.71 220,235.71 200,248.57 180,248.57 160,248.57 140,235.71 120,235.71 100,235.71 80,248.57 60,248.57 40,248.57 20,235.71 0,235.71L0,257.14z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <GeometryDrawing Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,257.14C20,257.14 40,270 60,270 80,270 100,257.14 120,257.14 140,257.14 160,270 180,270 200,270 220,257.14 240,257.14 260,257.14 280,270 300,270 320,270 340,257.14 360,257.14 380,257.14 400,270 420,270 440,270 460,257.14 480,257.14 500,257.14 520,270 540,270 560,270 580,257.14 600,257.14L600,235.71C580,235.71 560,248.57 540,248.57 520,248.57 500,235.71 480,235.71 460,235.71 440,248.57 420,248.57 400,248.57 380,235.71 360,235.71 340,235.71 320,248.57 300,248.57 280,248.57 260,235.71 240,235.71 220,235.71 200,248.57 180,248.57 160,248.57 140,235.71 120,235.71 100,235.71 80,248.57 60,248.57 40,248.57 20,235.71 0,235.71L0,257.14z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+  </DrawingGroup>
+</DrawingGroup>

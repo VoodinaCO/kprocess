@@ -1,0 +1,366 @@
+@using System.Web.Mvc.Html;
+@using Syncfusion.JavaScript;
+@using Syncfusion.EJ2;
+@using Syncfusion.EJ2.Schedule;
+@using KProcess.Ksmed.Security;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Index";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    var licenseExpired = false;
+    if (ViewBag.LicenseExpired != null)
+    {
+        licenseExpired = ViewBag.LicenseExpired;
+    }
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+@Styles.Render("~/Content/ej2/material.css")
+
+@{
+    var requiredValidation = new Dictionary<string, object>() { { "required", true } };
+    var ProcessNameHtml = new Dictionary<string, object>() { { "name", "ProcessId" } };
+    var TimeslotNameHtml = new Dictionary<string, object>() { { "name", "TimeslotId" } };
+    var StartTimeHtml = new Dictionary<string, object>() { { "name", "StartTime" } };
+    var EndTimeHtml = new Dictionary<string, object>() { { "name", "EndTime" } };
+}
+
+<style>
+    .custom-event-editor .e-textlabel {
+        padding-right: 15px;
+        text-align: right;
+    }
+
+    .custom-event-editor td {
+        padding: 7px;
+        padding-right: 16px;
+    }
+
+    .requiredValidation {
+        border-color: red;
+    }
+
+    .form-group.required .control-label:after {
+        content: "*";
+        color: red;
+    }
+
+    .recurrence-editor-wrap {
+        margin: 0 25%;
+    }
+
+    @@media (max-width: 580px) {
+        .recurrence-editor-wrap {
+            margin: 0 5%;
+        }
+    }
+
+    .filterBar {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+    }
+
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @if (ViewBag.TimeslotExist)
+        {
+            @(Html.EJS().Schedule("inspectionSchedule")
+                .Locale(ejLanguageCode)
+                .Height("100%").Width("100%")
+                .Group(group => group.ByDate(true).Resources(new string[] { "Timeslots" }))
+                .Resources(res =>
+                {
+                    res.DataSource(dat => dat.Url(Url.Action("GetTimeslots")).Adaptor(AdaptorType.UrlAdaptor.ToString()))
+                        .Field("TimeslotId")
+                        .Name("Timeslots")
+                        .TextField("Label")
+                        .IdField("TimeslotId")
+                        .ColorField("Color")
+                        .Add();
+                })
+                .Views(view =>
+                {
+                    view.Option(View.Day).Add();
+                    view.Option(View.Month).Add();
+                    view.Option(View.Agenda).Add();
+                })
+                .EventSettings(e =>
+                    e.DataSource(ds =>
+                        ds.Url(Url.Action("GetInspectionScheduleAsync"))
+                            .CrudUrl(Url.Action("UpdateSchedule"))
+                            .Adaptor(AdaptorType.UrlAdaptor.ToString()))
+                    .Fields(f => f.Id("Id")
+                        .Subject(sub => sub.Name("ProcessLabel"))
+                        .IsAllDay(iad => iad.Name("IsAllDay"))
+                        .RecurrenceID(rid => rid.Name("RecurrenceID"))
+                        .RecurrenceRule(rul => rul.Name("RecurrenceRule"))
+                        .RecurrenceException(rex => rex.Name("RecurrenceException")))
+                    .EnableTooltip(true))
+                .ShowQuickInfo(false)
+                .EventRendered("onEventRendered")
+                .PopupOpen("onPopupOpen")
+                .EditorTemplate("#EventEditorTemplate")
+                .DataBound("afterCreated")
+                .ActionBegin("actionBegin")
+                .ActionFailure("actionFailure")
+                .Readonly(licenseExpired)
+                .Render()
+            )
+        }
+        else
+        {
+            <div style="padding:15px;">
+                <span>@LocalizedStrings.GetString("View_Schedule_NoTimeSlotsAvailable")</span>
+                <br />
+                @if (user.Roles.Any(r => new[] { KnownRoles.Administrator, KnownRoles.Supervisor }.Contains(r)))
+                {
+                    <span>@LocalizedStrings.GetString("View_PleaseCreateATimeSlot") <a href="#" onclick="LoadPartial('@Url.Action("ManageTimeslots", "Schedule", new { partial = true })', '#pageContainer')">'@LocalizedStrings.GetString("Web_Menu_ManageTimeSlot")'</a>.</span>
+                }
+                else
+                {
+                    @Html.Label($"{LocalizedStrings.GetString("View_PleaseCreateATimeSlot")} '{LocalizedStrings.GetString("Web_Menu_ManageTimeSlot")}'.")
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<script id="EventEditorTemplate" type="text/template">
+    <div class="custom-event-editor">
+        <div class="row form-group required">
+            <div class="col-md-2 e-textlabel control-label filterBar">
+                @LocalizedStrings.GetString("Inspection")
+            </div>
+            <div class="col-md-10 filterBar">
+                <input type="text" id="ProcessId" name="ProcessId" class="e-field" style="width: 100%" />
+            </div>
+        </div>
+        <div class="row form-group required">
+            <div class="col-md-2 e-textlabel control-label filterBar">
+                @LocalizedStrings.GetString("Date")
+            </div>
+            <div class="col-md-10 filterBar">
+                <input type="date" id="StartTime" name="StartTime" class="e-field" style="width: 100%" />
+            </div>
+        </div>
+        <div class="row form-group required">
+            <div class="col-md-2 e-textlabel control-label filterBar">
+                @LocalizedStrings.GetString("Web_Timeslot")
+            </div>
+            <div class="col-md-10 filterBar">
+                <input type="text" id="TimeslotId" name="TimeslotId" class="e-field" style="width: 100%" />
+            </div>
+        </div>
+        <div id="RecurrenceDiv" class="row">
+            <div class="col-md-2 e-textlabel control-label filterBar">
+                @LocalizedStrings.GetString("Web_Recurrence")
+            </div>
+            <div class="col-md-10 filterBar">
+                <div id="RecurrenceEditor"></div>
+            </div>
+        </div>
+        <div style="display:none;">
+            <input type="date" id="EndTime" name="EndTime" class="e-field" style="width: 100%" />
+        </div>
+    </div>
+</script>
+
+<script type="text/javascript">
+
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Inspections")" + "/" + "@LocalizedStrings.GetString("Web_Menu_InspectionScheduling")");
+        setIsRefreshing(false);
+    });
+
+    function onPopupOpen(args) {
+        if (args.type === 'Editor') {
+            var scheduleObj = document.getElementById('inspectionSchedule').ej2_instances[0];
+            var wrapper = $('#inspectionSchedule_dialog_wrapper');
+            wrapper[0].style.width = "700px";
+            var processElement = args.element.querySelector('#ProcessId');
+            if (!processElement.classList.contains('e-dropdownlist')) {
+                var dropDownListObject = new ej.dropdowns.DropDownList({
+                    placeholder: '@Html.Raw(LocalizedStrings.GetString("View_Schedule_SelectInspection"))', value: args.data.ProcessId,
+                    dataSource: new ej.data.DataManager({
+                        url: "@Url.Action("GetProcesses")",
+                        adaptor: new ej.data.UrlAdaptor()
+                    }),
+                    fields: { text: 'Label', value: 'Id' },
+                });
+                dropDownListObject.appendTo(processElement);
+                processElement.setAttribute('name', 'ProcessId');
+            }
+            var timeslotElement = args.element.querySelector('#TimeslotId');
+            if (!timeslotElement.classList.contains('e-dropdownlist')) {
+                var dropDownListObject = new ej.dropdowns.DropDownList({
+                    placeholder: '@Html.Raw(LocalizedStrings.GetString("View_Schedule_SelectTimeslot"))', value: args.data.TimeslotId,
+                    dataSource: new ej.data.DataManager({
+                        url: "@Url.Action("GetTimeslots")",
+                        adaptor: new ej.data.UrlAdaptor()
+                    }),
+                    fields: { text: 'Label', value: 'TimeslotId' },
+                });
+                dropDownListObject.appendTo(timeslotElement);
+                timeslotElement.setAttribute('name', 'TimeslotId');
+            }
+            var startElement = args.element.querySelector('#StartTime');
+            if (!startElement.classList.contains('e-datepicker')) {
+                new ej.calendars.DatePicker({ value: new Date(args.data.StartTime) || new Date() }, startElement);
+            }
+            var endElement = args.element.querySelector('#EndTime');
+            if (!endElement.classList.contains('e-datepicker')) {
+                new ej.calendars.DatePicker({ value: new Date(args.data.EndTime) || new Date() }, endElement);
+            }
+            var recurElement = args.element.querySelector('#RecurrenceEditor');
+            if (!recurElement.classList.contains('e-recurrenceeditor')) {
+                recurrObject = new ej.schedule.RecurrenceEditor({
+                    locale: "@Html.Raw(ejLanguageCode)"
+                });
+                recurrObject.appendTo(recurElement);
+                if (scheduleObj.currentAction == "EditSeries" || scheduleObj.currentAction == "EditOccurrence")
+                    recurrObject.setRecurrenceRule(args.data.RecurrenceRule);
+                scheduleObj.eventWindow.recurrenceEditor = recurrObject;
+            }
+            document.getElementById('RecurrenceDiv').style.display = (scheduleObj.currentAction == "EditOccurrence") ? 'none' : 'block';
+        }
+    }
+
+    function actionBegin(args) {
+        var type = args.requestType;
+        if (type == "eventCreate") {
+            if (args.data[0].ProcessId == null || args.data[0].StartTime == null || args.data[0].TimeslotId == null)
+            {
+                args.cancel = true;
+                document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("AskFillRequired")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+            }
+        }
+    }
+
+    function actionFailure(args) {
+        var str = "";
+        if (args.hasOwnProperty("error")) {
+            str = args.error[0].error.statusText;
+        }
+        if (args.length > 0) {
+            str = args[0].error.statusText;
+        }
+        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: str, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+    }
+
+    function onEventRendered(args) {
+        var scheduleElt = document.getElementById('inspectionSchedule');
+        var scheduleObj = scheduleElt.ej2_instances[0];
+        if (scheduleObj.currentView === 'Month') { // Remove duplicate processes that overflow on the next day
+            var startTime = args.data.StartTime;
+            if (args.data.data == undefined) { // Details view
+                console.log(args);
+            } else { // Global view
+                if (startTime > args.data.data.StartTime) {
+                    args.element.style.display = 'none';
+                } else {
+                    args.element.style.display = 'block';
+                }
+            }
+        }
+        if (args.data.Timeslot.Color != "") {
+            if (scheduleObj.currentView === 'Agenda') {
+                (args.element.firstChild).style.borderLeftColor = args.data.Timeslot.Color;
+            } else {
+                args.element.style.backgroundColor = args.data.Timeslot.Color;
+            }
+        }
+    }
+
+    function afterCreated(args) {
+    }
+
+    function defineCustomEditorTemplate()
+    {
+        //define recurrence for edit in first click
+        var scheduleObj = document.getElementById('inspectionSchedule').ej2_instances[0];
+        var recurElement = $('#RecurrenceEditor');
+        if (!recurElement[0].classList.contains('e-recurrenceeditor')) {
+            recurrObject = new ej.schedule.RecurrenceEditor({
+                locale:"@Html.Raw(ejLanguageCode)"
+            });
+            recurrObject.appendTo(recurElement[0]);
+            scheduleObj.eventWindow.recurrenceEditor = recurrObject;
+        }
+        //define process
+        var processElement = $('#ProcessId');
+        if (!processElement[0].classList.contains('e-dropdownlist')) {
+            var dropDownListObject1 = new ej.dropdowns.DropDownList({
+                placeholder: 'Sélectionner une inspection', value: processElement[0].value,
+                dataSource: new ej.data.DataManager({
+                    url: "@Url.Action("GetProcesses")",
+                    adaptor: new ej.data.UrlAdaptor()
+                }),
+                fields: { text: 'Label', value: 'Id' },
+            });
+            dropDownListObject1.appendTo(processElement[0]);
+        }
+        //define timeslot
+        var timeslotElement = $('#TimeslotId');
+        if (!timeslotElement[0].classList.contains('e-dropdownlist')) {
+            var dropDownListObject2 = new ej.dropdowns.DropDownList({
+                placeholder: 'Sélectionner une timeslot', value: timeslotElement[0].value,
+                dataSource: new ej.data.DataManager({
+                    url: "@Url.Action("GetTimeslots")",
+                    adaptor: new ej.data.UrlAdaptor()
+                }),
+                fields: { text: 'Label', value: 'TimeslotId' },
+            });
+            dropDownListObject2.appendTo(timeslotElement[0]);
+        }
+        //define startime and endtime
+        var startElement = $('#StartTime');
+        if (!startElement[0].classList.contains('e-datepicker')) {
+            new ej.calendars.DatePicker({ value: new Date(startElement[0].value) || new Date() }, startElement[0]);
+        }
+        var endElement = $('#EndTime');
+        if (!endElement[0].classList.contains('e-datepicker')) {
+            new ej.calendars.DatePicker({ value: new Date(endElement[0].value) || new Date() }, endElement[0]);
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

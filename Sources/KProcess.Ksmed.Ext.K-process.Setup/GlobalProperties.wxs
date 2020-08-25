@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <Fragment>
+    <Property Id="ApplicationInstallHKLMPath" Value="SOFTWARE\K-process\KL²\Install" />
+    <Property Id="ApplicationExtensionHKLMPath" Value="SOFTWARE\K-process\KL²\Install\Extensions" />
+    <Property Id="ExtensionGroupName" Value="SmartExport" />
+
+    <!--<WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Resources\LicenceFR.rtf" />-->
+  </Fragment>
+</Wix>

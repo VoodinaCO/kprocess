@@ -1,0 +1,60 @@
+﻿<Dialogs:CustomDialog x:Class="KProcess.KL2.Server.SetupUI.SendReportDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:app="clr-namespace:KProcess.KL2.Server.SetupUI"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      x:Name="mySendReportDialog"
+                      mc:Ignorable="d">
+    <Dialogs:CustomDialog.Resources>
+        <Style BasedOn="{StaticResource MetroTextBlock}" TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,5,0,0" />
+            <Setter Property="FontSize" Value="{Binding DialogMessageFontSize, RelativeSource={RelativeSource AncestorType=Dialogs:CustomDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}" />
+            <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Dialogs:CustomDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+        <Style BasedOn="{StaticResource MetroTextBox}" TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5,0,0" />
+            <Setter Property="FontSize" Value="{Binding DialogMessageFontSize, RelativeSource={RelativeSource AncestorType=Dialogs:CustomDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}" />
+            <Setter Property="Foreground" Value="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Dialogs:CustomDialog, Mode=FindAncestor}, UpdateSourceTrigger=PropertyChanged}" />
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Dialogs:CustomDialog.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" MinHeight="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="20" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="{app:Localization LogDialogUsername}" />
+        <TextBox Grid.Row="1" Text="{Binding Username, RelativeSource={RelativeSource FindAncestor, AncestorType=app:SendReportDialog}, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="2" Text="{app:Localization LogDialogCompany}" />
+        <TextBox Grid.Row="3" Text="{Binding Company, RelativeSource={RelativeSource FindAncestor, AncestorType=app:SendReportDialog}, UpdateSourceTrigger=PropertyChanged}" />
+        <TextBlock Grid.Row="4" Text="{app:Localization LogDialogEmail}" />
+        <TextBox Grid.Row="5" Text="{Binding Email, RelativeSource={RelativeSource FindAncestor, AncestorType=app:SendReportDialog}, UpdateSourceTrigger=PropertyChanged}" />
+        <StackPanel Grid.Row="6"
+                    Height="85"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button x:Name="PART_AffirmativeButton"
+                    Height="35"
+                    MinWidth="80"
+                    Margin="0,0,5,0"
+                    Command="{Binding SaveLogCommand, RelativeSource={RelativeSource FindAncestor, AncestorType=app:SendReportDialog}}"
+                    CommandParameter="{Binding ElementName=mySendReportDialog}"
+                    Content="{app:Localization SaveLogButton}"
+                    Style="{DynamicResource AccentedDialogSquareButton}" />
+            <Button x:Name="PART_NegativeButton"
+                    Height="35"
+                    MinWidth="80"
+                    Margin="0,0,5,0"
+                    Click="PART_NegativeButton_Click"
+                    Content="{app:Localization CancelMessageBoxButton}" />
+        </StackPanel>
+    </Grid>
+</Dialogs:CustomDialog>

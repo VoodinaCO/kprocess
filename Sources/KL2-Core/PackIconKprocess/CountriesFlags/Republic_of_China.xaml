@@ -1,0 +1,47 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,30,20" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FFDE2910">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,30,20" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup Transform="3,0,0,3,5,5">
+      <GeometryDrawing x:Name="s" Brush="#FFFFDE00">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,-1L0.587785,0.809017 -0.951057,-0.309017 0.951057,-0.309017 -0.587785,0.809017z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="0.920257508549405,0.391313324534755,-0.391313324534755,0.920257508549405,10,2">
+      <GeometryDrawing Brush="#FFFFDE00">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,-1L0.587785,0.809017 -0.951057,-0.309017 0.951057,-0.309017 -0.587785,0.809017z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="0.696289989015359,0.717760580693167,-0.717760580693167,0.696289989015359,12,4">
+      <GeometryDrawing Brush="#FFFFDE00">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,-1L0.587785,0.809017 -0.951057,-0.309017 0.951057,-0.309017 -0.587785,0.809017z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="0.342915533342111,0.939366242204123,-0.939366242204123,0.342915533342111,12,7">
+      <GeometryDrawing Brush="#FFFFDE00">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,-1L0.587785,0.809017 -0.951057,-0.309017 0.951057,-0.309017 -0.587785,0.809017z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+    <DrawingGroup Transform="0.935691757153263,0.352818559029197,-0.352818559029197,0.935691757153263,10,9">
+      <GeometryDrawing Brush="#FFFFDE00">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M0,-1L0.587785,0.809017 -0.951057,-0.309017 0.951057,-0.309017 -0.587785,0.809017z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+  </DrawingGroup>
+</DrawingGroup>

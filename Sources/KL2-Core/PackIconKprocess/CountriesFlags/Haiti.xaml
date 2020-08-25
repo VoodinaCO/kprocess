@@ -1,0 +1,1858 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,1000,600" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FFD21034">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,0L1000,0 1000,600 0,600z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FF00209F">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,0L1000,0 1000,300 0,300z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup>
+      <GeometryDrawing Brush="#FFFFFFFF">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M405.172,222.414L594.827,222.414 594.827,377.586 405.172,377.586z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FF016A16">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF016A16" Thickness="0.366" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M538.094,335.685L499.466,336.806 461.012,337.243C461.012,337.243 441.256,344.55 433.179,346.19 425.127,347.825 426.174,350.47 419.943,351.863 414.953,352.979 414.376,353.33 411.448,353.523 409.676,353.639 407.493,355.003 405.358,356.505L405.358,377.403 594.642,377.403 594.642,357.525C592.59,356.407 590.635,355.638 588.634,354.958 585.854,354.012 583.979,352.978 578.988,351.863 572.758,350.471 573.804,347.825 565.752,346.19 557.676,344.55 538.094,335.685 538.094,335.685z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup Transform="2,0,0,2,0,2.153">
+        <DrawingGroup x:Name="a">
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M244.529,143.512L245.926,143.479 248.481,154.229 247.936,157.614z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M243.064,136.346L244.018,144.63 245.04,144.564z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M245.722,154.589L241.429,143.051 243.03,142.953 248.039,157.054z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M239.419,136.477L241.191,144.497 242.621,144.497z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M241.906,150.546L239.385,145.122 240.475,144.892 245.075,153.899z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M236.08,138.778L238.874,146.404 240.304,146.404z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF0A328C">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M242.249,151.364L230.813,138.88C227.242,141.708,227.905,146.901,227.905,146.901L240.862,157.067z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFD20014">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M248.861,158.235L240.378,149.641C236.791,149.766,239.637,155.121,239.818,155.793L248.861,163.527z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M248.139,156.757L230.599,137.977 229.915,138.46 248.476,159.082z M229.586,136.772L229.201,136.326 229.239,135.435 225.62,133.132 227.237,136.772 228.469,136.995 228.854,137.441z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M227.738,138.11C228.354,137.367,229.086,136.624,230.395,135.918L231.395,137.368 229.24,139.188z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF0A328C">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M225.811,141.278L226.399,142.304C226.763,142.169,230.43,138.847,230.43,138.847L233.062,138.767 233.818,137.929C231.886,135.849,230.066,138.226,230.066,138.226z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFD20014">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M227.911,143.007C228.051,142.089 229.787,139.793 230.039,139.712 231.342,140.103 232.554,140.853 233.874,137.875 232.726,139.334 230.403,137.848 230.403,137.848L229.395,138.686 229.423,139.091 226.371,141.927z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M237.252,154.672L222.885,143.261C220.425,145.764,222.47,153.492,222.47,153.492L236.513,161.1z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M249.166,163.917L237.348,154.45C233.312,155.016,236.484,160.956,236.725,161.61L249.206,168.38z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M248.697,162.005L223.143,142.823 222.556,143.414 249.393,164.369z M221.928,141.807L221.468,141.433 221.346,140.548 217.367,138.886 219.615,142.2 220.869,142.214 221.328,142.588z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M220.349,143.433C220.822,142.598,221.409,141.744,222.571,140.83L223.817,142.089 222.022,144.242z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M218.925,146.641L219.085,147.701C219.422,147.513,222.645,143.975,222.645,143.975L225.231,143.498 225.758,142.665C223.961,140.551,222.045,143.363,222.045,143.363z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M220.971,148.545C220.848,147.563 222.191,144.682 222.426,144.565 223.973,145.025 225.32,145.717 225.888,142.495 224.991,144.109 222.428,142.858 222.428,142.858L221.568,143.837 221.689,144.367 219.079,147.737z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M236.224,161.651C236.034,161.605 217.707,151.209 217.707,151.209 216.373,153.461 217.579,156.729 218.164,157.238 218.198,158.738 217.562,159.544 218.871,162.677 219.257,164.713 220.199,166.59 221.571,167.704 223.242,174.121 229.793,174.552 232.317,169.328z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M248.352,168.512L235.804,161.157C231.768,161.724,235.889,169.213,236.13,169.867L248.246,174.171z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M246.243,165.846L217.893,150.757 217.409,151.429 247.314,168.076z M216.528,149.937L216.014,149.637 215.749,148.781 211.549,147.741 214.307,150.675 215.547,150.498 216.062,150.799z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M215.232,151.782C215.564,150.886,216.005,149.954,217.004,148.875L218.44,149.931 217.015,152.329z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M214.1,155.181L214.693,156.348C215,156.116,217.697,151.77,217.697,151.77L220.189,150.95 220.658,149.936C218.656,148.086,217.16,151.278,217.16,151.278z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M216.772,156.836C216.572,155.837 217.256,152.639 217.472,152.491 219.032,152.956 220.335,153.088 220.695,149.869 219.788,151.398 217.367,150.822 217.367,150.822L216.657,151.907 216.807,152.287 214.748,156.237z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+        <DrawingGroup>
+          <DrawingGroup.Transform>
+            <TransformGroup>
+              <MatrixTransform>-1,0,0,1,499.859,0</MatrixTransform>
+              <MatrixTransform>-1,0,0,1,499.859,0</MatrixTransform>
+            </TransformGroup>
+          </DrawingGroup.Transform>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M244.529,143.512L245.926,143.479 248.481,154.229 247.936,157.614z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M243.064,136.346L244.018,144.63 245.04,144.564z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M245.722,154.589L241.429,143.051 243.03,142.953 248.039,157.054z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M239.419,136.477L241.191,144.497 242.621,144.497z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M241.906,150.546L239.385,145.122 240.475,144.892 245.075,153.899z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M236.08,138.778L238.874,146.404 240.304,146.404z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M242.249,151.364L230.813,138.88C227.242,141.708,227.905,146.901,227.905,146.901L240.862,157.067z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M248.861,158.235L240.378,149.641C236.791,149.766,239.637,155.121,239.818,155.793L248.861,163.527z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M248.139,156.757L230.599,137.977 229.915,138.46 248.476,159.082z M229.586,136.772L229.201,136.326 229.239,135.435 225.62,133.132 227.237,136.772 228.469,136.995 228.854,137.441z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M227.738,138.11C228.354,137.367,229.086,136.624,230.395,135.918L231.395,137.368 229.24,139.188z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M225.811,141.278L226.399,142.304C226.763,142.169,230.43,138.847,230.43,138.847L233.062,138.767 233.818,137.929C231.886,135.849,230.066,138.226,230.066,138.226z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M227.911,143.007C228.051,142.089 229.787,139.793 230.039,139.712 231.342,140.103 232.554,140.853 233.874,137.875 232.726,139.334 230.403,137.848 230.403,137.848L229.395,138.686 229.423,139.091 226.371,141.927z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <DrawingGroup>
+              <GeometryDrawing Brush="#FF0A328C">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M237.252,154.672L222.885,143.261C220.425,145.764,222.47,153.492,222.47,153.492L236.513,161.1z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFD20014">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M249.166,163.917L237.348,154.45C233.312,155.016,236.484,160.956,236.725,161.61L249.206,168.38z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M248.697,162.005L223.143,142.823 222.556,143.414 249.393,164.369z M221.928,141.807L221.468,141.433 221.346,140.548 217.367,138.886 219.615,142.2 220.869,142.214 221.328,142.588z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M220.349,143.433C220.822,142.598,221.409,141.744,222.571,140.83L223.817,142.089 222.022,144.242z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FF0A328C">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M218.925,146.641L219.085,147.701C219.422,147.513,222.645,143.975,222.645,143.975L225.231,143.498 225.758,142.665C223.961,140.551,222.045,143.363,222.045,143.363z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFD20014">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M220.971,148.545C220.848,147.563 222.191,144.682 222.426,144.565 223.973,145.025 225.32,145.717 225.888,142.495 224.991,144.109 222.428,142.858 222.428,142.858L221.568,143.837 221.689,144.367 219.079,147.737z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup>
+            <DrawingGroup>
+              <GeometryDrawing Brush="#FF0A328C">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M236.224,161.651C236.034,161.605 217.707,151.209 217.707,151.209 216.373,153.461 217.579,156.729 218.164,157.238 218.198,158.738 217.562,159.544 218.871,162.677 219.257,164.713 220.199,166.59 221.571,167.704 223.242,174.121 229.793,174.552 232.317,169.328z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFD20014">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M248.352,168.512L235.804,161.157C231.768,161.724,235.889,169.213,236.13,169.867L248.246,174.171z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M246.243,165.846L217.893,150.757 217.409,151.429 247.314,168.076z M216.528,149.937L216.014,149.637 215.749,148.781 211.549,147.741 214.307,150.675 215.547,150.498 216.062,150.799z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M215.232,151.782C215.564,150.886,216.005,149.954,217.004,148.875L218.44,149.931 217.015,152.329z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FF0A328C">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M214.1,155.181L214.693,156.348C215,156.116,217.697,151.77,217.697,151.77L220.189,150.95 220.658,149.936C218.656,148.086,217.16,151.278,217.16,151.278z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFD20014">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <PathGeometry FillRule="Nonzero" Figures="M216.772,156.836C216.572,155.837 217.256,152.639 217.472,152.491 219.032,152.956 220.335,153.088 220.695,149.869 219.788,151.398 217.367,150.822 217.367,150.822L216.657,151.907 216.807,152.287 214.748,156.237z" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup>
+          </DrawingGroup>
+        </DrawingGroup>
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M244.529,143.512L245.926,143.479 248.481,154.229 247.936,157.614z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M243.064,136.346L244.018,144.63 245.04,144.564z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M245.722,154.589L241.429,143.051 243.03,142.953 248.039,157.054z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M239.419,136.477L241.191,144.497 242.621,144.497z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M241.906,150.546L239.385,145.122 240.475,144.892 245.075,153.899z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M236.08,138.778L238.874,146.404 240.304,146.404z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF0A328C">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M242.249,151.364L230.813,138.88C227.242,141.708,227.905,146.901,227.905,146.901L240.862,157.067z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFD20014">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M248.861,158.235L240.378,149.641C236.791,149.766,239.637,155.121,239.818,155.793L248.861,163.527z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M248.139,156.757L230.599,137.977 229.915,138.46 248.476,159.082z M229.586,136.772L229.201,136.326 229.239,135.435 225.62,133.132 227.237,136.772 228.469,136.995 228.854,137.441z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M227.738,138.11C228.354,137.367,229.086,136.624,230.395,135.918L231.395,137.368 229.24,139.188z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF0A328C">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M225.811,141.278L226.399,142.304C226.763,142.169,230.43,138.847,230.43,138.847L233.062,138.767 233.818,137.929C231.886,135.849,230.066,138.226,230.066,138.226z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFD20014">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M227.911,143.007C228.051,142.089 229.787,139.793 230.039,139.712 231.342,140.103 232.554,140.853 233.874,137.875 232.726,139.334 230.403,137.848 230.403,137.848L229.395,138.686 229.423,139.091 226.371,141.927z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M237.252,154.672L222.885,143.261C220.425,145.764,222.47,153.492,222.47,153.492L236.513,161.1z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M249.166,163.917L237.348,154.45C233.312,155.016,236.484,160.956,236.725,161.61L249.206,168.38z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M248.697,162.005L223.143,142.823 222.556,143.414 249.393,164.369z M221.928,141.807L221.468,141.433 221.346,140.548 217.367,138.886 219.615,142.2 220.869,142.214 221.328,142.588z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M220.349,143.433C220.822,142.598,221.409,141.744,222.571,140.83L223.817,142.089 222.022,144.242z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M218.925,146.641L219.085,147.701C219.422,147.513,222.645,143.975,222.645,143.975L225.231,143.498 225.758,142.665C223.961,140.551,222.045,143.363,222.045,143.363z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M220.971,148.545C220.848,147.563 222.191,144.682 222.426,144.565 223.973,145.025 225.32,145.717 225.888,142.495 224.991,144.109 222.428,142.858 222.428,142.858L221.568,143.837 221.689,144.367 219.079,147.737z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M236.224,161.651C236.034,161.605 217.707,151.209 217.707,151.209 216.373,153.461 217.579,156.729 218.164,157.238 218.198,158.738 217.562,159.544 218.871,162.677 219.257,164.713 220.199,166.59 221.571,167.704 223.242,174.121 229.793,174.552 232.317,169.328z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M248.352,168.512L235.804,161.157C231.768,161.724,235.889,169.213,236.13,169.867L248.246,174.171z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M246.243,165.846L217.893,150.757 217.409,151.429 247.314,168.076z M216.528,149.937L216.014,149.637 215.749,148.781 211.549,147.741 214.307,150.675 215.547,150.498 216.062,150.799z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M215.232,151.782C215.564,150.886,216.005,149.954,217.004,148.875L218.44,149.931 217.015,152.329z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF0A328C">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M214.1,155.181L214.693,156.348C215,156.116,217.697,151.77,217.697,151.77L220.189,150.95 220.658,149.936C218.656,148.086,217.16,151.278,217.16,151.278z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M216.772,156.836C216.572,155.837 217.256,152.639 217.472,152.491 219.032,152.956 220.335,153.088 220.695,149.869 219.788,151.398 217.367,150.822 217.367,150.822L216.657,151.907 216.807,152.287 214.748,156.237z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="2,0,0,2,0,2.153">
+        <GeometryDrawing Brush="#FF016A16">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF016A16" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M248.957,125.603L248.492,134.673 251.392,134.673 250.967,125.681 253.99,125.257 253.655,121.675 246.145,121.965 246.186,125.218z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup x:Name="b">
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M249.817,121.898C242.053,114.127 235.939,117.918 234.483,118.996 235.446,119.183 236.309,118.584 236.756,118.516 236.476,118.869 235.891,119.745 235.891,119.745 235.891,119.745 238.291,118.611 238.559,118.715 238.213,118.991 237.832,119.651 237.832,119.651 238.01,119.72 239.36,118.594 239.627,118.574 239.216,119.04 239.088,120.102 239.088,120.102L240.258,119.557C240.562,119.773 240.173,120.187 240.438,120.166 242.382,120.006 245.115,121.943 245.491,122.538" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M247.895,123.321C247.085,121.467 232.307,118.316 229.335,123.565 230.499,123.858 231.611,122.589 231.611,122.589L231.51,123.76 233.482,122.248 232.774,123.808 234.342,122.54 234.292,123.809 236.213,121.711 235.96,122.931 237.68,122.199 237.477,123.223" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M247.238,123.614C243.445,121.077 237.578,122.784 237.578,122.784 233.837,124.883 231.842,124.504 231.358,128.395 231.713,128.249 232.724,127.029 232.724,127.029L233.483,128.542 233.735,126.395 234.342,128.054 235.252,125.322 235.455,127.176 236.871,125.322 237.528,125.858 238.135,124.443 238.691,125.37C238.691,125.37,239.652,124.785,240.209,125.126L241.271,123.906 241.523,124.785 242.433,123.712 242.788,124.492 243.698,123.662 243.648,124.248 246.783,124.298" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.38,124.053C243.737,124.003,236.154,126.865,234.192,129.859A13.29,13.29,0,0,1,235.455,129.224L235.842,130.427 236.315,129.224 236.415,130.151C236.705,129.427,237.033,129.345,237.579,130.102L237.781,128.98 238.085,130.053 238.59,128.883C238.59,128.883 238.908,130.152 239.096,130.103 239.096,130.103 239.934,127.908 240.31,127.809L240.41,129.175 240.916,127.809 241.372,128.834 241.472,127.37 241.978,128.492C241.978,128.492,242.244,127.389,242.636,127.175L243.394,127.858 246.772,125.431" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.888,124.678C243.367,126.028 240.218,130.857 240.458,132.904 242.023,130.963 241.687,131.23 242.386,133.464 242.386,133.464 242.65,131.509 242.916,131.277L243.375,132.723 243.545,130.831 244.015,130.853 243.895,129.666 244.595,130.201C244.431,129.523 244.256,129.294 244.98,128.712 244.98,128.712 244.063,128.829 244.787,127.177L245.462,127.828C245.462,127.828,245.342,127.107,245.582,126.828L248.067,125.967" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M247.229,125.04L245.899,127.574 246.581,127.771 245.046,128.923 246.342,128.791C246.342,128.791,244.364,129.515,244.125,131.456L246.138,130.568C246.138,130.568,244.432,132.312,244.193,133.365L245.353,132.345C245.353,132.345,244.228,133.562,244.398,135.405L245.251,134.451C245.046,136.688 245.114,136.886 246.138,138.597 246.138,138.597 245.865,135.964 246.172,135.635L248.422,137.972 247.161,134.648C247.161,134.648,248.559,136.754,249.411,136.557L247.638,133.859 249.378,135.273 247.4,132.312 249.241,132.872C249.241,132.872,247.911,131.193,248.013,130.14L249.275,131.522C249.275,131.522,248.798,129.942,248.935,129.482L249.582,129.614 248.32,128.166 249.173,128.001 249.071,127.047 249.685,126.85 249.651,125.797 M248.559,125.797C246.376,128.758,247.502,133.332,246.206,135.668" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <DrawingGroup>
+          <DrawingGroup.Transform>
+            <TransformGroup>
+              <MatrixTransform>-1,0,0,1,499.859,0</MatrixTransform>
+              <MatrixTransform>-1,0,0,1,499.859,0</MatrixTransform>
+            </TransformGroup>
+          </DrawingGroup.Transform>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FF016A16">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M249.817,121.898C242.053,114.127 235.939,117.918 234.483,118.996 235.446,119.183 236.309,118.584 236.756,118.516 236.476,118.869 235.891,119.745 235.891,119.745 235.891,119.745 238.291,118.611 238.559,118.715 238.213,118.991 237.832,119.651 237.832,119.651 238.01,119.72 239.36,118.594 239.627,118.574 239.216,119.04 239.088,120.102 239.088,120.102L240.258,119.557C240.562,119.773 240.173,120.187 240.438,120.166 242.382,120.006 245.115,121.943 245.491,122.538" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF016A16">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M247.895,123.321C247.085,121.467 232.307,118.316 229.335,123.565 230.499,123.858 231.611,122.589 231.611,122.589L231.51,123.76 233.482,122.248 232.774,123.808 234.342,122.54 234.292,123.809 236.213,121.711 235.96,122.931 237.68,122.199 237.477,123.223" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF016A16">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M247.238,123.614C243.445,121.077 237.578,122.784 237.578,122.784 233.837,124.883 231.842,124.504 231.358,128.395 231.713,128.249 232.724,127.029 232.724,127.029L233.483,128.542 233.735,126.395 234.342,128.054 235.252,125.322 235.455,127.176 236.871,125.322 237.528,125.858 238.135,124.443 238.691,125.37C238.691,125.37,239.652,124.785,240.209,125.126L241.271,123.906 241.523,124.785 242.433,123.712 242.788,124.492 243.698,123.662 243.648,124.248 246.783,124.298" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF016A16">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M246.38,124.053C243.737,124.003,236.154,126.865,234.192,129.859A13.29,13.29,0,0,1,235.455,129.224L235.842,130.427 236.315,129.224 236.415,130.151C236.705,129.427,237.033,129.345,237.579,130.102L237.781,128.98 238.085,130.053 238.59,128.883C238.59,128.883 238.908,130.152 239.096,130.103 239.096,130.103 239.934,127.908 240.31,127.809L240.41,129.175 240.916,127.809 241.372,128.834 241.472,127.37 241.978,128.492C241.978,128.492,242.244,127.389,242.636,127.175L243.394,127.858 246.772,125.431" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF016A16">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M246.888,124.678C243.367,126.028 240.218,130.857 240.458,132.904 242.023,130.963 241.687,131.23 242.386,133.464 242.386,133.464 242.65,131.509 242.916,131.277L243.375,132.723 243.545,130.831 244.015,130.853 243.895,129.666 244.595,130.201C244.431,129.523 244.256,129.294 244.98,128.712 244.98,128.712 244.063,128.829 244.787,127.177L245.462,127.828C245.462,127.828,245.342,127.107,245.582,126.828L248.067,125.967" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF016A16">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M247.229,125.04L245.899,127.574 246.581,127.771 245.046,128.923 246.342,128.791C246.342,128.791,244.364,129.515,244.125,131.456L246.138,130.568C246.138,130.568,244.432,132.312,244.193,133.365L245.353,132.345C245.353,132.345,244.228,133.562,244.398,135.405L245.251,134.451C245.046,136.688 245.114,136.886 246.138,138.597 246.138,138.597 245.865,135.964 246.172,135.635L248.422,137.972 247.161,134.648C247.161,134.648,248.559,136.754,249.411,136.557L247.638,133.859 249.378,135.273 247.4,132.312 249.241,132.872C249.241,132.872,247.911,131.193,248.013,130.14L249.275,131.522C249.275,131.522,248.798,129.942,248.935,129.482L249.582,129.614 248.32,128.166 249.173,128.001 249.071,127.047 249.685,126.85 249.651,125.797 M248.559,125.797C246.376,128.758,247.502,133.332,246.206,135.668" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M251.145,166.535C251.145,166.535 252.335,156.59 252.331,152.31 252.329,148.94 251.517,141.475 251.517,141.475L248.1,141.475C248.1,141.475 247.58,148.904 247.658,152.264 247.758,156.545 248.844,166.534 248.844,166.534L251.145,166.534z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M247.874,141.953L251.834,141.953 251.369,139.287 248.499,139.287z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M248.127,139.816L251.666,139.816 250.999,137.15 248.819,137.15z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M248.355,137.655L251.305,137.655 250.805,134.989 248.93,134.989z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M250.91,134.673L248.847,134.673 248.637,135.637 251.078,135.637z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.186" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M251.332,164.367L248.612,164.367" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.19" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M251.547,162.42L248.377,162.42" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.181" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M251.864,160.444L248.195,160.444" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.184" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M252.056,158.291L248.084,158.291 M252.083,156.139L247.91,156.139" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M252.243,154.171L247.794,154.171 M252.253,152.38L247.603,152.38 M252.225,150.219L247.575,150.219" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.181" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M252.07,148.084L247.676,148.084" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M251.864,145.914L247.8,145.914" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.184" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M251.725,143.955L247.995,143.955" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF0A328C">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF0A328C" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M249.909,119.044C249.221,118.72,247.664,117.731,248.126,117.141L248.839,115.927C249.849,113.65 248.821,114.532 248.713,113.821 248.61,113.139 252.578,113.672 252.637,115.218 252.653,115.644 252.342,115.394 252.385,117.829L251.63,119.287C251.065,119.34,250.396,119.273,249.909,119.044z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M250.392,124.934L249.406,124.104 249.679,116.999 250.644,117.282z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFD20014">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M251.672,119.246C252.292,118.884 252.696,117.803 252.322,117.161 251.306,115.874 250.649,116.405 248.944,115.825 248.604,116.187 247.889,116.884 248.042,117.404 250.284,118.46 249.414,117.56 250.156,117.692 250.556,117.762 250.814,118.237 251.672,119.246z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M249.817,121.898C242.053,114.127 235.939,117.918 234.483,118.996 235.446,119.183 236.309,118.584 236.756,118.516 236.476,118.869 235.891,119.745 235.891,119.745 235.891,119.745 238.291,118.611 238.559,118.715 238.213,118.991 237.832,119.651 237.832,119.651 238.01,119.72 239.36,118.594 239.627,118.574 239.216,119.04 239.088,120.102 239.088,120.102L240.258,119.557C240.562,119.773 240.173,120.187 240.438,120.166 242.382,120.006 245.115,121.943 245.491,122.538" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M247.895,123.321C247.085,121.467 232.307,118.316 229.335,123.565 230.499,123.858 231.611,122.589 231.611,122.589L231.51,123.76 233.482,122.248 232.774,123.808 234.342,122.54 234.292,123.809 236.213,121.711 235.96,122.931 237.68,122.199 237.477,123.223" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M247.238,123.614C243.445,121.077 237.578,122.784 237.578,122.784 233.837,124.883 231.842,124.504 231.358,128.395 231.713,128.249 232.724,127.029 232.724,127.029L233.483,128.542 233.735,126.395 234.342,128.054 235.252,125.322 235.455,127.176 236.871,125.322 237.528,125.858 238.135,124.443 238.691,125.37C238.691,125.37,239.652,124.785,240.209,125.126L241.271,123.906 241.523,124.785 242.433,123.712 242.788,124.492 243.698,123.662 243.648,124.248 246.783,124.298" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.38,124.053C243.737,124.003,236.154,126.865,234.192,129.859A13.29,13.29,0,0,1,235.455,129.224L235.842,130.427 236.315,129.224 236.415,130.151C236.705,129.427,237.033,129.345,237.579,130.102L237.781,128.98 238.085,130.053 238.59,128.883C238.59,128.883 238.908,130.152 239.096,130.103 239.096,130.103 239.934,127.908 240.31,127.809L240.41,129.175 240.916,127.809 241.372,128.834 241.472,127.37 241.978,128.492C241.978,128.492,242.244,127.389,242.636,127.175L243.394,127.858 246.772,125.431" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.888,124.678C243.367,126.028 240.218,130.857 240.458,132.904 242.023,130.963 241.687,131.23 242.386,133.464 242.386,133.464 242.65,131.509 242.916,131.277L243.375,132.723 243.545,130.831 244.015,130.853 243.895,129.666 244.595,130.201C244.431,129.523 244.256,129.294 244.98,128.712 244.98,128.712 244.063,128.829 244.787,127.177L245.462,127.828C245.462,127.828,245.342,127.107,245.582,126.828L248.067,125.967" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M247.229,125.04L245.899,127.574 246.581,127.771 245.046,128.923 246.342,128.791C246.342,128.791,244.364,129.515,244.125,131.456L246.138,130.568C246.138,130.568,244.432,132.312,244.193,133.365L245.353,132.345C245.353,132.345,244.228,133.562,244.398,135.405L245.251,134.451C245.046,136.688 245.114,136.886 246.138,138.597 246.138,138.597 245.865,135.964 246.172,135.635L248.422,137.972 247.161,134.648C247.161,134.648,248.559,136.754,249.411,136.557L247.638,133.859 249.378,135.273 247.4,132.312 249.241,132.872C249.241,132.872,247.911,131.193,248.013,130.14L249.275,131.522C249.275,131.522,248.798,129.942,248.935,129.482L249.582,129.614 248.32,128.166 249.173,128.001 249.071,127.047 249.685,126.85 249.651,125.797 M248.559,125.797C246.376,128.758,247.502,133.332,246.206,135.668" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup Transform="2,0,0,2,0,2.153">
+        <DrawingGroup>
+          <DrawingGroup.Transform>
+            <TransformGroup>
+              <MatrixTransform>1,0,0,-1,-0.002,320.37</MatrixTransform>
+              <MatrixTransform>1,0,0,-1,-0.002,320.37</MatrixTransform>
+            </TransformGroup>
+          </DrawingGroup.Transform>
+          <GeometryDrawing x:Name="c" Brush="#FF016A16">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFFFFFFF" Thickness="0.237" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M238.538,160.118C238.273,160.611 237.478,160.97 236.539,160.97 235.601,160.97 234.811,160.611 234.546,160.118A0.756,0.756,0,0,0,234.447,160.477C234.447,161.146 235.384,161.687 236.539,161.687 237.694,161.687 238.631,161.146 238.631,160.477A0.748,0.748,0,0,0,238.538,160.118z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing Brush="#FF016A16">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFFFFFFF" Thickness="0.181" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M238.358,161.75C238.358,163.049 237.543,164.103 236.54,164.103 235.536,164.103 234.721,163.049 234.721,161.75L234.721,160.474 238.358,160.474z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFFFFF">
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="1.806" RadiusY="0.898" Center="236.539,160.063" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF016A16">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFF1B517" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M236.126,161.075L235.816,157.778 237.198,157.778 236.972,161.075z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup x:Name="d">
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.035,172.786L238.975,170.596 235.899,165.342 225.006,164.807 225.384,168.747 234.664,170.524 235.546,172.105 246.212,175.073z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF503200">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M238.662,174.254L227.513,157.856 226.966,158.267 238.026,174.734z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M228.551,158.5L227.361,156.508C227.138,156.14 226.8,156.018 226.302,156.28 225.818,156.535 225.865,157.04 226.062,157.403L227.163,159.255z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M239.986,164.127L217.49,161.841 216.943,165.111 239.33,167.363z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M217.089,160.997L216.506,165.535 217.454,165.535 218.11,161.384z M220.844,161.735L220.589,165.815 221.172,165.885 221.646,162.263z M236.085,163.494L235.538,167.328 236.632,167.293 237.069,163.494z M239.436,163.599L238.657,168.033 239.895,168.213 240.249,165.881C240.349,166.349 240.78,166.705 241.295,166.705 241.884,166.705 242.365,166.241 242.365,165.673 242.365,165.105 241.884,164.647 241.295,164.647 240.886,164.647 240.515,164.887 240.355,165.334L240.586,163.672z M231.317,164.319L228.223,167.801 228.584,168.224 232.554,165.513z M224.124,173L227.218,169.518 226.857,169.095 222.887,171.806z M232.22,172.129L228.456,169.219 228.069,169.492 231.034,173.248z M222.938,165.413L226.754,168.223 227.218,167.875 224.228,164.12z M227.09,163.094L227.455,167.667 227.968,167.645 229.175,163.193z M228.341,174.189L227.976,169.616 227.411,169.563 226.72,174.189z M233.401,168.026L228.606,168.536 228.533,168.993 233.383,169.627z M221.993,169.609L226.673,168.869 226.773,168.505 221.931,167.965z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1.27" RadiusY="1.225" Center="227.693,168.548" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="EvenOdd" Figures="M234.438,168.548C234.438,172.14 231.416,175.055 227.693,175.055 223.97,175.055 220.948,172.14 220.948,168.548 220.948,164.956 223.97,162.041 227.693,162.041 231.416,162.041 234.438,164.956 234.438,168.548z M233.091,168.548C233.091,171.422 230.672,173.755 227.693,173.755 224.713,173.755 222.295,171.422 222.295,168.548 222.295,165.674 224.714,163.341 227.693,163.341 230.673,163.341 233.091,165.674 233.091,168.548z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M223.48,165.264L222.423,164.468 M231.034,164.493L231.936,163.573 M232.967,172.701L231.858,171.831 M223.48,173.696L224.434,172.676 M246.196,162.122L247.351,168.008 246.409,168.505 245.395,162.206z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M245.592,161.364C245.057,161.14 244.36,161.519 243.218,160.072 241.34,161.795 243.111,162.052 243.397,163.758 243.927,163.976 244.255,162.435 245.699,162.277 245.878,162.259 247.997,162.074 247.997,162.074L247.465,161.348C247.465,161.348,245.991,161.388,245.592,161.364z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.359,162.518L246.145,160.762C245.913,160.142,245.145,160.675,245.145,161.037L245.342,162.656z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="EvenOdd" Figures="M240.765,167.372L240.784,169.009C240.248,169.192,240.33,169.594,240.347,170.177L240.366,174.949C240.176,175.265 239.588,175.28 239.312,175.529 239.035,175.776 239.07,176.258 240.332,176.575L241.307,176.61C242.793,176.285 243.1,175.792 242.355,175.515 241.958,175.367 241.436,175.191 241.238,174.958L241.271,173.821 242.235,173.856C242.495,173.856,242.988,173.204,243.005,172.671L243.01,170.201C242.975,168.8,241.925,168.642,241.63,168.659L241.651,167.369z M242.395,170.102C242.413,169.702 241.84,169.345 241.609,169.335 241.379,169.325 240.875,169.802 240.858,170.202L240.858,171.202C240.892,171.569 241.185,172.812 241.773,172.903 242.053,172.946 242.413,172.503 242.413,172.136L242.396,170.102z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M234.275,172.328C233.639,172.071,233.645,173.5,233.645,173.5L234.647,173.51C235.087,173.71 235.439,174.353 235.159,174.669 234.928,174.93 232.982,174.228 232.851,174.632 233.195,176.573 235.768,177.32 236.699,176.471 237.609,175.641 237.84,173.423 234.882,172.842z M234.87,172.856L234.578,173.495" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M214.943,173.055L213.98,169.005 M216.112,172.822L214.632,169.669 M218.658,171.993L215.321,170.201 M220.103,171.628L213.911,168.94" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFD20014">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M210.215,166.013C210.215,166.013 207.961,165.977 207.559,166.135 207.397,166.199 208.126,166.96 207.975,167.25 207.412,168.333 203.581,168.184 203.278,167.948 202.759,167.543 206.846,167.195 206.873,166.919 206.903,166.603 206.268,165.773 206.367,165.264 206.495,164.603 208.155,164.357 208.155,164.357z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF503200">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M213.233,168.05L208.131,163.828C208.131,163.828 207.906,163.59 207.718,163.795 207.534,163.995 207.787,164.226 207.787,164.226L213.05,168.574z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M218.146,172.217C218.056,172.13,213.991,168.609,213.991,168.609L213.72,167.581C213.72,167.581 213.092,168.006 212.862,168.226 212.632,168.446 212.275,169.045 212.275,169.045L213.413,169.097 217.008,172.391z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="232.534,177.056" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="230.641,175.716" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="228.091,176.593" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="224.153,177.445" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="222.487,177.64" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="220.846,177.64" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="219.18,177.591" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="219.988,176.325" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="221.604,176.398" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="223.144,176.203" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="222.361,174.961" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="220.846,174.937" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="EvenOdd" Figures="M236.47,177.991C236.47,177.675 235.701,177.811 235.701,177.441 235.701,177.029 236.874,177.331 237.036,177.693 237.696,177.097 237.98,177.533 238.384,177.713 238.959,176.858 239.671,176.89 240.365,177.516 240.766,177.073 241.775,177.219 242.122,177.713 242.786,177.053 243.377,177.216 243.837,177.693 244.023,177.347 244.295,177.423 244.491,177.673 244.845,177.045 245.733,177.233 246.107,177.649 246.439,177.283 246.78,177.569 247.221,177.839 247.518,177.559 247.999,177.612 247.999,177.889 247.999,178.179 247.371,178.077 247.371,178.363 247.371,178.619 247.829,178.49 247.829,178.813 247.829,179.068 247.149,179.163 247.044,178.757 246.814,179.197 245.982,179.028 245.9,178.619 245.624,178.954 245.003,179.055 244.654,178.56 244.368,178.794 244.024,178.827 243.867,178.591 243.35,179.147 242.479,179.033 242.179,178.421L241.885,178.433C241.377,179.123 240.583,178.803 240.365,178.423 239.512,179.038 239.003,178.843 238.527,178.443 237.979,179.109 237.146,179.063 236.954,178.443 236.586,178.71 235.817,178.773 235.817,178.46 235.817,178.159 236.47,178.268 236.47,177.991z M238.125,178.141C238.125,178.284 237.93,178.401 237.689,178.401 237.449,178.401 237.254,178.284 237.254,178.141 237.254,177.998 237.449,177.881 237.689,177.881 237.929,177.881 238.125,177.998 238.125,178.141z M239.945,177.923C239.945,178.095 239.71,178.235 239.421,178.235 239.132,178.235 238.897,178.095 238.897,177.923 238.897,177.75 239.132,177.611 239.421,177.611 239.711,177.611 239.945,177.751 239.945,177.923z M243.52,178.12C243.52,178.295 243.308,178.436 243.046,178.436 242.784,178.436 242.572,178.295 242.572,178.12 242.572,177.946 242.784,177.804 243.046,177.804 243.308,177.804 243.52,177.946 243.52,178.12z M241.616,178.037C241.616,178.257 241.409,178.437 241.153,178.437 240.897,178.437 240.689,178.257 240.689,178.037 240.689,177.817 240.897,177.637 241.153,177.637 241.409,177.637 241.616,177.817 241.616,178.037z M245.676,178.047C245.676,178.245 245.49,178.405 245.262,178.405 245.033,178.405 244.847,178.245 244.847,178.047 244.847,177.85 245.033,177.69 245.262,177.69 245.49,177.69 245.676,177.85 245.676,178.047z M244.432,178.13C244.432,178.258 244.312,178.361 244.165,178.361 244.017,178.361 243.897,178.258 243.897,178.131 243.897,178.003 244.017,177.9 244.165,177.9 244.312,177.9 244.432,178.003 244.432,178.13z M246.854,178.224C246.854,178.407 246.719,178.555 246.552,178.555 246.386,178.555 246.251,178.407 246.251,178.224 246.251,178.041 246.386,177.892 246.552,177.892 246.719,177.892 246.854,178.041 246.854,178.224z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <DrawingGroup>
+          <DrawingGroup.Transform>
+            <TransformGroup>
+              <MatrixTransform>-1,0,0,1,499.859,0</MatrixTransform>
+              <MatrixTransform>-1,0,0,1,499.859,0</MatrixTransform>
+            </TransformGroup>
+          </DrawingGroup.Transform>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M246.035,172.786L238.975,170.596 235.899,165.342 225.006,164.807 225.384,168.747 234.664,170.524 235.546,172.105 246.212,175.073z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF503200">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M238.662,174.254L227.513,157.856 226.966,158.267 238.026,174.734z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M228.551,158.5L227.361,156.508C227.138,156.14 226.8,156.018 226.302,156.28 225.818,156.535 225.865,157.04 226.062,157.403L227.163,159.255z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M239.986,164.127L217.49,161.841 216.943,165.111 239.33,167.363z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M217.089,160.997L216.506,165.535 217.454,165.535 218.11,161.384z M220.844,161.735L220.589,165.815 221.172,165.885 221.646,162.263z M236.085,163.494L235.538,167.328 236.632,167.293 237.069,163.494z M239.436,163.599L238.657,168.033 239.895,168.213 240.249,165.881C240.349,166.349 240.78,166.705 241.295,166.705 241.884,166.705 242.365,166.241 242.365,165.673 242.365,165.105 241.884,164.647 241.295,164.647 240.886,164.647 240.515,164.887 240.355,165.334L240.586,163.672z M231.317,164.319L228.223,167.801 228.584,168.224 232.554,165.513z M224.124,173L227.218,169.518 226.857,169.095 222.887,171.806z M232.22,172.129L228.456,169.219 228.069,169.492 231.034,173.248z M222.938,165.413L226.754,168.223 227.218,167.875 224.228,164.12z M227.09,163.094L227.455,167.667 227.968,167.645 229.175,163.193z M228.341,174.189L227.976,169.616 227.411,169.563 226.72,174.189z M233.401,168.026L228.606,168.536 228.533,168.993 233.383,169.627z M221.993,169.609L226.673,168.869 226.773,168.505 221.931,167.965z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="1.27" RadiusY="1.225" Center="227.693,168.548" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="EvenOdd" Figures="M234.438,168.548C234.438,172.14 231.416,175.055 227.693,175.055 223.97,175.055 220.948,172.14 220.948,168.548 220.948,164.956 223.97,162.041 227.693,162.041 231.416,162.041 234.438,164.956 234.438,168.548z M233.091,168.548C233.091,171.422 230.672,173.755 227.693,173.755 224.713,173.755 222.295,171.422 222.295,168.548 222.295,165.674 224.714,163.341 227.693,163.341 230.673,163.341 233.091,165.674 233.091,168.548z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M223.48,165.264L222.423,164.468 M231.034,164.493L231.936,163.573 M232.967,172.701L231.858,171.831 M223.48,173.696L224.434,172.676 M246.196,162.122L247.351,168.008 246.409,168.505 245.395,162.206z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M245.592,161.364C245.057,161.14 244.36,161.519 243.218,160.072 241.34,161.795 243.111,162.052 243.397,163.758 243.927,163.976 244.255,162.435 245.699,162.277 245.878,162.259 247.997,162.074 247.997,162.074L247.465,161.348C247.465,161.348,245.991,161.388,245.592,161.364z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M246.359,162.518L246.145,160.762C245.913,160.142,245.145,160.675,245.145,161.037L245.342,162.656z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="EvenOdd" Figures="M240.765,167.372L240.784,169.009C240.248,169.192,240.33,169.594,240.347,170.177L240.366,174.949C240.176,175.265 239.588,175.28 239.312,175.529 239.035,175.776 239.07,176.258 240.332,176.575L241.307,176.61C242.793,176.285 243.1,175.792 242.355,175.515 241.958,175.367 241.436,175.191 241.238,174.958L241.271,173.821 242.235,173.856C242.495,173.856,242.988,173.204,243.005,172.671L243.01,170.201C242.975,168.8,241.925,168.642,241.63,168.659L241.651,167.369z M242.395,170.102C242.413,169.702 241.84,169.345 241.609,169.335 241.379,169.325 240.875,169.802 240.858,170.202L240.858,171.202C240.892,171.569 241.185,172.812 241.773,172.903 242.053,172.946 242.413,172.503 242.413,172.136L242.396,170.102z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFFFFF">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M234.275,172.328C233.639,172.071,233.645,173.5,233.645,173.5L234.647,173.51C235.087,173.71 235.439,174.353 235.159,174.669 234.928,174.93 232.982,174.228 232.851,174.632 233.195,176.573 235.768,177.32 236.699,176.471 237.609,175.641 237.84,173.423 234.882,172.842z M234.87,172.856L234.578,173.495" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M214.943,173.055L213.98,169.005 M216.112,172.822L214.632,169.669 M218.658,171.993L215.321,170.201 M220.103,171.628L213.911,168.94" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFD20014">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M210.215,166.013C210.215,166.013 207.961,165.977 207.559,166.135 207.397,166.199 208.126,166.96 207.975,167.25 207.412,168.333 203.581,168.184 203.278,167.948 202.759,167.543 206.846,167.195 206.873,166.919 206.903,166.603 206.268,165.773 206.367,165.264 206.495,164.603 208.155,164.357 208.155,164.357z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF503200">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M213.233,168.05L208.131,163.828C208.131,163.828 207.906,163.59 207.718,163.795 207.534,163.995 207.787,164.226 207.787,164.226L213.05,168.574z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M218.146,172.217C218.056,172.13,213.991,168.609,213.991,168.609L213.72,167.581C213.72,167.581 213.092,168.006 212.862,168.226 212.632,168.446 212.275,169.045 212.275,169.045L213.413,169.097 217.008,172.391z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <DrawingGroup>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="232.534,177.056" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="230.641,175.716" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="228.091,176.593" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="224.153,177.445" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="222.487,177.64" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="220.846,177.64" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="219.18,177.591" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="219.988,176.325" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="221.604,176.398" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="223.144,176.203" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="222.361,174.961" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+              <GeometryDrawing Brush="#FFF1B517">
+                <GeometryDrawing.Pen>
+                  <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+                </GeometryDrawing.Pen>
+                <GeometryDrawing.Geometry>
+                  <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="220.846,174.937" />
+                </GeometryDrawing.Geometry>
+              </GeometryDrawing>
+            </DrawingGroup>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="EvenOdd" Figures="M236.47,177.991C236.47,177.675 235.701,177.811 235.701,177.441 235.701,177.029 236.874,177.331 237.036,177.693 237.696,177.097 237.98,177.533 238.384,177.713 238.959,176.858 239.671,176.89 240.365,177.516 240.766,177.073 241.775,177.219 242.122,177.713 242.786,177.053 243.377,177.216 243.837,177.693 244.023,177.347 244.295,177.423 244.491,177.673 244.845,177.045 245.733,177.233 246.107,177.649 246.439,177.283 246.78,177.569 247.221,177.839 247.518,177.559 247.999,177.612 247.999,177.889 247.999,178.179 247.371,178.077 247.371,178.363 247.371,178.619 247.829,178.49 247.829,178.813 247.829,179.068 247.149,179.163 247.044,178.757 246.814,179.197 245.982,179.028 245.9,178.619 245.624,178.954 245.003,179.055 244.654,178.56 244.368,178.794 244.024,178.827 243.867,178.591 243.35,179.147 242.479,179.033 242.179,178.421L241.885,178.433C241.377,179.123 240.583,178.803 240.365,178.423 239.512,179.038 239.003,178.843 238.527,178.443 237.979,179.109 237.146,179.063 236.954,178.443 236.586,178.71 235.817,178.773 235.817,178.46 235.817,178.159 236.47,178.268 236.47,177.991z M238.125,178.141C238.125,178.284 237.93,178.401 237.689,178.401 237.449,178.401 237.254,178.284 237.254,178.141 237.254,177.998 237.449,177.881 237.689,177.881 237.929,177.881 238.125,177.998 238.125,178.141z M239.945,177.923C239.945,178.095 239.71,178.235 239.421,178.235 239.132,178.235 238.897,178.095 238.897,177.923 238.897,177.75 239.132,177.611 239.421,177.611 239.711,177.611 239.945,177.751 239.945,177.923z M243.52,178.12C243.52,178.295 243.308,178.436 243.046,178.436 242.784,178.436 242.572,178.295 242.572,178.12 242.572,177.946 242.784,177.804 243.046,177.804 243.308,177.804 243.52,177.946 243.52,178.12z M241.616,178.037C241.616,178.257 241.409,178.437 241.153,178.437 240.897,178.437 240.689,178.257 240.689,178.037 240.689,177.817 240.897,177.637 241.153,177.637 241.409,177.637 241.616,177.817 241.616,178.037z M245.676,178.047C245.676,178.245 245.49,178.405 245.262,178.405 245.033,178.405 244.847,178.245 244.847,178.047 244.847,177.85 245.033,177.69 245.262,177.69 245.49,177.69 245.676,177.85 245.676,178.047z M244.432,178.13C244.432,178.258 244.312,178.361 244.165,178.361 244.017,178.361 243.897,178.258 243.897,178.131 243.897,178.003 244.017,177.9 244.165,177.9 244.312,177.9 244.432,178.003 244.432,178.13z M246.854,178.224C246.854,178.407 246.719,178.555 246.552,178.555 246.386,178.555 246.251,178.407 246.251,178.224 246.251,178.041 246.386,177.892 246.552,177.892 246.719,177.892 246.854,178.041 246.854,178.224z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+        </DrawingGroup>
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FF0A328C">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF0A328C" Thickness="0.231" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M249.837,165.718C247.325,165.718 245.287,166.662 245.287,167.82 245.287,168.019 245.344,168.21 245.456,168.392 245.999,169.021 247.763,169.479 249.854,169.479 251.811,169.479 253.479,169.077 254.131,168.509 254.295,168.293 254.387,168.063 254.387,167.82 254.387,166.662 252.349,165.718 249.837,165.718z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.187" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M254.427,167.981L254.427,175.039C254.427,175.867 252.379,176.539 249.855,176.539 247.331,176.539 245.282,175.867 245.282,175.039L245.282,167.981C245.282,168.809 247.331,169.481 249.855,169.481 252.379,169.481 254.427,168.809 254.427,167.981z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFD20014">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M245.282,167.982L245.282,169.064 247.502,175.909 249.274,170.645 251.22,176.11 252.645,170.951 254.428,174.42 254.428,172.5 252.772,169.137A8.25,8.25,0,0,1,252.179,169.271L251.151,173.083 249.704,169.479A14.522,14.522,0,0,1,248.989,169.456L247.536,173.083 245.875,168.716C245.499,168.499,245.282,168.25,245.282,167.982z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF0A328C">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF0A328C" Thickness="0.187" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M254.427,173.721L254.427,175.039C254.427,175.866 252.379,176.538 249.855,176.538 247.331,176.538 245.282,175.866 245.282,175.038L245.282,173.721C245.282,174.549 247.331,175.221 249.855,175.221 252.379,175.221 254.427,174.549 254.427,173.721z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.187" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M251.737,175.085C251.365,175.14,250.968,175.182,250.552,175.203L250.563,176.52A12.24,12.24,0,0,0,251.749,176.402z M246.868,174.855L246.856,176.167C247.209,176.267,247.606,176.352,248.042,176.413L248.042,175.096A8.907,8.907,0,0,1,246.868,174.855z M245.282,173.723L245.282,175.04C245.282,175.286,245.467,175.514,245.788,175.719L245.811,174.419C245.475,174.209,245.282,173.975,245.282,173.723z M254.428,173.863L254.405,173.869C254.325,174.136,254.026,174.385,253.574,174.592L253.58,175.904C254.11,175.659,254.428,175.364,254.428,175.041z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing>
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.187" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M254.427,168.027L254.427,175.039C254.427,175.867 252.379,176.539 249.855,176.539 247.331,176.539 245.282,175.867 245.282,175.039L245.282,168.027" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFFFFFFF" Thickness="0.192" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M253.392,167.52C253.392,168.021 251.808,168.427 249.855,168.427 247.901,168.427 246.317,168.021 246.317,167.52 246.317,167.019 247.901,166.613 249.855,166.613 251.808,166.613 253.392,167.019 253.392,167.52z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.231" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M248.698,168.19L248.855,169.44C249.162,169.462,249.481,169.478,249.808,169.48L250.04,168.19z M252.801,167.887L251.889,168.134 251.947,169.311A8.91,8.91,0,0,0,252.813,169.121z M247.397,165.979C247.138,166.055,246.897,166.144,246.677,166.242L246.804,167.187 247.385,167.002z M249.837,165.606C249.715,165.606,249.596,165.613,249.477,165.617L249.674,166.8 250.279,166.788 250.517,165.634A9.727,9.727,0,0,0,249.837,165.606z M252.51,166.024L252.388,167.058 253.079,167.302 253.155,166.287A5.259,5.259,0,0,0,252.51,166.024z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M245.993,168.8L246.177,167.512 245.242,167.006 245.27,168.471z M254.396,168.522L254.438,167.234 253.562,167.496z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M263.686,160.029C264.516,159.914 265.748,161.053 265.822,162.462 265.882,163.58 264.132,163.522 264.132,163.522 264.042,163.98 263.077,164.403 262.292,164.438 261.529,164.471 262.499,163.006 262.499,163.006 262.024,161.746 262.647,160.258 262.647,160.258z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M262.499,162.948L263.3,162.919C263.3,162.919 263.361,163.333 263.508,163.349 263.665,163.366 263.834,162.948 263.834,162.948L265.051,162.919" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFD20014">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFF1B517" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M264.131,160.859C264.811,160.368,264.215,159.379,263.745,159.37L262.647,159.399C262.13,159.409 261.255,159.972 261.371,160.459 261.473,160.882 261.758,161.076 262.202,161.002 262.404,160.969 262.828,160.439 263.033,160.43 263.308,160.417 263.911,161.018 264.131,160.859z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFF1B517">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="EvenOdd" Figures="M214.242,174.855C213.625,174.933 213.511,175.643 213.742,176.295 211.056,177.051 208.656,178.035 206.287,178.701 206.192,178.227 207.461,176.856 207.461,176.856 207.797,177.018 208.048,177.786 208.048,177.786 208.132,176.208 209.687,175.158 209.687,175.158 208.763,175.036 205.955,176.125 205.619,176.57 205.619,176.57 206.706,176.449 206.874,176.57 206.874,176.57 204.734,178.882 204.637,179.57 204.97,180.32 208.664,180.881 208.664,180.881 208.606,181.076 207.577,181.811 207.577,181.811 209.047,182.134 211.262,181.094 211.924,180.461 211.924,180.461 210.196,180.318 208.85,179.227 208.85,179.227 209.127,179.907 208.96,180.231 208.96,180.231 206.86,179.626 206.642,179.278 206.648,179.248 211.608,177.963 214.01,177.277 214.098,177.706 214.575,178.517 215.148,178.325 215.522,178.2 215.404,177.459 215.265,176.935A0.77,0.77,0,0,0,215.77,177.12C216.192,177.12 216.537,176.793 216.537,176.385 216.537,175.978 216.192,175.645 215.77,175.645A0.757,0.757,0,0,0,215.05,176.15C214.954,175.697,214.705,174.796,214.242,174.855z M216.131,176.383C216.131,176.573,215.971,176.728,215.773,176.728A0.352,0.352,0,0,1,215.415,176.383C215.415,176.193 215.575,176.038 215.773,176.038 215.97,176.038 216.131,176.192 216.131,176.383z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M293.068,177.884C293.251,177.517 292.906,175.672 292.906,175.672 292.533,175.714 292.024,176.353 292.024,176.353 292.504,174.842 291.159,172.316 291.159,172.316 292.069,172.506 295.104,175.444 295.262,175.973 295.262,175.973 293.932,175.499 293.732,175.558 293.949,177.064 294.99,177.763 295.382,178.546 295.382,178.546 293.656,178.926 293.829,180.368L292.702,180.389C292.312,179.908,292.854,179.113,292.854,179.113L285.115,175.872C284.616,175.662 283.495,175.154 283.663,174.554 283.833,173.95 285.679,174.805 286.133,174.952z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M285.635,176.541L286.545,174.868C286.871,174.428,286.199,173.948,285.722,174.512L284.702,176.039C284.248,176.876,285.202,177.106,285.635,176.541z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing Brush="#FF016A16">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FFFFFFFF" Thickness="0.237" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M238.538,160.118C238.273,160.611 237.478,160.97 236.539,160.97 235.601,160.97 234.811,160.611 234.546,160.118A0.756,0.756,0,0,0,234.447,160.477C234.447,161.146 235.384,161.687 236.539,161.687 237.694,161.687 238.631,161.146 238.631,160.477A0.748,0.748,0,0,0,238.538,160.118z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.035,172.786L238.975,170.596 235.899,165.342 225.006,164.807 225.384,168.747 234.664,170.524 235.546,172.105 246.212,175.073z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF503200">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M238.662,174.254L227.513,157.856 226.966,158.267 238.026,174.734z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M228.551,158.5L227.361,156.508C227.138,156.14 226.8,156.018 226.302,156.28 225.818,156.535 225.865,157.04 226.062,157.403L227.163,159.255z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M239.986,164.127L217.49,161.841 216.943,165.111 239.33,167.363z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M217.089,160.997L216.506,165.535 217.454,165.535 218.11,161.384z M220.844,161.735L220.589,165.815 221.172,165.885 221.646,162.263z M236.085,163.494L235.538,167.328 236.632,167.293 237.069,163.494z M239.436,163.599L238.657,168.033 239.895,168.213 240.249,165.881C240.349,166.349 240.78,166.705 241.295,166.705 241.884,166.705 242.365,166.241 242.365,165.673 242.365,165.105 241.884,164.647 241.295,164.647 240.886,164.647 240.515,164.887 240.355,165.334L240.586,163.672z M231.317,164.319L228.223,167.801 228.584,168.224 232.554,165.513z M224.124,173L227.218,169.518 226.857,169.095 222.887,171.806z M232.22,172.129L228.456,169.219 228.069,169.492 231.034,173.248z M222.938,165.413L226.754,168.223 227.218,167.875 224.228,164.12z M227.09,163.094L227.455,167.667 227.968,167.645 229.175,163.193z M228.341,174.189L227.976,169.616 227.411,169.563 226.72,174.189z M233.401,168.026L228.606,168.536 228.533,168.993 233.383,169.627z M221.993,169.609L226.673,168.869 226.773,168.505 221.931,167.965z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="1.27" RadiusY="1.225" Center="227.693,168.548" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Round" EndLineCap="Round" LineJoin="Miter" MiterLimit="1" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="EvenOdd" Figures="M234.438,168.548C234.438,172.14 231.416,175.055 227.693,175.055 223.97,175.055 220.948,172.14 220.948,168.548 220.948,164.956 223.97,162.041 227.693,162.041 231.416,162.041 234.438,164.956 234.438,168.548z M233.091,168.548C233.091,171.422 230.672,173.755 227.693,173.755 224.713,173.755 222.295,171.422 222.295,168.548 222.295,165.674 224.714,163.341 227.693,163.341 230.673,163.341 233.091,165.674 233.091,168.548z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M223.48,165.264L222.423,164.468 M231.034,164.493L231.936,163.573 M232.967,172.701L231.858,171.831 M223.48,173.696L224.434,172.676 M246.196,162.122L247.351,168.008 246.409,168.505 245.395,162.206z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M245.592,161.364C245.057,161.14 244.36,161.519 243.218,160.072 241.34,161.795 243.111,162.052 243.397,163.758 243.927,163.976 244.255,162.435 245.699,162.277 245.878,162.259 247.997,162.074 247.997,162.074L247.465,161.348C247.465,161.348,245.991,161.388,245.592,161.364z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M246.359,162.518L246.145,160.762C245.913,160.142,245.145,160.675,245.145,161.037L245.342,162.656z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="EvenOdd" Figures="M240.765,167.372L240.784,169.009C240.248,169.192,240.33,169.594,240.347,170.177L240.366,174.949C240.176,175.265 239.588,175.28 239.312,175.529 239.035,175.776 239.07,176.258 240.332,176.575L241.307,176.61C242.793,176.285 243.1,175.792 242.355,175.515 241.958,175.367 241.436,175.191 241.238,174.958L241.271,173.821 242.235,173.856C242.495,173.856,242.988,173.204,243.005,172.671L243.01,170.201C242.975,168.8,241.925,168.642,241.63,168.659L241.651,167.369z M242.395,170.102C242.413,169.702 241.84,169.345 241.609,169.335 241.379,169.325 240.875,169.802 240.858,170.202L240.858,171.202C240.892,171.569 241.185,172.812 241.773,172.903 242.053,172.946 242.413,172.503 242.413,172.136L242.396,170.102z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFFFFF">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M234.275,172.328C233.639,172.071,233.645,173.5,233.645,173.5L234.647,173.51C235.087,173.71 235.439,174.353 235.159,174.669 234.928,174.93 232.982,174.228 232.851,174.632 233.195,176.573 235.768,177.32 236.699,176.471 237.609,175.641 237.84,173.423 234.882,172.842z M234.87,172.856L234.578,173.495" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M214.943,173.055L213.98,169.005 M216.112,172.822L214.632,169.669 M218.658,171.993L215.321,170.201 M220.103,171.628L213.911,168.94" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFD20014">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FFD20014" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M210.215,166.013C210.215,166.013 207.961,165.977 207.559,166.135 207.397,166.199 208.126,166.96 207.975,167.25 207.412,168.333 203.581,168.184 203.278,167.948 202.759,167.543 206.846,167.195 206.873,166.919 206.903,166.603 206.268,165.773 206.367,165.264 206.495,164.603 208.155,164.357 208.155,164.357z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF503200">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M213.233,168.05L208.131,163.828C208.131,163.828 207.906,163.59 207.718,163.795 207.534,163.995 207.787,164.226 207.787,164.226L213.05,168.574z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M218.146,172.217C218.056,172.13,213.991,168.609,213.991,168.609L213.72,167.581C213.72,167.581 213.092,168.006 212.862,168.226 212.632,168.446 212.275,169.045 212.275,169.045L213.413,169.097 217.008,172.391z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="232.534,177.056" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="230.641,175.716" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="228.091,176.593" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="224.153,177.445" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="222.487,177.64" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="220.846,177.64" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="219.18,177.591" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="219.988,176.325" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="221.604,176.398" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="223.144,176.203" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="222.361,174.961" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFF1B517">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <EllipseGeometry RadiusX="0.74" RadiusY="0.715" Center="220.846,174.937" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing Brush="#FFF1B517">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="0.183" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="EvenOdd" Figures="M236.47,177.991C236.47,177.675 235.701,177.811 235.701,177.441 235.701,177.029 236.874,177.331 237.036,177.693 237.696,177.097 237.98,177.533 238.384,177.713 238.959,176.858 239.671,176.89 240.365,177.516 240.766,177.073 241.775,177.219 242.122,177.713 242.786,177.053 243.377,177.216 243.837,177.693 244.023,177.347 244.295,177.423 244.491,177.673 244.845,177.045 245.733,177.233 246.107,177.649 246.439,177.283 246.78,177.569 247.221,177.839 247.518,177.559 247.999,177.612 247.999,177.889 247.999,178.179 247.371,178.077 247.371,178.363 247.371,178.619 247.829,178.49 247.829,178.813 247.829,179.068 247.149,179.163 247.044,178.757 246.814,179.197 245.982,179.028 245.9,178.619 245.624,178.954 245.003,179.055 244.654,178.56 244.368,178.794 244.024,178.827 243.867,178.591 243.35,179.147 242.479,179.033 242.179,178.421L241.885,178.433C241.377,179.123 240.583,178.803 240.365,178.423 239.512,179.038 239.003,178.843 238.527,178.443 237.979,179.109 237.146,179.063 236.954,178.443 236.586,178.71 235.817,178.773 235.817,178.46 235.817,178.159 236.47,178.268 236.47,177.991z M238.125,178.141C238.125,178.284 237.93,178.401 237.689,178.401 237.449,178.401 237.254,178.284 237.254,178.141 237.254,177.998 237.449,177.881 237.689,177.881 237.929,177.881 238.125,177.998 238.125,178.141z M239.945,177.923C239.945,178.095 239.71,178.235 239.421,178.235 239.132,178.235 238.897,178.095 238.897,177.923 238.897,177.75 239.132,177.611 239.421,177.611 239.711,177.611 239.945,177.751 239.945,177.923z M243.52,178.12C243.52,178.295 243.308,178.436 243.046,178.436 242.784,178.436 242.572,178.295 242.572,178.12 242.572,177.946 242.784,177.804 243.046,177.804 243.308,177.804 243.52,177.946 243.52,178.12z M241.616,178.037C241.616,178.257 241.409,178.437 241.153,178.437 240.897,178.437 240.689,178.257 240.689,178.037 240.689,177.817 240.897,177.637 241.153,177.637 241.409,177.637 241.616,177.817 241.616,178.037z M245.676,178.047C245.676,178.245 245.49,178.405 245.262,178.405 245.033,178.405 244.847,178.245 244.847,178.047 244.847,177.85 245.033,177.69 245.262,177.69 245.49,177.69 245.676,177.85 245.676,178.047z M244.432,178.13C244.432,178.258 244.312,178.361 244.165,178.361 244.017,178.361 243.897,178.258 243.897,178.131 243.897,178.003 244.017,177.9 244.165,177.9 244.312,177.9 244.432,178.003 244.432,178.13z M246.854,178.224C246.854,178.407 246.719,178.555 246.552,178.555 246.386,178.555 246.251,178.407 246.251,178.224 246.251,178.041 246.386,177.892 246.552,177.892 246.719,177.892 246.854,178.041 246.854,178.224z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FFFFFFFF">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.366" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M462.734,360.732L462.608,357.082 458.194,357.326 457.942,361.3z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFFFFF">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.366" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M430.474,365.848L424.572,362.538C448.91,364.768 453.88,356.279 459.761,355.825 463.376,355.543 463.941,359.829 456.935,357.79L458.747,362.273C458.747,362.273,441.47,371.992,424.488,367.977z M536.498,360.732L536.624,357.082 542.022,357.207 542.275,361.181z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFFFFF">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.366" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M569.878,364.954L575.431,361.924C547.554,362.754 553.901,357.345 539.953,355.827 536.349,355.437 533.639,360.069 542.778,357.792L540.967,362.275 545.351,362.279C554.847,368.532,567.663,369.09,576.154,367.083L569.878,364.953z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFFFFF">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="0.366" StartLineCap="Flat" EndLineCap="Flat" LineJoin="Miter" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M456.836,357.816L456.836,364.124C456.836,364.124 472.292,369.859 499.874,369.859 527.574,369.859 542.911,364.124 542.911,364.124L542.911,357.816C542.911,357.816 531.213,363.206 499.874,363.206 468.653,363.206 456.836,357.816 456.836,357.816z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FF000000">
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M459.146,364.16L460.51,359.541 461.143,359.716 459.94,363.789 462.298,364.437 462.138,364.982z M463.619,362.129L463.695,361.222 463.898,360.444 464.573,360.608 464.37,361.386 463.984,362.218 463.619,362.128z M470.269,361.817L470.915,361.944 470.341,364.663C470.241,365.136 470.107,365.501 469.937,365.757 469.767,366.013 469.519,366.2 469.193,366.317 468.867,366.436 468.469,366.448 467.998,366.356 467.541,366.266 467.184,366.116 466.925,365.908A1.32,1.32,0,0,1,466.442,365.126C466.379,364.813,466.4,364.408,466.505,363.909L467.078,361.191 467.724,361.317 467.151,364.033C467.065,364.442,467.041,364.751,467.078,364.96A0.874,0.874,0,0,0,467.39,365.487C467.56,365.63 467.783,365.728 468.06,365.783 468.535,365.876 468.895,365.839 469.14,365.671 469.386,365.503 469.572,365.124 469.696,364.533z M470.996,366.837L471.799,362.098 472.466,362.203 474.416,366.332 475.046,362.61 475.67,362.709 474.866,367.449 474.199,367.343 472.251,363.212 471.619,366.936z M476.078,367.605L476.762,362.848 477.414,362.935 476.731,367.692z M477.953,365.507C478.047,364.715 478.341,364.119 478.834,363.72 479.328,363.32 479.924,363.159 480.621,363.236 481.078,363.286 481.477,363.436 481.818,363.687 482.16,363.938 482.405,364.263 482.552,364.66 482.7,365.058 482.746,365.495 482.689,365.973A2.77,2.77,0,0,1,482.232,367.238C481.984,367.598 481.663,367.855 481.269,368.01 480.874,368.166 480.463,368.22 480.033,368.173A2.403,2.403,0,0,1,478.823,367.71A2.112,2.112,0,0,1,478.095,366.73A2.622,2.622,0,0,1,477.953,365.507z M478.626,365.591C478.558,366.166 478.665,366.636 478.946,367.003 479.228,367.369 479.61,367.579 480.094,367.632 480.586,367.686 481.011,367.564 481.369,367.265 481.727,366.965 481.942,366.509 482.015,365.895A2.38,2.38,0,0,0,481.931,364.855A1.522,1.522,0,0,0,481.414,364.116A1.662,1.662,0,0,0,480.56,363.78A1.73,1.73,0,0,0,479.31,364.108C478.94,364.378,478.712,364.873,478.627,365.591z M483.243,368.423L483.649,363.637 484.322,363.69 486.61,367.653 486.928,363.895 487.558,363.945 487.152,368.732 486.479,368.678 484.192,364.712 483.872,368.472z M490.222,368.909L490.439,364.111 493.794,364.252 493.769,364.818 491.072,364.704 491.004,366.19 493.338,366.289 493.313,366.855 490.979,366.756 490.88,368.936 490.222,368.908z M493.889,369.065L495.897,364.299 496.607,364.313 498.547,369.153 497.797,369.139 497.245,367.674 495.164,367.635 494.588,369.079 493.888,369.065z M495.364,367.12L497.052,367.152 496.559,365.812A12.78,12.78,0,0,1,496.226,364.81A5.96,5.96,0,0,1,495.939,365.722z M499.192,369.142L499.202,364.339 499.861,364.34 499.851,369.143 499.191,369.142z M502.276,369.128L502.213,364.892 500.573,364.915 500.565,364.348 504.511,364.294 504.519,364.861 502.872,364.883 502.935,369.119 502.275,369.129z M507.16,369.012L506.928,364.215 507.586,364.185 507.791,368.416 510.24,368.306 510.267,368.872z M510.51,368.866L512.063,363.945 512.771,363.896 515.157,368.546 514.408,368.598 513.722,367.188 511.646,367.33 511.208,368.818z M511.797,366.801L513.481,366.685 512.864,365.394A12.89,12.89,0,0,1,512.439,364.424C512.399,364.736,512.332,365.047,512.239,365.358z M517.641,368.317L517.095,363.543 520.433,363.188 520.497,363.751 517.814,364.037 517.983,365.515 520.305,365.268 520.369,365.831 518.047,366.079 518.295,368.247z M521.291,365.577C521.174,364.787 521.303,364.139 521.676,363.632 522.049,363.125 522.583,362.824 523.277,362.728 523.732,362.666 524.157,362.714 524.554,362.874 524.95,363.033 525.272,363.287 525.519,363.636 525.766,363.985 525.925,364.396 525.995,364.872 526.067,365.354 526.03,365.8 525.885,366.208A2.017,2.017,0,0,1,525.155,367.19C524.815,367.437,524.43,367.59,524.002,367.649A2.442,2.442,0,0,1,522.71,367.496A2.17,2.17,0,0,1,521.749,366.724A2.655,2.655,0,0,1,521.291,365.576z M521.965,365.494C522.049,366.066 522.275,366.496 522.644,366.782 523.012,367.067 523.437,367.177 523.919,367.111 524.409,367.043 524.789,366.821 525.057,366.444 525.325,366.068 525.413,365.574 525.323,364.962A2.403,2.403,0,0,0,524.969,363.976A1.562,1.562,0,0,0,524.275,363.386A1.684,1.684,0,0,0,523.361,363.269A1.699,1.699,0,0,0,522.237,363.892C521.95,364.244,521.859,364.778,521.965,365.494z M527.192,367.106L526.303,362.38 528.475,362C528.911,361.924 529.251,361.908 529.495,361.953 529.737,361.998 529.947,362.116 530.123,362.307 530.3,362.499 530.413,362.724 530.461,362.984 530.524,363.319 530.465,363.621 530.283,363.891 530.101,364.161 529.782,364.367 529.323,364.511A1.8,1.8,0,0,1,529.759,364.678C529.979,364.813,530.199,364.991,530.415,365.213L531.509,366.35 530.693,366.492 529.86,365.622A9.11,9.11,0,0,0,529.27,365.054A1.498,1.498,0,0,0,528.882,364.795A1.022,1.022,0,0,0,528.562,364.721A2.13,2.13,0,0,0,528.197,364.762L527.445,364.894 527.84,366.992z M527.344,364.352L528.737,364.108C529.033,364.057,529.259,363.986,529.415,363.898A0.735,0.735,0,0,0,529.793,363.101A0.716,0.716,0,0,0,529.437,362.594C529.242,362.479,528.963,362.454,528.6,362.518L527.05,362.789z M535.206,363.829L535.885,363.847C535.869,364.385 535.717,364.827 535.43,365.17 535.142,365.513 534.745,365.74 534.24,365.85 533.716,365.963 533.267,365.953 532.89,365.819A2.036,2.036,0,0,1,531.934,365.088A3.211,3.211,0,0,1,531.384,363.888C531.27,363.4 531.267,362.953 531.376,362.548 531.484,362.143 531.695,361.808 532.008,361.541A2.505,2.505,0,0,1,533.119,361.003C533.605,360.897 534.041,360.928 534.429,361.094 534.815,361.261 535.124,361.547 535.356,361.951L534.756,362.231C534.564,361.916 534.343,361.703 534.092,361.594 533.842,361.484 533.554,361.466 533.23,361.536 532.856,361.617 532.565,361.771 532.354,361.998 532.144,362.225 532.022,362.495 531.988,362.808A2.78,2.78,0,0,0,532.046,363.741C532.139,364.139 532.28,364.474 532.47,364.745 532.66,365.016 532.898,365.197 533.187,365.289 533.475,365.381 533.767,365.395 534.063,365.331 534.423,365.253 534.704,365.086 534.907,364.831 535.11,364.577 535.21,364.243 535.206,363.83z M537.036,365.135L535.697,360.509 539.164,359.575 539.322,360.121 536.49,360.884 536.9,362.301 539.552,361.586 539.709,362.129 537.056,362.844 537.512,364.418 540.456,363.625 540.614,364.171z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+    </DrawingGroup>
+  </DrawingGroup>
+</DrawingGroup>

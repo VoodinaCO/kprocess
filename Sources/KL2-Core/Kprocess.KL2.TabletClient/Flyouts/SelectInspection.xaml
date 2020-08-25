@@ -1,0 +1,193 @@
+﻿<MahApps:Flyout x:Class="Kprocess.KL2.TabletClient.Flyouts.SelectInspection"
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+                xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                xmlns:app="clr-namespace:Kprocess.KL2.TabletClient"
+                xmlns:attachBehaviors="clr-namespace:Kprocess.KL2.TabletClient.AttachBehaviors"
+                xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+                xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+                xmlns:packiconkprocess="clr-namespace:Kprocess.PackIconKprocess;assembly=Kprocess.PackIconKprocess"
+                xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+                Width="900"
+                d:DesignHeight="720"
+                d:DesignWidth="300"
+                Header="{k:Localize Common_Select_Inspection}"
+                HeaderTemplate="{StaticResource DefaultFlyoutHeaderTemplate}"
+                IsEnabled="{Binding IsLoading, Converter={converter:NotConverter}, FallbackValue=True, Source={x:Static app:Locator.Main}}"
+                IsModal="True"
+                IsOpen="{Binding FlyoutIsOpen, Mode=TwoWay}"
+                IsOpenChanged="Flyout_IsOpenChanged"
+                mc:Ignorable="d">
+    <MahApps:Flyout.CloseButtonVisibility>
+        <MultiBinding Converter="{k:BooleansToVisibilityConverter}">
+            <Binding Converter="{converter:NotNullConverter}" Path="Nodes" />
+            <Binding Converter="{converter:NotNullConverter}"
+                     Path="InspectionPublication"
+                     Source="{x:Static app:Locator.Main}" />
+        </MultiBinding>
+    </MahApps:Flyout.CloseButtonVisibility>
+    <MahApps:Flyout.Resources>
+        <Style x:Key="TreeViewItemStyle" TargetType="{x:Type syncfusion:TreeViewItemAdv}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="Padding" Value="1,0,0,0" />
+            <Setter Property="Foreground" Value="{StaticResource AccentColorBrush}" />
+            <Setter Property="IsEditable" Value="False" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+        </Style>
+
+        <HierarchicalDataTemplate DataType="{x:Type models:ProjectDir}" ItemsSource="{Binding Nodes}">
+            <Grid Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <iconPacks:PackIconMaterial Grid.Column="0"
+                                            Width="32"
+                                            Height="32"
+                                            Margin="2,0,0,0"
+                                            VerticalAlignment="Center"
+                                            Kind="Folder" />
+                <TextBlock Grid.Column="1"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Text="{Binding Name}" />
+            </Grid>
+        </HierarchicalDataTemplate>
+
+        <DataTemplate DataType="{x:Type models:Procedure}">
+            <Grid Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <packiconkprocess:PackIconKprocess Grid.Column="0"
+                                                   Width="32"
+                                                   Height="32"
+                                                   VerticalAlignment="Center"
+                                                   Kind="Gear" />
+                <TextBlock Grid.Column="1"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>
+    </MahApps:Flyout.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    Visibility="{Binding Nodes, Converter={converter:NotNullToVisibilityConverter}}">
+            <Button x:Name="btnCollapseAll"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0,0,5"
+                    HorizontalAlignment="Left">
+                <Grid>
+                    <iconPacks:PackIconMaterial Width="25"
+                                                Height="30"
+                                                VerticalAlignment="Center"
+                                                Kind="FolderOpen" />
+
+                    <iconPacks:PackIconMaterial Width="15"
+                                                Height="15"
+                                                Margin="12,11,0,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="Black"
+                                                Kind="Circle" />
+
+                    <iconPacks:PackIconMaterial Width="15"
+                                                Height="15"
+                                                Margin="12,11,0,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                Kind="MinusCircleOutline" />
+                </Grid>
+            </Button>
+
+            <Button x:Name="btnExpandAll"
+                    Width="40"
+                    Height="40"
+                    Margin="5,0,0,5"
+                    HorizontalAlignment="Left">
+                <Grid>
+                    <iconPacks:PackIconMaterial Width="25"
+                                                Height="30"
+                                                VerticalAlignment="Center"
+                                                Kind="FolderOpen" />
+
+                    <iconPacks:PackIconMaterial Width="15"
+                                                Height="15"
+                                                Margin="12,11,0,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="Black"
+                                                Kind="Circle" />
+
+                    <iconPacks:PackIconMaterial Width="15"
+                                                Height="15"
+                                                Margin="12,11,0,0"
+                                                VerticalAlignment="Center"
+                                                Foreground="White"
+                                                Kind="PlusCircleOutline" />
+                </Grid>
+            </Button>
+        </StackPanel>
+
+        <syncfusion:TreeViewAdv x:Name="PublicationsTreeView"
+                                Grid.Row="1"
+                                Margin="2"
+                                AllowDragDrop="False"
+                                AllowMultiSelect="False"
+                                Background="White"
+                                Collapsing="PublicationsTreeView_Collapsing"
+                                ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                                ItemsSource="{Binding Nodes}">
+            <i:Interaction.Behaviors>
+                <behaviors:FrictionScrollableBehavior ItemSelected="PublicationsTreeView_ScrollableItemSelected" />
+            </i:Interaction.Behaviors>
+            <syncfusion:TreeViewAdv.Style>
+                <Style TargetType="{x:Type syncfusion:TreeViewAdv}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=btnExpandAll, Path=IsPressed, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="attachBehaviors:TreeviewExpandBehavior.IsExpandedAll" Value="True" />
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding ElementName=btnCollapseAll, Path=IsPressed, UpdateSourceTrigger=PropertyChanged}" Value="True">
+                            <Setter Property="attachBehaviors:TreeviewExpandBehavior.IsCollapsedAll" Value="True" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </syncfusion:TreeViewAdv.Style>
+        </syncfusion:TreeViewAdv>
+
+        <Border Grid.Row="0"
+                Grid.RowSpan="2"
+                Background="#90808080"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Visibility="{Binding TreeviewIsLoading, Converter={converter:BoolToVisibilityConverter}, FallbackValue=Hidden}">
+            <syncfusion:SfBusyIndicator Name="sfBusyIndicator"
+                                        Margin="5"
+                                        VerticalAlignment="Center"
+                                        AnimationType="Gear"
+                                        Foreground="{StaticResource AccentColorBrush}"
+                                        IsBusy="{Binding TreeviewIsLoading}"
+                                        ViewboxHeight="100"
+                                        ViewboxWidth="100" />
+        </Border>
+    </Grid>
+</MahApps:Flyout>

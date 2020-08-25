@@ -1,0 +1,18 @@
+@using KProcess.KL2.WebAdmin.Models.License;
+
+@model ActivatedUsersViewModel
+
+<div class="container" id="activatedUsersContainer" style="max-height:700px;">
+    <div class="row">
+        @(Html.EJS()
+            .ListView("ActivatedUserListView")
+            .DataSource(Model.ActivatedUsers)
+            .Fields(f => f.Text("FullName")
+            .Id("UserId"))
+            .Height("100%")
+            .Render()
+        )
+    </div>
+</div>
+
+@Html.EJS().ScriptManager()

@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{09AB91AD-5AE7-43BF-9094-D2ABA01BF8D0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Kprocess.KL2.Models</RootNamespace>
+    <AssemblyName>Kprocess.KL2.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActionCategory.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActionType.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActionValue.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppResourceKey.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppResourceValue.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppSetting.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ConnectionStringsSecurity.cs" />
+    <Compile Include="ContextFactory.cs" />
+    <Compile Include="CutVideo.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Equipment.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FakeDbSet.cs" />
+    <Compile Include="FakeKL2Context.cs" />
+    <Compile Include="IKL2Context.cs" />
+    <Compile Include="KAction.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KActionReduced.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KL2.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KL2.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KL2.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KL2.Designer.cs">
+      <DependentUpon>KL2.edmx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="KsmedEntitiesExt.cs" />
+    <Compile Include="Language.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LocalizableLabels.cs" />
+    <Compile Include="Objective.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Operator.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Procedure.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectDir.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectReferential.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Publication.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedAction.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedActionCategory.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedFile.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedReferential.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedReferentialAction.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedResource.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref1.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref1Action.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref2.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref2Action.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref3.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref3Action.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref4.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref4Action.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref5.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref5Action.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref6.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref6Action.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref7.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref7Action.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Referential.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Resource.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioNature.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioState.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Solution.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="StoredProcedureModels.cs" />
+    <Compile Include="Team.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UISetting.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoleProject.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Video.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VideoNature.cs">
+      <DependentUpon>KL2.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="KL2.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KL2.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="KL2.edmx.diagram">
+      <DependentUpon>KL2.edmx</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41a8fd16-8aa1-48f2-ac75-cb27ffeea2a4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5d4074aa-f569-4c2a-ac8f-a486c382bfd7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579C-1C1B-4B94-B14C-52AB369AEEBA}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.ConnectionSecurity\KProcess.KL2.ConnectionSecurity.csproj">
+      <Project>{4F22A795-8032-4E56-A62E-035BD7B89215}</Project>
+      <Name>KProcess.KL2.ConnectionSecurity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Presentation.Windows\KProcess.Presentation.Windows.csproj">
+      <Project>{BA24ABBC-FE81-40B3-AB48-5E33C8FC542F}</Project>
+      <Name>KProcess.Presentation.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="KL2.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KL2.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="KL2.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KL2.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework.fr">
+      <Version>6.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="TrackableEntities.Client">
+      <Version>2.5.7</Version>
+    </PackageReference>
+    <PackageReference Include="TrackableEntities.EF.6">
+      <Version>2.5.7</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

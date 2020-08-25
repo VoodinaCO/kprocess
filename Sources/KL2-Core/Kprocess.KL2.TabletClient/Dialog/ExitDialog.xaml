@@ -1,0 +1,59 @@
+﻿<MahApps:CustomDialog x:Class="Kprocess.KL2.TabletClient.Dialog.ExitDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+                      xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      Height="620"
+                      d:DesignHeight="640"
+                      d:DesignWidth="1200"
+                      Style="{StaticResource TabletDialogStyle}"
+                      mc:Ignorable="d">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Grid.ColumnSpan="3"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   FontSize="60"
+                   Text="{k:Localize VM_MainWindowViewModel_Message_Title_ConfirmExit}"
+                   Visibility="Collapsed" />
+        <TextBlock Grid.Row="1"
+                   Grid.Column="1"
+                   FontSize="30"
+                   Text="{k:Localize VM_MainWindowViewModel_Message_ConfirmExit}"
+                   TextWrapping="Wrap" />
+        <Grid Grid.Row="2"
+              Grid.Column="1"
+              Margin="0,30">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Margin="10"
+                    Command="{Binding ForceExitCommand}"
+                    Content="Oui"
+                    FontSize="30" />
+            <Button Grid.Column="1"
+                    Margin="10"
+                    Command="{Binding CancelExitCommand}"
+                    Content="Non"
+                    FontSize="30" />
+        </Grid>
+    </Grid>
+</MahApps:CustomDialog>

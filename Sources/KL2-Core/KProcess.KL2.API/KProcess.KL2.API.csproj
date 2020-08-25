@@ -1,0 +1,338 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EEC93FF4-1289-466B-A9C5-1B4525763E5B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>KProcess.KL2.API</RootNamespace>
+    <AssemblyName>KProcess.KL2.API</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\DynamicBody.cs" />
+    <Compile Include="App_Start\NotImplExceptionFilterAttribute.cs" />
+    <Compile Include="App_Start\SignalRConfig.cs" />
+    <Compile Include="App_Start\SignalRResolver.cs" />
+    <Compile Include="Authentication\AuthorizationServerProvider.cs" />
+    <Compile Include="Authentication\IdentitySecurityContext.cs" />
+    <Compile Include="App_Start\ApiService.cs" />
+    <Compile Include="App_Start\OwinConfiguration.cs" />
+    <Compile Include="Authentication\KSmedApiAuthenticationMode.cs" />
+    <Compile Include="Authentication\SettingUserContextFilter.cs" />
+    <Compile Include="App_Start\UnityResolver.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controller\CloudFilesController.cs" />
+    <Compile Include="Controller\UISettingsServiceController.cs" />
+    <Compile Include="Controller\ReferentialsServiceController.cs" />
+    <Compile Include="Controller\ImportExportServiceController.cs" />
+    <Compile Include="Controller\AppResourceServiceController.cs" />
+    <Compile Include="Controller\ApplicationUsersServiceController.cs" />
+    <Compile Include="Controller\AnalyzeServiceController.cs" />
+    <Compile Include="Controller\AuthenticationServiceController.cs" />
+    <Compile Include="Controller\PrepareServiceController.cs" />
+    <Compile Include="Controller\SharedDatabaseServiceController.cs" />
+    <Compile Include="Controller\LicenseController.cs" />
+    <Compile Include="Controller\UtilitiesController.cs" />
+    <Compile Include="Controller\ValidateServiceController.cs" />
+    <Compile Include="Interface\IAnalyzeService.cs" />
+    <Compile Include="Interface\IApplicationUsersService.cs" />
+    <Compile Include="Interface\IAppResourceService.cs" />
+    <Compile Include="Interface\IAuthenticationService.cs" />
+    <Compile Include="Interface\IDataBaseService.cs" />
+    <Compile Include="Interface\IImportExportService.cs" />
+    <Compile Include="Interface\IPrepareService.cs" />
+    <Compile Include="Interface\IReferentialsService.cs" />
+    <Compile Include="Interface\ISharedDatabaseService.cs" />
+    <Compile Include="Interface\ISystemInformationService.cs" />
+    <Compile Include="Interface\IUISettingsService.cs" />
+    <Compile Include="Interface\IValidateService.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Version.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Version.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".dockerignore">
+      <DependentUpon>Dockerfile</DependentUpon>
+    </None>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="App.Debug.Config">
+      <DependentUpon>App.Config</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="App.Release.config">
+      <DependentUpon>App.config</DependentUpon>
+    </None>
+    <Content Include="..\Localization.sqlite">
+      <Link>Resources\Localization.sqlite</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Docker\kl2suiteapiconfig\kl2suiteapiconfig.csproj">
+      <Project>{d2e7ab8c-73e9-4878-b98f-573651897cf5}</Project>
+      <Name>kl2suiteapiconfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\KProcess.KL2.Language\KProcess.KL2.Languages.csproj">
+      <Project>{808A3592-D80A-440B-9EAA-3E8286728CC0}</Project>
+      <Name>KProcess.KL2.Languages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FFME_Libs\FFME_Libs.csproj">
+      <Project>{c75c4083-0dd0-4511-8cf9-a7f09e68b0e8}</Project>
+      <Name>FFME_Libs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41A8FD16-8AA1-48F2-AC75-CB27FFEEA2A4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5D4074AA-F569-4C2A-AC8F-A486C382BFD7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579C-1C1B-4B94-B14C-52AB369AEEBA}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.APIClient\KProcess.KL2.APIClient.csproj">
+      <Project>{4E55B9A5-39E7-46E1-9952-BBF00123945C}</Project>
+      <Name>KProcess.KL2.APIClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.Business.Impl\KProcess.KL2.Business.Impl.csproj">
+      <Project>{391D2E27-2151-4B41-AB9E-A9ACBA7168A7}</Project>
+      <Name>KProcess.KL2.Business.Impl</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.JWT\KProcess.KL2.JWT.csproj">
+      <Project>{45c8b89d-034f-4543-8423-7bf77b98a15c}</Project>
+      <Name>KProcess.KL2.JWT</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.SignalRClient\KProcess.KL2.SignalRClient.csproj">
+      <Project>{B2687D8C-28A1-4D14-8298-C01C5BF0D8E7}</Project>
+      <Name>KProcess.KL2.SignalRClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Business\KProcess.Ksmed.Business.csproj">
+      <Project>{a53f3357-b177-4c21-bc01-89c173694b4e}</Project>
+      <Name>KProcess.Ksmed.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Data\KProcess.Ksmed.Data.csproj">
+      <Project>{ccb03b61-1966-4315-8149-dbf77c34d7c8}</Project>
+      <Name>KProcess.Ksmed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Presentation.Core\KProcess.Ksmed.Presentation.Core.csproj">
+      <Project>{0E402448-C15A-4C79-BEE0-5E76309639C2}</Project>
+      <Name>KProcess.Ksmed.Presentation.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Security\KProcess.Ksmed.Security.csproj">
+      <Project>{4F602ABB-799B-4ED2-9C99-CB2F14380C3A}</Project>
+      <Name>KProcess.Ksmed.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Supervision.Log4Net\KProcess.Supervision.Log4Net.csproj">
+      <Project>{7389422E-2903-4B88-91E3-0EB23E6451CD}</Project>
+      <Name>KProcess.Supervision.Log4Net</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Supervision\KProcess.Supervision.csproj">
+      <Project>{8271055c-57c4-460e-b715-730d38f86227}</Project>
+      <Name>KProcess.Supervision</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework">
+      <Version>6.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Cors">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <Version>2.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.Identity.Owin">
+      <Version>2.2.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.SignalR.Client">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.SignalR.Core">
+      <Version>2.4.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost">
+      <Version>5.2.7</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Data.Sqlite">
+      <Version>2.2.6</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <Version>2.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Cors">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Host.HttpListener">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Hosting">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Security.Cookies">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Security.Jwt">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Owin.Security.OAuth">
+      <Version>4.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="System.Reflection.Emit">
+      <Version>4.3.0</Version>
+    </PackageReference>
+    <PackageReference Include="Topshelf">
+      <Version>4.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="UAParser">
+      <Version>3.1.41</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Dockerfile" />
+    <None Include="Files\PublicKey.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <Content Include="Properties\Version.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Version.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- Référencement de la tache de transformation -->
+  <UsingTask TaskName="TransformXml" AssemblyFile="..\..\..\LibExt\Microsoft.Web.Publishing.Tasks.dll" />
+  <!-- Transformation -->
+  <Target Name="TransformAppConfig" Condition="exists('app.$(Configuration).config')" AfterTargets="AfterBuild">
+    <TransformXml Source="app.config" Destination="$(TargetPath).config" Transform="app.$(Configuration).config" />
+    <!-- Copy lors de l'execution en local sur *.vshost -->
+    <Copy Condition="'$(UseVSHostingProcess)' == 'true'" SourceFiles="$(TargetPath).config" DestinationFiles="$(TargetDir)$(TargetName).vshost$(TargetExt).config" />
+  </Target>
+  <Target Name="App_config_AfterCompile" AfterTargets="AfterCompile" Condition="Exists('App.$(Configuration).config')">
+    <!--Generate transformed app config in the intermediate directory-->
+    <TransformXml Source="App.config" Destination="$(IntermediateOutputPath)$(TargetFileName).config" Transform="App.$(Configuration).config" />
+    <!--Force build process to use the transformed configuration file from now on.-->
+    <ItemGroup>
+      <AppConfigWithTargetPath Remove="App.config" />
+      <AppConfigWithTargetPath Include="$(IntermediateOutputPath)$(TargetFileName).config">
+        <TargetPath>$(TargetFileName).config</TargetPath>
+      </AppConfigWithTargetPath>
+    </ItemGroup>
+  </Target>
+  <!--Override After Publish to support ClickOnce AfterPublish. Target replaces the untransformed config file copied to the deployment directory with the transformed one.-->
+  <Target Name="App_config_AfterPublish" AfterTargets="AfterPublish" Condition="Exists('App.$(Configuration).config')">
+    <PropertyGroup>
+      <DeployedConfig>$(_DeploymentApplicationDir)$(TargetName)$(TargetExt).config$(_DeploymentFileMappingExtension)</DeployedConfig>
+    </PropertyGroup>
+    <!--Publish copies the untransformed App.config to deployment directory so overwrite it-->
+    <Copy Condition="Exists('$(DeployedConfig)')" SourceFiles="$(IntermediateOutputPath)$(TargetFileName).config" DestinationFiles="$(DeployedConfig)" />
+  </Target>
+</Project>

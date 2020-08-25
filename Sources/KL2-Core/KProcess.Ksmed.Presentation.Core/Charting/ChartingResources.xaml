@@ -1,0 +1,92 @@
+﻿<ResourceDictionary 
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+  xmlns:k="http://schemas.kprocess.com/xaml/framework"
+  xmlns:local="clr-namespace:KProcess.Ksmed.Presentation.Core.Controls"
+  xmlns:converters="clr-namespace:KProcess.Ksmed.Presentation.Core.Converters"
+  xmlns:behaviors="clr-namespace:KProcess.Ksmed.Presentation.Core.Behaviors" 
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  mc:Ignorable="d"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+  xmlns:charting="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit">
+
+
+  <!-- Palette Blue -->
+  <RadialGradientBrush x:Key="Background" GradientOrigin="-0.1,-0.1" Center="0.075,0.015" RadiusX="1.05" RadiusY="0.9">
+    <GradientStop Color="#FFB9D6F7" />
+    <GradientStop Color="#FF284B70" Offset="1" />
+  </RadialGradientBrush>
+
+  <!--  charting:ColumnDataPoint  -->
+  <Style x:Key="DescriptionToolTipColumnDataPointStyle" TargetType="charting:ColumnDataPoint">
+    <Setter Property="ToolTip" Value="{Binding Description}" />
+    <Setter Property="Background" Value="{StaticResource Background}" />
+    <Setter Property="BorderBrush" Value="Black" />
+    <Setter Property="BorderThickness" Value="1" />
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="charting:ColumnDataPoint">
+          <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Opacity="0" x:Name="Root">
+            <VisualStateManager.VisualStateGroups>
+              <VisualStateGroup x:Name="CommonStates">
+                <VisualStateGroup.Transitions>
+                  <VisualTransition GeneratedDuration="0:0:0.1" />
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="Normal" />
+                <VisualState x:Name="MouseOver">
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="MouseOverHighlight" Storyboard.TargetProperty="Opacity" To="0.6" Duration="0" />
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+              <VisualStateGroup x:Name="SelectionStates">
+                <VisualStateGroup.Transitions>
+                  <VisualTransition GeneratedDuration="0:0:0.1" />
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="Unselected" />
+                <VisualState x:Name="Selected">
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="SelectionHighlight" Storyboard.TargetProperty="Opacity" To="0.6" Duration="0" />
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+              <VisualStateGroup x:Name="RevealStates">
+                <VisualStateGroup.Transitions>
+                  <VisualTransition GeneratedDuration="0:0:0.5" />
+                </VisualStateGroup.Transitions>
+                <VisualState x:Name="Shown">
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="Root" Storyboard.TargetProperty="Opacity" To="1" Duration="0" />
+                  </Storyboard>
+                </VisualState>
+                <VisualState x:Name="Hidden">
+                  <Storyboard>
+                    <DoubleAnimation Storyboard.TargetName="Root" Storyboard.TargetProperty="Opacity" To="0" Duration="0" />
+                  </Storyboard>
+                </VisualState>
+              </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <Grid Background="{TemplateBinding Background}">
+              <Rectangle>
+                <Rectangle.Fill>
+                  <LinearGradientBrush>
+                    <GradientStop Color="#77ffffff" Offset="0" />
+                    <GradientStop Color="#00ffffff" Offset="1" />
+                  </LinearGradientBrush>
+                </Rectangle.Fill>
+              </Rectangle>
+              <Border BorderBrush="#ccffffff" BorderThickness="1">
+                <Border BorderBrush="#77ffffff" BorderThickness="1" />
+              </Border>
+              <Rectangle x:Name="SelectionHighlight" Fill="Red" Opacity="0" />
+              <Rectangle x:Name="MouseOverHighlight" Fill="White" Opacity="0" />
+            </Grid>
+          </Border>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
+
+</ResourceDictionary>

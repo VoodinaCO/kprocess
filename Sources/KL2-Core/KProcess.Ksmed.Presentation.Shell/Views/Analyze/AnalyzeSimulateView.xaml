@@ -1,0 +1,23 @@
+﻿<UserControl 
+  x:Class="KProcess.Ksmed.Presentation.Shell.Views.AnalyzeSimulateView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:k="http://schemas.kprocess.com/xaml/framework"
+  xmlns:core="http://schemas.kprocess.com/xaml/core"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+  mc:Ignorable="d" 
+  xmlns:pdgcc="clr-namespace:DlhSoft.Windows.Controls;assembly=DlhSoft.ProjectData.GanttChart.LightWPF.Controls" 
+  xmlns:hd="clr-namespace:DlhSoft.Windows.Controls;assembly=DlhSoft.HierarchicalData.LightWPF.Controls"
+  xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+  xmlns:views="clr-namespace:KProcess.Ksmed.Presentation.Shell.Views"
+  d:DataContext="{d:DesignInstance Type={x:Type vm:AnalyzeSimulateViewModel}, IsDesignTimeCreatable=True}" 
+  d:DesignWidth="793" d:DesignHeight="421">
+
+  <views:SimulateView />
+  
+</UserControl>
+
+

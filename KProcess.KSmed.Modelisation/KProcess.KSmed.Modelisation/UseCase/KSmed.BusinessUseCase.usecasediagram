@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseModelRoot xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="1ac6df1d-29e5-4b0f-9632-b89ed4754dc5" name="KSmed.BusinessUseCase" linkedPackageId="0ce91b84-6e1c-4f10-ae89-5be3ec435be1" xmlns="http://schemas.microsoft.com/dsltools/UseCaseModel">
+  <ownedCommentsInternal>
+    <comment Id="a00e2f19-f94e-4fda-8c86-a9f571e27b31">
+      <elementDefinition Id="47ae41fa-c81d-4b89-b67a-41f82842d303" />
+      <body>Download
+KSMED Update
+Gestion des clés de licences</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <useCaseModelRootHasTypes>
+      <actor Id="e715bee2-1176-41c3-b123-e2b1c6c9988b" name="Administrateur KPROCESS" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="7cdd5ea1-937a-46b3-9bea-8fc482f85ebc" />
+        <targetEnds>
+          <association Id="84b064e9-70ee-4257-840b-510418ff299b" isDerived="false" sourceEndRoleName="Administrateur KPROCESS" targetEndRoleName="Extranet" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="5eefb1b3-d15f-4a7e-942e-802578db3696" LastKnownName="Extranet" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b7ba7bb5-0150-4f8f-a219-cabafa865680" name="Administrateur KPROCESS" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="c0d1ef61-d587-4fd7-8f73-70404f6dda2c" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b3371a17-a24c-45c0-af50-b0944d96ff32" name="Extranet" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="6b29651a-7e1f-4855-977d-5c7e8a9da61e" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="50ff926a-eccc-4e8e-81ab-1de743975d2d" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="b2381b0c-8439-494c-81a8-1fe62f4597f3" name="Utilisateur " isAbstract="false" isLeaf="false">
+        <elementDefinition Id="535864a9-8497-4627-9e32-c1bb1b4ccb06" />
+        <targetEnds>
+          <association Id="82a633e2-f92e-4764-84e0-11891d45db0c" isDerived="false" sourceEndRoleName="Utilisateur " targetEndRoleName="KSmed.ApplicationUseCase.usecasediagram" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="35c3154d-3b27-415b-8fec-23c338fdba69" LastKnownName="Application KSMED" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0a181e8c-50ac-4029-a90c-b07b39d316ce" name="Utilisateur " isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="7f42b468-7968-43e0-82eb-d474ca9efd53" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="343d1887-07cb-4e22-a88f-e89985b1982b" name="KSmed.ApplicationUseCase.usecasediagram" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="2500f256-7bac-4d05-b4e5-9138a64415f2" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8e821a32-6c9b-4bdb-a7f7-7cd33920f078" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="518212f9-73e2-4705-a93f-3d052f74664b" name="Administrateur KSMED" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="1e8be93f-344c-4e6d-831f-ed486e1a926a" />
+        <targetEnds>
+          <association Id="486aa0cf-ce1d-4659-9752-d515bb18b936" isDerived="false" sourceEndRoleName="Administrateur KSMED" targetEndRoleName="Extranet" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="5eefb1b3-d15f-4a7e-942e-802578db3696" LastKnownName="Extranet" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7a832a68-8279-4fc6-a487-df8d43e011ea" name="Administrateur KSMED" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="469997e8-d76a-4ee6-af79-fe064a6a20d6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="cf4c01e4-c1ae-4d05-a2cf-c4f99eb3bd98" name="Extranet" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="788bc808-8f07-4da5-a4ad-033050848b52" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ca11fa3f-479d-41bd-8223-d2b16064dfef" />
+          </association>
+          <association Id="21964cb7-e29b-4873-98df-f37cdb7aa7ac" isDerived="false" sourceEndRoleName="Administrateur KSMED" targetEndRoleName="KSmed.ApplicationUseCase.usecasediagram" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="35c3154d-3b27-415b-8fec-23c338fdba69" LastKnownName="Application KSMED" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2ceec858-37ed-4ba6-be15-389a9f6e57fc" name="Administrateur KSMED" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="b3ad6b52-8d8b-4694-800e-1249a24b5078" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="029797b7-dbb4-4442-a130-91d0921e630f" name="KSmed.ApplicationUseCase.usecasediagram" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="f0217d3f-3723-4b73-ae75-c861e33f3a95" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="86b49e9f-e96c-4442-bbc9-e892152fba36" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <actor Id="97053755-6dd2-479d-80c6-cf18b4e19551" name="Ouvrier" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="be3d4012-b317-4652-b21e-660fe950ef03" />
+        <targetEnds>
+          <association Id="64cb8c7c-4311-49b8-832c-0f566d17f46b" isDerived="false" sourceEndRoleName="Ouvrier" targetEndRoleName="KSmed.ApplicationUseCase.usecasediagram" isLeaf="false" isAbstract="false">
+            <artifactMoniker Id="35c3154d-3b27-415b-8fec-23c338fdba69" LastKnownName="Application KSMED" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="88a0d204-1444-4e68-b83f-7fd9c1a7127e" name="Ouvrier" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="52be7ea3-c42a-48b0-8124-b4599141a14b" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5e14dab1-7169-43d2-baf2-26edd4937868" name="KSmed.ApplicationUseCase.usecasediagram" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="937e1f5c-d1bb-40b5-86c8-f803fad0cead" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="61300a15-1f69-4559-a0bd-c5d741a2236b" />
+          </association>
+        </targetEnds>
+      </actor>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <artifact Id="35c3154d-3b27-415b-8fec-23c338fdba69" name="Application KSMED" isAbstract="false" isLeaf="false" fileName="KProcess.KSmed.Modelisation\KSmed.ApplicationUseCase.usecasediagram">
+        <elementDefinition Id="6fde41c9-48c7-40cd-97aa-f6cdeb3c50db" />
+      </artifact>
+    </useCaseModelRootHasTypes>
+    <useCaseModelRootHasTypes>
+      <artifact Id="5eefb1b3-d15f-4a7e-942e-802578db3696" name="Extranet" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a1365694-9797-4ef4-b80a-84d87585ff44" />
+      </artifact>
+    </useCaseModelRootHasTypes>
+  </packagedElements>
+  <package Id="0ce91b84-6e1c-4f10-ae89-5be3ec435be1" name="KProcess.KSmed.Modelisation">
+    <elementDefinition Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab" />
+    <profileInstances>
+      <packageHasProfileInstances Id="690daf7f-4bf7-4fe4-bafb-0d5172536e1d">
+        <profileInstance Id="a0859a2b-d422-4076-8e80-5e8f37fb31f7" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="236933df-3f21-4520-a244-94aff2a16095">
+        <profileInstance Id="3340887b-19ce-4d7f-b59a-920dbda81275" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</useCaseModelRoot>

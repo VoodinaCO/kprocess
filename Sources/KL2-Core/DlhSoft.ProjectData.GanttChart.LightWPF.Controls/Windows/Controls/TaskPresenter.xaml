@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="DlhSoft.Windows.Controls.TaskPresenter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             xmlns:local="clr-namespace:DlhSoft.Windows.Controls" IsTabStop="false">
+
+    <Border x:Name="Root" Visibility="Collapsed">
+        <Grid Visibility="{Binding Visibility}" Height="{Binding GanttChartView.ItemHeight}">
+            <ItemsControl Height="0" HorizontalAlignment="Left" VerticalAlignment="Center" IsTabStop="false" ItemsSource="{Binding Predecessors}" Visibility="{Binding DependencyLinesVisibility, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type local:TaskPresenter}}}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid IsItemsHost="true" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <local:DependencyLinePresenter />
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                <StackPanel.ToolTip>
+                    <ToolTip Content="{Binding}" ContentTemplate="{Binding GanttChartView.ToolTipTemplate}" Visibility="{Binding GanttChartView.TaskToolTipVisibility}" />
+                </StackPanel.ToolTip>
+                <Grid VerticalAlignment="Center" Width="{Binding ComputedBarWidth}" Height="{Binding ComputedBarHeight}">
+                    <ContentControl HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" IsTabStop="false" Content="{Binding}" ContentTemplate="{Binding ComputedTaskTemplate}" />
+                </Grid>
+                <Grid Visibility="{Binding GanttChartView.ThumbVisibility}">
+                    <local:DragDependencyThumb x:Name="DragDependencyThumb" VerticalAlignment="Center" Height="{Binding ComputedBarHeight}" />
+                </Grid>
+                <ContentControl Margin="3,0" VerticalAlignment="Center" IsHitTestVisible="false" IsTabStop="false" Content="{Binding AssignmentsContent}" ContentTemplate="{Binding GanttChartView.AssignmentsTemplate}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>

@@ -1,0 +1,239 @@
+@using KProcess.KL2.WebAdmin.Models.NotificationSetting;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model NotificationManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Index";
+
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "Address", direction = "Ascending" });
+}
+
+<style>
+    .notifTabContent {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    @@font-face {
+        font-family: 'Mail';
+        src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    .cb-icons {
+        margin: auto;
+        font-family: 'Mail';
+        speak: none;
+        width: 18px !important;
+        height: 18px !important;
+        font-size: 18px !important;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+    }
+
+    .e-mailsent.cb-icons::before {
+        content: '\e701';
+    }
+</style>
+
+<div class="notifTabContent">
+    <div style="width:30%">
+        @(Html.EJS().DropDownList("Category")
+                    .DataSource((IEnumerable<NotificationTypeList>)Model.NotificationTypeList)
+                        .Fields(df => df.Text("Description").Value("Id"))
+                    .Width("100%")
+                    .Index(Model.Type.Value)
+                    .Change("categoryChange")
+                    .Render()
+        )
+    </div>
+    <div style="flex: 1">
+        @(Html.EJS().Grid("AddressManagement")
+                .Height("100%")
+                    .DataSource(ds => ds.Json(Model.Addresses.ToArray()).UpdateUrl(Url.Action("UpdateAddress")).InsertUrl(Url.Action("InsertAddress")).RemoveUrl(Url.Action("DeleteAddress"))
+                        .Adaptor("RemoteSaveAdaptor"))
+                    .Query("new ej.data.Query().addParams('To', " + @Model.To + ").addParams('Type', " + @Model.Type + ")")
+                    .EditSettings(edit =>
+                    {
+                        edit.AllowAdding(true)
+                            .AllowDeleting(true)
+                            .AllowEditing(true)
+                            .ShowConfirmDialog(true)
+                            .ShowDeleteConfirmDialog(true)
+                            .Mode(Syncfusion.EJ2.Grids.EditMode.Dialog)
+                            .AllowEditOnDblClick(true);
+                    })
+                    .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                    .AllowPaging()
+                    .PageSettings(p => p.PageSize(25))
+                    .AllowSorting()
+                    .SortSettings(sort => sort.Columns(cols))
+                    .Locale(ejLanguageCode)
+                    //Excel export
+                    .AllowExcelExport()
+                    .AllowTextWrap()
+                    .AllowFiltering()
+                    .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                    .EnableHover()
+                    .Toolbar(Model.To == 1
+                        ? new List<object>() { "Add", "Edit", "Delete", "ExcelExport", new { text = LocalizedStrings.GetString("Web_View_NotificationSetting_Address_SendTestMail"), tooltipText = LocalizedStrings.GetString("Web_View_NotificationSetting_Address_SendTestMail"), id = "AddressManagement_SendTestMail", prefixIcon = "e-mailsent cb-icons" } }
+                        : new List<object>() { "Add", "Edit", "Delete", "ExcelExport" })
+                    .ToolbarClick("toolbarClick")
+                    .Columns(col =>
+                    {
+                        col.Field("Id").IsPrimaryKey(true).Visible(false).Add();
+                        col.Field("Address").HeaderText(LocalizedStrings.GetString("Web_Notifications_Address")).ValidationRules(new { required = true, email = true }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                    })
+                    .ActionBegin("actionBegin")
+                    .ActionComplete("actionComplete")
+                    .RowSelecting("onSelectingCheck")
+                    .Render()
+        )
+    </div>
+</div>
+
+<script>
+    var canSendMail = @Html.Raw(Model.CanSendMail ? "true" : "false");
+    var type = @Html.Raw(Model.Type);
+    var urlTo = @Html.Raw(Model.To);
+
+    docReady(function () {
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        if (canSendMail === false && urlTo === 1) {
+            document.getElementById('AddressManagement').ej2_instances[0].toolbarModule.enableItems(['AddressManagement_SendTestMail'], false);
+        }
+        applyReadOnlyIfExpired();
+    });
+
+    function actionBegin(args) {
+        @*if (args.requestType == 'delete') {
+            console.log(args);
+        }*@
+    }
+
+    function setLocationNotifType(newType) {
+        var location = JSON.parse(sessionStorage.getItem('location'));
+        var splittedAction = location[0].action.split('?');
+        var splittedParams = splittedAction[1].split('&');
+        var params = splittedParams.map(function (p) {
+            var newP = p;
+            if (p.split('=')[0] == "type") {
+                newP = "type=" + newType;
+            }
+            return newP;
+        }).reduce(function (a, b) { return a + "&" + b; });
+        location[0].action = splittedAction[0] + "?" + params;
+        sessionStorage.setItem('location', JSON.stringify(location));
+    }
+
+    function categoryChange(args)
+    {
+        LoadPartial('/NotificationSetting/Address?type=' + args.value + '&to=' + urlTo, '#notifTabContainer', null, null, -1);
+        setLocationNotifType(args.value);
+    }
+
+    function actionComplete(args) {
+        var type = args.requestType;
+        if (type == "beginEdit" || type == "add") {
+            if (type === "beginEdit") {
+                //Set dialog of Edit mode title
+                args.dialog.width = "500px";
+                args.dialog.header = "@LocalizedStrings.GetString("Web_EmailDetail") " + args.rowData.Address;
+            }
+            if (type === "add") {
+                //Set dialog of Add mode title
+                args.dialog.width = "500px";
+                args.dialog.header = "@LocalizedStrings.GetString("Common_NewRecordHeader")";
+            }
+            onInputAddress();
+            document.getElementById('AddressManagementAddress').addEventListener('input', function () { onInputAddress(); }, true);
+        } else if (type == "delete" || type == "save") {
+            canSendMail &= document.getElementById('AddressManagement').ej2_instances[0].dataSource.dataSource.json.length > 0;
+            if (urlTo === 1) {
+                document.getElementById('AddressManagement').ej2_instances[0].toolbarModule.enableItems(['AddressManagement_SendTestMail'], canSendMail);
+            }
+        }
+    }
+
+    function onInputAddress() {
+        var addressValue = document.getElementById('AddressManagementAddress').value;
+        var mailIsValid = (new RegExp(/\S+@@\S+\.\S+/)).test(addressValue);
+        if (mailIsValid) {
+            document.querySelector("#AddressManagement_dialogEdit_wrapper>.e-footer-content>.e-primary").ej2_instances[0].disabled = false;
+        } else {
+            document.querySelector("#AddressManagement_dialogEdit_wrapper>.e-footer-content>.e-primary").ej2_instances[0].disabled = true;
+        }
+    }
+
+    function toolbarClick(args) {
+        if ((args.item.text == "Edit" || args.item.text == "Delete" || args.item.text == "Modifier" || args.item.text == "Effacer") && this.getSelectedRecords().length == 0) {
+            args.cancel = true; //prevent the default alert popup
+            //here you can call your own customize alert method
+            var msg = "";
+            switch (args.item.text) {
+                case "Delete":
+                case "Effacer":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordDelete")";
+                    break;
+                case "Edit":
+                case "Modifier":
+                    msg = "@LocalizedStrings.GetString("Common_NoSelectedRecordEdit")";
+                    break;
+            }
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: msg, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+        if (args.item.id === 'AddressManagement_excelexport') {
+            var gridObj = document.getElementById("AddressManagement").ej2_instances[0];
+            var ddlObj = document.getElementById("Category").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "NotificationAddress - " + ddlObj.text + ".xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        } else if (args.item.id === 'AddressManagement_SendTestMail') {
+            sendReportTestMail();
+        }
+    }
+
+    function sendReportTestMail() {
+        var ajax = new ej.base.Ajax({
+            url: "@Url.Action("SendReportMailTest")",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify({
+                notifTypeId: @Html.Raw(Model.Type.Value)
+            })
+        });
+        ajax.send().then(function (data) {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "", content: "@LocalizedStrings.GetString("Common_NotificationSent")", cssClass: 'e-toast-success', icon: 'e-success toast-icons' });
+        }).catch(function (xhr) {
+            console.log(xhr);
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: "@LocalizedStrings.GetString("Common_ErrorWhenNotificationSent")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        });
+    }
+</script>
+
+@Html.EJS().ScriptManager()

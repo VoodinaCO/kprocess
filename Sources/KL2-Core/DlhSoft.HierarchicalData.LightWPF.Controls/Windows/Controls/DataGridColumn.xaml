@@ -1,0 +1,39 @@
+﻿<DataGridTemplateColumn 
+  x:Class="DlhSoft.Windows.Controls.DataTreeGridColumn"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+  xmlns:local="clr-namespace:DlhSoft.Windows.Controls">
+  <DataGridTemplateColumn.CellTemplate>
+    <DataTemplate>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.Column="0" Width="{Binding Path=IndentationWidth}" />
+        <Border Grid.Column="1" Width="16">
+          <ToggleButton ClickMode="Press" Template="{Binding DataTreeGrid.ExpanderTemplate}" IsChecked="{Binding IsExpanded , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ExpanderVisibility , FallbackValue=Collapsed}" />
+        </Border>
+        <ContentControl Grid.Column="2" Padding="0,4" Content="{Binding Content}" VerticalAlignment="Center" />
+      </Grid>
+    </DataTemplate>
+  </DataGridTemplateColumn.CellTemplate>
+  <DataGridTemplateColumn.CellEditingTemplate>
+    <DataTemplate>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="Auto" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Rectangle Grid.Column="0" Width="{Binding Path=IndentationWidth}" />
+        <Border Grid.Column="1" Width="16">
+          <ToggleButton ClickMode="Press" Template="{Binding DataTreeGrid.ExpanderTemplate}" IsChecked="{Binding IsExpanded , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Visibility="{Binding ExpanderVisibility , FallbackValue=Collapsed}" />
+        </Border>
+        <TextBox Name="TextBox" Grid.Column="2" BorderThickness="0" Padding="0" VerticalAlignment="Stretch" Text="{Binding Content}" />
+      </Grid>
+    </DataTemplate>
+  </DataGridTemplateColumn.CellEditingTemplate>
+</DataGridTemplateColumn>
+

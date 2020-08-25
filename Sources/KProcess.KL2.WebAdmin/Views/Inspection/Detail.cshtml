@@ -1,0 +1,368 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Inspection;
+@using System.Web.Mvc.Html;
+@using KProcess.KL2.Languages;
+
+@model InspectionViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "InspectionDetail";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+    //bool allowCreateAudit = ViewBag.AllowCreateAudit;
+}
+
+<style>
+    .readCell {
+        background-color: lightgreen;
+    }
+
+    .notReadCell {
+        background-color: lightcoral;
+    }
+
+    .childTask {
+        text-indent: 2em;
+    }
+
+    .topMargin {
+        margin-top: 10px;
+        height: calc(100% - 10px);
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        display: flex;
+        min-height: 0px;
+        flex-direction: row;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #InspectionDetailsTab > .e-content,
+    #InspectionDetailsTab > .e-content > .e-item.e-active,
+    #InspectionDetailsTab > .e-content > .e-item.e-active > #StepGrid,
+    #InspectionDetailsTab > .e-content > .e-item.e-active > #AnomalyGrid {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .badge-block .e-badge.rightTop {
+        transform: translateX(-10px) translateY(7px);
+    }
+
+    .badge-block .e-badge.rightBottom {
+        transform: translateX(-10px) translateY(-7px) translateY(200%);
+    }
+
+    .e-badge.e-badge-warning:not(.e-badge-ghost):not([href]),
+    .e-badge.e-badge-warning[href]:not(.e-badge-ghost) {
+        background-color: orange;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+        <div class="col-4">
+            @(Html.EJS().Button("returnButton")
+                    .IsPrimary(true)
+                    .Content(LocalizedStrings.GetString("Common_Return"))
+                    .IconCss("fa fa-angle-double-left")
+                    .IconPosition(Syncfusion.EJ2.Buttons.IconPosition.Left)
+                    .HtmlAttributes(new Dictionary<string, object> { ["onclick"] = $"LoadPartial('{Url.Action("Index", "Inspection", new { partial = true })}', '#pageContainer')" })
+                    .Render()
+            )
+        </div>
+        <div class="col-4" style="flex: 1; text-align: center;">
+            <label><b>@(LocalizedStrings.GetString("Date"))&nbsp;:</b></label>
+            <span>@Model.Date.ToShortDateString()</span>
+        </div>
+        <div class="col-4" style="flex: 1; text-align: right;">
+            <button id="toggleDetailBtn" class="e-control e-btn e-lib e-primary collapsed" data-toggle="collapse" onclick="toggleDetail()" data-target="#detailCard">@LocalizedStrings.GetString("Common_SeeDetail")</button>
+        </div>
+    </div>
+    <div class="innerContent">
+        <div id="detailCard" class="collapse">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("Visit")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@Model.ProcessName</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("Operators")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@string.Join(", ", Model.Inspectors.ToArray())</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("Teams")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@string.Join(", ", Model.Teams.ToArray())</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @(Html.EJS().Tab("InspectionDetailsTab")
+            .Items(builder =>
+            {
+                builder.Header(header => header.Text(LocalizedStrings.GetString("Inspection")))
+                    .Content("#StepGrid")
+                    .Add();
+                builder.Header(header => header.Text("${getAnomaliesHeaderTemplate(data)}"))
+                    .Content("#AnomalyGrid")
+                    .Add();
+            })
+            .HtmlAttributes(new Dictionary<string, object> { ["style"] = "flex: 1; min-height: 0px; display: flex; flex-direction: column;" })
+            .Selected("tabSelected")
+            .Render()
+        )
+    </div>
+</div>
+
+<div id="StepGrid" style="display: none;">
+    @Html.Partial("_InspectionDetailPartial", Model)
+</div>
+
+<div id="AnomalyGrid" style="display: none;">
+    @Html.Partial("_InspectionAnomaliesDetailPartial", Model)
+</div>
+
+<div id="AnomalyDetailPartial">
+    @{Html.RenderPartial("~/Views/Inspection/AnomalyDetail.cshtml", new AnomalyViewModel());}
+</div>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Inspections")" + "/" + "@LocalizedStrings.GetString("FollowedInspection")" + "/" + "@Html.Raw(Model.ProcessName)");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function toggleDetail() {
+        var togglebtn = document.getElementById('toggleDetailBtn');
+        if (togglebtn.classList.contains('collapsed')) {
+            togglebtn.innerHTML = '@LocalizedStrings.GetString( "Common_HideDetail")';
+        } else {
+            togglebtn.innerHTML = '@LocalizedStrings.GetString( "Common_SeeDetail")';
+        }
+    }
+
+    function gridCreate(args) {
+        var textWidth = $(".orientationcss > div").outerWidth();//Obtain the width of the headerText content.
+        $(".e-headercell").css("height", 125); //Assign the obtained textWidth as the height of the headerCell
+        $(".e-stackedHeaderCell").css("height", 50);
+    }
+
+    function WBSPrepareSpaces(wbs) {
+        if (wbs.includes(".")) {
+            var occurance = wbs.split(".").length - 1;
+            var spaces = "";
+            while (occurance > 0) {
+                spaces = spaces + "&nbsp;&nbsp;"
+                occurance--;
+            }
+            return spaces;
+        }
+        else
+            return "";
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field === "IsKeyTask" && args.data.IsKeyTask === true) {
+          //  $($(args.cell).parent()).css("backgroundColor", "lavenderblush");
+        }
+        if (args.column.field === "Wbs") {
+            args.cell.innerHTML = WBSPrepareSpaces(args.cell.innerHTML) + args.cell.innerHTML;
+            //args.cell.innerHTML = "<strong>" + args.cell.innerHTML + "</strong>";
+        }
+        if (args.column.field === "ActionLabel" && args.data.IsKeyTask === true) {
+            args.cell.innerHTML = "<strong>" + args.cell.innerHTML + "</strong>";
+        }
+        if (args.column.field === "IsOK") {
+            if (args.data.colorCondition !== "") {
+                args.cell.classList.add(args.data.colorCondition);
+            }
+        }
+    }
+
+    function excelQueryCellInfo(args) {
+        if (args.column.field === "IsOK") {
+            if (args.data.ChildTask == true)
+                args.value = "OK";
+            else if (args.data.ChildTask == false)
+                args.value = "NOK";
+
+            if (args.data.colorCondition !== "") {
+                if(args.data.colorCondition == "readCell")
+                    args.style = { backColor: '#90EE90' };
+                if (args.data.colorCondition == "notReadCell")
+                    args.style = { backColor: '#F08080' };
+            }
+        }
+        if (args.column.headerText === "Photo" && args.data.HasThumbnail == true) {
+            @*var image = document.images[0];
+            image.src = "@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + args.data.ThumbnailHash + args.data.ThumbnailExt;*@
+        }
+    }
+
+    function toolbarClick(args) {
+        if (args.item.id === 'InspectionDetail_excelexport') {
+            var gridObj = document.getElementById("InspectionDetail").ej2_instances[0];
+            var gridJson = JSON.stringify(gridObj.properties.columns);
+            var gridHeaders = JSON.stringify(gridObj.properties.columns.map(function (a) { return { HeaderText: a.headerText, Field: a.field }; }));
+            $.ajax({
+                url: "/Inspection/ExportToExcelInspectionDetail",
+                type: "POST",
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                data: {
+                    gridColumns: gridJson,
+                    gridHeaders: gridHeaders,
+                    id: @Html.Raw(Model.InspectionId),
+                    process: "@Html.Raw(Model.ProcessName)"
+                },
+                success: function (response, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('inline') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+                    var a = document.createElement('a');
+                    a.setAttribute("type", "hidden");
+                    var url = window.URL.createObjectURL(response);
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        window.navigator.msSaveOrOpenBlob(response, filename);
+                    } else {
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        a.remove();
+                    }
+                }
+            });
+        }
+        if (args.item.id === 'Anomaly_excelexport') {
+            var gridObj = document.getElementById("Anomaly").ej2_instances[0];
+            var gridJson = JSON.stringify(gridObj.properties.columns);
+            var gridHeaders = JSON.stringify(gridObj.properties.columns.map(function (a) { return { HeaderText: a.headerText, Field: a.field }; }));
+            $.ajax({
+                url: "/Inspection/ExportToExcelAnomaly",
+                type: "POST",
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                data: {
+                    gridColumns: gridJson,
+                    gridHeaders: gridHeaders,
+                    id: @Html.Raw(Model.InspectionId),
+                    process: "@Html.Raw(Model.ProcessName)"
+                },
+                success: function (response, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('inline') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+                    var a = document.createElement('a');
+                    a.setAttribute("type", "hidden");
+                    var url = window.URL.createObjectURL(response);
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        window.navigator.msSaveOrOpenBlob(response, filename);
+                    } else {
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        a.remove();
+                    }
+                }
+            });
+        }
+    }
+
+    function NOKclick(AnomalyId) {
+        var ajax = new ej.base.Ajax({
+                url: "/Inspection/GetAnomalyDetail?AnomalyId=" + AnomalyId,
+                type: "GET",
+            });
+        ajax.send().then(function (data) {
+            $("#AnomalyDetailPartial").html(data);
+            $("#AnomalyForm").modal("show");
+
+        }).catch(function (xhr) {
+            console.log(xhr);
+            location.reload();
+        });
+    }
+
+    var heightSet = false;
+    function tabSelected(args) {
+        if (heightSet === true || args.selectedIndex != 1) {
+            return;
+        }
+
+        var inspectionsContent = document.getElementById('InspectionDetail').querySelector('.e-gridcontent');
+        var anomaliesContent = document.getElementById('Anomaly').querySelector('.e-gridcontent');
+        anomaliesContent.style.height = inspectionsContent.style.height;
+        heightSet = true;
+    }
+
+    var hasAnomalies = @(Model.Anomalies.Any() ? Html.Raw("true") : Html.Raw("false")) ;
+    function getAnomaliesHeaderTemplate(data) {
+        var html = "<div class='badge-block'>";
+        html += "<div>@Html.Raw(LocalizedStrings.GetString("Anomalies"))</div>"
+        if (hasAnomalies === true) {
+            html += "<span class='e-badge e-badge-notification e-badge-overlap rightBottom e-badge-danger'>@Model.Anomalies.Where(a => a.AnomalyTypeIdentifier == 1).Count()</span>";
+            html += "<span class='e-badge e-badge-notification e-badge-overlap rightTop e-badge-warning'>@Model.Anomalies.Where(a => a.AnomalyTypeIdentifier == 2).Count()</span>";
+        }
+        html += "</div>"
+        return html;
+    }
+</script>
+
+@Html.EJS().ScriptManager()

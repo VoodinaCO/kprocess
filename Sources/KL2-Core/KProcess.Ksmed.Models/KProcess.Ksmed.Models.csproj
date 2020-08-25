@@ -1,0 +1,474 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KProcess.Ksmed.Models</RootNamespace>
+    <AssemblyName>KProcess.Ksmed.Models</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
+    <Compile Include="ActionCategory.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActionType.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ActionValue.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Anomaly.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppResourceKey.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppResourceValue.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AppSetting.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Audit.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="AuditItem.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CloudFile.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CloudFileExt.cs" />
+    <Compile Include="CutVideo.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultResource.cs" />
+    <Compile Include="Choice.cs" />
+    <Compile Include="DocumentationActionDraft.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentationActionDraftExt.cs" />
+    <Compile Include="DocumentationActionDraftWBS.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentationActionDraftWBSExt.cs" />
+    <Compile Include="DocumentationDraft.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentationDraftExt.cs" />
+    <Compile Include="DocumentationDraftLocalization.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentationReferential.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentationReferentialExt.cs" />
+    <Compile Include="Equipment.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Helpers\DurationHelper.cs" />
+    <Compile Include="Helpers\FilesHelper.cs" />
+    <Compile Include="Helpers\HeadersHelper.cs" />
+    <Compile Include="Helpers\ValidateValueHelper.cs" />
+    <Compile Include="Inspection.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InspectionSchedule.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InspectionScheduleExt.cs" />
+    <Compile Include="InspectionStep.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Interfaces\IActionCategory.cs" />
+    <Compile Include="Interfaces\IIsDeleted.cs" />
+    <Compile Include="Interfaces\IResource.cs" />
+    <Compile Include="KAction.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="KActionReduced.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Language.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Notification.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationAttachment.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationType.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NotificationTypeSetting.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Objective.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Operator.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Procedure.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Project.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectDir.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectReferential.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Publication.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublicationHistory.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublicationHistoryExt.cs" />
+    <Compile Include="PublicationLocalization.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedAction.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedActionCategory.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedFile.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedFileExt.cs" />
+    <Compile Include="PublishedReferential.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedReferentialAction.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PublishedResource.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Qualification.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QualificationReason.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QualificationStep.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref1.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref1Action.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref2.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref2Action.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref3.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref3Action.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref4.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref4Action.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref5.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref5Action.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref6.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref6Action.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref7.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Ref7Action.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Referential.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReferentialDocumentationActionDraft.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ReferentialDocumentationActionDraftExt.cs" />
+    <Compile Include="Resource.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ResourceView.cs" />
+    <Compile Include="QualificationReasonExt.cs" />
+    <Compile Include="AnomalyExt.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="InspectionStepExt.cs" />
+    <Compile Include="AuditItemExt.cs" />
+    <Compile Include="PublishMode.cs" />
+    <Compile Include="Role.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Scenario.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioNature.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ScenarioState.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Security\LogonManager.cs" />
+    <Compile Include="Skill.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SkillExt.cs" />
+    <Compile Include="ActionCategoryExt.cs" />
+    <Compile Include="CustomLabel.cs" />
+    <Compile Include="CutVideoExt.cs" />
+    <Compile Include="Interfaces\INode.cs" />
+    <Compile Include="ProcedureExt.cs" />
+    <Compile Include="ProjectDirExt.cs" />
+    <Compile Include="PublicationExt.cs" />
+    <Compile Include="PublishedActionCategoryExt.cs" />
+    <Compile Include="PublishedReferentialActionExt.cs" />
+    <Compile Include="PublishedReferentialExt.cs" />
+    <Compile Include="PublishedResourceExt.cs" />
+    <Compile Include="PublishedActionExt.cs" />
+    <Compile Include="RefsCollection.cs" />
+    <Compile Include="Security\SecurityUser.cs" />
+    <Compile Include="QualificationStepExt.cs" />
+    <Compile Include="Solution.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Survey.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SurveyItem.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Team.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Timeslot.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Training.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UISetting.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="User.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserReadPublication.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserRoleExt.cs" />
+    <Compile Include="ActionPredecessorSuccessorExt.cs" />
+    <Compile Include="ActionReferentialProperties.cs" />
+    <Compile Include="Helpers\ColorsHelper.cs" />
+    <Compile Include="KsmedEntities.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectReferentialExt.cs" />
+    <Compile Include="ProcessReferentialIdentifier.cs" />
+    <Compile Include="ReferentialBase.cs" />
+    <Compile Include="ReferentialExt.cs" />
+    <Compile Include="Ref7Ext.cs" />
+    <Compile Include="Ref6Ext.cs" />
+    <Compile Include="Ref5Ext.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
+    <Compile Include="Interfaces\IMultipleActionReferential.cs" />
+    <Compile Include="Interfaces\IReferentialActionLink.cs" />
+    <Compile Include="ModelsConstants.cs" />
+    <Compile Include="KActionExt.cs" />
+    <Compile Include="ActionTypeExt.cs" />
+    <Compile Include="AppResourceValueExt.cs" />
+    <Compile Include="Ref2Ext.cs" />
+    <Compile Include="Ref4Ext.cs" />
+    <Compile Include="EquipmentExt.cs" />
+    <Compile Include="Interfaces\IActionReferential.cs" />
+    <Compile Include="Interfaces\IAuditableUserRequired.cs" />
+    <Compile Include="Interfaces\IAuditableUserOptional.cs" />
+    <Compile Include="Interfaces\IAuditable.cs" />
+    <Compile Include="Interfaces\ILocalizedLabels.cs" />
+    <Compile Include="Interfaces\IActionReferentialProcess.cs" />
+    <Compile Include="KActionReducedExt.cs" />
+    <Compile Include="LanguageExt.cs" />
+    <Compile Include="ObjectiveExt.cs" />
+    <Compile Include="OperatorExt.cs" />
+    <Compile Include="Ref3Ext.cs" />
+    <Compile Include="ProjectExt.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceExt.cs" />
+    <Compile Include="RoleExt.cs" />
+    <Compile Include="ScenarioExt.cs" />
+    <Compile Include="Ref1Ext.cs" />
+    <Compile Include="UserExt.cs" />
+    <Compile Include="UserRoleProcess.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ValidationTraining.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Validation\LocalizableRegularExpressionAttribute.cs" />
+    <Compile Include="Validation\LocalizableRequiredAttribute.cs" />
+    <Compile Include="Validation\LocalizableStringLengthValidator.cs" />
+    <Compile Include="Validation\LocalizableStringLengthAttribute.cs" />
+    <Compile Include="Validation\LocalizableRangeAttribute.cs" />
+    <Compile Include="Video.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="VideoExt.cs" />
+    <Compile Include="VideoSync.cs">
+      <DependentUpon>KsmedEntities.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="KsmedEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>KsmedEntities.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\KProcess.KL2.Language\KProcess.KL2.Languages.csproj">
+      <Project>{808A3592-D80A-440B-9EAA-3E8286728CC0}</Project>
+      <Name>KProcess.KL2.Languages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41A8FD16-8AA1-48F2-AC75-CB27FFEEA2A4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5D4074AA-F569-4C2A-AC8F-A486C382BFD7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579C-1C1B-4B94-B14C-52AB369AEEBA}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.KL2.FileTransfer.NetStandard\Kprocess.KL2.FileTransfer.NetStandard.csproj">
+      <Project>{e2812008-d7dd-422a-a711-382ff67b9bdb}</Project>
+      <Name>Kprocess.KL2.FileTransfer.NetStandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.KL2.FileTransfer\Kprocess.KL2.FileTransfer.csproj">
+      <Project>{8A8A45DC-ECEB-4743-BB01-C10AB2069B8D}</Project>
+      <Name>Kprocess.KL2.FileTransfer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.JWT\KProcess.KL2.JWT.csproj">
+      <Project>{45C8B89D-034F-4543-8423-7BF77B98A15C}</Project>
+      <Name>KProcess.KL2.JWT</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="murmurhash-signed">
+      <Version>1.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

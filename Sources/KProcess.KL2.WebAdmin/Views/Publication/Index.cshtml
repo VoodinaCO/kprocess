@@ -1,0 +1,988 @@
+@using KProcess.KL2.WebAdmin.Models.Publications;
+@using KProcess.KL2.WebAdmin.Models.Procedure;
+@using KProcess.KL2.WebAdmin.Models.Action;
+@using System.Web.Mvc.Html;
+@using System.Web.Configuration;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model PublicationManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    string label = Model.Publication != null ? Model.Publication.Label : "";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+
+    Dictionary<string, object> templateLink = new Dictionary<string, object>();
+    templateLink.Add("onclick", "TreeViewLink(this)");
+
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+
+    string pageTitle = "", pageParentTitle = "";
+    switch (Model.PublicationType)
+    {
+        case "Formation":
+            pageParentTitle = LocalizedStrings.GetString("Web_Menu_Training");
+            pageTitle = LocalizedStrings.GetString("Web_Menu_PublishedTrainingsList");
+            break;
+        case "Inspection":
+            pageParentTitle = LocalizedStrings.GetString("Web_Menu_Inspections");
+            pageTitle = LocalizedStrings.GetString("Web_Menu_PublishedInspectionsList");
+            break;
+        default:
+            break;
+    }
+
+}
+
+<style id="notedStyle">
+    #TreeNode {
+        height: 100%;
+        overflow: inherit;
+    }
+
+    .e-list-parent {
+        height: 100%;
+    }
+
+    .treeViewDialogSetting {
+        height: auto !important;
+        overflow: auto;
+        bottom: 70px;
+    }
+
+    #SelectProcessBtn {
+        display: flex;
+        align-items: center !important;
+    }
+
+    .e-treeview > .e-ul {
+        overflow: inherit;
+    }
+
+    .e-dialog .e-dlg-content {
+        overflow-x: auto;
+    }
+
+    .innerContainer {
+        flex: 0 0 auto;
+        display: flex;
+        min-height: 0px;
+        flex-direction: row;
+    }
+
+    /*Font size : Header and content*/
+    .e-grid .e-headercelldiv {
+        font-size: 0.01942em !important;
+        line-height: 30px !important;
+    }
+
+    .e-grid .e-rowcell {
+        font-size: 0.01618em !important;
+    }
+
+    td > span, td > a {
+        line-height: 1;
+    }
+</style>
+
+<div id="PublicationContainer" style="padding-bottom: 10px; height: 100%; display: flex; flex-direction: column;">
+    <div class="innerContainer">
+        @(Html.EJS().Dialog("treeViewDialog").Header(pageParentTitle)
+            .ContentTemplate(
+                @<text>
+                <div>
+                    <div style="padding-left:14px">
+                        <button title="Expand all" class="text-left" id="btnExpandAll" style="color:black">
+                            <i class="fa fa-plus-square"></i>
+                        </button>
+                        <button title="Collapse all" class="text-left" id="btnCollapseAll" style="color:black">
+                            <i class="fa fa-minus-square"></i>
+                        </button>
+                    </div>
+                    <div style="flex: 1; min-height: 0px; height: 100%;">
+                        @(Html.EJS().TreeView("TreeNode")
+                            .Fields(s => s.DataSource((IEnumerable<ProcedureNodeViewModel>)Model.TreeNode)
+                                .Id("Id")
+                                .ParentID("ParentId")
+                                .Child(c => c.HtmlAttributes(""))
+                                .IconCss("Sprite")
+                                .Text("Name")
+                                .HasChildren("HasChild")
+                                .NavigateUrl("LinkAttributeFunction")
+                                .Expanded("IsExpanded"))
+                            .NodeSelected("treeNodeSelected")
+                            .Render()
+                        )
+                    </div>
+                </div>
+                </text>
+            )
+            .Width("40%")
+            .Target("#PublicationContainer")
+            .Visible(false).ShowCloseIcon(true).CloseOnEscape(true)
+            .Position(obj => obj.X("150").Y("150"))
+            .Close("hideProcesses")
+            .CssClass("treeViewDialogSetting")
+            .Render()
+        )
+        <div class="col-6">
+            @(Html.EJS().DropDownButton("SelectProcessBtn")
+                .Content(Model.Publication != null ? $"<span><h3>{Model.Publication.Label} (v{Model.Publication.Version})</h3></span>" : "<span><h3>" + LocalizedStrings.GetString("Common_SelectProcess") + "</h3></span>")
+                .BeforeOpen("displayProcesses")
+                .Render()
+            )
+        </div>
+        <div class="col-6" style="flex: 1; text-align: right;">
+            <button id="toggleDetailBtn" class="e-control e-btn e-lib e-primary collapsed" data-toggle="collapse" onclick="toggleDetail()" data-target="#referentialUsedRow">@LocalizedStrings.GetString("Common_SeeDetail")</button>
+        </div>
+    </div>
+    @Html.Partial("_ReferentialUsed", Model.Publication != null ? Model.Publication.ReferentialsUsed : new List<ActionValueViewModel>())
+
+    <div id="parentGridPublishedActions" style="flex: 1; min-height: 0px; display: flex; flex-direction: column;">
+        @if (Model.Publication?.Actions?.Any() != true)
+        {
+
+        }
+        else
+        {
+            @(Html.EJS().Grid("PublishedActions").Height("100%")
+                .DataSource(Model.Publication?.Actions?.ToArray() ?? new GenericActionViewModel[] { })
+                .AllowTextWrap()
+                .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                .AllowPaging()
+                .AllowExcelExport()
+                //.EnableVirtualization()
+                .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                .PageSettings(page => { page.PageSize(50); })
+                .Locale("fr")
+                .Columns(col =>
+                {
+                    col.Field("IsKeyTask")
+                        .Width("100")
+                        .Visible(false)
+                        .Add();
+                    if (Model.Publication?.Actions != null)
+                    {
+                        foreach (var actionHeader in Model.Publication.ActionHeaderModels)
+                        {
+                            if (actionHeader.Key == "WBS")
+                            {
+                                col.Field(actionHeader.Key).IsPrimaryKey(true)
+                                    .Template("${getWBSTemplate(data)}")
+                                    .HeaderText(" ")
+                                    .Width(actionHeader.Value.Width)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Left)
+                                    .AllowFiltering(false)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Label")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getLabelTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Left)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Thumbnail")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getThumbnailTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "PublishedResource")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getPublishedResourceTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "PublishedActionCategory")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getPublishedActionCategoryTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Duration")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getDurationTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Skill")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getSkillTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Refs1")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getRefs1Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Refs2")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getRefs2Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Refs3")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getRefs3Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Refs4")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getRefs4Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Refs5")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getRefs5Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Refs6")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getRefs6Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "Refs7")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getRefs7Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomTextValue")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomTextValueTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomTextValue2")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomTextValue2Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomTextValue3")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomTextValue3Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomTextValue4")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomTextValue4Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomNumericValue")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomNumericValueTemplate(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomNumericValue2")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomNumericValue2Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomNumericValue3")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomNumericValue3Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else if (actionHeader.Key == "CustomNumericValue4")
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("${getCustomNumericValue4Template(data)}")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                            else
+                            {
+                                col.Field(actionHeader.Key)
+                                    .Template("#NoTemplate")
+                                    .HeaderText(actionHeader.Value.Label)
+                                    .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .AllowFiltering(false)
+                                    .Width(actionHeader.Value.Width)
+                                    .Add();
+                            }
+                        }
+                    }
+                })
+                .RowDataBound("onRowDataBound")
+                //.RowTemplate("#templateData")    // row template
+                .Toolbar(user.Roles.Any(u => u == "ADM001" || u == "SUP001")
+                    ? new List<object>
+                    {
+                        new { tooltipText = "Excel Export", id = "PublishedActions_excelexport", prefixIcon = "e-excelexport" },
+                        new { tooltipText = "Print", id = "PublishedActions_print", prefixIcon = "e-print" }
+                    }
+                    : new List<object>
+                    {
+                        new { tooltipText = "Excel Export", id = "PublishedActions_excelexport", prefixIcon = "e-excelexport" }
+                    })
+                .QueryCellInfo("setClassForGroupTask")
+                .DataBound("gridApplyClass")
+                .ToolbarClick("toolbarClick")
+                .RecordDoubleClick("onDoubleClick")
+                .BeforePrint("beforePrint")
+                .PrintComplete("printComplete")
+                .Render()
+            )
+        }
+    </div>
+</div>
+
+<script>
+    //Documentation follow
+    //Define style to preserve ratio
+    function redefineStyle() {
+        //var selectedTabClass = formatTabControl.items[formatTabControl.selectedItem].cssClass;
+        //var currentGrid = null;
+        //if (selectedTabClass == 'FormatTraining') {
+        //    currentGrid = trainingActionsGrid;
+        //} else if (selectedTabClass == 'FormatEvaluation') {
+        //    currentGrid = evaluationActionsGrid;
+        //} else if (selectedTabClass == 'FormatInspection') {
+        //    currentGrid = inspectionActionsGrid;
+        //}
+        var currentGrid = document.getElementById("PublishedActions").ej2_instances[0];
+        var width = currentGrid.element.querySelector('.e-gridcontent .e-content').offsetWidth;
+        if (width == 0) {
+            return;
+        }
+
+        minColumnWidth = width * 6.438 / 100;
+        currentGrid.columns.forEach(function (col) {
+            col.minWidth = minColumnWidth + "px";
+            if (col.width.toString().includes('%')) {
+                col.width = width * parseFloat(col.width) / 100;
+            }
+        });
+
+        var style = document.createElement('style');
+        var headerFontSize = '.e-grid .e-headercell { font-size: ' + width + 'px; } \n';
+        var contentFontSize = '.e-grid .e-gridcontent {font-size: ' + width + 'px; } \n';
+        var headerHeight = '.e-grid .e-headercelldiv { height: 100%; } \n';
+        var groupTaskHeight = '.e-grid tr.e-row.IsGroup { height: ' + width * 14.401 / 100 + 'px!important; } \n';
+        var notGroupTaskMinHeight = '.e-grid tr.e-row { min-height: ' + width * 14.401 / 100 + 'px; } \n';
+        var thumbnailMaxSize = '.e-grid td.Thumbnail img { max-width: ' + width * 24.272 / 100 + 'px; max-height: ' + width * 24.272 / 100 + 'px; } \n';
+        var referentialMaxSize = '.e-grid td img { max-width: ' + width * 4.854 / 100 + 'px; max-height: ' + width * 4.854 / 100 + 'px; } \n';
+        style.innerHTML = headerFontSize + contentFontSize + headerHeight + groupTaskHeight + notGroupTaskMinHeight + thumbnailMaxSize + referentialMaxSize;
+
+        var ref = document.querySelector("#notedStyle");
+        if (ref != null)
+            ref.parentNode.insertBefore(style, ref);
+    }
+
+    function setClassForGroupTask(args) {
+        if (args.column.field == 'WBS' && args.data['IsGroup'] == true) {
+            args.cell.classList.add('IsGroup');
+        }
+        if (args.column.field == 'Thumbnail') {
+            args.cell.classList.add('Thumbnail');
+        }
+    }
+
+    function gridApplyClass(args) {
+        var allIsGroups = $('.IsGroup');
+        for (var i = 0; i < allIsGroups.length; i++) {
+            var td = allIsGroups[i];
+            if (td.parentElement != null) {
+                td.parentElement.classList.add('IsGroup');
+            }
+        }
+    }
+</script>
+
+<script>
+    @*Utils functions*@
+    function toStrong(html) {
+        return "<strong>" + html + "</strong>";
+    }
+    function addBadge(html, content) {
+        return "<span class='badge bg-gray' style='margin:3px;margin-bottom:5px;'>x" + content + "</span>" + html;
+    }
+    function setQuantity(html, data) {
+        if (data.Quantity != null) {
+            return addBadge(html, data.Quantity);
+        }
+        return html;
+    }
+
+    @*Types template functions*@
+    function getTextTemplate(data) {
+        return "<span>" + data + "</span>";
+    }
+    function getLinkTemplate(data, uri) {
+        return "<a href='" + uri + "'>" + data + "</a>";
+    }
+    function getLinkTemplatePartial(publishMode, actionId, data) {
+        return "<a href='javascript:void(0)' onclick='GoToDetail(" + publishMode + "," + actionId +")'>" + data + "</a>";
+    }
+    function getImageTemplate(data) {
+        if (data.Value != null) {
+            return "<div><img width='100%' class='imagePopUp img-fluid' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.FileHash + data.FileExt + "' onclick='popUpImage(this)' title='" + data.Description + "'/></div>";
+        }
+        return "";
+    }
+    function getReferentialTextTemplate(data) {
+        return "<span style='word-break: break-word; white-space: normal;'>" + setQuantity(data.Value, data) + "</span>";
+    }
+    function getReferentialImageTemplate(data) {
+        var html = "<img height='50%' width='50%' class='imagePopUp img-fluid' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.FileHash + data.FileExt + "' onclick='popUpImage(this)' title='" + data.Description + "'/>";
+        return "<div>" + setQuantity(html, data) + "</div>";
+    }
+    function getReferentialFileTemplate(data) {
+        var description = "";
+        if (data.Description != undefined && data.Description != null) {
+            description = data.Description;
+        }
+        if (description == "") {
+            description = data.FileHash + data.FileExt;
+        }
+        var html = "<a target='_blank' href='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.FileHash + data.FileExt + "'>" + description + "</a>";
+        return "<div>" + setQuantity(html, data) + "</div>";
+    }
+    function getReferentialTemplate(data) {
+        if (data.Type == "Text") {
+            return getReferentialTextTemplate(data);
+        } else if (data.Type == "Image") {
+            return getReferentialImageTemplate(data);
+        } else if (data.Type == "File") {
+            return getReferentialFileTemplate(data);
+        }
+        return getReferentialTextTemplate(data);
+    }
+    function getMultiReferentialTemplate(datas) {
+        var html = "";
+        for (var i = 0, len = datas.length; i < len; i++) {
+            html = html + getReferentialTemplate(datas[i]);
+            if (i < len - 1) {
+                html = html + "<br>";
+            }
+        }
+        return html;
+    }
+    function getUsedReferentialTemplate(data) {
+        if (data.Type == "Text") {
+            return getUsedReferentialTextTemplate(data);
+        } else if (data.Type == "Image") {
+            return getUsedReferentialImageTemplate(data);
+        } else if (data.Type == "File") {
+            return getUsedReferentialFileTemplate(data);
+        }
+        return getUsedReferentialTextTemplate(data);
+    }
+    function getUsedReferentialTextTemplate(data) {
+        return "<span style='word-break: break-word; white-space: normal;'>" + setQuantity(data.Value, data) + "</span>";
+    }
+    function getUsedReferentialImageTemplate(data) {
+        var html = "<img style='max-height: 60px; width= auto;' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.FileHash + data.FileExt + "' onclick='popUpImage(this)' title='" + data.Description + "'/>";
+        return "<div>" + setQuantity(html, data) + "</div>";
+    }
+    function getUsedReferentialFileTemplate(data) {
+        var description = "";
+        if (data.Description != undefined && data.Description != null) {
+            description = data.Description;
+        }
+        if (description == "") {
+            description = data.FileHash + data.FileExt;
+        }
+        var html = "<a target='_blank' href='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.FileHash + data.FileExt + "'>" + description + "</a>";
+        return "<div>" + setQuantity(html, data) + "</div>";
+    }
+
+    @*Fields template functions*@
+    function getWBSTemplate(data) {
+        var hierarchySpace = WBSPrepareSpaces(data.ColumnValues.WBS.Values[0].Value);
+        return getTextTemplate(hierarchySpace + data.ColumnValues.WBS.Values[0].Value);
+    }
+    function WBSPrepareSpaces(wbs) {
+        if (wbs.includes(".")) {
+            var occurance = wbs.split(".").length - 1;
+            var spaces = "";
+            while (occurance > 0) {
+                spaces = spaces + "&nbsp;&nbsp;"
+                occurance--;
+            }
+            return spaces;
+        }
+        else
+            return "";
+    }
+    function getLabelTemplate(data) {
+        var html = "";
+        if (isPrinting === true) {
+            html = data.ColumnValues.Label.Values[0].Value;
+        } else {
+            //html = getLinkTemplate(data.ColumnValues.Label.Values[0].Value, "/Action/Details/?PublishModeFilter=" + data.PublishModeFilter + "&id=" + data.ActionId);
+            html = getLinkTemplatePartial(data.PublishModeFilter, data.ActionId, data.ColumnValues.Label.Values[0].Value);
+        }
+        if (data.IsKeyTask === true) {
+            return toStrong(html);
+        }
+        return html;
+    }
+    function getThumbnailTemplate(data) {
+        return getImageTemplate(data.ColumnValues.Thumbnail.Values[0]);
+    }
+    function getPublishedResourceTemplate(data) {
+        return getReferentialTemplate(data.ColumnValues.PublishedResource.Values[0]);
+    }
+    function getPublishedActionCategoryTemplate(data) {
+        return getReferentialTemplate(data.ColumnValues.PublishedActionCategory.Values[0]);
+    }
+    function getDurationTemplate(data) {
+        return getTextTemplate(data.ColumnValues.Duration.Values[0].Value);
+    }
+    function getSkillTemplate(data) {
+        return getReferentialTemplate(data.ColumnValues.Skill.Values[0]);
+    }
+    function getRefs1Template(data) {
+        return getMultiReferentialTemplate(data.ColumnValues.Refs1.Values);
+    }
+    function getRefs2Template(data) {
+        return getMultiReferentialTemplate(data.ColumnValues.Refs2.Values);
+    }
+    function getRefs3Template(data) {
+        return getMultiReferentialTemplate(data.ColumnValues.Refs3.Values);
+    }
+    function getRefs4Template(data) {
+        return getMultiReferentialTemplate(data.ColumnValues.Refs4.Values);
+    }
+    function getRefs5Template(data) {
+        return getMultiReferentialTemplate(data.ColumnValues.Refs5.Values);
+    }
+    function getRefs6Template(data) {
+        return getMultiReferentialTemplate(data.ColumnValues.Refs6.Values);
+    }
+    function getRefs7Template(data) {
+        return getMultiReferentialTemplate(data.ColumnValues.Refs7.Values);
+    }
+    function getCustomTextValueTemplate(data) {
+        return getTextTemplate(data.ColumnValues.CustomTextValue.Values[0].Value);
+    }
+    function getCustomTextValue2Template(data) {
+        return getTextTemplate(data.ColumnValues.CustomTextValue2.Values[0].Value);
+    }
+    function getCustomTextValue3Template(data) {
+        return getTextTemplate(data.ColumnValues.CustomTextValue3.Values[0].Value);
+    }
+    function getCustomTextValue4Template(data) {
+        return getTextTemplate(data.ColumnValues.CustomTextValue4.Values[0].Value);
+    }
+    function getCustomNumericValueTemplate(data) {
+        return getTextTemplate(data.ColumnValues.CustomNumericValue.Values[0].Value);
+    }
+    function getCustomNumericValue2Template(data) {
+        return getTextTemplate(data.ColumnValues.CustomNumericValue2.Values[0].Value);
+    }
+    function getCustomNumericValue3Template(data) {
+        return getTextTemplate(data.ColumnValues.CustomNumericValue3.Values[0].Value);
+    }
+    function getCustomNumericValue4Template(data) {
+        return getTextTemplate(data.ColumnValues.CustomNumericValue4.Values[0].Value);
+    }
+</script>
+<script type="text/x-template" id="NoTemplate">
+    <span>No template</span>
+</script>
+
+<script>
+    var isPrinting = false;
+    var dialogOpen = false;
+
+    docReady(function () {
+        setHeader("@pageParentTitle" + "/" + "@pageTitle");
+        $("#btnExpandAll").click(function () {
+            var treeObj = document.getElementById('TreeNode').ej2_instances[0];
+            treeObj.expandAll(); // All the TreeView nodes will be expanded.
+        });
+        $("#btnCollapseAll").click(function () {
+            var treeObj = document.getElementById('TreeNode').ej2_instances[0];
+            treeObj.collapseAll(); // All the TreeView nodes will be collapsed.
+        });
+        //defineGridContainerHeight();
+        setIsRefreshing(false);
+        firstLoadNoSelected();
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+
+        var usedRefs = document.getElementById('referentialUsedRow');
+        if (usedRefs != null && usedRefs != undefined) {
+            document.getElementById('toggleDetailBtn').style.visibility = 'visible';
+        }
+
+        // Fix for IE11
+        /*setTimeout(function () {
+            var resizeEvent = window.document.createEvent('UIEvents');
+            resizeEvent.initUIEvent('resize', true, false, window, 0);
+            window.dispatchEvent(resizeEvent);
+        }, 10);*/
+    });
+
+    function toggleDetail() {
+        var togglebtn = document.getElementById('toggleDetailBtn');
+        if (togglebtn.classList.contains('collapsed')) {
+            togglebtn.innerHTML = '@LocalizedStrings.GetString( "Common_HideDetail")';
+        } else {
+            togglebtn.innerHTML = '@LocalizedStrings.GetString( "Common_SeeDetail")';
+        }
+    }
+
+    window.addEventListener("resize", defineGridContainerHeight)
+
+    function defineGridContainerHeight() {
+        @*var pubContainerHeight = document.getElementById('PublicationContainer').offsetHeight;
+        var gridPagerHeight = document.getElementsByClassName('e-gridpager').offsetHeight;
+        document.getElementById("parentGridPublishedActions").style.height = pubContainerHeight - 48 + "px";*@
+        var publishedActionsGrid = document.getElementById('PublishedActions');
+        if (publishedActionsGrid != null && publishedActionsGrid != undefined) {
+            document.getElementById('PublishedActions').ej2_instances[0].refresh();
+        }
+    }
+
+    function GoToDetail(publishMode, actionId) {
+        LoadPartial("@Url.Action("Details","Action")" + "/?PublishModeFilter=" + publishMode + "&id=" + actionId + '&partial=true', '#pageContainer');
+    }
+
+    function TreeViewLink(node) {
+        debugger;
+    }
+
+    function firstLoadNoSelected() {
+        document.getElementById('toggleDetailBtn').style.visibility = 'collapse';
+        @if (Model.Publication == null)
+        {
+            <text>
+        ej.base.getInstance(document.getElementById('treeViewDialog'), ejs.popups.Dialog).show();
+        dialogOpen = true;
+            </text>
+        }
+        else
+        {
+            <text>
+        redefineStyle();
+            </text>
+        }
+    }
+
+    function displayProcesses(args) {
+        args.cancel = true;
+        if (dialogOpen == false) {
+            ej.base.getInstance(document.getElementById('treeViewDialog'), ejs.popups.Dialog).show();
+            dialogOpen = true;
+        }
+        else {
+            ej.base.getInstance(document.getElementById('treeViewDialog'), ejs.popups.Dialog).hide();
+            dialogOpen = false;
+        }
+    }
+
+    function hideProcesses(args) {
+        dialogOpen = false;
+    }
+
+    @*function onTemplateRefresh(args) {
+        var column = args.column.field;
+        var values = args.data.ColumnValues[column];
+        var model = @Html.Raw(Json.Encode(Model.Publication));
+        var publishModeFilter = args.data["PublishModeFilter"];
+        var actionId = args.data["ActionId"];
+        var cell = args.cell;
+        var html = "";
+        if (args.model._isPrinting == true) {
+            //redefine width of column to fit the printing
+            if (args.column.width < 100)
+                args.column.width = "50%"
+            else
+                args.column.width = "100%"
+        }
+        for (i = 0, len = values.Values.length; i < len; ++i) {
+            var val = values.Values[i];
+            if (val.Value == "")
+                continue;
+
+            if (val.Description == null)
+                val.Description = "";
+
+            switch (val.Type) {
+                case "Text":
+                    if (column == "Label") {
+                        if (args.model._isPrinting == true) {
+                            html = html + "<span>" + val.Value + "</span>";
+                        }
+                        else {
+                            html = html + "<a href='/Action/Details/?PublishModeFilter=" + publishModeFilter + "&id=" + actionId + "'>" + val.Value + "</a>";
+                        }
+                        if (args.data.IsKeyTask) {
+                            html = "<strong>" + html + "</strong>";
+                        }
+                    }
+                    else if (val.Quantity == null || column == "PublishedResource") {
+                        html = html + "<span>" + val.Value + "</span>";
+                    }
+                    else {
+                        html = html + "<span>" + "<span class='badge bg-gray' style='margin:3px;margin-bottom:5px;'>" + val.Quantity + "</span>" + val.Value + "</span>";
+                    }
+                    if (i != len - 1) {
+                        html = html + ", ";
+                    }
+                    break;
+                case "Image":
+                    if (val.Value == null) {
+                        break;
+                    } else if (column == "Thumbnail") {
+                        html = html + "<div><img width='100%' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + val.FileHash + val.FileExt + "' onload='imgLoad()' onclick='popUpImage(this)' title='" + val.Description + "'/></div>";
+                    } else if (column == "PublishedResource") {
+                        html = html + "<div><img height='100px' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + val.FileHash + val.FileExt + "' onload='imgLoad()' onclick='popUpImage(this)' title='" + val.Description + "'/></div>";
+                    } else if (i != len - 1) {
+                        html = html + "<div style='padding-bottom: 10px'>" + (val.Quantity != null ? "<span class='badge bg-gray' style='margin:3px;margin-bottom:5px;'>" + val.Quantity + "</span> x " : "") + "<img height='100px' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + val.FileHash + val.FileExt + "' onload='imgLoad()' onclick='popUpImage(this)' title='" + val.Description + "'/></div>";
+                    } else {
+                        html = html + "<div>" + (val.Quantity != null ? "<span class='badge bg-gray' style='margin:3px;margin-bottom:5px;'>" + val.Quantity + "</span> x " : "") + "<img height='100px' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + val.FileHash + val.FileExt + "' onload='imgLoad()' onclick='popUpImage(this)' title='" + val.Description + "'/></div>";
+                    }
+                    break;
+                case "File":
+                    if (args.model._isPrinting == true) {
+                        if (i != len - 1) {
+                        html = html + "<div style='padding-bottom: 10px'>" + val.Description + "</div>";
+                        }
+                        else {
+                            html = html + "<div>" + val.Description + "</div>";
+                        }
+                        break;
+                    }
+                    else {
+                        if (i != len - 1) {
+                        html = html + "<div style='padding-bottom: 10px'><a target='_blank' href='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + val.FileHash + val.FileExt + "'>" + val.Description + "</a></div>";
+                        }
+                        else {
+                            html = html + "<div><a target='_blank' href='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + val.FileHash + val.FileExt + "'>" + val.Description + "</a></div>";
+                        }
+                        break;
+                    }
+
+            }
+        }
+        cell.html(html);
+    }*@
+
+    @*function onQueryCellInfo(args) {
+    /* write own custom script here */
+        /*if (args.column.field == "IsKeyTask" && args.data.IsKeyTask) {
+            $($(args.cell).parent()).css("backgroundColor", "lavenderblush");
+        }*/
+    }*@
+
+    function onDoubleClick(args) {
+        GoToDetail(args.rowData.PublishModeFilter, args.rowData.ActionId);
+    }
+    function onRowDataBound(args) {
+        if (args.data.IsGroup == true) {
+            args.rowHeight = 76;
+        } else {
+            args.rowHeight = 200;
+        }
+    }
+    function beforePrint(args) {
+        //var firstEle = args.element.children[0];
+        //args.element.removeChild(firstEle);
+
+        var header = document.createElement("h3");
+        header.innerHTML = "@Html.Raw(label)";
+        header.style.cssText = "text-align:center;";
+        args.element.insertBefore(header, args.element.children[0]);
+
+
+        //border
+        args.element.style.border = "none"; // removed the default Grid border
+        // add new border to Grid content and header tables
+        //args.element.querySelector(".e-content").style.borderRight = "2px solid #e0e0e0";
+        //args.element.querySelector(".e-content").style.borderLeft = "2px solid #e0e0e0";
+        //args.element.querySelector(".e-headercontent").style.borderRight = "3px solid #e0e0e0";
+        //args.element.querySelector(".e-headercontent").style.borderLeft = "3px solid #e0e0e0";
+
+        // change the print page orientation to landscape
+        var css1 = '@@page { size: landscape; } .PublishedActions { width: auto; }';
+        var head = document.head || document.getElementsByTagName('head')[0];
+        var style1 = document.createElement('style');
+
+        style1.type = 'text/css';
+        style1.media = 'print';
+
+        if (style1.styleSheet) {
+            style1.styleSheet.cssText = css1;
+        } else {
+            style1.appendChild(document.createTextNode(css1));
+        }
+        head.appendChild(style1);
+
+
+        // increase total Grid cells border width for the more visible purpose
+        var css = '.e-grid .e-headercontent, .e-grid.e-bothlines .e-rowcell, .e-grid.e-default.e-bothlines .e-headercell { border-width: 1px; }';
+        var style = document.createElement('style');
+        style.type = 'text/css';
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+        args.element.insertBefore(style, args.element.children[0]);
+
+        args.element.insertBefore(style1, args.element.children[0]);
+    }
+    function printComplete() {
+        isPrinting = false;
+    }
+    function toolbarClick(args) {
+        var gridObj = document.getElementById('PublishedActions').ej2_instances[0];
+        if (args.item.id === 'PublishedActions_excelexport') {
+            $.ajax({
+                url: "@Url.Action("ExportToExcelPublishedActions")",
+                type: 'POST',
+                xhrFields: {
+                    responseType: 'blob'
+                },
+                data: {
+                    gridColumns: JSON.stringify(gridObj.properties.columns),
+                    gridId: "PublishedActions",
+                    Id: @(Model.Publication?.ProcessId ?? 0),
+                    process: "@Html.Raw(Model.Publication?.Label)",
+                    publishModeFilter: @(Model.Publication?.PublishModeEnum ?? 1)
+                },
+                success: function (response, status, xhr) {
+                    var filename = "";
+                    var disposition = xhr.getResponseHeader('Content-Disposition');
+                    if (disposition && disposition.indexOf('inline') !== -1) {
+                        var filenameRegex = /filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/;
+                        var matches = filenameRegex.exec(disposition);
+                        if (matches != null && matches[1]) {
+                          filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+                    var a = document.createElement('a');
+                    a.setAttribute("type", "hidden");
+                    var url = window.URL.createObjectURL(response);
+                    if (window.navigator && window.navigator.msSaveOrOpenBlob) {
+                        window.navigator.msSaveOrOpenBlob(response, filename);
+                    } else {
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        window.URL.revokeObjectURL(url);
+                        a.remove();
+                    }
+                }
+            });
+        }
+        if (args.item.id === 'PublishedActions_print') {
+            isPrinting = true;
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

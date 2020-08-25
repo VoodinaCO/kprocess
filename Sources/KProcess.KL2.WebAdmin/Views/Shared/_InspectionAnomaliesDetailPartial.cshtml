@@ -1,0 +1,73 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Inspection;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model InspectionViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+@(Html.EJS().Grid("Anomaly")
+    .Height("100%")
+    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "margin: 10px 0;" })
+    .DataSource(ds => ds.Json(Model.Anomalies.ToArray()).Adaptor("RemoteSaveAdaptor"))
+    .AllowPaging()
+    .PageSettings(p => p.PageSize(25))
+    .Locale(ejLanguageCode)
+    .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+    //Excel export
+    .AllowExcelExport()
+    .ExcelQueryCellInfo("excelQueryCellInfo")
+    .RowSelecting("onSelectingCheck")
+    .AllowSelection(false)
+    .AllowTextWrap()
+    .AllowFiltering()
+    .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+    .EnableHover()
+    .Toolbar(new List<string>() { "ExcelExport" })
+    .ToolbarClick("toolbarClick")
+    .Columns(col =>
+    {
+        col.Field("AnomalyId").IsPrimaryKey(true).HeaderText("Id").Visible(false).IsIdentity(true).Width(5).Add();
+        col.Field("AnomalyType").HeaderText(LocalizedStrings.GetString("Type"))
+            .Width(200).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+        col.Field("Photo").HeaderText(LocalizedStrings.GetString("Photo"))
+            .Template("${getAnomalyPhotoTemplate(data)}")
+            .Width(100).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+        col.Field("TypeLabel").HeaderText(LocalizedStrings.GetString("TypeLabel"))
+            .Template("${getAnomalyTypeTemplate(data)}")
+            .Width(200).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+        col.Field("Description").HeaderText(LocalizedStrings.GetString("AnomalyDescription"))
+            .Width(200).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+    })
+    .Render()
+)
+
+<script>
+    function getAnomalyPhotoTemplate(data) {
+        if (data.HasPhoto === true) {
+            return "<div style='text-align:center'><img style='max-height:100px' src='" + data.Photo + "' class='imagePopUp' onclick='popUpImage(this)' /></div>";
+        } else {
+            return "";
+        }
+    }
+
+    function getAnomalyTypeTemplate(data) {
+        return "<a style='text-align:center' data-toggle='modal' onclick='NOKclick(" + data.AnomalyId + ")' href='javascript:void(0)'>" + data.TypeLabel + "</a>";
+    }
+</script>

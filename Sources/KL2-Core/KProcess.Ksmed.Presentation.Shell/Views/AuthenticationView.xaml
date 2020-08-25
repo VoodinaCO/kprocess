@@ -1,0 +1,155 @@
+﻿<core:ChildWindow x:Class="KProcess.Ksmed.Presentation.Shell.Views.AuthenticationView"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:core="http://schemas.kprocess.com/xaml/core"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+                  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                  xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                  xmlns:kicons="clr-namespace:Kprocess.PackIconKprocess;assembly=Kprocess.PackIconKprocess"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+                  xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+                  Title="{Binding Title, Mode=OneWay}"
+                  d:DataContext="{d:DesignInstance Type={x:Type vm:AuthenticationViewModel},
+                                                   IsDesignTimeCreatable=True}"
+                  mc:Ignorable="d">
+    <i:Interaction.Behaviors>
+        <core:CloseChildWindowOnShutdownBehavior />
+    </i:Interaction.Behaviors>
+    <i:Interaction.Triggers>
+        <ei:KeyTrigger Key="Enter" ActiveOnFocus="True">
+            <k:CommandOnEventAction Command="{Binding ValidateCommand}" />
+        </ei:KeyTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition MinWidth="200" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="1"
+                   Margin="30,20,8,8"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_Authentication_Username}"
+                   TextWrapping="Wrap" />
+        <TextBox x:Name="usernameTB"
+                 Grid.Row="1"
+                 Grid.Column="1"
+                 Margin="8,20,30,8"
+                 VerticalAlignment="Top"
+                 core:SpellCheckConfig.Enabled="False"
+                 Text="{k:InstantValidatingBinding Username}"
+                 TextWrapping="Wrap">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <core:FocusAction>
+                        <core:FocusAction.TargetObject>
+                            <MultiBinding Converter="{core:AuthenticationFocusConverter}">
+                                <Binding ElementName="usernameTB" />
+                                <Binding ElementName="passwordTB" />
+                            </MultiBinding>
+                        </core:FocusAction.TargetObject>
+                    </core:FocusAction>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TextBox>
+        <TextBlock Grid.Row="2"
+                   Margin="30,8,8,8"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_Authentication_Password}"
+                   TextWrapping="Wrap" />
+        <PasswordBox x:Name="passwordTB"
+                     Grid.Row="2"
+                     Grid.Column="1"
+                     Margin="8,8,30,8"
+                     VerticalAlignment="Top">
+            <i:Interaction.Behaviors>
+                <k:PasswordBoxBindingBehavior Password="{Binding Password}" />
+            </i:Interaction.Behaviors>
+        </PasswordBox>
+        <TextBlock Grid.Row="3"
+                   Margin="0,8,8,8"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_Authentication_Domain}"
+                   TextWrapping="Wrap"
+                   Visibility="{Binding DomainVisibility}" />
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 Margin="8,8,30,8"
+                 VerticalAlignment="Top"
+                 Text="{Binding Domain}"
+                 TextWrapping="Wrap"
+                 Visibility="{Binding DomainVisibility}" />
+        <TextBlock Grid.Row="4"
+                   Margin="0,8,7.999,8"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="{k:Localize View_Authentication_Language}"
+                   TextWrapping="Wrap" />
+        <ComboBox Grid.Row="4"
+                  Grid.Column="1"
+                  Margin="8,8,30,8"
+                  VerticalAlignment="Top"
+                  ItemsSource="{Binding Languages}"
+                  SelectedItem="{Binding SelectedLanguage}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Language}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <kicons:PackIconCountriesFlags Width="18"
+                                                       Height="18"
+                                                       Country="{Binding FlagName, Converter={kicons:StringToCountryConverter}}" />
+                        <TextBlock Grid.Column="1"
+                                   Margin="4,0,0,0"
+                                   VerticalAlignment="Center"
+                                   Text="{Binding Label}" />
+                    </Grid>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <StackPanel Grid.Row="5"
+                    Grid.Column="1"
+                    Margin="0,10,30,10"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="8,4,4,4"
+                    Command="{Binding ValidateCommand}"
+                    Content="{k:Localize Common_OK}" />
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="4,4,0,4"
+                    Command="{Binding CancelCommand}"
+                    Content="{k:Localize Common_Cancel}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="6"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right">
+            <!--<TextBlock Margin="4"
+                       HorizontalAlignment="Right"
+                       Style="{StaticResource ActivationStatusTextBlockStyle}" />-->
+            <TextBlock Margin="4" HorizontalAlignment="Right">
+                <Run Text="{k:Localize View_AboutView_Version}" />
+                <Run Text="{Binding Version, Mode=OneWay}" />
+            </TextBlock>
+        </StackPanel>
+
+    </Grid>
+</core:ChildWindow>

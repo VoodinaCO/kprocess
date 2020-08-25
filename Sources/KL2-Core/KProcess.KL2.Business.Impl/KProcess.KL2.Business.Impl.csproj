@@ -1,0 +1,379 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{391D2E27-2151-4B41-AB9E-A9ACBA7168A7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>KProcess.KL2.Business.Impl</RootNamespace>
+    <AssemblyName>KProcess.KL2.Business.Impl</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>..\..\..\Key\KProcess.Ksmed.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ReleasePlaco|AnyCPU'">
+    <OutputPath>bin\ReleasePlaco\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <LangVersion>7.1</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Syncfusion.EJ, Version=16.3450.0.21, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\LibNuget\Syncfusion.Web.Base45.16.3.0.21\lib\net45\Syncfusion.EJ.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Transactions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Version.cs">
+      <Link>Properties\Version.cs</Link>
+    </Compile>
+    <Compile Include="API\AnalyzeService.cs" />
+    <Compile Include="API\ApplicationUsersService.cs" />
+    <Compile Include="API\AppResourceService.cs" />
+    <Compile Include="API\DataBaseService.cs" />
+    <Compile Include="API\ImportExportService.cs" />
+    <Compile Include="API\NotificationService.cs" />
+    <Compile Include="API\PrepareService.cs" />
+    <Compile Include="API\ReferentialsService.cs" />
+    <Compile Include="API\SharedDatabaseService.cs" />
+    <Compile Include="API\PublicationService.cs" />
+    <Compile Include="API\UISettingsService.cs" />
+    <Compile Include="API\ValidateService.cs" />
+    <Compile Include="Desktop\NotificationService.cs" />
+    <Compile Include="Desktop\PublicationService.cs" />
+    <Compile Include="Desktop\AnalyzeService.cs" />
+    <Compile Include="Desktop\ApplicationUsersService.cs" />
+    <Compile Include="Desktop\AppResourceService.cs" />
+    <Compile Include="Desktop\DataBaseService.cs" />
+    <Compile Include="Desktop\ImportExportService.cs" />
+    <Compile Include="Desktop\PrepareService.cs" />
+    <Compile Include="Desktop\ReferentialsService.cs" />
+    <Compile Include="Desktop\SharedDatabaseService.cs" />
+    <Compile Include="Desktop\SystemInformationService.cs" />
+    <Compile Include="Desktop\UISettingsService.cs" />
+    <Compile Include="Desktop\ValidateService.cs" />
+    <Compile Include="Helpers\RecurrenceHelper.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Shared\ActionsRecursiveUpdate.cs" />
+    <Compile Include="Shared\ImportExport\VideoDecompositionExporter.cs" />
+    <Compile Include="Shared\ImportExport\VideoDecompositionImporter.cs" />
+    <Compile Include="Shared\Migration\MigratedSharedScenarioActionsOperations.cs" />
+    <Compile Include="Shared\ProjectImportMigration\IExportedProjectMigration.cs" />
+    <Compile Include="Shared\ProjectImportMigration\ProjectMigration.cs" />
+    <Compile Include="Shared\ProjectImportMigration\SerializationOperations.cs" />
+    <Compile Include="Shared\Queries.cs" />
+    <Compile Include="Shared\Migration\MigratedScenarioCloneManager.cs" />
+    <Compile Include="Shared\ScenarioCloneManager.cs" />
+    <Compile Include="Shared\ServiceConst.cs" />
+    <Compile Include="Shared\ServicesDiagnosticsDebug.cs" />
+    <Compile Include="Shared\SharedScenarioActionsOperations.cs" />
+    <Compile Include="Shared\ViewModel\Anomaly\AnomalyReportViewModel.cs" />
+    <Compile Include="Shared\ViewModel\Audit\AnomalyViewModel.cs" />
+    <Compile Include="Shared\ViewModel\Audit\AuditItemViewModel.cs" />
+    <Compile Include="Shared\ViewModel\Audit\AuditReportViewModel.cs" />
+    <Compile Include="Shared\ViewModel\Evaluation\EvaluationReportViewModel.cs" />
+    <Compile Include="Shared\ViewModel\Evaluation\ObservationViewModel.cs" />
+    <Compile Include="Shared\ViewModel\Formation\FormationReportViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\KProcess.KL2.Language\KProcess.KL2.Languages.csproj">
+      <Project>{808A3592-D80A-440B-9EAA-3E8286728CC0}</Project>
+      <Name>KProcess.KL2.Languages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Business\KProcess.Business.csproj">
+      <Project>{41A8FD16-8AA1-48F2-AC75-CB27FFEEA2A4}</Project>
+      <Name>KProcess.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Common\KProcess.Common.csproj">
+      <Project>{5D4074AA-F569-4C2A-AC8F-A486C382BFD7}</Project>
+      <Name>KProcess.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Data\KProcess.Data.csproj">
+      <Project>{DAB850B7-DF8F-401F-A1C6-5E9CE754D913}</Project>
+      <Name>KProcess.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Globalization\KProcess.Globalization.csproj">
+      <Project>{0555579C-1C1B-4B94-B14C-52AB369AEEBA}</Project>
+      <Name>KProcess.Globalization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.APIClient\KProcess.KL2.APIClient.csproj">
+      <Project>{4E55B9A5-39E7-46E1-9952-BBF00123945C}</Project>
+      <Name>KProcess.KL2.APIClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.ConnectionSecurity\KProcess.KL2.ConnectionSecurity.csproj">
+      <Project>{4F22A795-8032-4E56-A62E-035BD7B89215}</Project>
+      <Name>KProcess.KL2.ConnectionSecurity</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.Database\KProcess.KL2.Database.csproj">
+      <Project>{DC11C245-69E9-4E6E-8589-7B37CE2A7B0F}</Project>
+      <Name>KProcess.KL2.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.KL2.FileTransfer.NetStandard\Kprocess.KL2.FileTransfer.NetStandard.csproj">
+      <Project>{e2812008-d7dd-422a-a711-382ff67b9bdb}</Project>
+      <Name>Kprocess.KL2.FileTransfer.NetStandard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Kprocess.KL2.FileTransfer\Kprocess.KL2.FileTransfer.csproj">
+      <Project>{8A8A45DC-ECEB-4743-BB01-C10AB2069B8D}</Project>
+      <Name>Kprocess.KL2.FileTransfer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.SignalRClient\KProcess.KL2.SignalRClient.csproj">
+      <Project>{B2687D8C-28A1-4D14-8298-C01C5BF0D8E7}</Project>
+      <Name>KProcess.KL2.SignalRClient</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Business\KProcess.Ksmed.Business.csproj">
+      <Project>{A53F3357-B177-4C21-BC01-89C173694B4E}</Project>
+      <Name>KProcess.Ksmed.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Data\KProcess.Ksmed.Data.csproj">
+      <Project>{CCB03B61-1966-4315-8149-DBF77C34D7C8}</Project>
+      <Name>KProcess.Ksmed.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Models\KProcess.Ksmed.Models.csproj">
+      <Project>{F92433A9-1D2C-4E64-A29B-4AAEBCA0D3AD}</Project>
+      <Name>KProcess.Ksmed.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Ksmed.Security\KProcess.Ksmed.Security.csproj">
+      <Project>{4F602ABB-799B-4ED2-9C99-CB2F14380C3A}</Project>
+      <Name>KProcess.Ksmed.Security</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.Supervision\KProcess.Supervision.csproj">
+      <Project>{8271055c-57c4-460e-b715-730d38f86227}</Project>
+      <Name>KProcess.Supervision</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App_Data\arial.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <EmbeddedResource Include="App_Data\PdfTemplate\PdfAudit.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\PdfTemplate\PdfEvaluation.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\BodyTemplate\Evaluation.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\BodyTemplate\Audit.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\BodyTemplate\Anomaly.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\PdfTemplate\PdfAnomaly.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\BodyTemplate\Formation.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\PdfTemplate\PdfFormation.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\PdfTemplate\PdfInspection.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Data\BodyTemplate\Inspection.cshtml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\QtBinaries\icudt49.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\icuin49.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\icuuc49.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qdds.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qgif.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qicns.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qico.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qjp2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qjpeg.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qmng.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qsvg.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qtga.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qtiff.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qwbmp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\imageformats\qwebp.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\libEGL.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\libGLESv2.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\platforms\qminimal.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\platforms\qoffscreen.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\platforms\qwindows.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Core.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Gui.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Multimedia.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5MultimediaWidgets.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Network.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5OpenGL.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Positioning.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5PrintSupport.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Qml.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Quick.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Sensors.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Sql.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Svg.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5WebChannel.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5WebKit.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5WebKitWidgets.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Qt5Widgets.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\Syncfusion.WebKitWrapper.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\QtBinaries\zlib1.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Style\bootstrap.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFramework.fr">
+      <Version>6.2.0</Version>
+    </PackageReference>
+    <PackageReference Include="morelinq">
+      <Version>3.1.1</Version>
+    </PackageReference>
+    <PackageReference Include="murmurhash-signed">
+      <Version>1.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>11.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Compression.Base">
+      <Version>17.1.0.50</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.HtmlToPdfConverter.QtWebKit.AspNet">
+      <Version>17.1.0.47</Version>
+    </PackageReference>
+    <PackageReference Include="Syncfusion.Licensing">
+      <Version>17.1.0.50</Version>
+    </PackageReference>
+    <PackageReference Include="System.ValueTuple">
+      <Version>4.5.0</Version>
+    </PackageReference>
+    <PackageReference Include="Unofficial.Microsoft.mshtml">
+      <Version>7.0.3300</Version>
+    </PackageReference>
+    <PackageReference Include="Westwind.RazorHosting">
+      <Version>3.3.9</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,120 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Inspection;
+@using System.Web.Configuration;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model InspectionViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+@(Html.EJS().Grid("InspectionDetail")
+    .Height("100%")
+    .HtmlAttributes(new Dictionary<string, object> { ["style"] = "margin: 10px 0;" })
+    .DataSource(ds => ds.Json(Model.Steps.ToArray()).Adaptor("RemoteSaveAdaptor"))
+    .AllowPaging()
+    .PageSettings(p => p.PageSize(25))
+    .Locale(ejLanguageCode)
+    .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+    //Excel export
+    .AllowExcelExport()
+    .ExcelQueryCellInfo("excelQueryCellInfo")
+    .AllowSelection(false)
+    .AllowTextWrap()
+    .AllowFiltering()
+    .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+    .EnableHover(false)
+    .Toolbar(new List<string>() { "ExcelExport" })
+    .ToolbarClick("toolbarClick")
+    .Columns(col =>
+    {
+        col.Field("IsKeyTask")
+            .Visible(false)
+            .Add();
+        col.Field("Id")
+            .IsPrimaryKey(true)
+            .HeaderText("Id")
+            .Visible(false)
+            .IsIdentity(true)
+            .Width(5)
+            .Add();
+        col.Field("Wbs")
+            .HeaderText(" ")
+            .Width(100)
+            .Add();
+        col.Field("ActionLabel")
+            .Template("${getDisplayActionLabelTemplate(data)}")
+            .HeaderText(LocalizedStrings.GetString("Task"))
+            .Width(200)
+            .AllowFiltering(false)
+            .Add();
+        col.Field("IsOK")
+            .HeaderText("OK / NOK")
+            .Template("${getInspectionResultTemplate(data)}")
+            .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+            .Width(80)
+            .AllowFiltering(false)
+            .Add();
+        col.Field("TypeLabel")
+            .HeaderText(LocalizedStrings.GetString("TypeLabel"))
+            .Width(200)
+            .AllowFiltering(false)
+            .Add();
+        col.Field("Description")
+            .HeaderText(LocalizedStrings.GetString("AnomalyDescription"))
+            .Width(200)
+            .AllowFiltering(false)
+            .Add();
+        col.Field("Photo").HeaderText("Photo")
+            .Template("${getThumbnailImageTemplate(data)}")
+            .Width(200)
+            .AllowFiltering(false)
+            .Add();
+    })
+    .QueryCellInfo("gridQueryCellInfo")
+    .RowSelecting("onSelectingCheck")
+    .Render()
+)
+
+<script>
+    function getDisplayActionLabelTemplate(data) {
+        var actionLabel = data.ActionLabel;
+        if (data.ActionLabel == null) {
+            actionLabel = "";
+        }
+        return "<div style='text-indent: " + data.Level + "em'>" + actionLabel + "</div>";
+    }
+
+    function getInspectionResultTemplate(data) {
+        if (data.ChildTask === true) {
+            return "<span style='text-align:center'>OK</span>";
+        } else if (data.ChildTask === false && data.IsParent != true) {
+            return "<a style='text-align:center' data-toggle='modal' onclick='NOKclick(" + data.AnomalyId + ")' href='javascript:void(0)'>NOK</a>";
+        } else {
+            return "";
+        }
+    }
+
+    function getThumbnailImageTemplate(data) {
+        if (data.HasThumbnail) {
+            return "<div style='text-align:center'><img style='max-height:100px' class='imagePopUp' src='@Html.Raw(WebConfigurationManager.AppSettings["FileServerUri"])/GetFile/" + data.ThumbnailHash + data.ThumbnailExt + "' title='" + data.ActionLabel + "' onclick='popUpImage(this)'></div>";
+        } else {
+            return "";
+        }
+    }
+</script>

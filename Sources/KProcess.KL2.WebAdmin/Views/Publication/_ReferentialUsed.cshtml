@@ -1,0 +1,43 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Action;
+
+@model List<ActionValueViewModel>
+
+@{ 
+    var showUsedRefs = true;
+}
+
+@if (showUsedRefs && Model.Count > 0)
+{
+    var groupRefs = Model.GroupBy(_ => _.MappingName);
+
+    @:<div id="referentialUsedRow" class="row collapse" style="padding: 10px;">
+
+    foreach (var group in groupRefs)
+    {
+        var title = group.FirstOrDefault().LocalizeName;
+        <text>
+        <div class="e-card" style="width: auto;">
+            <div class="e-card-header">
+                <div class="e-card-header-caption">
+                    <div class="e-card-header-title" style="text-align: center;"><label><b>@title</b></label></div>
+                </div>
+            </div>
+            <div class="e-card-content">
+                @foreach (var item in group)
+                {
+                <div id="@item.ReferentialId" style="text-align: center;">
+
+                </div>
+                <script>
+                    docReady(function () {
+                        var data = @Html.Raw(Json.Encode(item));
+                        document.getElementById("@item.ReferentialId").innerHTML = getUsedReferentialTemplate(data);
+                    });
+                </script>
+                }
+            </div>
+        </div>
+        </text>
+    }
+    @:</div>
+}

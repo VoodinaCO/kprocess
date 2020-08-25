@@ -1,0 +1,165 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Audit;
+@using System.Web.Mvc.Html;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model AuditManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Index";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .readCell {
+        background-color: lightgreen;
+    }
+
+    .notReadCell {
+        background-color: lightcoral;
+    }
+
+    <style > .filterBar {
+        display: inline-block;
+        vertical-align: middle;
+        float: none;
+        padding-bottom: 10px;
+    }
+
+    .filterBar > .filterBtn {
+        margin-top: 23px;
+    }
+
+    .notOK {
+        background-color: lightcoral;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @{
+            if (Model.Audits.Count() != 0)
+            {
+                @(Html.EJS().Grid("Audits")
+                            .DataSource(ds => ds.Json(Model.Audits.ToArray()).Adaptor("RemoteSaveAdaptor"))
+                            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                            .AllowPaging()
+                            .PageSettings(p => p.PageSize(25))
+                            .Locale(ejLanguageCode)
+                            //Excel export
+                            .AllowExcelExport()
+                            .ExcelQueryCellInfo("excelQueryCellInfo")
+                            .AllowTextWrap()
+                            .AllowFiltering()
+                            .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+                            .EnableHover()
+                            .Toolbar(new List<string>() { "ExcelExport" })
+                            .ToolbarClick("toolbarClick")
+                            .Columns(col =>
+                            {
+                                col.Field("AuditId").IsPrimaryKey(true).HeaderText("Id").Visible(false).IsIdentity(true).Width(5).Add();
+                                col.Field("ProcessName").HeaderText(LocalizedStrings.GetString("Inspection")).Template("#linkAudit").MinWidth("140px").AllowFiltering(true).AllowSorting(true).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                col.Field("AuditorName").HeaderText(LocalizedStrings.GetString("Auditor")).Width(200).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                col.Field("AuditorTeams").HeaderText(LocalizedStrings.GetString("AuditorTeam")).Width(200).AllowFiltering(true).AllowSorting(true).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                col.Field("AuditeeName").HeaderText(LocalizedStrings.GetString("Auditee")).Width(200).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                col.Field("SurveyName").HeaderText(LocalizedStrings.GetString("Questionnaire")).Width(200).AllowFiltering(true).AllowSorting(true).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                col.Field("EndDate").HeaderText(LocalizedStrings.GetString("AuditDate")).Format("yMd").Width(200).AllowFiltering(true).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                col.Field("AnomalyNumber").HeaderText(LocalizedStrings.GetString("AnomalyNumber")).Width(200).AllowFiltering(false).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                                col.Field("IsOK")
+                                    .HeaderText(LocalizedStrings.GetString("Result")).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                    .Visible(false)
+                                    .Width(200).AllowFiltering(false).Add();
+                            })
+                            .DataBound("gridDataBound")
+                            .RecordDoubleClick("recordDblClick")
+                            .QueryCellInfo("gridQueryCellInfo")
+                            .RowSelecting("onSelectingCheck")
+                            .Load("gridLoad")
+                            .Render()
+                )
+            }
+            else
+            {
+                @Html.Label(LocalizedStrings.GetString("NoAuditAvailable"));
+            }
+        }
+    </div>
+</div>
+
+<script type="text/template" id="linkAudit">
+    <a class="linkAudit" onclick="GoToDetail(${AuditId})" href="javascript:void(0)">${ProcessName}</a>
+</script>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Audit")" + "/" + "@LocalizedStrings.GetString("AuditList")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function gridDataBound(args) {
+        this.autoFitColumns(['EndDate', 'AnomalyNumber']);
+    }
+
+    function GoToDetail(auditId) {
+        LoadPartial('/Audit/Detail?id=' + auditId + '&partial=true', '#pageContainer');
+    }
+
+    function gridCreate(args) {
+        var textWidth = $(".orientationcss > div").outerWidth();//Obtain the width of the headerText content.
+        $(".e-headercell").css("height", 125); //Assign the obtained textWidth as the height of the headerCell
+        $(".e-stackedHeaderCell").css("height", 50);
+    }
+    function gridLoad(args) {
+        var len = this.columns.length;
+        for (var i = 0; i < len; i++) {
+            if (this.columns[i].field.includes("date") || this.columns[i].field.includes("Date"))
+                this.columns[i].format = { type: 'date', format: 'dd/MM/yyyy' }; //apply the format to corresponding date column
+        }
+    }
+    function gridQueryCellInfo(args) {
+        if (args.data.IsOK == false) {
+            args.cell.classList.add('notOK');
+        }
+        if (args.column.field == "AuditorTeams") {
+            var teams = args.data["AuditorTeams"];
+            args.cell.innerText = String(teams).replace(/\,/g, ', ');
+        }
+    }
+    function recordDblClick(args) {
+        GoToDetail(args.rowData["AuditId"]);
+    }
+    function excelQueryCellInfo(args) {
+        if (args.data.IsOK == false) {
+            args.style = { backColor: '#F08080' };
+        }
+    }
+    function toolbarClick(args) {
+        if (args.item.id === 'Audits_excelexport') {
+            var gridObj = document.getElementById("Audits").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "Audits.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

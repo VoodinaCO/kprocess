@@ -1,0 +1,48 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Teams;
+@using System.Web.Mvc.Html;
+@using KProcess.KL2.Languages;
+
+@model TeamViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    var parameters = new RouteValueDictionary();
+
+    for (var i = 0; i < Model.UserId.Count; ++i)
+    {
+        parameters.Add($"ids[{i}]", Model.UserId[i]);
+    }
+}
+
+<div style="min-width:500px; max-height:700px;">
+    <div class="row" style="margin: 5px;">
+        <div class="e-float-input e-input-group col-md-4" style="align-self: flex-start;">
+            <input id="TeamName" name="TeamName" required="required" type="text" tabindex="1" value="@Model.TeamName" />
+            <span class="e-float-line"></span>
+            <label class="e-float-text">@LocalizedStrings.GetString("Team")</label>
+        </div>
+        <div class="col-md-8">
+            <label class="control-label" for="Username">@LocalizedStrings.GetString("Username")</label>
+            @{
+                @(Html.EJS().ListView("Fullname")
+                    .DataSource(u => u.Url(@Url.Action("GetUserWithIds", parameters))
+                        .Adaptor("UrlAdaptor"))
+                    .ShowCheckBox(true)
+                    .Template("<div class='e-list-wrapper e-list-multi-line'><span class='e-list-content e-text-overflow'>${Fullname}</span></div>")
+                    .Fields(new Syncfusion.EJ2.Lists.ListViewFieldSettings { Text = "Fullname", IsChecked = "IsChecked" })
+                    .SortOrder(Syncfusion.EJ2.Lists.SortOrder.Ascending)
+                    .Render()
+                )
+            }
+        </div>
+    </div>
+    @Html.HiddenFor(o => o.TeamId)
+</div>
+
+<script>
+    docReady(function () {
+        setOrderOfList();
+    });
+</script>
+
+@Html.EJS().ScriptManager()

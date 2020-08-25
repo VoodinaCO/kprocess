@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+
+  <?include Metadata\Metadata.wxi ?>
+  <?include Metadata\Versions.wxi ?>
+  <?include Metadata\ProductCodes.wxi ?>
+
+  <Product
+    Id="$(var.ProductCode)"
+    Name="$(var.ProductName)"
+    Language="!(loc.Language)"
+    Version="$(var.Version)"
+    Manufacturer="$(var.Manufacturer)"
+    UpgradeCode="$(var.UpgradeCode)">
+
+    <Package
+      InstallerVersion="405"
+      Compressed="yes"
+      InstallScope="perMachine"
+      Description="$(var.Description) v$(var.Version)"
+      />
+
+    <MajorUpgrade DowngradeErrorMessage="!(loc.NoDownGrade)" />
+
+    <Media Id="1" Cabinet="content.cab" EmbedCab="yes" />
+
+    <!--Properties Ref to reference fragments -->
+    <PropertyRef Id="RefProperty_UIDefinition" />
+    <PropertyRef Id="RefProperty_SetProperties" />
+    <PropertyRef Id="RefProperty_Directories" />
+    <PropertyRef Id="RefProperty_KsmedSearch" />
+    <PropertyRef Id="RefProperty_Features" />
+    <PropertyRef Id="RefProperty_KsmedRootDirSearch" />
+
+  </Product>
+</Wix>

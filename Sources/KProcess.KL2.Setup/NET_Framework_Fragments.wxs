@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi"
+     xmlns:util="http://schemas.microsoft.com/wix/UtilExtension">
+
+  <?define NetFx471RedistLink = http://go.microsoft.com/fwlink/?LinkId=852104 ?>
+
+  <Fragment>
+    <PropertyRef Id="WIXNETFX4RELEASEINSTALLED" />
+    <Property Id="WIX_IS_NETFRAMEWORK_471_OR_LATER_INSTALLED" Secure="yes" />
+    <SetProperty Id="WIX_IS_NETFRAMEWORK_471_OR_LATER_INSTALLED" Value="1" After="AppSearch">
+      WIXNETFX4RELEASEINSTALLED >= "#461308"
+    </SetProperty>
+  </Fragment>
+
+  <Fragment>
+    <util:RegistrySearchRef Id="NETFRAMEWORK45"/>
+
+    <WixVariable Id="WixMbaPrereqPackageId" Value="NetFx471Redist" />
+    <WixVariable Id="WixMbaPrereqLicenseUrl" Value="http://referencesource.microsoft.com/license.html" Overridable="yes" />
+    <WixVariable Id="NetFx471RedistDetectCondition" Value="NETFRAMEWORK45 &gt;= 461308" Overridable="yes" />
+    <WixVariable Id="NetFx471RedistInstallCondition" Value="" Overridable="yes" />
+
+    <PackageGroup Id="NetFx471Redist">
+      <ExePackage
+          InstallCommand="/q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx471FullLog].html&quot;"
+          RepairCommand="/q /norestart /repair /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx471FullLog].html&quot;"
+          UninstallCommand="/uninstall /q /norestart /ChainingPackage &quot;[WixBundleName]&quot; /log &quot;[NetFx471FullLog].html&quot;"
+          PerMachine="yes"
+          DetectCondition="!(wix.NetFx471RedistDetectCondition)"
+          InstallCondition="!(wix.NetFx471RedistInstallCondition)"
+          Id="NetFx471Redist"
+          Vital="yes"
+          Permanent="yes"
+          Protocol="netfx4"
+          LogPathVariable="NetFx471FullLog"
+          Compressed="yes"
+          SourceFile="..\..\redist\NDP471-KB4033342-x86-x64-AllOS-ENU.exe">
+      </ExePackage>
+    </PackageGroup>
+  </Fragment>
+</Wix>

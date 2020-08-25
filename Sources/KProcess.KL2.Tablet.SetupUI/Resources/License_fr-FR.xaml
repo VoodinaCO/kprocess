@@ -1,0 +1,17 @@
+﻿<FlowDocument xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Paragraph>
+        KL2® EST UNE MARQUE DEPOSEE DE K-PROCESS.<LineBreak />
+        DANS LA MESURE OÙ LE LOGICIEL (KL2®) EST ACHETÉ POUR LE COMPTE D’UNE ENTITÉ LEGALE UNIQUE (PAR EXEMPLE, LA SOCIETE QUI VOUS EMPLOIE), VOUS AFFIRMEZ QUE VOUS AVEZ L’AUTORISATION DE CETTE ENTITÉ D’INSTALLER ET/OU D’UTILISER CE LOGICIEL SELON LES TERMES DE L’ACCORD DE LICENCE EXISTANT ENTRE CETTE ENTITE ET K-PROCESS.</Paragraph>
+    <Paragraph Padding="5"
+               BorderBrush="White"
+               BorderThickness="1">
+        SINON, N’INSTALLEZ PAS, N’ACTIVEZ PAS OU N’UTILISEZ PAS LE LOGICIEL.<LineBreak />
+        SI, MALGRE L’ABSENCE D’AUTORISATION, VOUS PERSEVEREZ A ACTIVER ET/OU UTILISER LE LOGICIEL VOUS SEREZ SUSCEPTIBLE, DE LA PART DE K-PROCESS, DE POURSUITES DEVANT LES JURIDICTIONS FRANCAISES COMPETENTES.</Paragraph>
+    <Paragraph>
+        K-PROCESS<LineBreak />
+        151, ROUTE DU CROZAT<LineBreak />
+        38630 CORBELIN<LineBreak />
+        FRANCE<LineBreak />
+        <Hyperlink>KL2Suite@k-process.com</Hyperlink>
+    </Paragraph>
+</FlowDocument>

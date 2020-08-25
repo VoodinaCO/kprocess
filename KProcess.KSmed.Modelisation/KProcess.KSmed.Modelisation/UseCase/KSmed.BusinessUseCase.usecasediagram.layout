@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<useCaseDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.5, 8.5" name="KSmed.BusinessUseCase">
+  <useCaseModelRootMoniker Id="1ac6df1d-29e5-4b0f-9632-b89ed4754dc5" />
+  <nestedChildShapes>
+    <actorShape Id="3932ee23-3ff0-4de7-b261-d25b200013d7" absoluteBounds="1.125, 5, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="e715bee2-1176-41c3-b123-e2b1c6c9988b" LastKnownName="Administrateur KPROCESS" />
+      <relativeChildShapes />
+    </actorShape>
+    <actorShape Id="735711c5-3948-4a3b-b4be-5d1a70978082" absoluteBounds="1.125, 2.25, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="b2381b0c-8439-494c-81a8-1fe62f4597f3" LastKnownName="Utilisateur " />
+      <relativeChildShapes />
+    </actorShape>
+    <actorShape Id="a23601f7-6011-42a4-8e8b-70717018813e" absoluteBounds="1.125, 3.5, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="518212f9-73e2-4705-a93f-3d052f74664b" LastKnownName="Administrateur KSMED" />
+      <relativeChildShapes />
+    </actorShape>
+    <actorShape Id="23f8e9ca-1d2e-454f-ab87-cbd119c87753" absoluteBounds="9.625, 2.25, 0.5, 0.5" isReference="false" heightOffset="0">
+      <actorMoniker Id="97053755-6dd2-479d-80c6-cf18b4e19551" LastKnownName="Ouvrier" />
+      <relativeChildShapes />
+    </actorShape>
+    <artifactShape Id="1e87fbe9-7bdf-4e0d-9a84-d377093002f2" absoluteBounds="4.75, 2.125, 2.75, 0.75" customColor="161, 199, 231">
+      <artifactMoniker Id="35c3154d-3b27-415b-8fec-23c338fdba69" LastKnownName="Application KSMED" />
+    </artifactShape>
+    <useCaseAssociationConnector edgePoints="[(1.625 : 2.5); (4.75 : 2.5)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="82a633e2-f92e-4764-84e0-11891d45db0c" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="735711c5-3948-4a3b-b4be-5d1a70978082" />
+        <artifactShapeMoniker Id="1e87fbe9-7bdf-4e0d-9a84-d377093002f2" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(9.625 : 2.5); (7.5 : 2.5)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="64cb8c7c-4311-49b8-832c-0f566d17f46b" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="23f8e9ca-1d2e-454f-ab87-cbd119c87753" />
+        <artifactShapeMoniker Id="1e87fbe9-7bdf-4e0d-9a84-d377093002f2" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(1.625 : 3.68421052631579); (4.75 : 2.86184210526316)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="21964cb7-e29b-4873-98df-f37cdb7aa7ac" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="a23601f7-6011-42a4-8e8b-70717018813e" />
+        <artifactShapeMoniker Id="1e87fbe9-7bdf-4e0d-9a84-d377093002f2" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <artifactShape Id="7649101d-5d98-4679-ac9d-1f95c0de86d7" absoluteBounds="4.75, 4.125, 2.75, 0.625" customColor="161, 199, 231">
+      <artifactMoniker Id="5eefb1b3-d15f-4a7e-942e-802578db3696" LastKnownName="Extranet" />
+    </artifactShape>
+    <useCaseAssociationConnector edgePoints="[(1.625 : 3.80121397024267); (4.75 : 4.44138859827606)]" fixedFrom="Algorithm" fixedTo="Caller" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="486aa0cf-ce1d-4659-9752-d515bb18b936" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="a23601f7-6011-42a4-8e8b-70717018813e" />
+        <artifactShapeMoniker Id="7649101d-5d98-4679-ac9d-1f95c0de86d7" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <useCaseAssociationConnector edgePoints="[(1.625 : 5.20723684210526); (4.75 : 4.67269736842105)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="113, 111, 110" sourceMultiplicity="" targetMultiplicity="">
+      <associationMoniker Id="84b064e9-70ee-4257-840b-510418ff299b" />
+      <relativeChildShapes />
+      <nodes>
+        <actorShapeMoniker Id="3932ee23-3ff0-4de7-b261-d25b200013d7" />
+        <artifactShapeMoniker Id="7649101d-5d98-4679-ac9d-1f95c0de86d7" />
+      </nodes>
+    </useCaseAssociationConnector>
+    <commentShape Id="71a8de06-f4f2-4bac-8cfa-c36b2bd511ca" absoluteBounds="9.5, 4.25, 1.75, 1" customColor="251, 247, 200">
+      <commentMoniker Id="a00e2f19-f94e-4fda-8c86-a9f571e27b31" />
+      <relativeChildShapes />
+    </commentShape>
+  </nestedChildShapes>
+</useCaseDiagram>

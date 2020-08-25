@@ -1,0 +1,61 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                    xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:mvvm="http://www.galasoft.ch/mvvmlight">
+
+    <DataTemplate x:Key="DefaultFlyoutHeaderTemplate">
+        <DockPanel x:Name="dpHeader" VerticalAlignment="Center" LastChildFill="True">
+            <Button x:Name="PART_BackButton"
+                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type MahApps:Flyout}}, Path=InternalCloseCommand, Mode=OneWay}"
+                    CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type MahApps:Flyout}}, Path=CloseCommandParameter, Mode=OneWay}"
+                    Width="34" Height="34" Margin="2 4 2 2" VerticalAlignment="Bottom"
+                    Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"
+                    Foreground="{Binding RelativeSource={RelativeSource AncestorType={x:Type MahApps:Flyout}}, Path=Foreground}"
+                    FontFamily="Segoe UI Symbol" FontSize="16" DockPanel.Dock="Right"
+                    IsCancel="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MahApps:Flyout}}, Path=CloseButtonIsCancel}"
+                    Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MahApps:Flyout}}, Path=CloseButtonVisibility}">
+                <ContentControl Style="{DynamicResource PathIconContentControlStyle}"
+                                Content="M19,34V42H43.75L33.75,52H44.25L58.25,38L44.25,24H33.75L43.75,34H19Z"
+                                Width="20" Height="20" />
+            </Button>
+            <TextBlock x:Name="PART_BackHeaderText" Margin="0 0 15 0" TextAlignment="Right" VerticalAlignment="Center" Text="{Binding}" DockPanel.Dock="Right"
+                       Visibility="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MahApps:Flyout}}, Path=TitleVisibility}" />
+            <iconPacks:PackIconMaterial x:Name="HomeButton" Kind="Home" Width="40" Height="40">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                        <mvvm:EventToCommand Command="{Binding DataContext.NavigateToHome, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type MahApps:Flyout}}}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </iconPacks:PackIconMaterial>
+        </DockPanel>
+        <DataTemplate.Triggers>
+            <DataTrigger Binding="{Binding Position, RelativeSource={RelativeSource AncestorType={x:Type MahApps:Flyout}}}" Value="Left">
+                <Setter TargetName="PART_BackHeaderText" Property="Margin" Value="0 0 15 0" />
+                <Setter TargetName="PART_BackHeaderText" Property="TextAlignment" Value="Right" />
+                <Setter TargetName="PART_BackButton" Property="DockPanel.Dock" Value="Right" />
+                <Setter TargetName="PART_BackButton" Property="LayoutTransform">
+                    <Setter.Value>
+                        <ScaleTransform ScaleX="-1" />
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Position, RelativeSource={RelativeSource AncestorType={x:Type MahApps:Flyout}}}" Value="Top">
+                <Setter TargetName="PART_BackButton" Property="LayoutTransform">
+                    <Setter.Value>
+                        <RotateTransform Angle="-90" />
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Position, RelativeSource={RelativeSource AncestorType={x:Type MahApps:Flyout}}}" Value="Bottom">
+                <Setter TargetName="PART_BackButton" Property="LayoutTransform">
+                    <Setter.Value>
+                        <RotateTransform Angle="90" />
+                    </Setter.Value>
+                </Setter>
+            </DataTrigger>
+        </DataTemplate.Triggers>
+    </DataTemplate>
+
+</ResourceDictionary>

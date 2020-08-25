@@ -1,0 +1,922 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Shared;
+@using KProcess.Ksmed.Models;
+@using System.Configuration;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+@using KProcess.Ksmed.Security;
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    var SharedModel = new SharedViewModel(Url);
+    var Title = "KL²";
+    var Copyright = "Copyright © K-process 2019";
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (SharedModel.User.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = SharedModel.User.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="KL² Web app">
+    <meta name="author" content="K-process">
+
+    <title>@Html.Raw(Title)</title>
+
+    @Styles.Render("~/Css")
+    <!-- sb-admin -->
+    <link rel="stylesheet" href="../../Content/startbootstrap-sb-admin-2/css/sb-admin-2.min.css">
+
+    <script src="~/Scripts/es6-shim.min.js"></script>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="~/Content/GoogleFonts/googlefonts.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/font-awesome/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/Content/Ionicons/css/ionicons.min.css">
+
+    @* Syncfusion Essential JS 2 Styles *@
+    @Styles.Render("~/Content/ej2/material.css")
+
+    @Styles.Render("~/Content/bootstrap-toggle/css/bootstrap-toggle.min.css")
+
+    @RenderSection("styles", required: false)
+
+    <style>
+        .user_avatar {
+            background-image: url('@Url.Content("~/Content/dist/img/avatar5.png")');
+            background-size: 42px 42px;
+        }
+
+        .e-menu-wrapper ul .e-menu-item .e-menu-icon.user_avatar {
+            width: 42px;
+        }
+
+        @@media (min-width: 768px) #accordionSidebar {
+            width: 16rem!important;
+        }
+
+        @@font-face {
+            font-family: 'Toast_icons';
+            src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .toast-icons {
+            font-family: 'Toast_icons' !important;
+            speak: none;
+            font-size: 55px;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        #toast_container .e-toast-icon.e-icons {
+            height: auto;
+            font-size: 30px;
+        }
+
+        .toast-icons.e-success::before {
+            content: "\e701";
+        }
+
+        .toast-icons.e-error::before {
+            content: "\e700";
+        }
+
+        .toast-icons.e-info::before {
+            content: "\e704";
+        }
+
+        .toast-icons.e-warning::before {
+            content: "\e703";
+        }
+        .breadcrumb {
+            background: initial;
+            margin-bottom: initial;
+            font-size: 16px;
+        }
+        .breadcrumb > a {
+           color:inherit;
+        }
+
+        /*IE style*/
+        @@media screen and (min-width:0\0) {
+            .breadcrumb {
+                background-color: transparent;
+            }
+
+            ol {
+                margin-top: 1em;
+            }
+
+            .TypeModalBody {
+                max-height: 720px;
+            }
+        }
+
+        .sidebar-version {
+            text-align: center;
+            margin: 10px;
+            color: rgba(255,255,255,.8);
+            font-size: .65rem;
+        }
+
+        .footer-version {
+            position: absolute;
+            margin-left: 10px;
+            color: #858796;
+            font-size: .8rem;
+            display: none;
+        }
+
+        .disablegrid {
+            pointer-events: none;
+            opacity: 0.4;
+        }
+        .wrapper {
+            cursor: not-allowed;
+        }
+
+        @@media (max-width: 768px) {
+             .footer-version {
+                 display: block;
+             }
+        }
+    </style>
+
+    @Scripts.Render("~/Js")
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    @Scripts.Render("~/Scripts/jsrender.min.js")
+    @* Syncfusion Essential JS 2 Scripts *@
+    @Scripts.Render("~/Scripts/ej2/ej2KProcess.min.js")
+
+    @*<script src="~/Scripts/ej/common/ej.unobtrusive.min.js"></script>*@
+    @*@Scripts.Render("~/Scripts/ej/common/ej.globalize.min.js")*@
+    @*@Scripts.Render("~/Scripts/ej/i18n/ej.culture.fr-FR.min.js")*@
+    @*@Scripts.Render("~/Scripts/ej/l10n/ej.localetexts.fr-FR.min.js")*@
+    @*Bootstrap Toggle Switch*@
+    @Scripts.Render("~/Content/bootstrap-toggle/js/bootstrap-toggle.min.js")
+    @Scripts.Render("~/Content/plugins/bootstrap-notify/bootstrap-notify.min.js")
+    @Scripts.Render("~/Content/plugins/iCheck/icheck.min.js")
+    @Scripts.Render("~/Scripts/jquery.signalR-2.4.1.min.js")
+</head>
+<body id="page-top" class="sidebar-toggled">
+    @Html.EJS().Toast("toast_container").Position(p => p.X("Right")).TimeOut(5000).Render()
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="javascript:location.reload();">
+                <div class="sidebar-brand-icon">
+                    <img src="@Url.Content("~/Content/KL2.png")" alt="KL²" width="40" style="margin-right: 10px;" />
+                </div>
+                @*<div class="sidebar-brand-text mx-3">KL <sup>2</sup></div>*@
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Home -->
+            <li class="nav-item">
+                <a class="nav-link" onclick="LoadPartialWithUnknownCollapsible('@Url.Action("Index", "Home", new { partial = true })', '#pageContainer')" style="cursor: pointer;">
+                    <i class="fa fa-home"></i>
+                    <span>@LocalizedStrings.GetString("Web_Menu_Home")</span>
+                </a>
+            </li>
+
+            <!-- Nav Items -->
+            @foreach (var menuItem in SharedModel.TreeNode)
+            {
+                if (menuItem.HasChild)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#@menuItem.Id" aria-expanded="true" aria-controls="@menuItem">
+                            <i class="@menuItem.Sprite"></i>
+                            <span>@menuItem.Name</span>
+                        </a>
+                        <div id="@menuItem.Id" class="collapse" data-parent="#accordionSidebar">
+                            <div class="bg-white py-2 collapse-inner rounded">
+                                @foreach (var subMenuItem in menuItem.Childs)
+                                {
+                                    <a class="collapse-item" style="cursor: pointer;" onclick="LoadPartialWithCollapsible('@subMenuItem.Url', '#pageContainer', '@menuItem.Id');">@subMenuItem.Name</a>
+                                }
+                            </div>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="@menuItem.Url">
+                            <i class="@menuItem.Sprite"></i>
+                            <span>@menuItem.Name</span>
+                        </a>
+                    </li>
+                }
+            }
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            @*<div class="text-center d-none d-md-inline">
+                    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>*@
+
+            <!-- Version -->
+            <div style="flex: 1; display: flex; flex-direction: column-reverse;">
+                @{
+                    if (SharedModel.User.Roles.Any(r => new[] { KnownRoles.Administrator }.Contains(r)))
+                    {
+                        <span class="sidebar-version">
+                            <a href="@Url.Action("GetAllLogs", "Utils")" style="color: white;">@LocalizedStrings.GetString("Common_GetLogs")</a>
+                        </span>
+                    }
+                }
+                <span class="sidebar-version">v@(SharedModel.WebVersion)</span>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <div id="pageHeader">
+                    </div>
+
+                    <span id="pageTitle">
+                    </span>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link">
+                                <span class="mr-2 d-lg-inline text-gray-600 small">
+                                    @{ Html.RenderAction("LanguageChoose", "Home"); }
+                                </span>
+                            </a>
+                        </li>
+
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">@SharedModel.User.FullName</span>
+                                <img class="img-profile rounded-circle" src="@Url.Content("~/Content/dist/img/avatar5.png")">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    @LocalizedStrings.GetString("SignOut")
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div id="pageContainer" class="container-fluid" style="height: calc(100vh - 158px);">
+                    @RenderBody()
+                </div>
+
+            </div>
+            <!-- End of Main Content -->
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white" style="height: 40px;">
+                <!-- Version -->
+                <span class="footer-version">v@(SharedModel.WebVersion)</span>
+
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>@Copyright</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Global Modal Dialog Container -->
+    <div id="modalDialogContainer">
+    </div>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">@LocalizedStrings.GetString("Web_ReadyToLeave")</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">@LocalizedStrings.GetStringFormat("Web_SelectToLogout", LocalizedStrings.GetString("SignOut"))</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">@LocalizedStrings.GetString("Common_Cancel")</button>
+                    <button class="btn btn-primary" type="button" onclick="execLogout();">@LocalizedStrings.GetString("SignOut")</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (ConfigurationManager.AppSettings["JIRA_Feedback"] == "true")
+    {
+        <script type="text/javascript" src="https://k-process.atlassian.net/s/d41d8cd98f00b204e9800998ecf8427e-T/-t2dfrv/b/11/e73395c53c3b10fde2303f4bf74ffbf6/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector-embededjs.js?locale=en-US&collectorId=5e2cc386"></script>
+    }
+
+    <script id="menuNodeTemplate" type="text/x-template">
+        <a>
+            <i class="${Sprite}"></i> <span>${Name}</span>
+            ${if (HasChild)}
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            ${/if}
+        </a>
+    </script>
+
+    @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+
+    @Html.Partial("_ImageModalPartial")
+    @Html.Partial("_alertModalPartial")
+    @*<div id="AnomalyDetailPartial">
+            @{Html.RenderPartial("~/Views/Inspection/AnomalyDetail.cshtml", new AnomalyViewModel());}
+        </div>*@
+
+    <script type="text/javascript">
+        //Render localization
+        @{
+            if (SharedModel.User.DefaultLanguageCode != null)
+            {
+                var translationPath = "/Scripts/ej2/" + ejLanguageCode + ".json";
+                var absolutePath = HttpContext.Current.Server.MapPath(translationPath);
+                if (System.IO.File.Exists(absolutePath))
+                {
+                    <text>
+                    var jsonValue;
+                    var ajax = new ej.base.Ajax({
+                        url: "@Html.Raw(translationPath)",
+                        mode: false,
+                        type: "GET",
+                        contentType: "application/json",
+                    });
+                    ajax.onSuccess = function (response) {
+                        jsonValue = response;
+                    };
+                    ajax.onFailure = function (response) {
+                        jsonValue = undefined;
+                    };
+                    ajax.send();
+                    if (jsonValue != undefined || jsonValue != null) {
+                        var translationValue = JSON.parse(jsonValue);
+                        translationValue["@Html.Raw(ejLanguageCode)"].formValidator = JSON.parse('{"required" : "", "email" : ""}');
+                        translationValue["@Html.Raw(ejLanguageCode)"].formValidator.required = "@Html.Raw(LocalizedStrings.GetString("Common_RequiredField"))";
+                        translationValue["@Html.Raw(ejLanguageCode)"].formValidator.email = "@Html.Raw(LocalizedStrings.GetString("Common_EmailField"))";
+                        ej.base.L10n.load(translationValue);
+                    }
+                    </text>
+                }
+            }
+        }
+    </script>
+
+    @Html.EJS().ScriptManager()
+
+    @RenderSection("scripts", required: false)
+    <script>
+        // Polyfills
+        if (!Array.prototype.includes) {
+            Object.defineProperty(Array.prototype, "includes", {
+                enumerable: false,
+                value: function(obj) {
+                    var newArr = this.filter(function(el) {
+                        return el == obj;
+                    });
+                    return newArr.length > 0;
+                }
+            });
+        }
+
+        (function (arr) {
+            arr.forEach(function (item) {
+                if (item.hasOwnProperty('remove')) {
+                    return;
+                }
+                Object.defineProperty(item, 'remove', {
+                    configurable: true,
+                    enumerable: true,
+                    writable: true,
+                    value: function remove() {
+                        if (this.parentNode === null) {
+                            return;
+                        }
+                        this.parentNode.removeChild(this);
+                    }
+                });
+            });
+        })([Element.prototype, CharacterData.prototype, DocumentType.prototype]);
+
+        // missing forEach on NodeList for IE11
+        if (window.NodeList && !NodeList.prototype.forEach) {
+            NodeList.prototype.forEach = Array.prototype.forEach;
+        }
+
+        String.prototype.invert = function () {
+           var invertString = "";
+            for (i = this.length - 1; i >= 0; i--) {
+                invertString = invertString + this[i];
+            }
+            return invertString;
+        };
+
+        String.prototype.insert = function (index, string) {
+            if (index > 0) {
+                return this.substring(0, index) + string + this.substring(index, this.length);
+            }
+            return string + this;
+        };
+
+        // Token management
+        function getToken() {
+            var token = sessionStorage.getItem('kl2token');
+            if (token === null || token === undefined) {
+                token = localStorage.getItem('kl2token');
+            }
+            if (token === null || token === undefined) {
+                return null;
+            } else {
+                return token;
+            }
+        }
+
+        function setToken(token, rememberMe) {
+            if (rememberMe === true) {
+                sessionStorage.removeItem('kl2token');
+                localStorage.setItem('kl2token', token);
+            } else {
+                localStorage.removeItem('kl2token');
+                sessionStorage.setItem('kl2token', token);
+            }
+        }
+
+        function clearToken() {
+            sessionStorage.removeItem('kl2token');
+            localStorage.removeItem('kl2token');
+        }
+
+        function rememberMe() {
+            var token = sessionStorage.getItem('kl2token');
+            if (token != null && token != undefined) {
+                return false;
+            }
+            token = localStorage.getItem('kl2token');
+            if (token != null && token != undefined) {
+                return true;
+            }
+            return null;
+        }
+
+        //MaxLength validation
+        var labelFV = function (args) {
+            return args['value'].length <= @ActionReferentialProperties.LabelMaxLength;
+        };
+        var descriptionFV = function (args) {
+            return args['value'].length <= @ActionReferentialProperties.DescriptionMaxLength;
+        };
+
+        function getSessionStorageUsedSize(unit) {
+            var unitToLower = unit.toLowerCase();
+            var nbBytes = JSON.stringify(sessionStorage).length;
+            switch (unitToLower) {
+                case 'mo':
+                    return (nbBytes / 1024 / 1024).toFixed(2) + " " + unit;
+                case 'ko':
+                    return (nbBytes / 1024).toFixed(2) + " " + unit;
+                case 'o':
+                    return nbBytes + " " + unit;
+                default:
+                    return nbBytes + " o";
+            }
+        }
+
+        function storeLocation(action, target, data, verb, index) {
+            var location = JSON.parse(sessionStorage.getItem('location'));
+            if (!Array.isArray(location)) {
+                location = [];
+            }
+            if (index == null || index == undefined) {
+                index = 0;
+            } else if (index === -1) {
+                return location;
+            }
+            while (index + 1 < location.length) {
+                location.pop();
+            }
+            location[index] = {
+                action: action,
+                target: target,
+                data: data,
+                verb: verb
+            };
+            sessionStorage.setItem('location', JSON.stringify(location));
+            return location;
+        }
+
+        function setIsRefreshing(value) {
+            sessionStorage.setItem("isRefreshing", value);
+        }
+
+        function RefreshPartial(action, target, data, verb, index) {
+            setIsRefreshing(true);
+            var ajax = new ej.base.Ajax({
+                url: "@Url.Action("CheckExpiredLicenseToNavigate", "Home")",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ targetAddress: action })
+            });
+            ajax.send().then(function (returnCheck) {
+                if (returnCheck.includes("<") || returnCheck.includes(">")) {
+                    location.reload();
+                }
+                else {
+                    var respond = JSON.parse(returnCheck);
+                    if (respond.redirect == true) {
+                        action = "@Url.Action("Index", "License", new { partial = true})";
+                    }
+                }
+                var targetElement = $(target)[0];
+                var requestVerb = "GET";
+                if (verb) {
+                    requestVerb = verb;
+                }
+                var requestData = null;
+                if (data) {
+                    requestData = data;
+                }
+                var spinner = ej.popups.createSpinner({ target: targetElement });
+                ej.popups.showSpinner(targetElement);
+                $.ajax({
+                    url: action,
+                    type: requestVerb,
+                    data: requestData,
+                    cache: false
+                }).done(function (xhr) {
+                    ej.popups.hideSpinner(targetElement);
+                    $(target).html(xhr);
+                    if (licenseExpired == true) {
+                        licenseExpiredError();
+                    }
+                }).fail(function (xhr) {
+                    setIsRefreshing(false);
+                    console.log(xhr);
+                    ej.popups.hideSpinner(targetElement);
+                });
+            });
+            //var targetElement = $(target)[0];
+            //var requestVerb = "GET";
+            //if (verb) {
+            //    requestVerb = verb;
+            //}
+            //var requestData = null;
+            //if (data) {
+            //    requestData = data;
+            //}
+            //var spinner = ej.popups.createSpinner({ target: targetElement });
+            //ej.popups.showSpinner(targetElement);
+            //$.ajax({
+            //    url: action,
+            //    type: requestVerb,
+            //    data: requestData,
+            //    cache: false
+            //}).done(function (xhr) {
+            //    ej.popups.hideSpinner(targetElement);
+            //    $(target).html(xhr);
+            //}).fail(function (xhr) {
+            //    setIsRefreshing(false);
+            //    console.log(xhr);
+            //    ej.popups.hideSpinner(targetElement);
+            //});
+        }
+
+        function LoadPartial(action, target, data, verb, index) {
+            var ajax = new ej.base.Ajax({
+                url: "@Url.Action("CheckExpiredLicenseToNavigate", "Home")",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify({ targetAddress: action })
+            });
+            ajax.send().then(function (returnCheck) {
+                if (returnCheck.includes("<") || returnCheck.includes(">")) {
+                    location.reload();
+                }
+                else {
+                    var respond = JSON.parse(returnCheck);
+                    if (respond.redirect == true) {
+                        action = "@Url.Action("Index", "License", new { partial = true})";
+                    }
+                }
+                var targetElement = $(target)[0];
+                var requestVerb = "GET";
+                if (verb) {
+                    requestVerb = verb;
+                }
+                var requestData = null;
+                if (data) {
+                    requestData = data;
+                }
+                var spinner = ej.popups.createSpinner({ target: targetElement });
+                ej.popups.showSpinner(targetElement);
+                $.ajax({
+                    url: action,
+                    type: requestVerb,
+                    data: requestData,
+                    cache: false
+                }).done(function (xhr) {
+                    storeLocation(action, target, data, verb, index);
+                    ej.popups.hideSpinner(targetElement);
+                    $(target).html(xhr);
+                    if (licenseExpired == true) {
+                        licenseExpiredError();
+                    }
+                }).fail(function (xhr) {
+                    unauthorizedError();
+                    console.log(xhr);
+                    ej.popups.hideSpinner(targetElement);
+                });
+            });
+            //var targetElement = $(target)[0];
+            //var requestVerb = "GET";
+            //if (verb) {
+            //    requestVerb = verb;
+            //}
+            //var requestData = null;
+            //if (data) {
+            //    requestData = data;
+            //}
+            //var spinner = ej.popups.createSpinner({ target: targetElement });
+            //ej.popups.showSpinner(targetElement);
+            //$.ajax({
+            //    url: action,
+            //    type: requestVerb,
+            //    data: requestData,
+            //    cache: false
+            //}).done(function (xhr) {
+            //    storeLocation(action, target, data, verb, index);
+            //    ej.popups.hideSpinner(targetElement);
+            //    $(target).html(xhr);
+            //}).fail(function (xhr) {
+            //    unauthorizedError();
+            //    console.log(xhr);
+            //    ej.popups.hideSpinner(targetElement);
+            //});
+        }
+
+        function unauthorizedError() {
+            document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString( "Common_Error")", content: "@LocalizedStrings.GetString( "Common_WebUnauthorized")", cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+        }
+
+        function licenseExpiredError() {
+            var toaster = document.getElementById('toast_container').ej2_instances[0];
+            var toasts = toaster.element.children;
+            var alreadyShown = false;
+            for (var i = 0; i < toasts.length; i++) {
+                alreadyShown = toasts[i].classList.contains('e-license-expired');
+                if (alreadyShown === true) {
+                    return;
+                }
+            }
+            toaster.show({ title: "@LocalizedStrings.GetString( "Common_LicenseExpired")", content: "@LocalizedStrings.GetString( "Common_PleaseRenewLicense")", cssClass: 'e-toast-danger e-license-expired', icon: 'e-error toast-icons', timeOut: 0, showCloseButton: true });
+        }
+
+        function LoadPartialWithCollapsible(action, target, collapsible) {
+            LoadPartial(action, target);
+            document.querySelector(".nav-link[data-target='#" + collapsible + "']").click();
+        }
+
+        function LoadPartialWithUnknownCollapsible(action, target) {
+            LoadPartial(action, target);
+            var expandedItem = document.querySelector(".nav-link:not(.collapsed)[aria-expanded='true']");
+            if (expandedItem != null) {
+                expandedItem.click();
+            }
+        }
+
+        function LoadHeader(action, data, verb) {
+            var requestVerb = "GET";
+            if (verb) {
+                requestVerb = verb;
+            }
+            var requestData = null;
+            if (data) {
+                requestData = data;
+            }
+            $.ajax({
+                url: action,
+                type: requestVerb,
+                data: requestData,
+                cache: false
+            }).done(function (xhr) {
+                $('#pageHeader').html(xhr);
+            }).fail(function (xhr) {
+                console.log(xhr);
+            });
+        }
+
+        function setHeader(action, data, verb) {
+            var requestVerb = "POST";
+            if (verb) {
+                requestVerb = verb;
+            }
+            var requestData = null;
+            if (data) {
+                requestData = data;
+            }
+            if (action != null) {
+                if (requestData != null) {
+                    document.getElementById("pageTitle").innerHTML = "";
+                    LoadHeader(action, requestData, requestVerb);
+                } else {
+                    $('#pageHeader').html('');
+                    document.getElementById("pageTitle").innerHTML = displayHeader(action);
+                }
+            } else {
+                $('#pageHeader').html('');
+                document.getElementById("pageTitle").innerHTML = "";
+            }
+        }
+
+        function displayHeader(action) {
+            var ele = "<ol class='breadcrumb'>";
+            if (action.includes("/")) {
+                var list = action.split("/");
+                for (var i = 0; i < list.length; i++) {
+                    ele = ele + "<li class='breadcrumb-item'><a>" + list[i] + "</a></li>";
+                }
+            }
+            else {
+                ele = ele + "<li class='breadcrumb-item'><a>" + action + "</a></li>";
+            }
+            ele = ele + "</ol>";
+            return ele;
+        }
+
+        var imageExtensions = ['.jpeg', '.jpg', '.png', '.bmp'];
+        function isImage(ext) {
+            var extLower = ext.toLowerCase();
+            return imageExtensions.includes(extLower);
+        }
+
+        function execLogout() {
+            sessionStorage.clear();
+            document.cookie = 'token=; Max-Age=-99999999;';
+            document.getElementById('logoutForm').submit();
+        }
+
+        function loadCultureFiles(name) {
+            var files = ['ca-gregorian.json', 'numbers.json', 'timeZoneNames.json'];
+            var loader = ej.base.loadCldr;
+            var loadCulture = function (prop) {
+                var val, ajax;
+                ajax = new ej.base.Ajax(location.origin + '/Scripts/cldr-data/main/' + name + '/' + files[prop], 'GET', false); // Here reading the culture details from the json file, which is present under the scripts folder
+                ajax.onSuccess = function (value) {
+                    val = value;
+                };
+                ajax.send();
+                loader(JSON.parse(val));
+            };
+            for (var prop = 0; prop < files.length; prop++) {
+                loadCulture(prop);
+            }
+        }
+
+        function setOrderOfList() {
+            document.querySelectorAll('.e-listview').forEach(function(ele){
+                //Set Listviews order
+                var listview = ele.ej2_instances[0];
+                listview.fields.sortBy = listview.fields.text;
+            });
+
+        }
+
+        var signalRConnection = $.hubConnection("@System.Configuration.ConfigurationManager.AppSettings["FileServerUri"]");
+        var signalRAPIConnection = $.hubConnection("@System.Configuration.ConfigurationManager.AppSettings["ApiServerUri"]");
+        var KLPublicationHubProxy = signalRConnection.createHubProxy('KLPublicationHub');
+        var KLAnalyzeHubProxy = signalRAPIConnection.createHubProxy('KLAnalyzeHub');
+
+        docReady(function () {
+            loadCultureFiles('@Html.Raw(ejLanguageCode)');
+            ej.base.setCulture("@Html.Raw(ejLanguageCode)");
+
+            if (sessionStorage.getItem('location') === null) {
+                LoadPartial('@Url.Action("Index", "Home", new { partial = true })', '#pageContainer');
+            } else {
+                var location = JSON.parse(sessionStorage.getItem('location'));
+                var firstLocationItem = location[0];
+                RefreshPartial(firstLocationItem.action, firstLocationItem.target, firstLocationItem.data, firstLocationItem.verb);
+            }
+        });
+
+        var licenseExpired = @(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false);
+
+        function applyReadOnlyIfExpired() {
+            if (checkReadOnlyCondition()) {
+                document.querySelectorAll('.e-grid').forEach(function(ele){
+                    // disable multiple grids dynamically
+                    var gridRead = ele.ej2_instances[0];
+                    gridRead.editSettings = { allowEditing: false, allowAdding: false, allowDeleting: false };
+                    // disable other tools
+                    var toolbarItemLength = gridRead.toolbar.length;
+                    var toolbarIds = [];
+                    for (var i = 0; i < toolbarItemLength; i++) {
+                        toolbarIds.push(gridRead.toolbarModule.toolbar.items[i].id);
+                    }
+                    if(toolbarIds.length != 0)
+                        gridRead.toolbarModule.enableItems(toolbarIds, false);
+                });
+            }
+        }
+
+        function checkReadOnlyCondition() {
+            return licenseExpired;
+        }
+
+        function refreshLicenseExpiredStatus(status) {
+            licenseExpired = status;
+        }
+
+        function onSelectingCheck(args) {
+            if (checkReadOnlyCondition()) {
+                args.cancel = true;
+            }
+        }
+
+        $(document).click(function (e) {
+            if (!$(e.target).is('a')) {
+                $('li.nav-item > .collapse').collapse('hide');
+            }
+        });
+    </script>
+    <!--RenderSection("scripts", required: false)-->
+    @*<script>
+            if (typeof (ej.globalize) != 'undefined') {
+                ej.globalize.preferredCulture("fr-FR");//set Culture fr-FR
+            }
+            ej.base.setCulture('fr');
+        </script>*@
+    <script src="~/Content/startbootstrap-sb-admin-2/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/startbootstrap-sb-admin-2/js/sb-admin-2.min.js"></script>
+    @Scripts.Render("~/Scripts/masterjs.js")
+</body>
+</html>

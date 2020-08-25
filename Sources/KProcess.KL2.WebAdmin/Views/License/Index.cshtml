@@ -1,0 +1,141 @@
+@using KProcess.KL2.WebAdmin.Models.License;
+@using KProcess.Ksmed.Security.Activation;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Index";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+@model LicenseViewModel
+
+<style>
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .licenseInfo td {
+        padding-right: 10px;
+    }
+
+    .e-file-delete-btn {
+        display: none !important;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+
+    </div>
+    <div class="innerContent">
+        <div class="card" style="width:50%;">
+            <div class="card-body">
+                @Html.Partial("_LicenseInfo", Model.LicenseInfo)
+            </div>
+        </div>
+
+        <div style="width:50%; padding:1.25rem;">
+            <div class="row">
+                @LocalizedStrings.GetString("Web_View_License_UploadLicense")
+            </div>
+            <div class="row">
+                @(Html.EJS().Uploader("uploadLicense")
+                    .Locale(ejLanguageCode)
+                    .Multiple(false)
+                    .AutoUpload(true)
+                    .ShowFileList(false)
+                    .AsyncSettings(new Syncfusion.EJ2.Inputs.UploaderAsyncSettings { SaveUrl = Url.Action("SaveDefault"), RetryCount = 0 })
+                    .Uploading("beforeUploading")
+                    .Success("uploadSuccess")
+                    .Buttons(new Syncfusion.EJ2.Inputs.UploaderButtonsProps
+                    {
+                        Browse = LocalizedStrings.GetString("View_Documentation_Browse")
+                    })
+                    .AllowedExtensions($".{ActivationConstants.DefaultWebKeyExtension}")
+                    .Render()
+                )
+            </div>
+            @*@if (Model.LicenseFile != null)
+            {
+            <div class="row">
+                <button id="deleteLicenseBtn" class="e-control e-btn e-lib e-primary" onclick="DeleteLicense()">Delete license</button>
+            </div>
+            }*@
+        </div>
+    </div>
+</div>
+
+<script>
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Administration")" + "/" + "@LocalizedStrings.GetString("Web_Menu_License")");
+        setIsRefreshing(false);
+    });
+
+    function beforeUploading(args) {
+        args.currentRequest.setRequestHeader('name', nameTb.value);
+        args.currentRequest.setRequestHeader('company', companyTb.value);
+        args.currentRequest.setRequestHeader('email', emailTb.value);
+    }
+
+    function uploadSuccess(args) {
+        if (args.response.statusText === "OK") { // Success
+            //Refresh page to prevent expired data in script still retain
+            window.location.reload();
+        } else if (args.response.statusText === "ExpectationFailed") { //OverageOfUsers redirect to User management page
+	        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: args.e.currentTarget.responseText, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+	        LoadPartial('/User/Index?partial=true', '#pageContainer');
+        }
+        else {
+	        document.getElementById('toast_container').ej2_instances[0].show({ title: "@LocalizedStrings.GetString("Common_Error")", content: args.e.currentTarget.responseText, cssClass: 'e-toast-danger', icon: 'e-error toast-icons' });
+	        var location = JSON.parse(sessionStorage.getItem('location'));
+	        var firstLocationItem = location[0];
+	        RefreshPartial(firstLocationItem.action, firstLocationItem.target, firstLocationItem.data, firstLocationItem.verb);
+        }
+    }
+
+    function DeleteLicense() {
+        var ajax = new ej.base.Ajax({
+            url: "@Url.Action("DeleteLicense", "License")", //render the partial view
+            type: "POST",
+            contentType: "application/json"
+        });
+        ajax.send().then(function (data) {
+            location.reload();
+        }).catch(function (xhr) {
+            console.log(xhr);
+            location.reload();
+        });
+    }
+</script>
+
+@Html.EJS().ScriptManager()

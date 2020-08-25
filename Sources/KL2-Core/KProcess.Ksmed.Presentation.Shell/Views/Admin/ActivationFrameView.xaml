@@ -1,0 +1,23 @@
+﻿<UserControl 
+  x:Class="KProcess.Ksmed.Presentation.Shell.Views.ActivationFrameView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:k="http://schemas.kprocess.com/xaml/framework"
+  xmlns:core="http://schemas.kprocess.com/xaml/core"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+  mc:Ignorable="d" 
+  d:DataContext="{d:DesignInstance Type={x:Type vm:ActivationFrameViewModel}, IsDesignTimeCreatable=True}" 
+  d:DesignWidth="300" d:DesignHeight="300">
+  <StackPanel>
+
+        <CheckBox Margin="8" Content="{k:Localize VM_ActivationFrameView_AllowSendReport}" IsChecked="{Binding CanSendReport}"/>
+        <Button Content="{k:Localize VM_ActivationFrameView_OpenWindow}" Command="{Binding OpenWindowCommand}" Margin="8"
+            VerticalAlignment="Top" HorizontalAlignment="Left" />
+    
+  </StackPanel>
+</UserControl>
+
+

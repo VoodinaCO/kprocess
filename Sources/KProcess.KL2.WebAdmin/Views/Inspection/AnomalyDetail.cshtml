@@ -1,0 +1,164 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Inspection;
+@using KProcess.Ksmed.Models;
+@using KProcess.KL2.Languages;
+
+@model AnomalyViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<style>
+    .notChoosen {
+        margin: 10px;
+        margin-bottom: 5px;
+        margin-top: 0px;
+    }
+    .Choosen {
+        background-color: @Html.Raw(Model.TypeColor);
+        margin: 10px;
+        margin-bottom: 5px;
+        margin-top: 0px;
+    }
+    .TypeLabel {
+        background-color: @Html.Raw(Model.TypeColor);
+        color : white;
+    }
+    .TypeBorder {
+        background-color: white;
+        border : solid;
+        border-color : @Html.Raw(Model.TypeColor);
+    }
+    .TypeWord {
+        color : @Html.Raw(Model.TypeColor);
+    }
+    .TypeModalBody {
+        background-color: @Html.Raw(Model.TypeColor);
+    }
+</style>
+
+
+<div class="modal fade" id="AnomalyForm">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content TypeModalBody">
+            @*<div class="modal-header TypeLabel" style="text-align:center;border-bottom:0px;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>*@
+            <div id="anomalyDetailForm">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12 TypeLabel" style="text-align:center;">
+                            <h2 class="text-center" id="Type">
+                                @Model.TypeLabel
+                            </h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 TypeWord TypeBorder">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label>@LocalizedStrings.GetString("LINE")</label>
+                                    <br />
+                                    <label>@LocalizedStrings.GetString("MACHINE")</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <label>:</label>
+                                    <br />
+                                    <label>:</label>
+                                </div>
+                                <div class="col-md-5">
+                                    <label id="Line">@Model.Line</label>
+                                    <br />
+                                    <label id="Machine">@Model.Machine</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6 TypeWord TypeBorder" style="justify-content:center;text-align:center;">
+                            <label>@LocalizedStrings.GetString("PRIORITY")</label>
+                            <br />
+                            <span style="display:inline;">
+                                @if (Model.PriorityLists != null)
+                                {
+                                    foreach (var priority in Model.PriorityLists.ToList())
+                                    {
+                                        if (Model.Priority == priority.Item1)
+                                        {
+                                            @:<span class="badge badge-primary Choosen">@priority.Item2</span>
+                                        }
+                                        else
+                                        {
+                                            @:<span class="badge badge-primary notChoosen">@priority.Item2</span>
+                                        }
+                                    }
+                                }
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row TypeBorder TypeWord">
+                        @if (Model.KindItems != null)
+                        {
+                            for (int i = 0; i < Model.KindItems.Count; i++)
+                            {
+                                var kindItem = Model.KindItems[i];
+                                var type = kindItem.GetType().Name;
+                                if (type == "AnomalyKindItemTitle")
+                                {
+                                    @:<div class="col-md-4">
+                                        @:<h5>@kindItem.Label</h5>
+                                    }
+                                    else if (type == "AnomalyKindItem")
+                                    {
+                                        var item = (AnomalyKindItem)kindItem;
+                                        if (Model.Label == item.Label && Model.Category == item.Category)
+                                        {
+                                            @:<h6 style="margin-bottom:2px;margin-top:2px;"><span class="badge badge-primary Choosen">@item.Number</span>@item.Label</h6>
+                                        }
+                                        else
+                                        {
+                                            @:<h6 style="margin-bottom:2px;margin-top:2px;"><span class="badge badge-primary notChoosen">@item.Number</span>@item.Label</h6>
+                                        }
+                                    }
+
+                                    if (i + 1 < Model.KindItems.Count)
+                                    {
+                                        var nextKindItem = Model.KindItems[i + 1];
+                                        var nextType = nextKindItem.GetType().Name;
+                                        if (nextType == "AnomalyKindItemTitle")
+                                        {
+                                    @:</div>
+                                        }
+                                    }
+                                    else
+                                    {
+                        @:</div>
+                                    }
+                            }
+                        }
+                </div>
+                <div class="row">
+                    <div class="col-md-6 TypeBorder">
+                        @if (Model.HasPhoto)
+                        {
+                            <img src="@Model.Photo" class="img-fluid" />
+                        }
+                    </div>
+                    <div class="col-md-6 TypeBorder TypeWord">
+                        <h4><strong>@LocalizedStrings.GetString("AnomalyDescription")</strong></h4>
+                        <p id="Description">
+                            @Model.Description
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="modal-footer">
+            <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" onclick="validateConfirmation()">Oui</button>
+        </div>*@
+    </div>
+    <!-- /.modal-content -->
+</div>
+<!-- /.modal-dialog -->

@@ -1,0 +1,82 @@
+﻿@using KProcess.KL2.Languages;
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+}
+
+<div id="successModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #47c9a2;border-bottom: none;text-align: center;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="fa fa-check-circle fa-5x"></i>
+            </div>
+            <div class="modal-body text-center">
+                <h4 id="successLabel"></h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="failModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:firebrick;border-bottom: none;text-align: center;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="fa fa-times-circle fa-5x"></i>
+            </div>
+            <div class="modal-body text-center">
+                <h4 id="failLabel"></h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirmModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#3c8dbc;border-bottom: none;text-align: center;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="fa fa-question-circle fa-5x"></i>
+            </div>
+            <div class="modal-body text-center">
+                <h4 id="confirmLabel"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnYes" onclick="confirmDeleteAudit(true); return false;">
+                    @LocalizedStrings.GetString("Common_Yes")
+                </button>
+                <button type="button" class="btn btn-primary" id="btnNo" onclick="confirmDeleteAudit(false); return false;">
+                    @LocalizedStrings.GetString("Common_No")
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="confirmCancelModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#3c8dbc;border-bottom: none;text-align: center;">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <i class="fa fa-question-circle fa-5x"></i>
+            </div>
+            <div class="modal-body text-center">
+                <h4 id="confirmCancelLabel"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="btnYes" onclick="confirmCancelPublication(true); return false;">
+                    @LocalizedStrings.GetString("Common_Yes")
+                </button>
+                <button type="button" class="btn btn-primary" id="btnNo" onclick="confirmCancelPublication(false); return false;">
+                    @LocalizedStrings.GetString("Common_No")
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

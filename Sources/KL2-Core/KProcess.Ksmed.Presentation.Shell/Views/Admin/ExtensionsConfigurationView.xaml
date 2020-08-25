@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="KProcess.Ksmed.Presentation.Shell.Views.ExtensionsConfigurationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:core="http://schemas.kprocess.com/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type={x:Type vm:ExtensionsConfigurationViewModel}, IsDesignTimeCreatable=True}"
+             d:DesignWidth="489" d:DesignHeight="426">
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="0.868*" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <ListBox x:Name="listBox" Margin="8,4,8,8" ItemsSource="{Binding Extensions}" SelectedItem="{Binding CurrentExtension}" Grid.Row="1" Grid.Column="1"
+             Width="220">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Label}" />
+            <Path x:Name="CheckIcon"
+                  Data="M0.5625,5.0625 L1.5,3.9375 L2.9575791,4.9549685 C2.9575791,4.9549685 5.75,1.125 5.75,1.125 C5.75,1.125 6.9375,2 6.9375,2 C6.9375,2 3.186887,7.0000076 3.186887,7.0000076 z"
+                  Fill="{Binding RelativeSource={RelativeSource Self}, Path=(TextElement.Foreground)}" FlowDirection="LeftToRight" Margin="6,0,0,2"
+                  Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Height="10" Stretch="Fill" Width="10" />
+            <TextBlock Margin="6,0,0,0" Text="!" Foreground="{StaticResource ErrorBrush}" Visibility="{Binding IsVersionValid, Converter={StaticResource NegatedBooleanToVisibilityConverter}}" FontWeight="Bold"
+                       ToolTip="{k:Localize View_ExtensionsConfigurationView_VersionIncompatibility}" />
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="2" BorderThickness="0">
+      <Grid Visibility="{Binding CurrentExtension, Converter={StaticResource NotNullToVisibilityConverter}}"
+            Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ScrollViewer}}, Path=ViewportWidth}">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+          <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <CheckBox IsChecked="{Binding CurrentExtension.IsEnabled}" Margin="4,4,2,2" Content="{k:Localize View_ExtensionsConfigurationView_IsEnabled}" />
+        <TextBlock Grid.Row="1" IsHitTestVisible="False" Margin="4,4,2,2" Text="{k:Localize View_ExtensionsConfigurationView_VersionIncompatibilityDescription}"
+                   Visibility="{Binding CurrentExtension.IsVersionValid, Converter={StaticResource NegatedBooleanToVisibilityConverter}}"
+                   Foreground="{StaticResource ErrorBrush}" FontWeight="Bold" />
+
+        <ContentControl Grid.Row="2" Content="{Binding CurrentExtensionConfigurationView}" />
+
+      </Grid>
+    </ScrollViewer>
+
+  </Grid>
+
+</UserControl>
+
+

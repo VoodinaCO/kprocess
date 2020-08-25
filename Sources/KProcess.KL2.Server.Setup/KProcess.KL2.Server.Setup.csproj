@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{8C8BCAB0-5128-43C9-9C1F-90BC5FCA340B}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>KProcess.KL2.Server.Setup</RootNamespace>
+    <AssemblyName>KProcess.KL2.Server.Setup</AssemblyName>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CustomActions.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Versions.cs" />
+    <None Include="wix\$(ProjectName).g.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="NET_Framework_Fragments.wxs" />
+    <None Include="NET_Framework_Payload.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\KL2-Core\KProcess.KL2.API\KProcess.KL2.API.csproj">
+      <Project>{eec93ff4-1289-466b-a9c5-1b4525763e5b}</Project>
+      <Name>KProcess.KL2.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KL2-Core\Kprocess.KL2.FileServer\Kprocess.KL2.FileServer.csproj">
+      <Project>{4722dd46-58cc-4e8b-9776-893710f636fd}</Project>
+      <Name>Kprocess.KL2.FileServer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.Notification\KProcess.KL2.Notification.csproj">
+      <Project>{3174bd59-5c7e-457b-85c5-4904a69734b8}</Project>
+      <Name>KProcess.KL2.Notification</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\KProcess.KL2.WebAdmin\KProcess.KL2.WebAdmin.csproj">
+      <Project>{67831753-f794-4f61-bfc7-47e9c144eb7a}</Project>
+      <Name>KProcess.KL2.WebAdmin</Name>
+      <WebProject>True</WebProject>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="WixSharp">
+      <Version>1.14.2</Version>
+    </PackageReference>
+    <PackageReference Include="WixSharp.bin">
+      <Version>1.14.2</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

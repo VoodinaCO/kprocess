@@ -1,0 +1,215 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Qualification;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model QualificationManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Qualification";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .readCell {
+        background-color: lightgreen;
+    }
+
+    .notReadCell {
+        background-color: lightcoral;
+    }
+
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+    }
+
+    .orientationcss .e-headercelldiv {
+        transform: rotate(315deg);
+    }
+</style>
+
+@{
+    List<object> cols = new List<object>();
+    cols.Add(new { field = "QualificationDate", direction = "Descending" });
+}
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div class="innerContent">
+        @(Html.EJS().Grid("Qualification")
+            .Height("100%").Width("100%")
+            .DataSource(ds => ds.Json(Model.Qualifications.ToArray()).Adaptor("RemoteSaveAdaptor"))
+            .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+            .AllowPaging()
+            .PageSettings(p => p.PageSize(25))
+            .Locale(ejLanguageCode)
+            //Excel export
+            .AllowExcelExport()
+            .ExcelQueryCellInfo("excelQueryCellInfo")
+            .AllowTextWrap()
+            .AllowFiltering()
+            .FilterSettings(f => f.Type(Syncfusion.EJ2.Grids.FilterType.Excel))
+            .EnableHover()
+            .Toolbar(new List<string>() { "ExcelExport" })
+            .ToolbarClick("toolbarClick")
+            .AllowSorting()
+            .SortSettings(sort =>
+                sort.Columns(cols)
+            )
+            .Columns(col =>
+            {
+                col.Field("QualificationId").IsPrimaryKey(true).HeaderText(LocalizedStrings.GetString("Qualification_Id")).Visible(false).IsIdentity(true).Width(5).Add();
+                col.Field("Folder").HeaderText(LocalizedStrings.GetString("Folder")).Width(100).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("ProcessName").HeaderText(LocalizedStrings.GetString("Formation")).Template("#linkPublication").Width(105).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Operator").HeaderText(LocalizedStrings.GetString("TrainedOperator")).Width(105).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Teams").HeaderText(LocalizedStrings.GetString("Teams")).Width(100).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("TrainingStartDate").HeaderText(LocalizedStrings.GetString("FormationStartDate")).Format("yMd").Width(100).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("TrainingEndDate").HeaderText(LocalizedStrings.GetString("FormationEndDate")).Format("yMd").Width(100).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Trainer").HeaderText(LocalizedStrings.GetString("Trainer")).Width(100).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Qualifier").HeaderText(LocalizedStrings.GetString("Qualifier")).Width(105).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("QualificationDate").HeaderText(LocalizedStrings.GetString("QualificationDate")).Format("ymd").Width(110).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+                col.Field("Result").TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).HeaderText(LocalizedStrings.GetString("Result")).Width(100).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                    .Add();
+                col.Field("Notes").HeaderText(LocalizedStrings.GetString("Comment")).AllowFiltering(false).Width(200).CustomAttributes(new { @class = "orientationcss" }).TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center).Add();
+            })
+            .RecordDoubleClick("recordDblClick")
+            .QueryCellInfo("gridQueryCellInfo")
+            .Load("gridLoad")
+            .Created("setHeaderHeight")
+            .HeaderCellInfo("headerCellInfo")
+            .RowSelecting("onSelectingCheck")
+            .Render()
+        )
+    </div>
+</div>
+
+<script type="text/template" id="linkPublication">
+    <a class="linkPublication" href="javascript:void(0)" onclick="GoToDetail(${QualificationId})">${ProcessName}</a>
+</script>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Training")" + "/" + "@LocalizedStrings.GetString("Web_Menu_SkillsEvaluation")");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function GoToDetail(qualificationId) {
+        LoadPartial('/Qualification/Detail?id=' + qualificationId + '&partial=true', '#pageContainer');
+    }
+
+    function gridLoad(args) {
+        var len = this.columns.length;
+        for (var i = 0; i < len; i++) {
+            if (this.columns[i].field.includes("date") || this.columns[i].field.includes("Date"))
+                this.columns[i].format = { type: 'date', format: 'dd/MM/yyyy' }; //apply the format to corresponding date column
+        }
+    }
+    function setHeaderHeight(args) {
+        var textWidth = document.querySelector(".orientationcss > div").scrollWidth; // obtain the width of the headerText content.
+        var headerCell = document.querySelectorAll(".e-headercell");
+        for (var i = 0; i < headerCell.length; i++) {
+            headerCell.item(i).style.height = textWidth + 'px'; // assign the obtained textWidth as the height of the headerCell.
+        }
+    }
+
+    function headerCellInfo(args) {
+        if (args.cell.visible != true) {
+            return;
+        }
+
+        var headerElt = args.node;
+        headerElt.style.padding = "0 5px 0 0";
+        headerElt.style.background = "transparent";
+        headerElt.style.overflow = "visible";
+
+        var headerLabel = headerElt.querySelector('.e-headercelldiv');
+        headerLabel.style.margin = 0;
+        headerLabel.style.padding = 0;
+
+        /*var filterDiv = headerElt.querySelector('.e-headercelldiv');
+        headerLabel.style.position = "absolute";
+        headerLabel.style.bottom = "15px";
+        headerLabel.style.right = "10px";
+
+        var sortDiv = headerElt.querySelector('.e-sortfilterdiv');
+        headerLabel.style.position = "absolute";
+        headerLabel.style.bottom = "20px";
+        headerLabel.style.right = "10px";*/
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field == "Teams") {
+            var teams = args.data["Teams"];
+            args.cell.innerText = String(teams).replace(/\,/g, ', ');
+        }
+        if (args.column.field == "Result") {
+            var percentageResult = args.data["PercentageResult"];
+            args.cell.innerText = percentageResult + " %";
+            if (args.data["Result"] == true)
+                args.cell.classList.add('readCell');
+            else
+                args.cell.classList.add('notReadCell');
+        }
+        if (args.column.field == "Folder") {
+            new ej.popups.Tooltip({
+                content: args.data["FolderPath"].toString() // add Essential JS2 tooltip for every cell.
+            }, args.cell);
+        }
+    }
+    function recordDblClick(args) {
+        GoToDetail(args.rowData["QualificationId"]);
+    }
+    function excelQueryCellInfo(args) {
+        if (args.column.field == "Result") {
+
+            if (args.data["Result"] == true)
+                args.style = { backColor: '#90EE90' };
+            else
+                args.style = { backColor: '#F08080' };
+        }
+    }
+    function toolbarClick(args) {
+        if (args.item.id === 'Qualification_excelexport') {
+            var gridObj = document.getElementById("Qualification").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "Qualification.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

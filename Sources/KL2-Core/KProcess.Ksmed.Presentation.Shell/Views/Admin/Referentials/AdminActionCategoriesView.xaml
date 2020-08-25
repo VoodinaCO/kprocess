@@ -1,0 +1,63 @@
+﻿<UserControl
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:k="http://schemas.kprocess.com/xaml/framework"
+  xmlns:core="http://schemas.kprocess.com/xaml/core"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+  xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+  x:Class="KProcess.Ksmed.Presentation.Shell.Views.AdminActionCategoriesView"
+  mc:Ignorable="d" 
+  d:DesignWidth="569.994" d:DesignHeight="458">
+    <!--d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:AdminActionCategoriesViewModel}}"-->
+    <UserControl.Resources>
+
+    <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+      <Setter Property="Margin" Value="2,4,2,2" />
+    </Style>
+
+  </UserControl.Resources>
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="20"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <StackPanel Grid.Row="0">
+      <TextBlock TextWrapping="Wrap" Style="{StaticResource LabelStyle}" Text="{k:Localize View_AppActionCategories_ActionType}" />
+
+      <ListBox ItemsSource="{Binding Types.Items}" Margin="4,0,2,2" SelectedItem="{k:InstantValidatingBinding Types.SelectedItem}"
+  				Style="{StaticResource radioListBoxStyle}" ScrollViewer.CanContentScroll="False" IsEnabled="{Binding ParentViewModel.CurrentItem.IsEditable}"
+        >
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Value.LongLabel}" TextWrapping="WrapWithOverflow" />
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+
+    </StackPanel>
+    <StackPanel Grid.Row="3" Grid.Column="2" d:LayoutOverrides="GridBox">
+      <TextBlock TextWrapping="Wrap" Style="{StaticResource LabelStyle}" Text="{k:Localize View_AppActionCategories_ActionValue}" />
+      <ListBox ItemsSource="{Binding Values}" Margin="4,0,2,2" SelectedItem="{k:InstantValidatingBinding ParentViewModel.CurrentItem.Value}"
+  				Style="{StaticResource radioListBoxStyle}" IsEnabled="{Binding ParentViewModel.CurrentItem.IsEditable}"
+        >
+        <ListBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding ShortLabel}" ToolTip="{Binding LongLabel}" TextWrapping="WrapWithOverflow" />
+          </DataTemplate>
+        </ListBox.ItemTemplate>
+      </ListBox>
+    </StackPanel>
+
+
+  </Grid>
+</UserControl>
+
+

@@ -1,0 +1,61 @@
+﻿<core:ChildWindow
+  x:Class="KProcess.Ksmed.Presentation.Shell.Views.ReferentialMergeView"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:k="http://schemas.kprocess.com/xaml/framework"
+  xmlns:core="http://schemas.kprocess.com/xaml/core"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+  xmlns:vm="clr-namespace:KProcess.Ksmed.Presentation.ViewModels"
+  xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+  mc:Ignorable="d" 
+  d:DesignWidth="300" d:DesignHeight="300"
+  Title="{Binding Title, Mode=OneWay}">
+    <!--d:DataContext="{d:DesignInstance Type={x:Type vm:ReferentialMergeViewModel}, IsDesignTimeCreatable=True}"-->
+    <i:Interaction.Behaviors>
+    <core:CloseChildWindowOnShutdownBehavior />
+  </i:Interaction.Behaviors>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <TextBlock Margin="4" Style="{DynamicResource Heading5}" Foreground="{DynamicResource ControlForeground}">
+    		<Run Text="{k:Localize Views_ReferentialMergeView_Merge}" />
+        <Run Text="{Binding MainReferential.Label}" FontStyle="Italic" />
+    </TextBlock>
+
+    <ListBox Grid.Row="1" Margin="4" ItemsSource="{Binding Referentials}" SelectionMode="Multiple">
+      <ListBox.ItemContainerStyle>
+        <Style TargetType="{x:Type ListBoxItem}" BasedOn="{StaticResource checkListBoxItemStyle}">
+          <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+        </Style>
+      </ListBox.ItemContainerStyle>
+      <ListBox.GroupStyle>
+        <GroupStyle>
+          <GroupStyle.ContainerStyle>
+            <Style TargetType="{x:Type GroupItem}">
+              <Setter Property="Template" Value="{StaticResource AppReferentialsListGroupItemTemplate}" />
+            </Style>
+          </GroupStyle.ContainerStyle>
+        </GroupStyle>
+      </ListBox.GroupStyle>
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Label}" Foreground="Black" />
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+
+    <StackPanel Orientation="Horizontal" Grid.Row="2" HorizontalAlignment="Right" Margin="0,10,10,10" Grid.Column="1">
+      <Button Content="{k:Localize Common_OK}" Command="{Binding ValidateCommand}" MinWidth="{StaticResource ValidationButtonMinWidth}" Margin="4" />
+      <Button Content="{k:Localize Common_Cancel}" Command="{Binding CancelCommand}" MinWidth="{StaticResource ValidationButtonMinWidth}" Margin="4" />
+    </StackPanel>
+
+  </Grid>
+</core:ChildWindow>
+
+

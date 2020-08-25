@@ -1,0 +1,307 @@
+﻿@using KProcess.KL2.WebAdmin.Models.Qualification;
+@using KProcess.Ksmed.Models;
+@using KProcess.Ksmed.Security;
+@using KProcess.KL2.JWT;
+@using KProcess.KL2.Languages;
+
+@model QualificationViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "QualificationDetail";
+    UserModel user = JwtTokenProvider.GetUserModel(Request.Cookies["token"].Value);
+
+    var ejLanguageCode = "en";
+    var currentUserLanguageCode = JwtTokenProvider.GetUserModelCurrentLanguage(Request.Cookies["token"].Value);
+    if (currentUserLanguageCode != null)
+    {
+        ejLanguageCode = currentUserLanguageCode.ToString().Split('-')[0];
+    }
+    else
+    {
+        if (user.DefaultLanguageCode != null)
+        {
+            ejLanguageCode = user.DefaultLanguageCode.Split('-')[0];
+        }
+    }
+}
+
+<style>
+    .readCell {
+        background-color: lightgreen;
+    }
+
+    .notReadCell {
+        background-color: lightcoral;
+    }
+
+    .childTask {
+        text-indent: 2em;
+    }
+
+    .topMargin {
+        margin-top: 10px;
+        height: calc(100% - 10px);
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        display: flex;
+        min-height: 0px;
+        flex-direction: row;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+        display: flex;
+        flex-direction: column;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+        <div class="col-4">
+            @if (user.Roles.Any(u => u == KnownRoles.Operator && !(user.Roles.Any(u2 => u2 == KnownRoles.Administrator || u2 == KnownRoles.Supervisor))))
+            {
+                @(Html.EJS().Button("returnButton")
+                                    .IsPrimary(true)
+                                    .Content(LocalizedStrings.GetString("Common_Return"))
+                                    .IconCss("fa fa-angle-double-left")
+                                    .IconPosition(Syncfusion.EJ2.Buttons.IconPosition.Left)
+                                    .HtmlAttributes(new Dictionary<string, object> { ["onclick"] = $"LoadPartial('{Url.Action("Index", "Qualification", new { partial = true, userId = user.UserId })}', '#pageContainer')" })
+                                    .Render()
+                )
+            }
+            else
+            {
+                @(Html.EJS().Button("returnButton")
+                                    .IsPrimary(true)
+                                    .Content(LocalizedStrings.GetString("Common_Return"))
+                                    .IconCss("fa fa-angle-double-left")
+                                    .IconPosition(Syncfusion.EJ2.Buttons.IconPosition.Left)
+                                    .HtmlAttributes(new Dictionary<string, object> { ["onclick"] = $"LoadPartial('{Url.Action("Index", "Qualification", new { partial = true })}', '#pageContainer')" })
+                                    .Render()
+                )
+            }
+        </div>
+        <div class="col-4" style="flex: 1; text-align: center;">
+            <label><b>@(LocalizedStrings.GetString("FormationDate"))&nbsp;:</b></label>
+            <span>@Model.TrainingEndDate.Value.ToShortDateString()</span>
+            <label style="margin-left: 20px;"><b>@(LocalizedStrings.GetString("QualificationDate"))&nbsp;:</b></label>
+            <span>@Model.QualificationDate.ToShortDateString()</span>
+        </div>
+        <div class="col-4" style="flex: 1; text-align: right;">
+            <button id="toggleDetailBtn" class="e-control e-btn e-lib e-primary collapsed" data-toggle="collapse" onclick="toggleDetail()" data-target="#detailCard">@LocalizedStrings.GetString("Common_SeeDetail")</button>
+        </div>
+    </div>
+    <div class="innerContent">
+        <div id="detailCard" class="collapse">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("Formation")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@Model.ProcessName</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("Trainer")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@Model.Trainer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("TrainedOperator")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@Model.Operator</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("Comment")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@Model.Notes</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("Result")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            <p>@(Model.PercentageResult)%</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="e-card topMargin">
+                        <div class="e-card-header">
+                            <div class="e-card-header-caption">
+                                <div class="e-card-header-title">@LocalizedStrings.GetString("FinalDecision")</div>
+                            </div>
+                        </div>
+                        <div class="e-card-content" style="display: flex; flex-direction: column;">
+                            @if (Model.Result)
+                            {
+                                <p>@LocalizedStrings.GetString("Common_Qualified")</p>
+                            }
+                            else
+                            {
+                                <p>@LocalizedStrings.GetString("Common_NotQualified")</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="flex: 1; min-height: 0px; padding: 10px 0;">
+            @(Html.EJS().Grid("QualificationDetail")
+                        .DataSource(ds => ds.Json(Model.Steps.ToArray()).Adaptor("RemoteSaveAdaptor"))
+                        .Height("100%")
+                        .AllowSelection(false)
+                        .GridLines(Syncfusion.EJ2.Grids.GridLine.Both)
+                        .AllowPaging()
+                        .PageSettings(p => p.PageSize(25))
+                        .Locale(ejLanguageCode)
+                        //Excel export
+                        .AllowExcelExport()
+                        .ExcelQueryCellInfo("excelQueryCellInfo")
+                        .AllowTextWrap()
+                        .EnableHover(false)
+                        .Toolbar(new List<string>() { "ExcelExport" })
+                        .ToolbarClick("toolbarClick")
+                        .Columns(col =>
+                        {
+                            col.Field("QualificationStepId")
+                                .IsPrimaryKey(true)
+                                .HeaderText("Id")
+                                .Visible(false)
+                                .IsIdentity(true)
+                                .Width(5)
+                                .Add();
+                            col.Field("Wbs")
+                                .HeaderText(" ")
+                                .Width(50)
+                                .Add();
+                            col.Field("ActionLabel")
+                                .HeaderText(LocalizedStrings.GetString("Task"))
+                                .Template("#displayActionLabel")
+                                .Width(200)
+                                .AllowFiltering(false)
+                                .Add();
+                            col.Field("QualifierName")
+                                .HeaderText(LocalizedStrings.GetString("Evaluator_Label"))
+                                .Width(200)
+                                .AllowFiltering(false)
+                                .Add();
+                            col.Field("Date")
+                                .HeaderText(LocalizedStrings.GetString("Date"))
+                                .Width(200)
+                                .AllowFiltering(false)
+                                .Add();
+                            col.Field(HeadersHelper.IsQualified)
+                                .HeaderText("OK / NOK")
+                                .TextAlign(Syncfusion.EJ2.Grids.TextAlign.Center)
+                                .Width(80)
+                                .AllowFiltering(false)
+                                .Add();
+                            col.Field("Comment")
+                                .HeaderText(LocalizedStrings.GetString("Comment"))
+                                .Width(200)
+                                .AllowFiltering(false)
+                                .Add();
+                        })
+                        .QueryCellInfo("gridQueryCellInfo")
+                        .Render()
+            )
+        </div>
+    </div>
+</div>
+
+
+<script type="text/template" id="displayActionLabel">
+    <div style="text-indent: ${Level}em">${ActionLabel}</div>
+</script>
+
+<script type="text/javascript">
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Training")" + "/" + "@LocalizedStrings.GetString("Web_Menu_SkillsEvaluation")" + "/" + "@Html.Raw(Model.ProcessName)");
+        setIsRefreshing(false);
+        refreshLicenseExpiredStatus(@(ViewBag.LicenseExpired != null ? ViewBag.LicenseExpired.ToString().ToLower() : false));
+        applyReadOnlyIfExpired();
+    });
+
+    function toggleDetail() {
+        var togglebtn = document.getElementById('toggleDetailBtn');
+        if (togglebtn.classList.contains('collapsed')) {
+            togglebtn.innerHTML = '@LocalizedStrings.GetString( "Common_HideDetail")';
+        } else {
+            togglebtn.innerHTML = '@LocalizedStrings.GetString( "Common_SeeDetail")';
+        }
+    }
+
+    function gridQueryCellInfo(args) {
+        if (args.column.field === "@HeadersHelper.IsQualified") {
+            args.cell.innerText = "";
+            if (args.data.colorCondition !== "") {
+                args.cell.classList.add(args.data.colorCondition);
+            }
+        }
+    }
+    function excelQueryCellInfo(args) {
+        if (args.column.field == "@HeadersHelper.IsQualified") {
+            args.value = "";
+            if (args.data.colorCondition !== "") {
+                if (args.data["colorCondition"] == "readCell")
+                    args.style = { backColor: '#90EE90' };
+                else
+                    args.style = { backColor: '#F08080' };
+            }
+
+        }
+    }
+    function toolbarClick(args) {
+        if (args.item.id === 'QualificationDetail_excelexport') {
+            var gridObj = document.getElementById("QualificationDetail").ej2_instances[0];
+            var excelExportProperties = {
+                fileName: "QualificationDetail.xlsx"
+            };
+            gridObj.excelExport(excelExportProperties);
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

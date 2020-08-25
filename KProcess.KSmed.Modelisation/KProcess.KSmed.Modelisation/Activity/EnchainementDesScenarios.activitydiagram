@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel" dslVersion="1.0.0.0" Id="cd0016f7-351a-4bbd-831a-988552e58ecf" name="EnchainementDesScenarios" linkedPackageId="8ce15a5e-08be-4c98-967a-66e4beb37adc" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="c6cc9486-0db2-41a0-a222-b428e30c7007">
+      <elementDefinition Id="4a46e7fe-e4cf-43f4-80c9-074fea4a8feb" />
+      <body>Principe d'enchainement des scénarios
+
+!!! A REFACTORER selon état de WORKFLO à QUALIFIER !!!</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances Id="5506f973-8d5e-4aee-8526-8b54fda0527b">
+      <profileInstance Id="bb1817b2-8373-4c78-9791-9cdd09958dc0" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="1fb91cd7-599a-45f5-aa9f-7f1fcfc3ddf8">
+      <profileInstance Id="5c1a73ab-72be-48dc-bbfa-513cf99e488c" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="5f5c31a9-d08a-4261-a54f-fa51e2a4e5a8" name="EnchainementDesScenarios" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="50399be2-9d10-4665-b41f-c030628d83ac" />
+        <nodes>
+          <initialNode Id="203c1d7a-7f1d-4d0a-a9f8-6d3e70b8c164" name="Initial1" isLeaf="false">
+            <elementDefinition Id="6e189cab-aeb8-4e20-9498-fcdba310052b" />
+            <flowNodeTargets>
+              <controlFlow Id="28d3e58e-2a5e-40d3-8060-4ec188fd5854" isLeaf="false">
+                <opaqueActionMoniker Id="849d9c43-33f4-4fea-8f87-d5225a35782b" LastKnownName="Acquérir" />
+                <elementDefinition Id="42454bbf-4b97-4d48-8b5d-072907873678" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="849d9c43-33f4-4fea-8f87-d5225a35782b" name="Acquérir" isLeaf="false">
+            <elementDefinition Id="10bea1a7-ec25-4f42-86be-5c6aed9707d2" />
+            <flowNodeTargets>
+              <controlFlow Id="d1dc8fd3-c295-4e46-bf86-5f305ffed802" isLeaf="false">
+                <opaqueActionMoniker Id="c14b680c-8c63-442d-b5e7-99056e87534e" LastKnownName="Construire" />
+                <elementDefinition Id="f4052585-4089-4ae9-8394-a7fc15a54e82" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="8d0b4e56-6fb1-47b0-82a8-d2503df0d288" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="9b243bee-9dde-4c2a-8470-18306d8bb0ae" LastKnownName="Scenario Initial Brut" />
+                <elementDefinition Id="d231df37-641e-4d16-bbed-3daefda7a437" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="43e9deb5-7055-41cd-a156-4190a24188b3" name="Scenario Initial Synchronisé (Draft)" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="13742464-c579-4b9b-b960-be6f7f668850" />
+            <upperBound>
+              <literalInteger Id="ca712d0e-5e83-4f41-bf78-489dce4d17f7" name="2147483647" value="2147483647">
+                <elementDefinition Id="77c4c24a-d74d-414b-bcd4-dee4d42ddf2e" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="c14b680c-8c63-442d-b5e7-99056e87534e" name="Construire" isLeaf="false">
+            <elementDefinition Id="6d8dccb9-3059-47c3-8636-777426e01ef0" />
+            <flowNodeTargets>
+              <controlFlow Id="cf71ad8b-66cb-4d41-a742-51629124b882" isLeaf="false">
+                <decisionNodeMoniker Id="8aa08a12-14a7-49a3-88ab-663fac82a163" LastKnownName="Valider" />
+                <elementDefinition Id="136ac3df-b3d8-4b09-baf2-6d3958ceafda" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="388a862d-db92-446c-a469-2921aa72fa3e" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="43e9deb5-7055-41cd-a156-4190a24188b3" LastKnownName="Scenario Initial Synchronisé (Draft)" />
+                <elementDefinition Id="0ab580d8-2cc6-47e1-b254-0ad12fd00400" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="9b243bee-9dde-4c2a-8470-18306d8bb0ae" name="Scenario Initial Brut" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="84f203bd-acb8-49a0-a203-a78a6503932d" />
+            <upperBound>
+              <literalInteger Id="c4a4787d-836b-4e83-968e-62b51f006958" name="2147483647" value="2147483647">
+                <elementDefinition Id="429b44f4-d171-4634-be9e-f8ef55150006" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <decisionNode Id="8aa08a12-14a7-49a3-88ab-663fac82a163" name="Valider" isLeaf="false">
+            <description>Valider</description>
+            <elementDefinition Id="1ef172fd-f316-46ad-9f9f-d3b0a4657188" />
+            <flowNodeTargets>
+              <controlFlow Id="28fd98e1-5565-4ff8-9928-b44a8676fd09" guard="Besoin d'affiner" isLeaf="false">
+                <opaqueActionMoniker Id="849d9c43-33f4-4fea-8f87-d5225a35782b" LastKnownName="Acquérir" />
+                <elementDefinition Id="3ab1594c-8042-4f96-9069-91087a92cd31" />
+              </controlFlow>
+              <controlFlow Id="d0d14b32-bc23-4238-8f6f-e4a96e19d738" guard="Scénario prêt" isLeaf="false">
+                <opaqueActionMoniker Id="c7a389b7-be78-4768-8abb-568bc8d6c937" LastKnownName="Valider" />
+                <elementDefinition Id="2048204a-9343-429f-adaf-caf545d340e2" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="c7a389b7-be78-4768-8abb-568bc8d6c937" name="Valider" isLeaf="false">
+            <elementDefinition Id="cd4610d3-a5e2-4ab1-8ce3-abad5b9ac91c" />
+            <flowNodeTargets>
+              <controlFlow Id="58fdb0ef-9b98-4aec-aea7-e6c304acfa8a" isLeaf="false">
+                <decisionNodeMoniker Id="9db0f1db-21a5-4e37-9ac3-ac6dfece1cfc" LastKnownName="Decision2" />
+                <elementDefinition Id="da7b1c3e-f506-4e54-8565-363f10e7e9d9" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="bd47fbf2-c6ba-498a-83af-6303af09fa41" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="3ddf7797-5967-402b-abc7-7eb8b02e1ed8" LastKnownName="Scenario Initial Synchronisé (Validé)" />
+                <elementDefinition Id="2fcb90eb-9552-4d01-b48c-cbe3f44f927c" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="3ddf7797-5967-402b-abc7-7eb8b02e1ed8" name="Scenario Initial Synchronisé (Validé)" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="75053627-3404-4547-ab63-bba457ee307e" />
+            <upperBound>
+              <literalInteger Id="38d89a80-ca8e-4c17-86df-9db3247ee358" name="2147483647" value="2147483647">
+                <elementDefinition Id="7f482c8b-1873-4cda-a50b-09c0513c8c63" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="9d8c272b-6866-43c5-b06f-d87ec45dca8d" name="Créér un scenario cible (simulation) à partir du scenario Initial Validé" isLeaf="false">
+            <elementDefinition Id="0e010e86-9a5e-4ccc-9c15-dabb4af74f61" />
+            <flowNodeTargets>
+              <controlFlow Id="ba77bbc8-f2d3-4f9d-aed8-8423d75afedf" isLeaf="false">
+                <opaqueActionMoniker Id="4cc6bfe2-6f80-4c91-95ed-f9557af216b7" LastKnownName="Construire (Simuler)" />
+                <elementDefinition Id="a32eda3a-c298-4c9c-9dc2-97d9c68c4c7d" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="b2d05585-c715-4723-96ef-4ae77afbcd05" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="df6ea2d4-eedf-46fc-9b5c-216c665354c7" LastKnownName="Scenario Cible (Simualtion)" />
+                <elementDefinition Id="90f75e2d-9fc4-48a3-a6ff-3033efa8d334" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <opaqueAction Id="4cc6bfe2-6f80-4c91-95ed-f9557af216b7" name="Construire (Simuler)" isLeaf="false">
+            <elementDefinition Id="6e7d0252-86ea-4773-9cb9-3e2e5f724260" />
+            <flowNodeTargets>
+              <controlFlow Id="db60bf6e-0a5c-41b3-9748-f8470dbc9a72" isLeaf="false">
+                <opaqueActionMoniker Id="84de793a-189d-4fef-87be-b68838904109" LastKnownName="Simuler (Comparer)" />
+                <elementDefinition Id="630c583c-569f-43ba-9eda-b6c82cd93294" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="84de793a-189d-4fef-87be-b68838904109" name="Simuler (Comparer)" isLeaf="false">
+            <elementDefinition Id="c781ea31-e887-4d47-8d1c-3a2159a58921" />
+            <flowNodeTargets>
+              <controlFlow Id="6952e8ac-4b9d-445e-9463-abfa3787c727" isLeaf="false">
+                <decisionNodeMoniker Id="04a1fe68-6793-42e8-b3ab-b9e38ebca52f" LastKnownName="Decision1" />
+                <elementDefinition Id="78df16ed-523c-4fad-a59b-8205498e6117" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="04a1fe68-6793-42e8-b3ab-b9e38ebca52f" name="Decision1" isLeaf="false">
+            <elementDefinition Id="15469671-7aa3-43fa-8994-27175f3e71a7" />
+            <flowNodeTargets>
+              <controlFlow Id="c413ee2d-d4c1-47e6-bf60-29997a4763cf" guard="Besoin d'affiner le scenario initial" isLeaf="false">
+                <opaqueActionMoniker Id="8aeededb-f8f3-4503-9ed3-30c2e7aa92e7" LastKnownName="Invalider" />
+                <elementDefinition Id="fca41b45-bfe7-4e05-a138-4c1f7fc56487" />
+              </controlFlow>
+              <controlFlow Id="4396dfe4-3d70-4387-993b-91357a84b5b7" guard="Scenario cible à valider" isLeaf="false">
+                <opaqueActionMoniker Id="f7346856-e1d5-4d8b-a480-bb3457ad12a0" LastKnownName="Valider" />
+                <elementDefinition Id="c347bd32-abc0-4660-88ef-92bc52d1c44b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="8aeededb-f8f3-4503-9ed3-30c2e7aa92e7" name="Invalider" isLeaf="false">
+            <elementDefinition Id="f3e5973b-ed02-486c-aa1e-95cb82635a3d" />
+            <flowNodeTargets>
+              <controlFlow Id="f58ef246-44ce-439a-b527-81a9eae675b4" isLeaf="false">
+                <opaqueActionMoniker Id="849d9c43-33f4-4fea-8f87-d5225a35782b" LastKnownName="Acquérir" />
+                <elementDefinition Id="0d3b6006-616d-46a0-9ab5-47a7faba8a94" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="d14bfd42-6b78-469d-86bc-6c76f9843ecc" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="aaf0f3ad-449e-4c11-b0ca-938c0fd1e1c9" LastKnownName="Scenario Initial Synchronisé (Modifié)" />
+                <elementDefinition Id="7e98c174-9c23-4fdd-b477-fa3845b2d2f2" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="aaf0f3ad-449e-4c11-b0ca-938c0fd1e1c9" name="Scenario Initial Synchronisé (Modifié)" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="2c6d1319-6a35-4457-84e0-d1e642b4e541" />
+            <upperBound>
+              <literalInteger Id="7873b4be-5ae1-4f4d-a4dd-831558f43ef5" name="2147483647" value="2147483647">
+                <elementDefinition Id="24334131-e93c-4232-9e0b-4be91e239b3f" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="f7346856-e1d5-4d8b-a480-bb3457ad12a0" name="Valider" isLeaf="false">
+            <elementDefinition Id="c76f887c-e02f-4b96-a53a-2d36dbca92de" />
+            <flowNodeTargets>
+              <controlFlow Id="ad5a4dee-7f7f-445c-8a0c-f28f8ab36732" isLeaf="false">
+                <activityFinalNodeMoniker Id="8613744e-98e1-4c97-8ddf-e9e18334cad4" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="e185c7db-6282-4e8d-99b8-bcc85a5cf4b7" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="2cd13b9d-d5a7-4437-8551-c073dd39927b" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="4379ac55-52d9-405b-82e8-b70283cea7e7" LastKnownName="Scenario Cible (Validé)" />
+                <elementDefinition Id="d0b47af1-bac3-4a2a-ac70-5b197971e962" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="4379ac55-52d9-405b-82e8-b70283cea7e7" name="Scenario Cible (Validé)" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="225b654c-7d73-4980-99ef-0f81f2607ab4" />
+            <upperBound>
+              <literalInteger Id="20bf36da-01fc-441c-9d5b-7a44b5e8b4d7" name="2147483647" value="2147483647">
+                <elementDefinition Id="5fa83aaa-a590-40f6-a792-28367958895a" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="df6ea2d4-eedf-46fc-9b5c-216c665354c7" name="Scenario Cible (Simualtion)" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="af68dbb2-7f24-46af-8066-d3f372eb3155" />
+            <upperBound>
+              <literalInteger Id="864497ce-ca3e-45df-8693-52fb4ec1c03c" name="2147483647" value="2147483647">
+                <elementDefinition Id="2f52f4f0-ee03-4086-9390-9e03659e807d" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <activityFinalNode Id="8613744e-98e1-4c97-8ddf-e9e18334cad4" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="86a5c739-0836-4d9f-94cb-50b1cc9a9e55" />
+          </activityFinalNode>
+          <opaqueAction Id="cb2fcf3a-eef3-445a-96be-9ba1c72dab74" name="Synchroniser modification (si possible, sinon recréer un scenario de simulation)" isLeaf="false">
+            <elementDefinition Id="70292fbc-4926-445e-9115-5916bc951fcb" />
+            <flowNodeTargets>
+              <controlFlow Id="b79a4158-01de-4b9c-ad35-c0910e9bb3ad" isLeaf="false">
+                <opaqueActionMoniker Id="4cc6bfe2-6f80-4c91-95ed-f9557af216b7" LastKnownName="Construire (Simuler)" />
+                <elementDefinition Id="ece782f6-8856-4b4c-b9b4-8f6b6ce60024" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode Id="9db0f1db-21a5-4e37-9ac3-ac6dfece1cfc" name="Decision2" isLeaf="false">
+            <elementDefinition Id="a286c3ae-f717-4519-978f-81ad29076e9e" />
+            <flowNodeTargets>
+              <controlFlow Id="82c58107-5086-4e43-932d-b619b256891f" guard="Nouveau scenario initial Validé" isLeaf="false">
+                <opaqueActionMoniker Id="9d8c272b-6866-43c5-b06f-d87ec45dca8d" LastKnownName="Créér un scenario cible (simulation) à partir du scenario Initial Validé" />
+                <elementDefinition Id="e40409e9-b738-45c7-b478-ef36f652c7ae" />
+              </controlFlow>
+              <controlFlow Id="a5ee50ab-ebef-48e9-8c7a-4d36711cdc58" guard="Scénario initial modifié et revalider" isLeaf="false">
+                <opaqueActionMoniker Id="cb2fcf3a-eef3-445a-96be-9ba1c72dab74" LastKnownName="Synchroniser modification (si possible, sinon recréer un scenario de simulation)" />
+                <elementDefinition Id="158afe93-4785-480b-96a7-516c4c23475a" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="8ce15a5e-08be-4c98-967a-66e4beb37adc" name="KProcess.KSmed.Modelisation">
+    <elementDefinition Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab" />
+  </package>
+</activityRootModel>

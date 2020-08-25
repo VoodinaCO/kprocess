@@ -1,0 +1,27 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,15,10" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing x:Name="blue" Brush="#FF6AB2E7">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,15,10" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="green" Brush="#FF12AD2B">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,5,15,5" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="path6904" Brush="#FFFFFFFF">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M0,0L0,5 0,10 4.330127,7.5 8.660254,5 4.330127,2.5 0,0z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing x:Name="path6929" Brush="#FFD7141A">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M3.3143278,3.75L3.6245985,4.704915 4.6286556,4.704915 3.8163564,5.295085 4.126627,6.25 3.3143278,5.65983 2.5020286,6.25 2.8122992,5.295085 2,4.704915 3.004057,4.704915 3.3143278,3.75z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+  </DrawingGroup>
+</DrawingGroup>

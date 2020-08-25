@@ -1,0 +1,25 @@
+﻿<Window x:Class="UploadUriToServer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem>
+                <TextBlock Text="{Binding Status, UpdateSourceTrigger=PropertyChanged}" />
+            </StatusBarItem>
+        </StatusBar>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button Content="Export resource files" Grid.Row="0"
+                    Command="{Binding DataContext.ExtractBinCommand}"/>
+            <DataGrid Grid.Row="1" CanUserAddRows="False" IsReadOnly="True"
+                      ItemsSource="{Binding DataContext.ResourceFiles}"/>
+        </Grid>
+    </DockPanel>
+</Window>

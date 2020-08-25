@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <PayloadGroup Id="NetFx471RedistPayload">
+    <Payload Name="redist\NDP471-KB4033342-x86-x64-AllOS-ENU.exe"
+             SourceFile="..\..\redist\NDP471-KB4033342-x86-x64-AllOS-ENU.exe"/>
+  </PayloadGroup>
+</Wix>

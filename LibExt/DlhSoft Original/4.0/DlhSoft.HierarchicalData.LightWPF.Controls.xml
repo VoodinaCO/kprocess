@@ -1,0 +1,508 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DlhSoft.HierarchicalData.LightWPF.Controls</name>
+    </assembly>
+    <members>
+        <member name="T:DlhSoft.Windows.Controls.DataTreeGridItemCollection">
+            <summary>
+            Represents a hierarchical data collection used internally by <see cref="T:DlhSoft.Windows.Controls.DataTreeGrid">DataTreeGrid</see> control.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.OnCollectionChanged(System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Raises the CollectionChanged event, and executes internal hierarchical data management operations when collection changes.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.OnItemPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Raises the ItemmPropertyChanged event.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetParent(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Gets the direct parent item of the specified item in the hierarchical collection.
+            </summary>
+            <param name="item">The item to get the parent of.</param>
+            <returns>The parent item of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetParent(System.Int32)">
+            <summary>
+            Gets the direct parent item of the specified item in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to get the parent of.</param>
+            <returns>The parent item of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetAllParents(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Iterates all level parent items of the specified item up in the hierarchical collection.
+            </summary>
+            <param name="item">The item to iterate all level parents of.</param>
+            <returns>All level parent items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetAllParents(System.Int32)">
+            <summary>
+            Iterates all level parent items of the specified item up in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to iterate all level parents of.</param>
+            <returns>All level parent items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetChildren(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Iterates the direct child items of the specified item in the hierarchical collection.
+            </summary>
+            <param name="item">The item to get the children of.</param>
+            <returns>The child items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetChildren(System.Int32)">
+            <summary>
+            Iterates the direct child items of the specified item in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to get the children of.</param>
+            <returns>The child items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetAllChildren(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Iterates all level child items of the specified item down in the hierarchical collection.
+            </summary>
+            <param name="item">The item to iterate all level children of.</param>
+            <returns>All level child items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItemCollection.GetAllChildren(System.Int32)">
+            <summary>
+            Iterates all level child items of the specified item down in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to iterate all level children of.</param>
+            <returns>All level child items of the specified item.</returns>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGridItemCollection.ItemPropertyChanged">
+            <summary>
+            Occurs when a data property value of an item in the collection changes.
+            </summary>
+        </member>
+        <member name="T:DlhSoft.Windows.Controls.DataTreeGridItem">
+            <summary>
+            Represents an item within a <see cref="P:DlhSoft.Windows.Controls.DataTreeGridItem.DataTreeGrid">DataTreeGrid</see> control.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.ContentProperty">
+            <summary>
+            Identifies the Content dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItem.OnContentChanged">
+            <summary>
+            Raises the ContentChanged event.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.IndentationProperty">
+            <summary>
+            Identifies the Indentation dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItem.OnIndentationChanged">
+            <summary>
+            Raises the HierarchyChanged event.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.IndentationWidthProperty">
+            <summary>
+            Identifies the IndentationWidth dependency property.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.HasChildrenProperty">
+            <summary>
+            Identifies the HasChildren dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItem.OnHasChildrenChanged">
+            <summary>
+            Raises the HasChildren event.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.IsExpandedProperty">
+            <summary>
+            Identifies the IsExpanded dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItem.OnExpansionChanged">
+            <summary>
+            Raises the ExpansionChanged event.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.ExpanderVisibilityProperty">
+            <summary>
+            Identifies the ExpanderVisibility dependency property.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.IsVisibleProperty">
+            <summary>
+            Identifies the IsVisible dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItem.OnVisibilityChanged">
+            <summary>
+            Raises the VisibilityChanged event.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.VisibilityProperty">
+            <summary>
+            Identifies the Visibility dependency property.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGridItem.TagProperty">
+            <summary>
+            Identifies the Tag dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItem.ToString">
+            <summary>
+            Returns a string that represents the current item.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridItem.OnPropertyChanged(System.String)">
+            <summary>
+            Raises the PropertyChanged event.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.DataTreeGrid">
+            <summary>
+            Gets the <see cref="P:DlhSoft.Windows.Controls.DataTreeGridItem.DataTreeGrid">DataTreeGrid</see> control instance of the current item.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.Content">
+            <summary>
+            Gets or sets the content of the current item, displayed within the <see cref="P:DlhSoft.Windows.Controls.DataTreeGridItem.DataTreeGrid">DataTreeGrid</see> control.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGridItem.ContentChanged">
+            <summary>
+            Occurs when content changes for the current item.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.Indentation">
+            <summary>
+            Gets or sets the hierarchical indentation level of the current item in the containing collection.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGridItem.HierarchyChanged">
+            <summary>
+            Occurs when the hierarchy (i.e. indentation level) changes for the current item.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.IndentationWidth">
+            <summary>
+            Gets the indentation width of the current item, based on Indentation and DataTreeGrid.IndentationUnitSize.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.HasChildren">
+            <summary>
+            Gets whether the current item has children within the containing hierarchical collection.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGridItem.HasChildrenChanged">
+            <summary>
+            Occurs when the HasChildren property value of the current item changes.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.IsExpanded">
+            <summary>
+            Gets or sets a value that indicates whether the current item is expanded or not, if it is a parent node (i.e. has child items).
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGridItem.ExpansionChanged">
+            <summary>
+            Occurs when the expansion state of the current item changes.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.ExpanderVisibility">
+            <summary>
+            Gets a Visibility value that indicates whether the current item has an expander to be displayed, i.e. it is a parent node.
+            This is a dependency value.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.IsVisible">
+            <summary>
+            Gets whether the current item is visible in the view (a parent node that is not expanded would have its child items not visible).
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGridItem.VisibilityChanged">
+            <summary>
+            Occurs when visibility of the current item changes.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.Visibility">
+            <summary>
+            Gets a Visibility value that indicates whether the current item is visible in the view.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGridItem.Tag">
+            <summary>
+            Gets or sets an object that contains information that is associated with the current item.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGridItem.PropertyChanged">
+            <summary>
+            Occurs when a data property value of the item changes.
+            </summary>
+        </member>
+        <member name="T:DlhSoft.Windows.Controls.DataTreeGrid">
+            <summary>
+            Displays hierarchical data in a customizable tree-grid based on <see cref="T:System.Windows.Controls.DataGrid">DataGrid</see> control.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.#ctor">
+            <summary>
+            Initializes a new <see cref="T:DlhSoft.Windows.Controls.DataTreeGrid">DataTreeGrid</see> instance.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.OnApplyTemplate">
+            <summary>
+            Builds the visual tree for the <see cref="T:DlhSoft.Windows.Controls.DataTreeGrid">DataTreeGrid</see> when a new template is applied and updates appropriate internal properties of the control.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGrid.ItemsProperty">
+            <summary>
+            Identifies the Items dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.AttachItem(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Attaches the specified item to this control instance.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.PauseAsyncPresentation">
+            <summary>
+            Pauses asynchronous presentation data load, if it was in progress.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.ContinueAsyncPresentation">
+            <summary>
+            Continues asynchronous presentation data load, if it was in progress and paused.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGrid.IsAsyncPresentationEnabledProperty">
+            <summary>
+            Identifies the IsAsyncPresentationEnabled dependency property.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGrid.IsAsyncPresentationEnabledMinCountProperty">
+            <summary>
+            Identifies the IsAsyncPresentationEnabledMinCount dependency property.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGrid.IsAsyncPresentationEnabledPageSizeProperty">
+            <summary>
+            Identifies the IsAsyncPresentationEnabledPageSize dependency property.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGrid.ExpanderTemplateProperty">
+            <summary>
+            Identifies the ExpanderTemplate dependency property.
+            </summary>
+        </member>
+        <member name="F:DlhSoft.Windows.Controls.DataTreeGrid.IndentationUnitSizeProperty">
+            <summary>
+            Identifies the IndentationUnitSize dependency property.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.OnLoadingRow(System.Windows.Controls.DataGridRowEventArgs)">
+            <summary>
+            Raises the LoadingRow event and updates internal properties for the data bound item and container element.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.OnUnloadingRow(System.Windows.Controls.DataGridRowEventArgs)">
+            <summary>
+            Updates internal properties for the data bound item and container element and raises the UnloadingRow event.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.OnItemPropertyChanged(System.Object,System.ComponentModel.PropertyChangedEventArgs)">
+            <summary>
+            Raises the ItemPropertyChanged event.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.OnItemCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+            Raises the ItemCollectionChanged event.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.IndexOf(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Searches for the specified item and returns its zero-based index in the collection.
+            </summary>
+            <param name="item">The item to get the index of.</param>
+            <returns>The index of the specified item in the collection.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetParent(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Gets the direct parent item of the specified item in the hierarchical collection.
+            </summary>
+            <param name="item">The item to get the parent of.</param>
+            <returns>The parent item of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetParent(System.Int32)">
+            <summary>
+            Gets the direct parent item of the specified item in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to get the parent of.</param>
+            <returns>The parent item of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetAllParents(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Iterates all level parent items of the specified item up in the hierarchical collection.
+            </summary>
+            <param name="item">The item to iterate all level parents of.</param>
+            <returns>All level parent items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetAllParents(System.Int32)">
+            <summary>
+            Iterates all level parent items of the specified item up in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to iterate all level parents of.</param>
+            <returns>All level parent items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetChildren(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Iterates the direct child items of the specified item in the hierarchical collection.
+            </summary>
+            <param name="item">The item to get the children of.</param>
+            <returns>The child items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetChildren(System.Int32)">
+            <summary>
+            Iterates the direct child items of the specified item in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to get the children of.</param>
+            <returns>The child items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetAllChildren(DlhSoft.Windows.Controls.DataTreeGridItem)">
+            <summary>
+            Iterates all level child items of the specified item down in the hierarchical collection.
+            </summary>
+            <param name="item">The item to iterate all level children of.</param>
+            <returns>All level child items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.GetAllChildren(System.Int32)">
+            <summary>
+            Iterates all level child items of the specified item down in the hierarchical collection.
+            </summary>
+            <param name="index">The index of the item to iterate all level children of.</param>
+            <returns>All level child items of the specified item.</returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.ExpandAll">
+            <summary>
+            Expands all parent nodes in the hierarchy.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGrid.CollapseAll">
+            <summary>
+            Collapses all parent nodes in the hierarchy.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGrid.Items">
+            <summary>
+            Gets a collection of <see cref="T:DlhSoft.Windows.Controls.DataTreeGridItem">DataTreeGridItem</see> objects that represent the individual items in the <see cref="T:DlhSoft.Windows.Controls.DataTreeGrid">DataTreeGrid</see> control.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGrid.IsAsyncPresentationEnabled">
+            <summary>
+            Gets or sets a value that indicates whether asynchronous presentation mode is enabled (true by default).
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGrid.IsAsyncPresentationEnabledMinCount">
+            <summary>
+            Gets or sets the number of items to be initially loaded synchronously when using asychronous presentation mode within the control (having IsAsyncPresentationEnabled property set to true).
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGrid.IsAsyncPresentationEnabledPageSize">
+            <summary>
+            Gets or sets the number of items to be loaded synchronously as one step when using asychronous presentation mode within the control (having IsAsyncPresentationEnabled property set to true).
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGrid.ExpanderTemplate">
+            <summary>
+            Gets or sets the template used for displaying node expanders in the <see cref="T:DlhSoft.Windows.Controls.DataTreeGridColumn">DataTreeGridColumn</see> cells.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGrid.IndentationUnitSize">
+            <summary>
+            Gets or sets the indentation left padding used for each hierarchical level in the view.
+            This is a dependency property.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGrid.ItemPropertyChanged">
+            <summary>
+            Occurs when a data property value of an item within the control changes.
+            </summary>
+        </member>
+        <member name="E:DlhSoft.Windows.Controls.DataTreeGrid.ItemCollectionChanged">
+            <summary>
+            Occurs when the data item collection within the control changes.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Windows.Controls.DataTreeGrid.Item(System.Int32)">
+            <summary>
+            Gets the item at the specified index in the collection.
+            </summary>
+            <param name="index">The index to get the item at.</param>
+            <returns>The item at the specified index in the collection.</returns>
+        </member>
+        <member name="T:DlhSoft.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:DlhSoft.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="T:DlhSoft.Windows.Controls.DataTreeGridColumn">
+            <summary>
+            Represents a <see cref="T:DlhSoft.Windows.Controls.DataTreeGrid">DataTreeGrid</see> column that hosts hierarchy nodes in its cells.
+            </summary>
+            <summary>
+            DataTreeGridColumn
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridColumn.#ctor">
+            <summary>
+            Initializes a new <see cref="T:DlhSoft.Windows.Controls.DataTreeGridColumn">DataTreeGridColumn</see> instance.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridColumn.PrepareCellForEdit(System.Windows.FrameworkElement,System.Windows.RoutedEventArgs)">
+            <summary>
+            Called when a cell in the column enters editing mode.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridColumn.CancelCellEdit(System.Windows.FrameworkElement,System.Object)">
+            <summary>
+            Ends the edit on a data grid cell and reverts any changes.
+            </summary>
+        </member>
+        <member name="M:DlhSoft.Windows.Controls.DataTreeGridColumn.InitializeComponent">
+            <summary>
+            InitializeComponent
+            </summary>
+        </member>
+    </members>
+</doc>

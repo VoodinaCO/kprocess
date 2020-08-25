@@ -1,0 +1,122 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/dsltools/UseCaseModel" xmlns:dm11="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="35c29e75-f102-4d31-8ece-920bc039d381" name="KSmedBusinessActivity" linkedPackageId="9431826a-0a6e-4ae1-a1a0-f38d93b05d14" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <ownedCommentsInternal>
+    <comment Id="7339cab1-3e5e-435d-af23-3d8a04bf99c4">
+      <elementDefinition Id="be864634-a971-4e9a-b9af-cc793d798e6e" />
+      <body>PHASE ANALYSE
+
+Création du projet et définition du scenario initial</body>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="6ca4be56-1c71-4075-9b7c-e626b6cad8f0" name="KSmedBusinessActivity" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="b89b04b4-db56-48ba-97b1-8c37440f2104" />
+        <nodes>
+          <initialNode Id="d1fcd661-528e-434c-8e1c-45406b110a87" name="Initial1" isLeaf="false">
+            <elementDefinition Id="3e17a1ff-eb8d-4336-b0b1-27500e55d40c" />
+            <flowNodeTargets>
+              <controlFlow Id="e212769f-91ca-4ddf-b8ca-29d5ae4a432a" isLeaf="false">
+                <opaqueActionMoniker Id="6570a212-b0f5-49bd-912c-0f4d8c5ce0dd" LastKnownName="Créer un nouveau projet" />
+                <elementDefinition Id="650673bd-c8f8-454f-aeeb-6e08afb6900b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="6570a212-b0f5-49bd-912c-0f4d8c5ce0dd" name="Créer un nouveau projet" isLeaf="false">
+            <elementDefinition Id="dfa5fb6d-f166-4599-af6e-84fce89ca151" />
+            <flowNodeTargets>
+              <controlFlow Id="2f9a00f2-75e0-492d-b60c-ea2c3b885197" isLeaf="false">
+                <opaqueActionMoniker Id="091d216e-6b88-44f2-bc9f-0f2923c5152b" LastKnownName="Définir les ressources" />
+                <elementDefinition Id="446a2338-f014-4e50-a4c1-2c82a88e3bb9" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="091d216e-6b88-44f2-bc9f-0f2923c5152b" name="Définir les ressources" isLeaf="false">
+            <elementDefinition Id="92d18524-e613-4e9d-90b9-df6ff77ce9d2" />
+            <flowNodeTargets>
+              <controlFlow Id="a5d51e76-34bc-4bd9-91e2-5981e67b504d" isLeaf="false">
+                <opaqueActionMoniker Id="d88adc37-299c-45ae-b35f-77b61a582c27" LastKnownName="Décomposer l'activité pour chaque ressource" />
+                <elementDefinition Id="4af68cc8-e72a-49da-a523-5279e34e3eae" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="d88adc37-299c-45ae-b35f-77b61a582c27" name="Décomposer l'activité pour chaque ressource" isLeaf="false">
+            <elementDefinition Id="e8314337-1804-4e46-a577-a4020c0a1460" />
+            <flowNodeTargets>
+              <controlFlow Id="047ad1ae-7461-4056-901b-ec092c88c832" isLeaf="false">
+                <opaqueActionMoniker Id="648a019d-9764-47d2-a597-a42a8a9433c1" LastKnownName="Synchronisation des activités" />
+                <elementDefinition Id="4d5d6da3-aab0-46d2-bcad-255cf995d2a8" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="3acebf7b-670c-40e6-95ed-f697c2230332" name="Valider le scenario initial" isLeaf="false">
+            <elementDefinition Id="75574cce-9035-4b39-8429-2bf7f3b34934" />
+            <flowNodeTargets>
+              <controlFlow Id="36ee195b-bc6d-4a4b-a347-0c2ce4a5772a" isLeaf="false">
+                <activityFinalNodeMoniker Id="cfe1a361-da91-4660-a9e9-ecbe324f09c9" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="5d0e5240-f28b-44a7-8b72-f709f1f994c2" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="05794b8a-d8ec-4659-a149-dbbafb8a3926" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="e5291f3d-fc5c-43bf-b5ba-12c66e4df752" LastKnownName="Scenario Initial Validé" />
+                <elementDefinition Id="72de992d-153f-41e4-9535-61f914a481bc" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="e5291f3d-fc5c-43bf-b5ba-12c66e4df752" name="Scenario Initial Validé" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="8bde5aab-ef8b-45ba-a650-b0cdc131d65f" />
+            <upperBound>
+              <literalInteger Id="8a416fe6-82c5-482e-9907-856fc0b57e88" name="2147483647" value="2147483647">
+                <elementDefinition Id="3b6e81a6-fb9d-4bed-a255-cc7c4223fca4" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <activityFinalNode Id="cfe1a361-da91-4660-a9e9-ecbe324f09c9" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="e1def937-2f5d-45ce-a8b0-bd12298b2ec0" />
+          </activityFinalNode>
+          <opaqueAction Id="648a019d-9764-47d2-a597-a42a8a9433c1" name="Synchronisation des activités" isLeaf="false">
+            <elementDefinition Id="065bbd59-a35f-4ec4-a6cb-201f7e47ea4b" />
+            <flowNodeTargets>
+              <controlFlow Id="3ac1d84d-cb5a-4a20-aaf7-4ccc8e4aeca3" isLeaf="false">
+                <opaqueActionMoniker Id="3acebf7b-670c-40e6-95ed-f697c2230332" LastKnownName="Valider le scenario initial" />
+                <elementDefinition Id="75a359ee-bb97-4a71-82c9-7d4942693c53" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow Id="a01ea90c-e8a4-47f5-a593-6384075121c1" isLeaf="false" isMulticast="false" isMultireceive="false">
+                <objectNodeMoniker Id="fdf2ecbb-9596-45ef-a6d8-3999f62a4032" LastKnownName="Chemin Critique du processus" />
+                <elementDefinition Id="650fbfae-50de-4391-9ed1-87718246d77c" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode Id="fdf2ecbb-9596-45ef-a6d8-3999f62a4032" name="Chemin Critique du processus" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="b36b1bef-308c-401f-b655-22245e80d911" />
+            <upperBound>
+              <literalInteger Id="d402fb17-5bb3-48cf-9757-410943054f72" name="2147483647" value="2147483647">
+                <elementDefinition Id="b26da95b-8ee2-4fc5-ab74-20a115170c2a" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="9431826a-0a6e-4ae1-a1a0-f38d93b05d14" name="KProcess.KSmed.Modelisation">
+    <elementDefinition Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab" />
+    <profileInstances>
+      <packageHasProfileInstances Id="1c5277ec-e80f-43f2-b544-709e876a48c4">
+        <profileInstance Id="03504bc7-3f77-42b3-9255-8455bb82c06c" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="093dd262-462a-451a-868f-02f3dbb89995">
+        <profileInstance Id="c885ccd2-3a74-499a-b21c-da39622741b6" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

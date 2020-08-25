@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <ComponentGroup Id="CompGrp_ApplicationRegistries" >
+      <Component Id="Comp_ExtensionReg" 
+                 Guid="{84BDA1D7-0F52-463E-9D23-4E476C052664}" 
+                 Directory="INSTALLFOLDER">
+        <RegistryKey Key="[ApplicationExtensionHKLMPath]\[ExtensionGroupName]\[ProductName]" Root="HKLM">
+          <RegistryValue Name="InstallLocation" Value="[Dir_KpExtensions]" Type="string"  />
+        </RegistryKey>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>

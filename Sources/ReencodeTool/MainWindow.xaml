@@ -1,0 +1,63 @@
+﻿<Window x:Class="ReencodeTool.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ReencodeTool"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Height="350" Width="350" d:DesignHeight="600" d:DesignWidth="800"
+        ResizeMode="NoResize"
+        Loaded="MainWindow_OnLoaded"
+        Closing="MainWindow_OnClosing">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding ExitCommand}" Key="Escape"/>
+    </Window.InputBindings>
+    <Grid Background="Gray" AllowDrop="True" Drop="Grid_Drop">
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                   Visibility="{Binding UsageVisibility}">
+            <Run>Usage :</Run>
+            <LineBreak/>
+            <Run>Drag and drop a file or a range of files on this window.</Run>
+            <LineBreak/>
+            <Run>or</Run>
+            <LineBreak/>
+            <Run>Press Esc key to exit...</Run>
+        </TextBlock>
+        <DataGrid Visibility="{Binding ProgressListVisibility}" ItemsSource="{Binding TranscodeTasks}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="File" Binding="{Binding Value.FileInfo.Name}" ToolTipService.ToolTip="{Binding Value.FileInfo.FullName}"/>
+                <DataGridTemplateColumn Header="Progress">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <TextBlock x:Name="textProgress" Text="{Binding Value.TranscodingTaskStatus}" HorizontalAlignment="Center"/>
+                                <ProgressBar x:Name="progressBar" Height="10" Width="50" Value="{Binding Value.ProgressValue}"/>
+                            </Grid>
+                            <DataTemplate.Triggers>
+                                <DataTrigger Binding="{Binding Value.TranscodingTaskStatus}" Value="{x:Static local:TranscodingTaskStatus.InProgress}">
+                                    <Setter TargetName="textProgress" Property="Visibility" Value="Hidden"/>
+                                    <Setter TargetName="progressBar" Property="Visibility" Value="Visible"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Value.TranscodingTaskStatus}" Value="{x:Static local:TranscodingTaskStatus.Failed}">
+                                    <Setter TargetName="textProgress" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="textProgress" Property="Foreground" Value="Red"/>
+                                    <Setter TargetName="progressBar" Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding Value.TranscodingTaskStatus}" Value="{x:Static local:TranscodingTaskStatus.OK}">
+                                    <Setter TargetName="textProgress" Property="Visibility" Value="Visible"/>
+                                    <Setter TargetName="textProgress" Property="Foreground" Value="Green"/>
+                                    <Setter TargetName="progressBar" Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </DataTemplate.Triggers>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Visibility="{Binding IsLoadingVisibility, FallbackValue=Hidden}">
+            <Border Background="White" Opacity=".8"></Border>
+            <ProgressBar IsIndeterminate="True"
+                         Width="200" Height="20"/>
+        </Grid>
+    </Grid>
+</Window>

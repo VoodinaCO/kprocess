@@ -1,0 +1,641 @@
+﻿<MahApps:CustomDialog x:Class="Kprocess.KL2.TabletClient.Dialog.FormationActionDetailsDialog"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Localization="clr-namespace:Kprocess.KL2.TabletClient.Globalization"
+                      xmlns:MahApps="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:behaviors="clr-namespace:Kprocess.KL2.TabletClient.Behaviors"
+                      xmlns:converter="clr-namespace:Kprocess.KL2.TabletClient.Converter"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:ffme="clr-namespace:Unosquare.FFME;assembly=ffme.win"
+                      xmlns:ffmeCommon="clr-namespace:Unosquare.FFME.Common;assembly=ffme.win"
+                      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      xmlns:k="http://schemas.kprocess.com/xaml/framework"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+                      xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+                      x:Name="myDetailsDialog"
+                      Height="720"
+                      d:DesignHeight="720"
+                      d:DesignWidth="1280"
+                      Style="{StaticResource FullScreenDialogStyle}"
+                      mc:Ignorable="d">
+    <MahApps:CustomDialog.Resources>
+        <converter:PublishedRefItemTemplateSelector x:Key="PublishedRefItemTemplateSelector" />
+        <DataTemplate x:Key="RefsCollectionTemplate" DataType="{x:Type models:RefsCollection}">
+            <GroupBox Margin="5">
+                <MahApps:VisibilityHelper.IsVisible>
+                    <MultiBinding Converter="{converter:MultiDetailsFieldsConverter}">
+                        <Binding ElementName="myDetailsDialog" Path="DataContext.PublishedAction.Publication.Formation_ActionDisposition" />
+                        <Binding Path="Field" />
+                    </MultiBinding>
+                </MahApps:VisibilityHelper.IsVisible>
+                <GroupBox.Header>
+                    <TextBlock FontSize="20" Text="{Binding Label}" />
+                </GroupBox.Header>
+                <ItemsControl ItemTemplateSelector="{StaticResource PublishedRefItemTemplateSelector}" ItemsSource="{Binding Values}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="{Binding ItemsSource, RelativeSource={RelativeSource FindAncestor, AncestorType=ItemsControl}, Converter={converter:RefPanelOrientationConverter}}" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.Resources>
+                        <DataTemplate x:Key="ImageTemplate" DataType="{x:Type models:PublishedReferentialAction}">
+                            <StackPanel Orientation="Horizontal" TextElement.FontSize="20">
+                                <TextBlock VerticalAlignment="Center"
+                                           Text="{Binding Quantity}"
+                                           Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+                                <TextBlock Margin="5,0"
+                                           VerticalAlignment="Center"
+                                           Text="x"
+                                           Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+                                <Image MaxWidth="60"
+                                       MaxHeight="60"
+                                       Margin="2"
+                                       Source="{Binding PublishedReferential.FileHash, Converter={converter:HashToDownloadedFileConverter}}"
+                                       Stretch="Uniform">
+                                    <Image.ToolTip>
+                                        <TextBlock FontSize="20" Text="{Binding PublishedReferential.Label}" />
+                                    </Image.ToolTip>
+                                </Image>
+                            </StackPanel>
+                        </DataTemplate>
+                        <DataTemplate x:Key="UriTemplate" DataType="{x:Type models:PublishedReferentialAction}">
+                            <StackPanel Orientation="Horizontal" TextElement.FontSize="20">
+                                <TextBlock Text="{Binding Quantity}" Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+                                <TextBlock Margin="5,0"
+                                           Text="x"
+                                           Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+                                <TextBlock>
+                                    <Hyperlink NavigateUri="{Binding PublishedReferential.FileHash, Converter={converter:HashToUriConverter}}">
+                                        <i:Interaction.Triggers>
+                                            <i:EventTrigger EventName="RequestNavigate">
+                                                <mvvm:EventToCommand Command="{Binding DataContext.HyperlinkRequestNavigateCommand, ElementName=myDetailsDialog}" PassEventArgsToCommand="True" />
+                                            </i:EventTrigger>
+                                        </i:Interaction.Triggers>
+                                        <Run Text="{Binding PublishedReferential.Label}" />
+                                    </Hyperlink>
+                                </TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                        <DataTemplate x:Key="TextTemplate" DataType="{x:Type models:PublishedReferentialAction}">
+                            <DockPanel TextElement.FontSize="20">
+                                <TextBlock DockPanel.Dock="Left"
+                                           Text="{Binding Quantity}"
+                                           Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+                                <TextBlock Margin="5,0"
+                                           DockPanel.Dock="Left"
+                                           Text="x"
+                                           Visibility="{Binding Quantity, Converter={converter:NotNullToVisibilityConverter}}" />
+                                <TextBlock Text="{Binding PublishedReferential.Label}" TextWrapping="Wrap" />
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+                </ItemsControl>
+            </GroupBox>
+        </DataTemplate>
+        <DataTemplate x:Key="CustomValueItemTemplate" DataType="{x:Type models:CustomLabel}">
+            <GroupBox Margin="5">
+                <MahApps:VisibilityHelper.IsVisible>
+                    <MultiBinding Converter="{converter:MultiDetailsFieldsConverter}">
+                        <Binding ElementName="myDetailsDialog" Path="DataContext.PublishedAction.Publication.Formation_ActionDisposition" />
+                        <Binding Path="Field" />
+                    </MultiBinding>
+                </MahApps:VisibilityHelper.IsVisible>
+                <GroupBox.Header>
+                    <TextBlock FontSize="20" Text="{Binding Label}" />
+                </GroupBox.Header>
+                <TextBlock FontSize="20"
+                           Text="{Binding Value}"
+                           TextWrapping="Wrap" />
+            </GroupBox>
+        </DataTemplate>
+    </MahApps:CustomDialog.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="350" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{k:Localize Trained_Person}"
+                   FontSize="20" />
+            <!--  Nom de la personne s'il n'y en a qu'une selectionnée  -->
+            <Label Grid.Row="1"
+                   Margin="0,0,0,2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding Operators[0].FullName}"
+                   FontSize="15"
+                   Visibility="{Binding OnlyOneOperator, Converter={converter:BoolToVisibilityConverter}}" />
+            <Button Grid.Row="1"
+                    Margin="0,0,0,2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Command="{Binding ShowOperatorCommand}"
+                    Visibility="{Binding OnlyOneOperator, Converter={converter:InvertBoolToVisibilityConverter}}">
+                <TextBlock Margin="5,0"
+                           FontSize="15"
+                           Text="{Binding NbOperatorsLabel}" />
+            </Button>
+        </Grid>
+
+        <!--  Nom de la formation  -->
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   FontSize="30"
+                   Text="{Binding PublishedAction.Publication.Process.Label}"
+                   TextWrapping="Wrap" />
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{k:Localize Start_Date_Training}"
+                   FontSize="20" />
+            <Label Grid.Row="1"
+                   Margin="0,0,0,2"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Content="{Binding StartDate}"
+                   FontSize="15" />
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="1"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="30"
+                           FontWeight="{Binding PublishedAction, Converter={converter:IsKeyTaskFontWeightConverter}}"
+                           TextWrapping="Wrap">
+                    <TextBlock.Text>
+                        <MultiBinding Converter="{converter:StringConcatConverter}">
+                            <Binding Path="PublishedAction.WBS" />
+                            <Binding Source=" - " />
+                            <Binding Path="PublishedAction.Label" />
+                        </MultiBinding>
+                    </TextBlock.Text>
+                </TextBlock>
+                <Button Grid.Column="0"
+                        Margin="10"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Command="{Binding PreviousActionDetailsCommand}"
+                        TextElement.FontSize="20"
+                        Visibility="{Binding PreviousVisibility}">
+                    <StackPanel Orientation="Horizontal">
+                        <iconPacks:PackIconMaterial Width="30"
+                                                    Height="30"
+                                                    Kind="CodeLessThan" />
+                        <TextBlock Margin="5,0" Text="{k:Localize Common_Previous}" />
+                    </StackPanel>
+                </Button>
+                <Button Grid.Column="2"
+                        Margin="10"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Command="{Binding NextActionDetailsCommand}"
+                        TextElement.FontSize="20"
+                        Visibility="{Binding NextVisibility}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="5,0" Text="{k:Localize Common_Next}" />
+                        <iconPacks:PackIconMaterial Width="30"
+                                                    Height="30"
+                                                    Kind="CodeGreaterThan" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+            <Grid Grid.Row="1" MahApps:VisibilityHelper.IsVisible="{Binding PublishedAction.LinkedPublication, Converter={converter:NullConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <DockPanel Grid.Column="0"
+                           Height="Auto"
+                           Margin="10,5">
+                    <DockPanel.Width>
+                        <MultiBinding Converter="{converter:PercentConverter}" ConverterParameter="Visible">
+                            <Binding Path="PublishedAction.CustomLabels" />
+                            <Binding Path="VideoIsMaximized" />
+                        </MultiBinding>
+                    </DockPanel.Width>
+                    <Grid Margin="0,5,0,0" DockPanel.Dock="Bottom">
+                        <Grid Visibility="{Binding PublishedAction.CutVideoHash, Converter={converter:NotNullToVisibilityConverter}, ConverterParameter=Hidden}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="PlayPauseButton"
+                                    Grid.Column="0"
+                                    Margin="1"
+                                    Command="{Binding PlayPauseCommand}"
+                                    CommandParameter="{Binding ElementName=Player}">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <iconPacks:Material Width="20"
+                                                                    Height="20"
+                                                                    Kind="Play" />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding MediaState, ElementName=Player}" Value="{x:Static ffmeCommon:MediaPlaybackState.Play}">
+                                                <DataTrigger.Setters>
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <iconPacks:Material Width="20"
+                                                                                Height="20"
+                                                                                Kind="Pause" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger.Setters>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Slider x:Name="PositionSlider"
+                                    Grid.Column="1"
+                                    Margin="1"
+                                    VerticalAlignment="Center"
+                                    Maximum="{Binding ElementName=Player, Path=NaturalDuration, Converter={converter:TimeSpanToSecondsConverter}}"
+                                    Value="{Binding ElementName=Player, Path=Position, Converter={converter:TimeSpanToSecondsConverter}}" />
+                            <Button x:Name="MuteButton"
+                                    Grid.Column="2"
+                                    Margin="1"
+                                    Command="{Binding MuteCommand}"
+                                    CommandParameter="{Binding ElementName=Player}">
+                                <Button.Style>
+                                    <Style BasedOn="{StaticResource {x:Type Button}}" TargetType="{x:Type Button}">
+                                        <Setter Property="Content">
+                                            <Setter.Value>
+                                                <iconPacks:Material Width="20"
+                                                                    Height="20"
+                                                                    Kind="VolumeHigh" />
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsMuted, ElementName=Player}" Value="True">
+                                                <DataTrigger.Setters>
+                                                    <Setter Property="Content">
+                                                        <Setter.Value>
+                                                            <iconPacks:Material Width="20"
+                                                                                Height="20"
+                                                                                Kind="VolumeOff" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger.Setters>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                            </Button>
+                            <Button x:Name="MaximizeButton"
+                                    Grid.Column="3"
+                                    Margin="1"
+                                    Command="{Binding MaximizeCommand}"
+                                    Visibility="{Binding VideoIsMaximized, Converter={converter:VideoMaximizeConverter}, ConverterParameter=Maximize}">
+                                <iconPacks:Material Width="20"
+                                                    Height="20"
+                                                    Kind="WindowMaximize" />
+                            </Button>
+                            <Button x:Name="RestoreButton"
+                                    Grid.Column="3"
+                                    Margin="1"
+                                    Command="{Binding MaximizeCommand}"
+                                    Visibility="{Binding VideoIsMaximized, Converter={converter:VideoMaximizeConverter}, ConverterParameter=Restore}">
+                                <iconPacks:Material Width="20"
+                                                    Height="20"
+                                                    Kind="WindowRestore" />
+                            </Button>
+                        </Grid>
+                        <Grid>
+                            <Grid.Visibility>
+                                <MultiBinding Converter="{converter:ThumbnailMaximizeVisibilityConverter}">
+                                    <Binding Path="PublishedAction.ThumbnailHash" />
+                                    <Binding Path="PublishedAction.CutVideoHash" />
+                                </MultiBinding>
+                            </Grid.Visibility>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Button x:Name="ThumbnailMaximizeButton"
+                                    Grid.Column="1"
+                                    Margin="1"
+                                    Command="{Binding MaximizeCommand}"
+                                    Visibility="{Binding VideoIsMaximized, Converter={converter:VideoMaximizeConverter}, ConverterParameter=Maximize}">
+                                <iconPacks:Material Width="20"
+                                                    Height="20"
+                                                    Kind="WindowMaximize" />
+                            </Button>
+                            <Button x:Name="ThumbnailRestoreButton"
+                                    Grid.Column="1"
+                                    Margin="1"
+                                    Command="{Binding MaximizeCommand}"
+                                    Visibility="{Binding VideoIsMaximized, Converter={converter:VideoMaximizeConverter}, ConverterParameter=Restore}">
+                                <iconPacks:Material Width="20"
+                                                    Height="20"
+                                                    Kind="WindowRestore" />
+                            </Button>
+                        </Grid>
+                    </Grid>
+                    <Grid>
+                        <ffme:MediaElement x:Name="Player"
+                                           LoadedBehavior="Pause"
+                                           UnloadedBehavior="Stop">
+                            <i:Interaction.Behaviors>
+                                <behaviors:DXVA2_Behavior />
+                                <behaviors:SyncMediaElementBehavior />
+                            </i:Interaction.Behaviors>
+                            <ffme:MediaElement.Visibility>
+                                <MultiBinding Converter="{converter:MediaElementVisibilityConverter}">
+                                    <Binding Path="PublishedAction.CutVideoHash" />
+                                    <Binding ElementName="Thumbnail" Path="Visibility" />
+                                </MultiBinding>
+                            </ffme:MediaElement.Visibility>
+                        </ffme:MediaElement>
+                        <Image x:Name="Thumbnail"
+                               Source="{Binding PublishedAction.ThumbnailHash, Converter={converter:HashToDownloadedFileConverter}}"
+                               Stretch="Uniform">
+                            <Image.Visibility>
+                                <MultiBinding Converter="{converter:ThumbnailVisibilityConverter}">
+                                    <Binding Path="PublishedAction.ThumbnailHash" />
+                                    <Binding Path="PublishedAction.CutVideoHash" />
+                                    <Binding ElementName="Player" Path="MediaState" />
+                                    <Binding ElementName="Player" Path="Position" />
+                                </MultiBinding>
+                            </Image.Visibility>
+                        </Image>
+                    </Grid>
+                </DockPanel>
+                <ScrollViewer Grid.Column="1"
+                              VerticalScrollBarVisibility="Auto"
+                              Visibility="{Binding VideoIsMaximized, Converter={converter:VideoMaximizeConverter}, ConverterParameter=Other}">
+                    <ScrollViewer.Width>
+                        <MultiBinding Converter="{converter:PercentConverter}" ConverterParameter="Hidden">
+                            <Binding Path="PublishedAction.CustomLabels" />
+                            <Binding Path="VideoIsMaximized" />
+                        </MultiBinding>
+                    </ScrollViewer.Width>
+                    <StackPanel MahApps:VisibilityHelper.IsCollapsed="{Binding PublishedAction.IsGroup}">
+                        <WrapPanel Orientation="Horizontal">
+                            <GroupBox Margin="5" MahApps:VisibilityHelper.IsVisible="{Binding PublishedAction.Publication.Formation_ActionDisposition, Converter={converter:DetailsFieldsConverter}, ConverterParameter=Duration}">
+                                <GroupBox.Header>
+                                    <TextBlock FontSize="20" Text="{k:Localize View_Documentation_Duration}" />
+                                </GroupBox.Header>
+                                <TextBlock FontSize="20" TextWrapping="Wrap">
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{converter:TicksToStringConverter}">
+                                            <Binding Path="PublishedAction.Duration" />
+                                            <Binding Path="PublishedAction.Publication.TimeScale" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </GroupBox>
+                            <GroupBox Margin="5">
+                                <MahApps:VisibilityHelper.IsVisible>
+                                    <MultiBinding Converter="{converter:AndConverter}">
+                                        <Binding Converter="{converter:NotNullConverter}" Path="PublishedAction.PublishedResource" />
+                                        <Binding Converter="{converter:DetailsFieldsConverter}"
+                                                 ConverterParameter="PublishedResource"
+                                                 Path="PublishedAction.Publication.Formation_ActionDisposition" />
+                                    </MultiBinding>
+                                </MahApps:VisibilityHelper.IsVisible>
+                                <GroupBox.Header>
+                                    <TextBlock FontSize="20" Text="{k:Localize Grid_PublishedResourceHeaderText}" />
+                                </GroupBox.Header>
+                                <ContentControl Content="{Binding PublishedAction.PublishedResource}" ContentTemplateSelector="{StaticResource PublishedRefItemTemplateSelector}">
+                                    <ContentControl.Resources>
+                                        <DataTemplate x:Key="ResourceImageTemplate" DataType="{x:Type models:PublishedResource}">
+                                            <Image MaxWidth="60"
+                                                   MaxHeight="60"
+                                                   Margin="2"
+                                                   Source="{Binding FileHash, Converter={converter:HashToDownloadedFileConverter}}"
+                                                   Stretch="Uniform">
+                                                <Image.ToolTip>
+                                                    <TextBlock FontSize="20" Text="{Binding Label}" />
+                                                </Image.ToolTip>
+                                            </Image>
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="ResourceUriTemplate" DataType="{x:Type models:PublishedResource}">
+                                            <TextBlock FontSize="20">
+                                                <Hyperlink NavigateUri="{Binding FileHash, Converter={converter:HashToUriConverter}}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="RequestNavigate">
+                                                            <mvvm:EventToCommand Command="{Binding DataContext.HyperlinkRequestNavigateCommand, ElementName=myDetailsDialog}" PassEventArgsToCommand="True" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <Run Text="{Binding Label}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="ResourceTextTemplate" DataType="{x:Type models:PublishedResource}">
+                                            <TextBlock FontSize="20"
+                                                       Text="{Binding Label}"
+                                                       TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </ContentControl.Resources>
+                                </ContentControl>
+                            </GroupBox>
+                            <GroupBox Margin="5">
+                                <MahApps:VisibilityHelper.IsVisible>
+                                    <MultiBinding Converter="{converter:AndConverter}">
+                                        <Binding Converter="{converter:NotNullConverter}" Path="PublishedAction.PublishedActionCategory" />
+                                        <Binding Converter="{converter:DetailsFieldsConverter}"
+                                                 ConverterParameter="Category"
+                                                 Path="PublishedAction.Publication.Formation_ActionDisposition" />
+                                    </MultiBinding>
+                                </MahApps:VisibilityHelper.IsVisible>
+                                <GroupBox.Header>
+                                    <TextBlock FontSize="20" Text="{k:Localize Grid_PublishedActionCategoryHeaderText}" />
+                                </GroupBox.Header>
+                                <ContentControl Content="{Binding PublishedAction.PublishedActionCategory}" ContentTemplateSelector="{StaticResource PublishedRefItemTemplateSelector}">
+                                    <ContentControl.Resources>
+                                        <DataTemplate x:Key="CategoryImageTemplate" DataType="{x:Type models:PublishedActionCategory}">
+                                            <Image MaxWidth="60"
+                                                   MaxHeight="60"
+                                                   Margin="2"
+                                                   Source="{Binding FileHash, Converter={converter:HashToDownloadedFileConverter}}"
+                                                   Stretch="Uniform">
+                                                <Image.ToolTip>
+                                                    <TextBlock FontSize="20" Text="{Binding Label}" />
+                                                </Image.ToolTip>
+                                            </Image>
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="CategoryUriTemplate" DataType="{x:Type models:PublishedActionCategory}">
+                                            <TextBlock FontSize="20">
+                                                <Hyperlink NavigateUri="{Binding FileHash, Converter={converter:HashToUriConverter}}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="RequestNavigate">
+                                                            <mvvm:EventToCommand Command="{Binding DataContext.HyperlinkRequestNavigateCommand, ElementName=myDetailsDialog}" PassEventArgsToCommand="True" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <Run Text="{Binding Label}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="CategoryTextTemplate" DataType="{x:Type models:PublishedActionCategory}">
+                                            <TextBlock FontSize="20"
+                                                       Text="{Binding Label}"
+                                                       TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </ContentControl.Resources>
+                                </ContentControl>
+                            </GroupBox>
+                            <GroupBox Margin="5">
+                                <MahApps:VisibilityHelper.IsVisible>
+                                    <MultiBinding Converter="{converter:AndConverter}">
+                                        <Binding Converter="{converter:NotNullConverter}" Path="PublishedAction.Skill" />
+                                        <Binding Converter="{converter:DetailsFieldsConverter}"
+                                                 ConverterParameter="Skill"
+                                                 Path="PublishedAction.Publication.Formation_ActionDisposition" />
+                                    </MultiBinding>
+                                </MahApps:VisibilityHelper.IsVisible>
+                                <GroupBox.Header>
+                                    <TextBlock FontSize="20" Text="{k:Localize View_Documentation_Skill}" />
+                                </GroupBox.Header>
+                                <ContentControl Content="{Binding PublishedAction.Skill}" ContentTemplateSelector="{StaticResource PublishedRefItemTemplateSelector}">
+                                    <ContentControl.Resources>
+                                        <DataTemplate x:Key="SkillImageTemplate" DataType="{x:Type models:Skill}">
+                                            <Image MaxWidth="60"
+                                                   MaxHeight="60"
+                                                   Margin="2"
+                                                   Source="{Binding Hash, Converter={converter:HashToDownloadedFileConverter}}"
+                                                   Stretch="Uniform">
+                                                <Image.ToolTip>
+                                                    <TextBlock FontSize="20" Text="{Binding Label}" />
+                                                </Image.ToolTip>
+                                            </Image>
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="SkillUriTemplate" DataType="{x:Type models:Skill}">
+                                            <TextBlock FontSize="20">
+                                                <Hyperlink NavigateUri="{Binding Hash, Converter={converter:HashToUriConverter}}">
+                                                    <i:Interaction.Triggers>
+                                                        <i:EventTrigger EventName="RequestNavigate">
+                                                            <mvvm:EventToCommand Command="{Binding DataContext.HyperlinkRequestNavigateCommand, ElementName=myDetailsDialog}" PassEventArgsToCommand="True" />
+                                                        </i:EventTrigger>
+                                                    </i:Interaction.Triggers>
+                                                    <Run Text="{Binding Label}" />
+                                                </Hyperlink>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                        <DataTemplate x:Key="SkillTextTemplate" DataType="{x:Type models:Skill}">
+                                            <TextBlock FontSize="20"
+                                                       Text="{Binding Label}"
+                                                       TextWrapping="Wrap" />
+                                        </DataTemplate>
+                                    </ContentControl.Resources>
+                                </ContentControl>
+                            </GroupBox>
+                        </WrapPanel>
+                        <ItemsControl x:Name="RefsItemsControl"
+                                      ItemTemplate="{StaticResource RefsCollectionTemplate}"
+                                      ItemsSource="{Binding PublishedAction.Refs}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                        <ItemsControl ItemTemplate="{StaticResource CustomValueItemTemplate}" ItemsSource="{Binding PublishedAction.CustomLabels}">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+            <Grid Grid.Row="1" MahApps:VisibilityHelper.IsCollapsed="{Binding PublishedAction.LinkedPublication, Converter={converter:NullConverter}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Image x:Name="SubProcessThumbnail"
+                       Grid.Column="1"
+                       Source="{Binding PublishedAction.ThumbnailHash, Converter={converter:HashToDownloadedFileConverter}}"
+                       Stretch="Uniform" />
+                <Button Grid.Column="2"
+                        Margin="10"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Command="{Binding ShowInnerStepCommand}"
+                        TextElement.FontSize="20">
+                    <TextBlock Margin="5,0" Text="{k:Localize See_Procedure}" />
+                </Button>
+            </Grid>
+        </Grid>
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                Margin="10"
+                HorizontalAlignment="Left"
+                Command="{Binding CloseDetailsDialogCommand}"
+                TextElement.FontSize="20">
+            <TextBlock Margin="5,0" Text="{k:Localize Common_Return}" />
+        </Button>
+        <StackPanel Grid.Row="2"
+                    Grid.Column="1"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Right"
+                    MahApps:VisibilityHelper.IsCollapsed="{Binding PublishedAction.IsGroup}"
+                    Orientation="Horizontal">
+            <Button Margin="10"
+                    HorizontalAlignment="Right"
+                    Command="{Binding ValidateCommand}"
+                    TextElement.FontSize="20"
+                    Visibility="{Binding ShowValidateCommand, Converter={converter:BoolToVisibilityConverter}}">
+                <StackPanel Orientation="Horizontal">
+                    <iconPacks:PackIconMaterial Width="20"
+                                                Height="20"
+                                                VerticalAlignment="Center"
+                                                Kind="School" />
+                    <TextBlock Margin="5,0"
+                               VerticalAlignment="Center"
+                               Text="{k:Localize Common_Validate_Step}" />
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        <Label Grid.Row="2"
+               Grid.Column="2"
+               Margin="10"
+               HorizontalAlignment="Right"
+               Content="{k:Localize Common_Transmitted_Step}"
+               FontSize="20"
+               Visibility="{Binding IsValidated, Converter={converter:BoolToVisibilityConverter}}" />
+
+    </Grid>
+</MahApps:CustomDialog>

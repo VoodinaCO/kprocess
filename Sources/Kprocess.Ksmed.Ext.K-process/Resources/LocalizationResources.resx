@@ -1,0 +1,302 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ExtKp_ConfigurationView_DefaultExportDirectory" xml:space="preserve">
+    <value>Path to reporting export folder</value>
+    <comment>Chemin vers le répertoire d'export par défaut du fichier excel</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_ExportExcel" xml:space="preserve">
+    <value>Reporting Export</value>
+    <comment>Export Excel</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_ExportExcelModelPath" xml:space="preserve">
+    <value>Path to Template file (.xltm)</value>
+    <comment>Chemin vers le fichier modèle</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_GanttGroupColor" xml:space="preserve">
+    <value>Task group color</value>
+    <comment>Couleur des groupes d'action</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_GantTitle" xml:space="preserve">
+    <value>Gantt (if activated in Template file)</value>
+    <comment>Gantt</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_GanttNoCategoryColor" xml:space="preserve">
+    <value>Color of tasks without Category</value>
+    <comment>Couleur des actions sans catégorie associée</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_ImportantTaskColor" xml:space="preserve">
+    <value>Key tasks color</value>
+    <comment>Couleur des tâches "importantes"</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_MaxNumberActionRefImagePerCell" xml:space="preserve">
+    <value>Referentials in task detail part</value>
+    <comment>Nombre maximum d'images par ligne pour un référentiel dans le détail des tâches</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_MaxNumberScenarioRefImagesPerCell" xml:space="preserve">
+    <value>Referentials in the front page</value>
+    <comment>Nombre maximum d'images par ligne pour un référentiel dans la page de synthèse</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_MEFTitle" xml:space="preserve">
+    <value>Formatting</value>
+    <comment>Mise en forme</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_Multithreading" xml:space="preserve">
+    <value>Use multithreading (requires a big processor capacity)</value>
+    <comment>Utiliser le multithreading (nécessite une grande capacité de processeur)</comment>
+  </data>
+  <data name="ExtKp_Error_MustConfigure" xml:space="preserve">
+    <value>The path to the model is not specified</value>
+    <comment>Chemin vers le modèle de fichier n'a pas été configuré.</comment>
+  </data>
+  <data name="ExtKp_Error_MustContainDash" xml:space="preserve">
+    <value>The project name cannot be empty</value>
+    <comment>Le nom du projet ne doit pas être vide.</comment>
+  </data>
+  <data name="ExtKp_Export_Label" xml:space="preserve">
+    <value>Publish the selected scenario. It is recommended to close Excel first.</value>
+    <comment>Publier le scénario sélectionné. Il est recommandé de fermer MS Excel au préalable.</comment>
+  </data>
+  <data name="ExtKp_Label" xml:space="preserve">
+    <value>Smart Export</value>
+    <comment>Smart Export</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_DefaultExportVideoDirectory" xml:space="preserve">
+    <value>Path to video and thumbnail folder (NOTA : if empty the folder will be named "ProjectName\Version\Videos(Thumbnails)" and included in the reporting file folder)</value>
+    <comment>Chemin vers le répertoire d'export par défaut des vidéos découpées</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_OverlayTextVideo" xml:space="preserve">
+    <value>Watermark</value>
+    <comment>Texte de marquage des vidéos découpées</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_VideoEncodingTitle" xml:space="preserve">
+    <value>Videos and Thumbnails options</value>
+    <comment>Découpage et ré-encodage des vidéos</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_VideoMarkingEnable" xml:space="preserve">
+    <value>Watermarking</value>
+    <comment>Activer le marquage des vidéos découpées</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_ExcelExportIsEnabled" xml:space="preserve">
+    <value>Activate reporting export</value>
+    <comment>Activer l'export Excel</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_ExcelFileNameMarkingIsEnabled" xml:space="preserve">
+    <value>Add reporting file name in the watermark</value>
+    <comment>Ajouter le nom du fichier excel lié dans le marquage</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_HorizontalAlignement" xml:space="preserve">
+    <value>Horizontal alignment</value>
+    <comment>Alignement horizontal</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_VerticalAlignement" xml:space="preserve">
+    <value>Vertical alignement</value>
+    <comment>Alignement vertical</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_VideoExportIsEnabled" xml:space="preserve">
+    <value>Activate video export</value>
+    <comment>Activer le découpage des vidéos</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_WBSMarkingIsEnabled" xml:space="preserve">
+    <value>Add the ID of the task in the watermark</value>
+    <comment>Ajouter le numéro WBS de la tâche liée dans le marquage</comment>
+  </data>
+  <data name="ExtKp_Dlg_CreatingVideoFiles" xml:space="preserve">
+    <value>Creating video files {0}/{1}</value>
+    <comment>Création des fichiers videos {0}/{1}</comment>
+  </data>
+  <data name="ExtKp_Dlg_DoYouWantToLaunchExport" xml:space="preserve">
+    <value>Do you want to launch the export ?</value>
+    <comment>Etes-vous sûr de vouloir lancer l'export ?</comment>
+  </data>
+  <data name="ExtKp_Dlg_ExportCanceled" xml:space="preserve">
+    <value>The export has been canceled</value>
+    <comment>L'opération d'export a été arrêtée par l'utilisateur</comment>
+  </data>
+  <data name="ExtKp_Dlg_LaunchExport" xml:space="preserve">
+    <value>Export lauching</value>
+    <comment>Lancement de l'export</comment>
+  </data>
+  <data name="ExtKp_Dlg_PackageExportedWithSuccess" xml:space="preserve">
+    <value>Export complete. You can find the result in the folder {0}</value>
+    <comment>Votre package contenant la procédure et toutes les séquences vidéo a été créé dans le répertoire {0}</comment>
+  </data>
+  <data name="ExtKp_Dlg_SelectPreviousVersionFile" xml:space="preserve">
+    <value>Select the previous version (Cancel = Creation)</value>
+    <comment>Sélectionner la version précédente (Annuler = Création)</comment>
+  </data>
+  <data name="ExtKp_Error_ExcelModelPath" xml:space="preserve">
+    <value>Error with the path to the Excel template (.xlsm). Please check the SmartExport settings: {0}.</value>
+    <comment>Erreur avec le chemin vers le modèle Excel. Vérifier les paramètres de l'extension SmartExport: {0}</comment>
+  </data>
+  <data name="ExtKp_Error_Undefined" xml:space="preserve">
+    <value>Undefined</value>
+    <comment>Non défini</comment>
+  </data>
+  <data name="ExtKp_ExportWindow_CreatingExcelFile" xml:space="preserve">
+    <value>Creating reporting file</value>
+    <comment>Création du fichier Excel</comment>
+  </data>
+  <data name="ExtKp_ExportWindow_Exporting" xml:space="preserve">
+    <value>Exporting...</value>
+    <comment>Export en cours...</comment>
+  </data>
+  <data name="ExtKp_ExportWindow_Stop" xml:space="preserve">
+    <value>Stop</value>
+    <comment>Arrêter</comment>
+  </data>
+  <data name="ExtKp_Dlg_PackageExportedWithErrors" xml:space="preserve">
+    <value>Export completed with errors. Check the report errors tab in the folder {0}</value>
+  </data>
+  <data name="ExtKp_ConfigurationView_EnableReadOnly" xml:space="preserve">
+    <value>Read only optional (if checked the user will be able to open the reporting file in a Read Only mode)</value>
+  </data>
+  <data name="ExtKp_ConfigurationView_TaskTitleSize" xml:space="preserve">
+    <value>Task title size</value>
+  </data>
+  <data name="ExtKp_ConfigurationView_ArchivageTooltip" xml:space="preserve">
+    <value>Choose this mode to manage a centralized versioning and storage.
+- Links between reporting file (XLSM) and video clips or task representative pictures are absolute/full.
+- At each export, a version number is applied to the reporting file (XLSM) and to a subfolder containing the video clips and task representative pictures.</value>
+    <comment>Explication pour l'export Archivage</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_RedistribuableTooltip" xml:space="preserve">
+    <value>Choose this mode to create a turnkey redistributable package including video clips and task representative pictures.
+- Links between reporting file (XLSM) and video clips or task representative pictures are relative.
+- At each export, a version number is applied to the reporting file (XLSM) and to the package folder.</value>
+    <comment>Explication pour l'export Redistribuable</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_ArchivageLabel" xml:space="preserve">
+    <value>Centralized storage</value>
+  </data>
+  <data name="ExtKp_ConfigurationView_RedistribuableLabel" xml:space="preserve">
+    <value>Redistributable package</value>
+  </data>
+  <data name="ExtKp_Dlg_No_Mode_Selected" xml:space="preserve">
+    <value>Please select at least one export mode in the SmartExport control panel.</value>
+    <comment>Texte d'erreur quand aucun mode d'export n'a été sélectionné</comment>
+  </data>
+  <data name="ExtKp_ConfigurationView_OnlyVideosOfKeyTasks" xml:space="preserve">
+    <value>Export only videos of key tasks</value>
+  </data>
+  <data name="ExtKp_Dlg_No_Export_Selected" xml:space="preserve">
+    <value>Please select at least one export in the SmartExport control panel.</value>
+    <comment>Texte d'erreur quand aucun export n'a été sélectionné</comment>
+  </data>
+</root>

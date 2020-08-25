@@ -1,0 +1,1927 @@
+<UserControl x:Class="KProcess.Ksmed.Presentation.Shell.Views.AcquireView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:System="clr-namespace:System;assembly=mscorlib"
+             xmlns:core="http://schemas.kprocess.com/xaml/core"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+             xmlns:hd="clr-namespace:DlhSoft.Windows.Controls;assembly=DlhSoft.HierarchicalData.LightWPF.Controls"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             xmlns:k="http://schemas.kprocess.com/xaml/framework"
+             xmlns:local="clr-namespace:KProcess.Ksmed.Presentation.Shell"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:models="clr-namespace:KProcess.Ksmed.Models;assembly=KProcess.Ksmed.Models"
+             xmlns:mvvm="http://www.galasoft.ch/mvvmlight"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:views="clr-namespace:KProcess.Ksmed.Presentation.Shell.Views"
+             d:DesignHeight="768"
+             d:DesignWidth="1024"
+             mc:Ignorable="d">
+    <!--  d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True, Type={x:Type vm:AnalyzeAcquireViewModel}}"  -->
+    <UserControl.Resources>
+
+        <System:Double x:Key="DropDownButtonWidth">150</System:Double>
+
+        <views:KActionIconTemplateSelector x:Key="kActionIconTemplateSelector" />
+
+        <Style x:Key="LabelStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Margin" Value="2,4,2,2" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+
+        <Style x:Key="VideosSelectorStyle"
+               BasedOn="{StaticResource listBoxStyleBase}"
+               TargetType="{x:Type ListBox}">
+            <Setter Property="Background" Value="#22FFFFFF" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="ItemContainerStyle">
+                <Setter.Value>
+                    <Style BasedOn="{StaticResource listBoxItemStyleBase}" TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <Grid Background="{TemplateBinding Background}">
+                                        <Rectangle x:Name="MouseOverElement"
+                                                   Fill="{StaticResource MouseOverSelectionBrush}"
+                                                   IsHitTestVisible="False"
+                                                   Opacity="0"
+                                                   RadiusX="0"
+                                                   RadiusY="0" />
+                                        <Rectangle x:Name="SelectedElement"
+                                                   Fill="{StaticResource InputSelectionBrush}"
+                                                   IsHitTestVisible="False"
+                                                   Opacity="0"
+                                                   RadiusX="0"
+                                                   RadiusY="1" />
+                                        <StackPanel Margin="{TemplateBinding Padding}"
+                                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                    Orientation="Horizontal">
+                                            <Path x:Name="Film"
+                                                  Width="12"
+                                                  Height="12"
+                                                  Margin="4,2"
+                                                  Data="F1 M 888.616,555.303L 888.616,562.22L 878.933,562.22L 878.933,555.303L 870.632,555.303L 870.632,558.07L 806.996,558.07L 806.996,555.303L 798.695,555.303L 798.695,562.22L 789.012,562.22L 789.012,555.303L 782.095,555.303L 782.095,667.358L 789.012,667.358L 789.012,660.441L 798.695,660.441L 798.695,667.358L 806.996,667.358L 806.996,664.591L 870.632,664.591L 870.632,667.358L 878.933,667.358L 878.933,660.441L 888.616,660.441L 888.616,667.358L 896.917,667.358L 896.917,555.303L 888.616,555.303 Z M 798.695,653.524L 789.012,653.524L 789.012,642.457L 798.695,642.457L 798.695,653.524 Z M 798.695,635.54L 789.012,635.54L 789.012,624.473L 798.695,624.473L 798.695,635.54 Z M 798.695,616.172L 789.012,616.172L 789.012,605.105L 798.695,605.105L 798.695,616.172 Z M 798.695,598.188L 789.012,598.188L 789.012,587.121L 798.695,587.121L 798.695,598.188 Z M 798.695,580.204L 789.012,580.204L 789.012,569.137L 798.695,569.137L 798.695,580.204 Z M 870.632,660.441L 806.996,660.441L 806.996,613.406L 870.632,613.406L 870.632,660.441 Z M 870.632,609.255L 806.996,609.255L 806.996,562.22L 870.632,562.22L 870.632,609.255 Z M 888.616,653.524L 878.933,653.524L 878.933,642.457L 888.616,642.457L 888.616,653.524 Z M 888.616,635.54L 878.933,635.54L 878.933,624.473L 888.616,624.473L 888.616,635.54 Z M 888.616,616.172L 878.933,616.172L 878.933,605.105L 888.616,605.105L 888.616,616.172 Z M 888.616,598.188L 878.933,598.188L 878.933,587.121L 888.616,587.121L 888.616,598.188 Z M 888.616,580.204L 878.933,580.204L 878.933,569.137L 888.616,569.137L 888.616,580.204 Z "
+                                                  Fill="{StaticResource ControlBackgroundNormal}"
+                                                  Stretch="Fill"
+                                                  StrokeThickness="0" />
+                                            <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <Rectangle x:Name="FocusVisualElement"
+                                                   Margin="2"
+                                                   IsHitTestVisible="False"
+                                                   Opacity="0"
+                                                   RadiusX="1"
+                                                   RadiusY="1"
+                                                   Stroke="{StaticResource FocusVisualBrush}"
+                                                   StrokeDashArray="2"
+                                                   StrokeThickness="{StaticResource FocusVisualStrokeThickness}" />
+                                        <Border x:Name="ValidationErrorElement"
+                                                BorderBrush="{StaticResource ErrorBrush}"
+                                                BorderThickness="{TemplateBinding BorderThickness}"
+                                                CornerRadius="3"
+                                                Visibility="Collapsed">
+                                            <ToolTipService.ToolTip>
+                                                <ToolTip x:Name="validationTooltip"
+                                                         DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                                         Placement="Left"
+                                                         PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                                         Template="{StaticResource ValidationToolTipTemplate}" />
+                                            </ToolTipService.ToolTip>
+                                            <Grid Width="10"
+                                                  Height="10"
+                                                  Margin="0,-4,-4,0"
+                                                  HorizontalAlignment="Right"
+                                                  VerticalAlignment="Top"
+                                                  Background="Transparent">
+                                                <Path Margin="-1,3,0,0"
+                                                      Data="M 1,0 L6,0 A 2,2 90 0 1 8,2 L8,7 z"
+                                                      Fill="{StaticResource ErrorBrush}" />
+                                            </Grid>
+                                        </Border>
+                                        <VisualStateManager.VisualStateGroups>
+                                            <VisualStateGroup x:Name="CommonStates">
+                                                <VisualState x:Name="Normal" />
+                                                <VisualState x:Name="MouseOver">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="MouseOverElement"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To="1"
+                                                                         Duration="0:0:0.1" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Disabled">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="contentPresenter"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To=".7"
+                                                                         Duration="0" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                            <VisualStateGroup x:Name="SelectionStates">
+                                                <VisualState x:Name="Unselected" />
+                                                <VisualState x:Name="Selected">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="SelectedElement"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To="1"
+                                                                         Duration="0" />
+                                                        <DoubleAnimation Storyboard.TargetName="MouseOverElement"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To="0"
+                                                                         Duration="0" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="SelectedUnfocused">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="SelectedElement"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To="1"
+                                                                         Duration="0" />
+                                                        <DoubleAnimation Storyboard.TargetName="MouseOverElement"
+                                                                         Storyboard.TargetProperty="Opacity"
+                                                                         To="0"
+                                                                         Duration="0" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                            <VisualStateGroup x:Name="FocusStates">
+                                                <VisualState x:Name="Focused">
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetName="FocusVisualElement"
+                                                                         Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                                         To="1"
+                                                                         Duration="0" />
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="Unfocused" />
+                                            </VisualStateGroup>
+                                            <VisualStateGroup x:Name="LayoutStates">
+                                                <VisualState x:Name="AfterLoaded" />
+                                                <VisualState x:Name="BeforeLoaded" />
+                                                <VisualState x:Name="BeforeUnloaded" />
+                                            </VisualStateGroup>
+                                            <VisualStateGroup x:Name="ValidationStates">
+                                                <VisualState x:Name="Valid" />
+                                                <VisualState x:Name="InvalidUnfocused">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                                <VisualState x:Name="InvalidFocused">
+                                                    <Storyboard>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                                                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="validationTooltip" Storyboard.TargetProperty="IsOpen">
+                                                            <DiscreteObjectKeyFrame KeyTime="0">
+                                                                <DiscreteObjectKeyFrame.Value>
+                                                                    <System:Boolean>True</System:Boolean>
+                                                                </DiscreteObjectKeyFrame.Value>
+                                                            </DiscreteObjectKeyFrame>
+                                                        </ObjectAnimationUsingKeyFrames>
+                                                    </Storyboard>
+                                                </VisualState>
+                                            </VisualStateGroup>
+                                        </VisualStateManager.VisualStateGroups>
+                                    </Grid>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="true">
+                                            <Setter Property="Foreground" Value="Black" />
+                                            <Setter TargetName="Film" Property="Fill" Value="Black" />
+                                        </Trigger>
+                                        <DataTrigger Binding="{Binding IsSync}" Value="False">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding IsSync}" Value="{x:Null}">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate />
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBox}">
+                        <Grid>
+                            <Grid>
+                                <Border x:Name="OuterHighlight"
+                                        Margin="0,0,-1,-1"
+                                        BorderBrush="{StaticResource ControlOuterHighlightBrush}"
+                                        BorderThickness="0,0,1,1"
+                                        CornerRadius="3" />
+                                <Border Margin="0"
+                                        Background="{TemplateBinding Background}"
+                                        BorderBrush="{TemplateBinding BorderBrush}"
+                                        BorderThickness="{TemplateBinding BorderThickness}"
+                                        CornerRadius="3">
+                                    <ScrollViewer x:Name="ScrollViewer"
+                                                  Margin="0"
+                                                  Padding="0"
+                                                  Background="Transparent"
+                                                  BorderBrush="Transparent"
+                                                  BorderThickness="0"
+                                                  KeyboardNavigation.TabNavigation="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(KeyboardNavigation.TabNavigation)}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <ItemsPresenter Margin="0,0" />
+                                            <ListBoxItem x:Name="listBoxItem"
+                                                         Grid.Row="1"
+                                                         HorizontalAlignment="Stretch"
+                                                         HorizontalContentAlignment="Left"
+                                                         Content="{k:Localize View_AnalyzeAcquire_NoVideo}"
+                                                         TextBlock.FontStyle="Italic">
+                                                <ListBoxItem.Style>
+                                                    <Style BasedOn="{StaticResource listBoxItemStyleBase}" TargetType="{x:Type ListBoxItem}">
+                                                        <Setter Property="Template">
+                                                            <Setter.Value>
+                                                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                                                    <Grid Background="{TemplateBinding Background}">
+                                                                        <Rectangle x:Name="MouseOverElement"
+                                                                                   Fill="{StaticResource MouseOverSelectionBrush}"
+                                                                                   IsHitTestVisible="False"
+                                                                                   Opacity="0"
+                                                                                   RadiusX="0"
+                                                                                   RadiusY="0" />
+                                                                        <Rectangle x:Name="SelectedElement"
+                                                                                   Fill="{StaticResource InputSelectionBrush}"
+                                                                                   IsHitTestVisible="False"
+                                                                                   Opacity="0"
+                                                                                   RadiusX="0"
+                                                                                   RadiusY="1" />
+                                                                        <ContentPresenter x:Name="contentPresenter"
+                                                                                          Margin="{TemplateBinding Padding}"
+                                                                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" />
+                                                                        <Rectangle x:Name="FocusVisualElement"
+                                                                                   Margin="2"
+                                                                                   IsHitTestVisible="False"
+                                                                                   Opacity="0"
+                                                                                   RadiusX="1"
+                                                                                   RadiusY="1"
+                                                                                   Stroke="{StaticResource FocusVisualBrush}"
+                                                                                   StrokeDashArray="2"
+                                                                                   StrokeThickness="{StaticResource FocusVisualStrokeThickness}" />
+                                                                        <VisualStateManager.VisualStateGroups>
+                                                                            <VisualStateGroup x:Name="CommonStates">
+                                                                                <VisualState x:Name="Normal" />
+                                                                                <VisualState x:Name="MouseOver">
+                                                                                    <Storyboard>
+                                                                                        <DoubleAnimation Storyboard.TargetName="MouseOverElement"
+                                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                                         To="1"
+                                                                                                         Duration="0:0:0.1" />
+                                                                                    </Storyboard>
+                                                                                </VisualState>
+                                                                                <VisualState x:Name="Disabled">
+                                                                                    <Storyboard>
+                                                                                        <DoubleAnimation Storyboard.TargetName="contentPresenter"
+                                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                                         To=".7"
+                                                                                                         Duration="0" />
+                                                                                    </Storyboard>
+                                                                                </VisualState>
+                                                                            </VisualStateGroup>
+                                                                            <VisualStateGroup x:Name="SelectionStates">
+                                                                                <VisualState x:Name="Unselected" />
+                                                                                <VisualState x:Name="Selected">
+                                                                                    <Storyboard>
+                                                                                        <DoubleAnimation Storyboard.TargetName="SelectedElement"
+                                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                                         To="1"
+                                                                                                         Duration="0" />
+                                                                                        <DoubleAnimation Storyboard.TargetName="MouseOverElement"
+                                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                                         To="0"
+                                                                                                         Duration="0" />
+                                                                                    </Storyboard>
+                                                                                </VisualState>
+                                                                                <VisualState x:Name="SelectedUnfocused">
+                                                                                    <Storyboard>
+                                                                                        <DoubleAnimation Storyboard.TargetName="SelectedElement"
+                                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                                         To="1"
+                                                                                                         Duration="0" />
+                                                                                        <DoubleAnimation Storyboard.TargetName="MouseOverElement"
+                                                                                                         Storyboard.TargetProperty="Opacity"
+                                                                                                         To="0"
+                                                                                                         Duration="0" />
+                                                                                    </Storyboard>
+                                                                                </VisualState>
+                                                                            </VisualStateGroup>
+                                                                            <VisualStateGroup x:Name="FocusStates">
+                                                                                <VisualState x:Name="Focused">
+                                                                                    <Storyboard>
+                                                                                        <DoubleAnimation Storyboard.TargetName="FocusVisualElement"
+                                                                                                         Storyboard.TargetProperty="(FrameworkElement.Opacity)"
+                                                                                                         To="1"
+                                                                                                         Duration="0" />
+                                                                                    </Storyboard>
+                                                                                </VisualState>
+                                                                                <VisualState x:Name="Unfocused" />
+                                                                            </VisualStateGroup>
+                                                                        </VisualStateManager.VisualStateGroups>
+                                                                    </Grid>
+                                                                    <ControlTemplate.Triggers>
+                                                                        <Trigger Property="IsMouseOver" Value="true">
+                                                                            <Setter Property="Foreground" Value="Black" />
+                                                                        </Trigger>
+                                                                    </ControlTemplate.Triggers>
+                                                                </ControlTemplate>
+                                                            </Setter.Value>
+                                                        </Setter>
+                                                    </Style>
+                                                </ListBoxItem.Style>
+                                                <i:Interaction.Triggers>
+                                                    <i:EventTrigger EventName="PreviewMouseLeftButtonDown" SourceObject="{Binding ElementName=listBoxItem}">
+                                                        <k:CommandOnEventAction Command="{k:UCBinding DataContext.UnlinkVideoCommand}" />
+                                                    </i:EventTrigger>
+                                                </i:Interaction.Triggers>
+                                            </ListBoxItem>
+                                        </Grid>
+                                    </ScrollViewer>
+                                </Border>
+                                <!--  Inner Shadow.  -->
+                                <Border Margin="1"
+                                        BorderBrush="{StaticResource InnerShadowDarkBrush}"
+                                        BorderThickness="1,1,0,0"
+                                        CornerRadius="2" />
+                                <Border Margin="2,2,1,1"
+                                        BorderBrush="{StaticResource InnerShadowLightBrush}"
+                                        BorderThickness="1,1,0,0"
+                                        CornerRadius="1" />
+                            </Grid>
+                            <Border x:Name="ValidationErrorElement"
+                                    BorderBrush="{StaticResource ErrorBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="3"
+                                    Visibility="Collapsed">
+                                <ToolTipService.ToolTip>
+                                    <ToolTip x:Name="validationTooltip"
+                                             DataContext="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                             Placement="Left"
+                                             PlacementTarget="{Binding RelativeSource={RelativeSource TemplatedParent}}"
+                                             Template="{StaticResource ValidationToolTipTemplate}" />
+                                </ToolTipService.ToolTip>
+                                <Grid Width="10"
+                                      Height="10"
+                                      Margin="0,-4,-4,0"
+                                      HorizontalAlignment="Right"
+                                      VerticalAlignment="Top"
+                                      Background="Transparent">
+                                    <Path Margin="-1,3,0,0"
+                                          Data="M 1,0 L6,0 A 2,2 90 0 1 8,2 L8,7 z"
+                                          Fill="{StaticResource ErrorBrush}" />
+                                </Grid>
+                            </Border>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="ValidationStates">
+                                    <VisualState x:Name="Valid" />
+                                    <VisualState x:Name="InvalidUnfocused">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="InvalidFocused">
+                                        <Storyboard>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ValidationErrorElement" Storyboard.TargetProperty="Visibility">
+                                                <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Visible}" />
+                                            </ObjectAnimationUsingKeyFrames>
+                                            <ObjectAnimationUsingKeyFrames Storyboard.TargetName="validationTooltip" Storyboard.TargetProperty="IsOpen">
+                                                <DiscreteObjectKeyFrame KeyTime="0">
+                                                    <DiscreteObjectKeyFrame.Value>
+                                                        <System:Boolean>True</System:Boolean>
+                                                    </DiscreteObjectKeyFrame.Value>
+                                                </DiscreteObjectKeyFrame>
+                                            </ObjectAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding CanChangeActionVideo}" Value="False">
+                    <Setter Property="IsEnabled" Value="False" />
+                </DataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding CanChangeActionVideo}" Value="False" />
+                        <Condition Binding="{Binding CurrentActionItem.Action.IsMarkedAsAdded}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True" />
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding CanChangeActionVideo}" Value="False" />
+                        <Condition Binding="{Binding CurrentActionItem}" Value="{x:Null}" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="TreeViewItemStyle" TargetType="{x:Type syncfusion:TreeViewItemAdv}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="HorizontalContentAlignment" Value="{Binding Path=HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="VerticalContentAlignment" Value="{Binding Path=VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+            <Setter Property="Padding" Value="1,0,0,0" />
+            <Setter Property="Foreground" Value="{StaticResource InputForegroundBrush}" />
+            <Setter Property="IsEditable" Value="False" />
+            <Setter Property="IsSelected" Value="{Binding IsSelected}" />
+            <Setter Property="IsExpanded" Value="{Binding IsExpanded}" />
+        </Style>
+
+        <HierarchicalDataTemplate DataType="{x:Type models:ProjectDir}" ItemsSource="{Binding Nodes}">
+            <Grid Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       Width="16"
+                       Height="16"
+                       Margin="2,0,0,0"
+                       VerticalAlignment="Center"
+                       Source="pack://siteoforigin:,,,/Resources/Images/folder.png" />
+                <TextBlock Grid.Column="1"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="{Binding Name}" />
+            </Grid>
+        </HierarchicalDataTemplate>
+
+        <DataTemplate DataType="{x:Type models:Procedure}">
+            <Grid Height="24">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0"
+                       Width="16"
+                       Height="16"
+                       Margin="2,0,0,0"
+                       VerticalAlignment="Center"
+                       Source="pack://siteoforigin:,,,/Resources/Images/process.png" />
+                <TextBlock Grid.Column="1"
+                           Margin="4,0,0,0"
+                           VerticalAlignment="Center"
+                           Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>
+
+    </UserControl.Resources>
+
+    <Grid x:Name="layoutRoot">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.26*" MinWidth="242" />
+            <ColumnDefinition Width="0.737*" MinWidth="690" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="30" />
+        </Grid.RowDefinitions>
+
+        <i:Interaction.Behaviors>
+            <core:GridLayoutPersistanceBehavior />
+        </i:Interaction.Behaviors>
+
+        <i:Interaction.Triggers>
+            <ei:DataTrigger Binding="{Binding IsManualInput}" Value="True">
+                <ei:GoToStateAction StateName="ManualInput" />
+            </ei:DataTrigger>
+            <ei:DataTrigger Binding="{Binding IsManualInput}" Value="False">
+                <ei:GoToStateAction StateName="VideoInput" />
+            </ei:DataTrigger>
+        </i:Interaction.Triggers>
+
+        <Grid Grid.Row="0" Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0"
+                        Margin="0,0,4,0"
+                        VerticalAlignment="Top"
+                        Orientation="Vertical">
+                <WrapPanel>
+                    <Button Command="{Binding AddCommand}"
+                            Style="{DynamicResource ButtonPlusSmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeAcquire_AddSameLevel,
+                                                 Shortcut=Add}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <core:FocusAction TargetObject="{Binding ElementName=labelTB}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <Button Command="{Binding AddAsChildCommand}"
+                            Style="{DynamicResource ButtonPlusPlusSmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeAcquire_AddAsChild}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="Click">
+                                <core:FocusAction TargetObject="{Binding ElementName=labelTB}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                    <!--<Button Command="{Binding AddAsProcessCommand}"
+                            Style="{DynamicResource ButtonPlusProcessSmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeAcquire_AddAsProcess}" />-->
+                    <Button Command="{Binding RemoveCommand}"
+                            Style="{DynamicResource ButtonMinusSmallStyle}"
+                            ToolTip="{k:Localize Common_Delete,
+                                                 Shortcut=Delete}" />
+                    <Button Command="{Binding DuplicateTaskCommand}"
+                            Style="{DynamicResource ButtonDuplicateTaskStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_Duplicate}" />
+                    <Button Command="{Binding MoveUpCommand}"
+                            Style="{DynamicResource ButtonUpSmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_MoveUp}" />
+                    <Button Command="{Binding MoveDownCommand}"
+                            Style="{DynamicResource ButtonDownSmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_MoveDown}" />
+                    <Button Command="{Binding CollapseAllCommand}"
+                            CommandParameter="{Binding ElementName=AnalyzeAcquireDataGrid}"
+                            Style="{DynamicResource ButtonFolderMinusSmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_CollapseAll}" />
+                    <Button Command="{Binding ExpandAllCommand}"
+                            CommandParameter="{Binding ElementName=AnalyzeAcquireDataGrid}"
+                            Style="{DynamicResource ButtonFolderPlusSmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_ExpandAll}" />
+                    <Button Command="{Binding GroupCommand}"
+                            Style="{DynamicResource ButtonUploadPlus90SmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_Group}" />
+                    <Button Command="{Binding UngroupCommand}"
+                            Style="{DynamicResource ButtonUploadMinus90SmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_Ungroup}" />
+                    <Button x:Name="ChangeVideoButton"
+                            Command="{Binding UnselectItemCommand}"
+                            Style="{DynamicResource ButtonChangeVideo90SmallStyle}"
+                            ToolTip="{k:Localize View_AnalyzeGridCommon_ChangeVideo}" />
+                    <ItemsControl Style="{StaticResource ExtBarActionsSmall}" />
+                </WrapPanel>
+                <Border Margin="0,2,2,2"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top"
+                        Background="{DynamicResource DarkControlBackgroundBrush}"
+                        CornerRadius="2">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Margin="4"
+                                   VerticalAlignment="Center"
+                                   Text="{k:Localize View_AnalyzeGridCommon_ViewBy}" />
+                        <ComboBox MinWidth="120"
+                                  Margin="4"
+                                  VerticalAlignment="Center"
+                                  DisplayMemberPath="Label"
+                                  ItemsSource="{Binding Views}"
+                                  SelectedItem="{Binding ViewContainer}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <StackPanel Grid.Row="0"
+                        Margin="3"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Bottom"
+                        Orientation="Horizontal"
+                        Visibility="{Binding CanChange, Converter={StaticResource NegatedBooleanToVisibilityConverter}}">
+                <Button Command="{k:CommandBinding ValidateCommand}"
+                        Style="{DynamicResource ButtonCheckSmallStyle}"
+                        ToolTip="{k:Localize Common_OK,
+                                             Shortcut=Save}">
+                    <i:Interaction.Behaviors>
+                        <core:DataStateBehavior Binding="{Binding CanChange}"
+                                                FalseState="ColorGreen"
+                                                TrueState="ColorDefault"
+                                                Value="true" />
+                    </i:Interaction.Behaviors>
+                </Button>
+                <Button Command="{k:CommandBinding CancelCommand}"
+                        Style="{DynamicResource ButtonLeftTurnArrowSmallStyle}"
+                        ToolTip="{k:Localize Common_Cancel,
+                                             Shortcut=Cancel}">
+                    <i:Interaction.Behaviors>
+                        <core:DataStateBehavior Binding="{Binding CanChange}"
+                                                FalseState="ColorGreen"
+                                                TrueState="ColorDefault"
+                                                Value="true" />
+                    </i:Interaction.Behaviors>
+                </Button>
+            </StackPanel>
+            <hd:DataTreeGrid x:Name="AnalyzeAcquireDataGrid"
+                             Grid.Row="1"
+                             Margin="0,3,3,0"
+                             AutoGenerateColumns="False"
+                             CanUserAddRows="False"
+                             CanUserDeleteRows="False"
+                             EnableRowVirtualization="True"
+                             Items="{Binding ActionItems}"
+                             PreventRowAutoChangeOnValidation="True"
+                             RowHeaderWidth="0"
+                             RowHeight="24"
+                             SelectedItem="{Binding CurrentGridItem, Mode=TwoWay}"
+                             Style="{StaticResource baseDataTreeGridStyle}">
+                <hd:DataTreeGrid.Resources>
+                    <DataTemplate x:Key="KActionWithoutLinkedProcessIconTemplate" DataType="{x:Type models:KAction}">
+                        <Button Command="{k:CommandBinding ChangeVideoCommand,
+                                                           ElementName=MediaPlayer}"
+                                Content="{Binding}"
+                                ContentTemplate="{StaticResource VideoThumbnailColumndataTemplate}"
+                                IsEnabled="{Binding DataContext.IsReadOnly, Converter={k:NegatedBooleanConverter}, ElementName=AnalyzeAcquireDataGrid}"
+                                ToolTip="{k:Localize Common_Context_ChangeVideoTooltip_Content}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="Transparent" Cursor="Hand">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </DataTemplate>
+                    <DataTemplate x:Key="KActionWithLinkedProcessIconTemplate" DataType="{x:Type models:KAction}">
+                        <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"
+                                                       Kind="CogsSolid" />
+                    </DataTemplate>
+                </hd:DataTreeGrid.Resources>
+                <hd:DataTreeGrid.InputBindings>
+                    <KeyBinding Key="{x:Static k:Shortcuts.Delete}" Command="{Binding DataContext.ShortcutDeleteCommand, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}" />
+                </hd:DataTreeGrid.InputBindings>
+                <hd:DataTreeGrid.ItemContainerStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                    </Style>
+                </hd:DataTreeGrid.ItemContainerStyle>
+                <i:Interaction.Behaviors>
+                    <core:PersistDatagridColumnWidthBehavior DataGridKey="AnalyzeAcquireDataGrid" />
+                    <core:DataGridMultiSelectionBehavior SelectedItems="{Binding SelectedItems}" />
+                    <core:KSmedDataGridBehavior x:Name="GridBehavior" CurrentView="{Binding View}" />
+                    <core:BringIntoViewSelectionBehavior />
+                    <core:ExportGridBehavior />
+                    <core:DataGridRowDoubleClickCommandBehavior Command="{Binding DoubleClickCommand}" />
+                </i:Interaction.Behaviors>
+                <hd:DataTreeGrid.Columns>
+
+                    <DataGridTemplateColumn x:Name="ColumnVideo"
+                                            core:KSmedDataGridBehavior.Id="video"
+                                            core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnVideo"
+                                            CellTemplateSelector="{StaticResource kActionIconTemplateSelector}"
+                                            IsReadOnly="True">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding VideoName}" Header="{k:Localize View_AnalyzeAcquire_Column_Video}" />
+                        </i:Interaction.Behaviors>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn x:Name="ColumnWBS"
+                                            core:KSmedDataGridBehavior.Id="wbs"
+                                            core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnWBS"
+                                            Header="{k:Localize View_AnalyzeAcquire_Column_WBS}"
+                                            IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Padding="2"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding Action.WBS}">
+                                    <TextBlock.ToolTip>
+                                        <ToolTip>
+                                            <StackPanel>
+                                                <TextBlock>
+                                                    <TextBlock.Text>
+                                                        <MultiBinding Converter="{core:ThumbnailTooltipHeaderConverter}">
+                                                            <Binding Path="VideoName" />
+                                                            <Binding Path="Action.WBS" />
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                                <Image MaxWidth="{Binding Converter={core:ImageResizerConverter}}"
+                                                       MaxHeight="{Binding Converter={core:ImageResizerConverter}}"
+                                                       Source="{Binding Action.Thumbnail.Uri}"
+                                                       Stretch="Uniform" />
+                                            </StackPanel>
+                                        </ToolTip>
+                                    </TextBlock.ToolTip>
+                                </TextBlock>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.WBS}" />
+                        </i:Interaction.Behaviors>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn x:Name="ColumnKeyTask"
+                                            Width="20"
+                                            core:KSmedDataGridBehavior.Id="IsKeyTaskManaged"
+                                            core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnKeyTask"
+                                            Header="{k:Localize View_AnalyzeAcquire_IsKeyTask}"
+                                            IsReadOnly="True">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Border x:Name="PackIcon"
+                                        HorizontalAlignment="Center"
+                                        ToolTip="{k:Localize View_AnalyzeAcquire_IsKeyTask}"
+                                        Visibility="Collapsed">
+                                    <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                                   VerticalAlignment="Center"
+                                                                   Kind="ExclamationSolid" />
+                                </Border>
+                                <DataTemplate.Triggers>
+                                    <DataTrigger Binding="{Binding Action.IsKeyTaskManaged}" Value="True">
+                                        <Setter TargetName="PackIcon" Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </DataTemplate.Triggers>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.IsKeyTaskManaged}" />
+                        </i:Interaction.Behaviors>
+                    </DataGridTemplateColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnTask"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Label"
+                                           core:KSmedDataGridBehavior.Id="task"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnTask"
+                                           CellTemplate="{StaticResource TaskCellTemplate}"
+                                           Header="{k:Localize View_AnalyzeAcquire_Column_Task}"
+                                           IsReadOnly="true">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnDuration"
+                                           core:KDataGridFeatures.CellVisibleWhenViewWBSTextBlock="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource TicksToStringConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Duration"
+                                           core:KSmedDataGridBehavior.Id="duration"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnDuration"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{k:Localize View_AnalyzeAcquire_Column_Duration}"
+                                           IsReadOnly="True">
+                        <hd:DataTreeGridColumn.HeaderStyle>
+                            <Style BasedOn="{StaticResource baseDataGridColumnHeaderStyle}" TargetType="DataGridColumnHeader">
+                                <Setter Property="ContentTemplate">
+                                    <Setter.Value>
+                                        <DataTemplate>
+                                            <ContentControl Content="{Binding}">
+                                                <ToolTipService.ToolTip>
+                                                    <ToolTip Content="HH:MM:SS" />
+                                                </ToolTipService.ToolTip>
+                                            </ContentControl>
+                                        </DataTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </hd:DataTreeGridColumn.HeaderStyle>
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.Duration, Converter={StaticResource TicksToStringConverter}}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Duration, Converter={StaticResource TicksToStringConverter}}" CellDataType="TimeSpan" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <core:KDataGridCheckBoxColumn x:Name="ColumnIsRandom"
+                                                  core:KSmedDataGridBehavior.Id="isRandom"
+                                                  core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnIsRandom"
+                                                  Binding="{Binding Action.IsRandom, UpdateSourceTrigger=PropertyChanged}"
+                                                  CellStyle="{StaticResource DataGridCellSingleClickEditStyle}"
+                                                  ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupCheckBoxElementStyle}"
+                                                  ImmediateCommit="True"
+                                                  Visibility="Collapsed">
+                        <core:KDataGridCheckBoxColumn.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Path Width="{Binding (TextElement.FontSize), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                          Height="{Binding (TextElement.FontSize), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                          Margin="1,0,0,0"
+                                          HorizontalAlignment="Left"
+                                          Data="M307 384h120v-213h-150l-8 42h-120v-149h-42v363h192z"
+                                          Fill="{Binding (TextElement.Foreground), RelativeSource={RelativeSource FindAncestor, AncestorType=Grid}}"
+                                          RenderTransformOrigin="0.5,0.5"
+                                          Stretch="Uniform">
+                                        <Path.RenderTransform>
+                                            <ScaleTransform ScaleY="-1" />
+                                        </Path.RenderTransform>
+                                    </Path>
+                                </Grid>
+                            </DataTemplate>
+                        </core:KDataGridCheckBoxColumn.HeaderTemplate>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.IsRandom}" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridCheckBoxColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnCategory"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Category.Label"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Category.Id"
+                                           core:KSmedDataGridBehavior.Id="category"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnCategory"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Category}"
+                                           IsReadOnly="True">
+                        <!--
+                            Binding="{Binding Action.Category.Label}"
+                            ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                        -->
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.Category.Label}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Category.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnSkill"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Skill.Label"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Skill.Id"
+                                           core:KSmedDataGridBehavior.Id="skill"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnSkill"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Skill}"
+                                           IsReadOnly="True">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.Skill.Label}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Skill.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnResource"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplay="Resource.Label"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Resource.Id"
+                                           core:KSmedDataGridBehavior.Id="resource"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnResource"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{k:Localize View_AnalyzeAcquire_Column_Resource}"
+                                           IsReadOnly="True">
+                        <!--
+                            Binding="{Binding Action.Resource.Label}"
+                            ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                        -->
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.Resource.Label}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.Resource.Label}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <core:KDataGridTextColumn x:Name="ColumnPredecessors"
+                                              core:KSmedDataGridBehavior.Id="predecessors"
+                                              core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnPredecessors"
+                                              Binding="{Binding PredecessorsString}"
+                                              CellStyle="{StaticResource DataGridCellPredecessorsSingleClickEditStyle}"
+                                              EditingElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBoxStyle}"
+                                              ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                                              Header="{k:Localize View_AnalyzeAcquire_Column_Predecessors}">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding PredecessorsString}" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridTextColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnRef1"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource ActionRefListToLabelsConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref1"
+                                           core:KSmedDataGridBehavior.Id="ref1"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnRef1"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref1}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <!--
+                            Binding="{Binding Ref1Labels}"
+                            ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                        -->
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref1Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref1Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnRef2"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource ActionRefListToLabelsConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref2"
+                                           core:KSmedDataGridBehavior.Id="ref2"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnRef2"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref2}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <!--
+                            Binding="{Binding Ref2Labels}"
+                            ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                        -->
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref2Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref2Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnRef3"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource ActionRefListToLabelsConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref3"
+                                           core:KSmedDataGridBehavior.Id="ref3"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnRef3"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref3}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref3Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref3Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnRef4"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource ActionRefListToLabelsConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref4"
+                                           core:KSmedDataGridBehavior.Id="ref4"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnRef4"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref4}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref4Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref4Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnRef5"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource ActionRefListToLabelsConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref5"
+                                           core:KSmedDataGridBehavior.Id="ref5"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnRef5"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref5}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref5Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref5Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnRef6"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource ActionRefListToLabelsConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref6"
+                                           core:KSmedDataGridBehavior.Id="ref6"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnRef6"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref6}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref6Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref6Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn x:Name="ColumnRef7"
+                                           core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathDisplayConverter="{StaticResource ActionRefListToLabelsConverter}"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="Ref7"
+                                           core:KSmedDataGridBehavior.Id="ref7"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnRef7"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           Header="{x:Static core:ReferentialsUse.Ref7}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Ref7Labels}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Ref7Labels}" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <core:KDataGridTextColumn x:Name="ColumnAmeliorationDescription"
+                                              core:KSmedDataGridBehavior.Id="ameliorationDescription"
+                                              core:PersistDatagridColumnWidthBehavior.ColumnKey="ColumnAmeliorationDescription"
+                                              Binding="{Binding Action.AmeliorationDescription}"
+                                              ElementStyle="{StaticResource GanttGridVisibleWhenNotGroupTextBlockStyle}"
+                                              Header="{k:Localize View_AnalyzeAcquire_Column_Improvement}"
+                                              IsReadOnly="True"
+                                              Visibility="Collapsed">
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.AmeliorationDescription}" />
+                        </i:Interaction.Behaviors>
+                    </core:KDataGridTextColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn1"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="1" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue2"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn2"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue2}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue2}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="2" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue3"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn3"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue3}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue3}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="3" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomTextValue4"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomTextLabelColumn4"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomTextValue4}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomTextValue4}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Text" Index="4" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn1"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValueText, Converter={core:DecimalConverter}}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="1" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue2"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn2"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue2Text, Converter={core:DecimalConverter}}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue2}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="2" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue3"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn3"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue3Text, Converter={core:DecimalConverter}}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue3}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="3" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                    <hd:DataTreeGridColumn core:KDataGridFeatures.CellVisibleWhenNotGroup="True"
+                                           core:KDataGridFeatures.HighlightWhenChildOverridenKActionPropertyPathValue="CustomNumericValue4"
+                                           core:PersistDatagridColumnWidthBehavior.ColumnKey="CustomNumLabelColumn4"
+                                           CellTemplate="{StaticResource FeaturedCellTemplate}"
+                                           IsReadOnly="True"
+                                           Visibility="Collapsed">
+                        <core:KDataGridFeatures.Binding>
+                            <core:KDataGridBindingDescription Value="{Binding Action.CustomNumericValue4Text, Converter={core:DecimalConverter}}" />
+                        </core:KDataGridFeatures.Binding>
+                        <i:Interaction.Behaviors>
+                            <core:ExportFormatBehavior Binding="{Binding Action.CustomNumericValue4}" />
+                            <core:KDataGridCustomLabelColumnBehavior FieldType="Numeric" Index="4" />
+                        </i:Interaction.Behaviors>
+                    </hd:DataTreeGridColumn>
+
+                </hd:DataTreeGrid.Columns>
+            </hd:DataTreeGrid>
+        </Grid>
+        <GridSplitter Grid.Row="0"
+                      Grid.Column="1"
+                      Width="2"
+                      Padding="0"
+                      HorizontalAlignment="Left"
+                      ResizeDirection="Columns"
+                      Style="{DynamicResource verticalGridSplitterStyle}" />
+        <Grid x:Name="GlobalRow"
+              Grid.Row="0"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition x:Name="VideoPlayerRowDefinition">
+                    <RowDefinition.MinHeight>
+                        <MultiBinding Converter="{core:AdditionConverter}">
+                            <Binding ElementName="MediaPlayer" Path="MinHeight" />
+                            <Binding ElementName="DetailsGrid" Path="ActualHeight" />
+                        </MultiBinding>
+                    </RowDefinition.MinHeight>
+                    <RowDefinition.MaxHeight>
+                        <MultiBinding Converter="{core:MinusConverter}">
+                            <Binding ElementName="GlobalRow" Path="ActualHeight" />
+                            <Binding ElementName="ReferentialsGridSplitter" Path="Height" />
+                        </MultiBinding>
+                    </RowDefinition.MaxHeight>
+                </RowDefinition>
+                <RowDefinition x:Name="ReferentialsRowDefinition" Height="90" />
+            </Grid.RowDefinitions>
+            <DockPanel Grid.Row="0">
+                <Grid x:Name="DetailsGrid"
+                      Margin="8,0,0,0"
+                      DockPanel.Dock="Bottom"
+                      Visibility="{Binding CurrentActionItem, Converter={StaticResource NotNullToVisibilityConverter}}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="28" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="20" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.ColumnSpan="3"
+                          Height="26"
+                          Margin="0,0,0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="FirstColumnLeft" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="SecondColumnLeft" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="ThirdColumnLeft" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_AnalyzeAcquire_WBS}"
+                                   TextWrapping="Wrap" />
+                        <TextBox Grid.Column="1"
+                                 MinWidth="50"
+                                 Margin="4,0,2,2"
+                                 HorizontalAlignment="Left"
+                                 IsReadOnly="True"
+                                 TabIndex="0"
+                                 Text="{Binding CurrentActionItem.Action.WBS, Mode=OneWay}"
+                                 TextWrapping="Wrap" />
+                        <TextBlock Grid.Column="2"
+                                   HorizontalAlignment="Right"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_AnalyzeAcquire_Label}"
+                                   TextWrapping="Wrap" />
+                        <core:ComboBoxF4Disabled x:Name="labelTB"
+                                                 Grid.Column="3"
+                                                 Width="200"
+                                                 Margin="4,0,2,2"
+                                                 IsEditable="True"
+                                                 IsEnabled="{Binding IsNotReadOnly}"
+                                                 ItemsSource="{Binding ActionsLabels}"
+                                                 TabIndex="1"
+                                                 Text="{k:InstantValidatingBinding CurrentActionItem.Action.Label}">
+                            <ComboBox.Resources>
+                                <Style BasedOn="{StaticResource ComboBoxEditableTextBox}" TargetType="{x:Type TextBox}">
+                                    <Setter Property="IsReadOnly" Value="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}" />
+                                    <Setter Property="MaxLength" Value="{x:Static models:KAction.LabelMaxLength}" />
+                                </Style>
+                            </ComboBox.Resources>
+                        </core:ComboBoxF4Disabled>
+                    </Grid>
+                    <Grid Grid.Row="1"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Height="26"
+                          Margin="0,0,0,2"
+                          Visibility="{Binding AreTimingsVisible, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="FirstColumnLeft" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="SecondColumnLeft" />
+                            <ColumnDefinition Width="Auto" SharedSizeGroup="ThirdColumnLeft" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock x:Name="startTextBlock"
+                                   Grid.Column="0"
+                                   Margin="2,4,2,2"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_AnalyzeAcquire_Start}"
+                                   TextWrapping="Wrap" />
+                        <TextBox x:Name="startTextBox"
+                                 Grid.Column="1"
+                                 Margin="4,0,6,2"
+                                 IsReadOnly="{Binding AreTimingsReadOnly}"
+                                 TabIndex="2"
+                                 Text="{core:EnterKeyBinding CurrentActionItem.Action.Start,
+                                                             True,
+                                                             Converter={StaticResource TicksToStringConverter}}"
+                                 TextWrapping="Wrap">
+                            <i:Interaction.Behaviors>
+                                <core:HandleNotSynchronizedTextBoxInputBehavior ResetObject="{Binding CurrentActionItem}" />
+                            </i:Interaction.Behaviors>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="HH:MM:SS" />
+                            </ToolTipService.ToolTip>
+                        </TextBox>
+                        <TextBlock x:Name="finishTextBlock"
+                                   Grid.Column="2"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_AnalyzeAcquire_Finish}"
+                                   TextWrapping="Wrap" />
+                        <TextBox x:Name="finishTextBox"
+                                 Grid.Column="3"
+                                 Margin="4,0,6,2"
+                                 IsReadOnly="{Binding AreTimingsReadOnly}"
+                                 TabIndex="3"
+                                 Text="{core:EnterKeyBinding CurrentActionItem.Action.Finish,
+                                                             True,
+                                                             Converter={StaticResource TicksToStringConverter}}"
+                                 TextWrapping="Wrap">
+                            <i:Interaction.Behaviors>
+                                <core:HandleNotSynchronizedTextBoxInputBehavior ResetObject="{Binding CurrentActionItem}" />
+                            </i:Interaction.Behaviors>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="HH:MM:SS" />
+                            </ToolTipService.ToolTip>
+                        </TextBox>
+                        <TextBlock x:Name="durationTextBlock"
+                                   Grid.Column="4"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{k:Localize View_AnalyzeAcquire_Duration}"
+                                   TextWrapping="Wrap" />
+                        <TextBox x:Name="durationTextBox"
+                                 Grid.Column="5"
+                                 Margin="4,0,6,2"
+                                 TabIndex="4"
+                                 Text="{core:EnterKeyBinding CurrentActionItem.Action.Duration,
+                                                             True,
+                                                             Converter={StaticResource TicksToStringConverter}}"
+                                 TextWrapping="Wrap">
+                            <TextBox.IsReadOnly>
+                                <MultiBinding Converter="{core:OrBooleansConverter}">
+                                    <Binding Path="AreTimingsReadOnly" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </TextBox.IsReadOnly>
+                            <i:Interaction.Behaviors>
+                                <core:HandleNotSynchronizedTextBoxInputBehavior ResetObject="{Binding CurrentActionItem}" />
+                            </i:Interaction.Behaviors>
+                            <ToolTipService.ToolTip>
+                                <ToolTip Content="HH:MM:SS" />
+                            </ToolTipService.ToolTip>
+                        </TextBox>
+                    </Grid>
+                    <Grid Grid.Row="0"
+                          Grid.RowSpan="3"
+                          Grid.Column="2"
+                          HorizontalAlignment="Right">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="28" />
+                            <RowDefinition Height="28" />
+                            <RowDefinition Height="28" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource LabelStyle}" Text="{k:Localize View_AnalyzeAcquire_Column_Resource}">
+                            <TextBlock.Visibility>
+                                <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                    <Binding Path="CurrentActionItem.IsGroup" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </TextBlock.Visibility>
+                        </TextBlock>
+                        <core:DropDownButton Grid.Row="0"
+                                             Grid.Column="1"
+                                             Width="{StaticResource DropDownButtonWidth}"
+                                             Margin="4,0,2,2"
+                                             HorizontalAlignment="Left"
+                                             Content="{Binding CurrentActionItem.Action.Resource.Label}"
+                                             IsEnabled="{Binding CurrentActionItem.IsGroup, Converter={StaticResource NegatedBooleanConverter}}">
+                            <core:DropDownButton.Visibility>
+                                <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                    <Binding Path="CurrentActionItem.IsGroup" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </core:DropDownButton.Visibility>
+                            <core:DropDownButton.DropDownContent>
+                                <Grid Width="400">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <core:ReferentialPicker x:Name="OperatorsListBox"
+                                                            Margin="4"
+                                                            ItemsSource="{Binding Operators}"
+                                                            KeyDown="OperatorsListBox_KeyDown"
+                                                            ReferentialId="Operator"
+                                                            SelectedItem="{k:InstantValidatingBinding CurrentActionItem.Action.Operator}"
+                                                            SelectionChanged="OperatorsListBox_SelectionChanged"
+                                                            SelectionMode="Single" />
+                                    <core:ReferentialPicker x:Name="EquipmentsListBox"
+                                                            Grid.Column="1"
+                                                            Margin="4"
+                                                            ItemsSource="{Binding Equipments}"
+                                                            KeyDown="EquipmentsListBox_KeyDown"
+                                                            ReferentialId="Equipment"
+                                                            SelectedItem="{k:InstantValidatingBinding CurrentActionItem.Action.Equipment}"
+                                                            SelectionChanged="EquipmentsListBox_SelectionChanged"
+                                                            SelectionMode="Single" />
+                                </Grid>
+                            </core:DropDownButton.DropDownContent>
+                        </core:DropDownButton>
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="0"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{x:Static core:ReferentialsUse.Category}">
+                            <TextBlock.Visibility>
+                                <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                    <Binding Path="CurrentActionItem.IsGroup" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </TextBlock.Visibility>
+                        </TextBlock>
+                        <core:DropDownButton Grid.Row="1"
+                                             Grid.Column="1"
+                                             Width="{StaticResource DropDownButtonWidth}"
+                                             Margin="4,0,2,2"
+                                             HorizontalAlignment="Left"
+                                             Content="{Binding CurrentActionItem.Action.Category.Label}"
+                                             IsEnabled="{Binding CurrentActionItem.IsGroup, Converter={StaticResource NegatedBooleanConverter}}">
+                            <core:DropDownButton.Visibility>
+                                <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                    <Binding Path="CurrentActionItem.IsGroup" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </core:DropDownButton.Visibility>
+                            <core:DropDownButton.DropDownContent>
+                                <Grid Width="200">
+                                    <core:ReferentialPicker x:Name="CategoriesListBox"
+                                                            Margin="4"
+                                                            ItemsSource="{Binding Categories}"
+                                                            ReferentialId="Category"
+                                                            SelectedItem="{k:InstantValidatingBinding CurrentActionItem.Action.Category}"
+                                                            SelectionChanged="CategoriesListBox_SelectionChanged"
+                                                            SelectionMode="Single" />
+                                </Grid>
+                            </core:DropDownButton.DropDownContent>
+                        </core:DropDownButton>
+                        <TextBlock Grid.Row="2"
+                                   Grid.Column="0"
+                                   Style="{StaticResource LabelStyle}"
+                                   Text="{x:Static core:ReferentialsUse.Skill}">
+                            <TextBlock.Visibility>
+                                <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                    <Binding Path="CurrentActionItem.IsGroup" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </TextBlock.Visibility>
+                        </TextBlock>
+                        <core:DropDownButton Grid.Row="2"
+                                             Grid.Column="1"
+                                             Width="{StaticResource DropDownButtonWidth}"
+                                             Margin="4,0,2,2"
+                                             HorizontalAlignment="Left"
+                                             Content="{Binding CurrentActionItem.Action.Skill.Label}"
+                                             IsEnabled="{Binding CurrentActionItem.IsGroup, Converter={StaticResource NegatedBooleanConverter}}">
+                            <core:DropDownButton.Visibility>
+                                <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                    <Binding Path="CurrentActionItem.IsGroup" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </core:DropDownButton.Visibility>
+                            <core:DropDownButton.DropDownContent>
+                                <Grid Width="200">
+                                    <core:ReferentialPicker x:Name="SkillsListBox"
+                                                            Margin="4"
+                                                            ItemsSource="{Binding Skills}"
+                                                            ReferentialId="Skill"
+                                                            SelectedItem="{k:InstantValidatingBinding CurrentActionItem.Action.Skill}"
+                                                            SelectionChanged="SkillsListBox_SelectionChanged"
+                                                            SelectionMode="Single" />
+                                </Grid>
+                            </core:DropDownButton.DropDownContent>
+                        </core:DropDownButton>
+                        <CheckBox x:Name="onTheFlyInputCheckBox"
+                                  Grid.Row="0"
+                                  Grid.Column="2"
+                                  Margin="4,0"
+                                  Content="{k:Localize View_AnalyzeAcquire_OnTheFlyInput}"
+                                  Focusable="False"
+                                  IsChecked="{Binding AutoPause}" />
+                        <Border Grid.Row="1"
+                                Grid.Column="2"
+                                Margin="4,0"
+                                HorizontalAlignment="Right"
+                                IsEnabled="{Binding CurrentActionItem.IsGroup, Converter={StaticResource NegatedBooleanConverter}}">
+                            <Border.Visibility>
+                                <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                    <Binding Path="CurrentActionItem.IsGroup" />
+                                    <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                                </MultiBinding>
+                            </Border.Visibility>
+                            <CheckBox Focusable="False"
+                                      IsChecked="{Binding CurrentActionItem.Action.IsRandom}"
+                                      IsEnabled="{Binding IsNotReadOnly}">
+                                <Path Width="{Binding FontSize, RelativeSource={RelativeSource FindAncestor, AncestorType=CheckBox}}"
+                                      Height="{Binding FontSize, RelativeSource={RelativeSource FindAncestor, AncestorType=CheckBox}}"
+                                      Margin="0,0,0,0"
+                                      Data="M307 384h120v-213h-150l-8 42h-120v-149h-42v363h192z"
+                                      Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=CheckBox}}"
+                                      RenderTransformOrigin="0.5,0.5"
+                                      Stretch="Uniform">
+                                    <Path.RenderTransform>
+                                        <ScaleTransform ScaleY="-1" />
+                                    </Path.RenderTransform>
+                                </Path>
+                            </CheckBox>
+                        </Border>
+                    </Grid>
+                    <Grid Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3">
+                        <Grid.Visibility>
+                            <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                                <Binding Path="CurrentActionItem.IsGroup" />
+                                <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                            </MultiBinding>
+                        </Grid.Visibility>
+                        <CheckBox Height="24"
+                                  Margin="4,0"
+                                  Focusable="False"
+                                  IsChecked="{Binding CurrentActionItem.Action.IsKeyTaskManaged}"
+                                  IsEnabled="{Binding IsNotReadOnly}"
+                                  ToolTip="{k:Localize View_AnalyzeAcquire_IsKeyTask}">
+                            <iconPacks:PackIconFontAwesome HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center"
+                                                           Kind="ExclamationSolid" />
+                        </CheckBox>
+                    </Grid>
+                    <Grid Grid.Row="3"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Margin="-2,0,0,2"
+                          VerticalAlignment="Top"
+                          Grid.IsSharedSizeScope="True"
+                          Visibility="{Binding CurrentActionItem.IsGroup, Converter={StaticResource NegatedBooleanToVisibilityConverter}}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <views:CustomLabelUC Grid.Row="0"
+                                             Grid.ColumnSpan="2"
+                                             KeyboardNavigation.TabIndex="10"
+                                             Label="{Binding CustomFieldsLabels.Text1}"
+                                             MaxLength="{x:Static models:KAction.CustomTextValueUIGlobalMaxLength}"
+                                             Value="{Binding CurrentActionItem.Action.CustomTextValue}" />
+                        <views:CustomLabelUC Grid.Row="1"
+                                             Grid.ColumnSpan="2"
+                                             KeyboardNavigation.TabIndex="11"
+                                             Label="{Binding CustomFieldsLabels.Text2}"
+                                             MaxLength="{x:Static models:KAction.CustomTextValueUIGlobalMaxLength}"
+                                             Value="{Binding CurrentActionItem.Action.CustomTextValue2}" />
+                        <views:CustomLabelUC Grid.Row="2"
+                                             Grid.ColumnSpan="2"
+                                             KeyboardNavigation.TabIndex="12"
+                                             Label="{Binding CustomFieldsLabels.Text3}"
+                                             MaxLength="{x:Static models:KAction.CustomTextValueUIGlobalMaxLength}"
+                                             Value="{Binding CurrentActionItem.Action.CustomTextValue3}" />
+                        <views:CustomLabelUC Grid.Row="3"
+                                             Grid.ColumnSpan="2"
+                                             KeyboardNavigation.TabIndex="13"
+                                             Label="{Binding CustomFieldsLabels.Text4}"
+                                             MaxLength="{x:Static models:KAction.CustomTextValueUIGlobalMaxLength}"
+                                             Value="{Binding CurrentActionItem.Action.CustomTextValue4}" />
+                    </Grid>
+                    <WrapPanel Grid.Row="4"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               Margin="0,0,0,2"
+                               Visibility="{Binding CurrentActionItem.IsGroup, Converter={StaticResource NegatedBooleanToVisibilityConverter}}">
+                        <views:CustomLabelUC AcceptsReturn="False"
+                                             KeyboardNavigation.TabIndex="21"
+                                             Label="{Binding CustomFieldsLabels.Numeric1}"
+                                             Value="{Binding CurrentActionItem.Action.CustomNumericValueText, Converter={core:DecimalConverter}}">
+                            <i:Interaction.Behaviors>
+                                <core:AllowCharacter Character="-" />
+                            </i:Interaction.Behaviors>
+                        </views:CustomLabelUC>
+                        <views:CustomLabelUC AcceptsReturn="False"
+                                             KeyboardNavigation.TabIndex="22"
+                                             Label="{Binding CustomFieldsLabels.Numeric2}"
+                                             Value="{Binding CurrentActionItem.Action.CustomNumericValue2Text, Converter={core:DecimalConverter}}">
+                            <i:Interaction.Behaviors>
+                                <core:AllowCharacter Character="-" />
+                            </i:Interaction.Behaviors>
+                        </views:CustomLabelUC>
+                        <views:CustomLabelUC AcceptsReturn="False"
+                                             KeyboardNavigation.TabIndex="23"
+                                             Label="{Binding CustomFieldsLabels.Numeric3}"
+                                             Value="{Binding CurrentActionItem.Action.CustomNumericValue3Text, Converter={core:DecimalConverter}}">
+                            <i:Interaction.Behaviors>
+                                <core:AllowCharacter Character="-" />
+                            </i:Interaction.Behaviors>
+                        </views:CustomLabelUC>
+                        <views:CustomLabelUC AcceptsReturn="False"
+                                             KeyboardNavigation.TabIndex="24"
+                                             Label="{Binding CustomFieldsLabels.Numeric4}"
+                                             Value="{Binding CurrentActionItem.Action.CustomNumericValue4Text, Converter={core:DecimalConverter}}">
+                            <i:Interaction.Behaviors>
+                                <core:AllowCharacter Character="-" />
+                            </i:Interaction.Behaviors>
+                        </views:CustomLabelUC>
+                    </WrapPanel>
+                </Grid>
+                <Grid>
+                    <k:KMediaPlayer x:Name="MediaPlayer"
+                                    MinHeight="136"
+                                    Margin="28,0,20,4"
+                                    AreMarkersLinked="{Binding AreMarkersLinked}"
+                                    EndBindingPath="Action.Finish"
+                                    Focusable="False"
+                                    HasThumbnail="{Binding HasThumbnail}"
+                                    IsMuted="{Binding Source={x:Static local:LocalSettings.Instance}, Path=Mute, Mode=TwoWay}"
+                                    Markers="{Binding CurrentMarkers}"
+                                    MarkersLinkedVisibility="{Binding IsMarkersLinkedModeEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                    PlayCommand="{k:CommandBinding OnPlayCommand}"
+                                    ScreenModeCommand="{Binding ScreenModeCommand}"
+                                    ScreenModeVisibility="Visible"
+                                    SeekCommand="{k:CommandBinding OnSeekCommand}"
+                                    SelectedMarker="{Binding SelectedMarker, Mode=TwoWay}"
+                                    SelectedSource="{Binding CurrentVideo}"
+                                    Sources="{Binding Videos}"
+                                    SourcesPath="Source"
+                                    StartBindingPath="Action.Start"
+                                    ThumbnailCommand="{Binding ThumbnailCommand}"
+                                    ThumbnailExternalCommand="{Binding ThumbnailExternalCommand}"
+                                    ThumbnailVisibility="Visible"
+                                    VideosSelectorStyle="{StaticResource VideosSelectorStyle}">
+                        <i:Interaction.Behaviors>
+                            <core:MediaPlayerBehavior />
+                        </i:Interaction.Behaviors>
+                        <!--<k:KMediaPlayer.SourcesTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </k:KMediaPlayer.SourcesTemplate>-->
+                        <k:KMediaPlayer.MarkerItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="IsEnabled" Value="{Binding AreMarkersEnabled}" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                                <Style.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Panel.ZIndex" Value="9999" />
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Panel.ZIndex" Value="99999" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </k:KMediaPlayer.MarkerItemContainerStyle>
+                    </k:KMediaPlayer>
+                    <Grid Visibility="{Binding CurrentActionItem.Action.IsLinkToProcess, Converter={k:BooleanToVisibilityConverter}, FallbackValue={x:Static Visibility.Collapsed}}">
+                        <Grid.Background>
+                            <ImageBrush ImageSource="pack://siteoforigin:,,,/Resources/Images/backgroundtexture.png"
+                                        Stretch="None"
+                                        TileMode="Tile"
+                                        Viewport="0,0,200,200"
+                                        ViewportUnits="Absolute" />
+                        </Grid.Background>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <syncfusion:TreeViewAdv x:Name="ProcessesTreeview"
+                                                Grid.Row="0"
+                                                Margin="8,26,8,8"
+                                                AllowDragDrop="False"
+                                                Background="White"
+                                                BorderThickness="0"
+                                                Collapsing="ProcessesTreeview_Collapsing"
+                                                ItemContainerStyle="{StaticResource TreeViewItemStyle}"
+                                                ItemsSource="{Binding AllProcesses}"
+                                                SelectedTreeItem="{Binding CurrentNode}" />
+                        <Border Grid.Row="1"
+                                Width="24"
+                                Height="24"
+                                Margin="33,3"
+                                HorizontalAlignment="Left"
+                                VerticalAlignment="Center"
+                                Background="Transparent"
+                                Cursor="Hand">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseLeftButtonDown">
+                                    <mvvm:EventToCommand Command="{Binding ThumbnailExternalCommand}" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <Border.Style>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="ToolTip" Value="{k:Localize SubProcess_Thumbnail}" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CurrentActionItem.Action.Thumbnail, Converter={k:NotNullConverter}}" Value="True">
+                                            <Setter Property="ToolTip" Value="{k:Localize SubProcess_Thumbnail_Remove}" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <Border Width="24" Height="20">
+                                <Border.Style>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="Background">
+                                            <Setter.Value>
+                                                <DrawingBrush Stretch="Uniform">
+                                                    <DrawingBrush.Drawing>
+                                                        <DrawingGroup ClipGeometry="F1 M 0,0L 77.7461,0L 77.7461,77.7473L 0,77.7473L 0,0">
+                                                            <DrawingGroup.Children>
+                                                                <GeometryDrawing Geometry="F1 M 45.6068,31.3191C 52.5521,31.3191 58.1777,36.944 58.1777,43.8828C 58.1777,50.8222 52.5521,56.4472 45.6068,56.4472C 38.6745,56.4472 33.0489,50.8222 33.0489,43.8828C 33.0489,36.944 38.6745,31.3191 45.6068,31.3191 Z M 45.5365,24.1185C 34.8581,24.1185 26.1524,32.8177 26.1524,43.5065C 26.1524,54.192 34.8581,62.89 45.5365,62.89C 56.2285,62.89 64.9206,54.192 64.9206,43.5065C 64.9206,32.8177 56.2285,24.1185 45.5365,24.1185 Z M 62.1745,11C 63.8007,11 65.1205,12.317 65.1205,13.9414L 65.1205,17.4688C 65.1205,17.5417 65.1074,17.612 65.1074,17.6849L 69.6666,17.6849C 72.4531,17.6849 74.7461,19.9713 74.7461,22.763L 74.7461,63.3978C 74.7461,66.1894 72.4531,68.4759 69.6666,68.4759L 8.7149,68.4759C 5.92838,68.4759 3.63544,66.1894 3.63544,63.3978L 3.63544,22.763C 3.63544,19.9713 5.92838,17.6849 8.7149,17.6849L 11.1413,17.6849C 11.1276,17.5937 11.1276,17.5065 11.1276,17.4141L 11.1276,15.8119C 11.1276,13.4492 13.0345,11.5345 15.394,11.5345L 33.0449,11.5345C 35.405,11.5345 37.3242,13.4492 37.3242,15.8119L 37.3242,17.4141C 37.3242,17.5065 37.3112,17.5937 37.2975,17.6849L 59.2546,17.6849C 59.2415,17.612 59.2415,17.5417 59.2415,17.4688L 59.2415,13.9414C 59.2415,13.5065 59.3346,13.093 59.5078,12.7213L 59.5078,12.6029L 59.5612,12.6029C 60.0547,11.6536 61.041,11 62.1745,11 Z">
+                                                                    <GeometryDrawing.Brush>
+                                                                        <LinearGradientBrush StartPoint="-4.29156e-007,0.5" EndPoint="1,0.5">
+                                                                            <LinearGradientBrush.GradientStops>
+                                                                                <GradientStop Offset="0.164" Color="#FFF7F7F7" />
+                                                                                <GradientStop Offset="0.802" Color="#FFC6C6C6" />
+                                                                                <GradientStop Offset="1" Color="#FFC6C6C6" />
+                                                                            </LinearGradientBrush.GradientStops>
+                                                                        </LinearGradientBrush>
+                                                                    </GeometryDrawing.Brush>
+                                                                </GeometryDrawing>
+                                                            </DrawingGroup.Children>
+                                                        </DrawingGroup>
+                                                    </DrawingBrush.Drawing>
+                                                </DrawingBrush>
+                                            </Setter.Value>
+                                        </Setter>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding CurrentActionItem.Action.Thumbnail, Converter={k:NotNullConverter}}" Value="True">
+                                                <Setter Property="Background">
+                                                    <Setter.Value>
+                                                        <DrawingBrush>
+                                                            <DrawingBrush.Drawing>
+                                                                <DrawingGroup ClipGeometry="F1 M 0,0L 77.7461,0L 77.7461,77.7473L 0,77.7473L 0,0">
+                                                                    <DrawingGroup.Children>
+                                                                        <GeometryDrawing Geometry="F1 M 57.1778,41.6855C 57.1778,37.8912 55.4884,34.498 52.8288,32.1945L 46.1504,38.8729L 55.3933,48.1158C 56.5189,46.233 57.1778,44.039 57.1778,41.6855 Z M 69.4552,15.5676L 57.808,27.2155C 61.5619,30.7539 63.9207,35.7557 63.9207,41.3092C 63.9207,45.621 62.4877,49.5963 60.097,52.8189L 72.1486,64.871C 73.1258,63.9439 73.7461,62.6445 73.7461,61.2005L 73.7461,20.5657C 73.7461,18.0443 71.8705,15.9524 69.4552,15.5676 Z M 44.6068,54.2499C 45.347,54.2499 46.0677,54.1731 46.7728,54.0507L 38.8731,46.151L 35.1219,49.9023C 37.4252,52.5611 40.8164,54.2499 44.6068,54.2499 Z M 25.1524,41.3092C 25.1524,38.6881 25.6818,36.19 26.6296,33.9075L 8.21039,15.4876L 7.71497,15.4876C 4.92841,15.4876 2.63544,17.774 2.63544,20.5657L 2.63544,61.2005C 2.63544,62.9921 3.58533,64.565 4.99817,65.47L 25.5092,44.9589C 25.282,43.7753 25.1524,42.5579 25.1524,41.3092 Z M 44.5365,21.9212C 45.7865,21.9212 47.0059,22.0507 48.1901,22.2779L 54.9805,15.4876L 36.2976,15.4876C 36.3112,15.3964 36.3242,15.3092 36.3242,15.2168L 36.3242,13.6145C 36.3242,11.2519 34.4051,9.33719 32.045,9.33719L 16.6147,9.33719L 33.0268,25.7487C 36.2513,23.356 40.2267,21.9212 44.5365,21.9212 Z M 61.1745,8.80264C 60.041,8.80264 59.0548,9.45627 58.5612,10.4056L 58.5078,10.4056L 58.5078,10.524C 58.3347,10.8958 58.2416,11.3092 58.2416,11.7441L 58.2416,12.2265L 61.6205,8.84763C 61.474,8.82547 61.3274,8.80264 61.1745,8.80264 Z M 44.5365,60.6927C 38.9884,60.6927 33.9864,58.332 30.448,54.5768L 18.7461,66.2786L 59,66.2786L 51.9388,59.2174C 49.6563,60.164 47.1582,60.6927 44.5365,60.6927 Z M 40.7285,29.7395C 39.8295,30.0319 38.9805,30.4283 38.1829,30.9049L 38.8731,31.5949L 40.7285,29.7395 Z ">
+                                                                            <GeometryDrawing.Brush>
+                                                                                <LinearGradientBrush StartPoint="-4.29156e-007,0.5" EndPoint="1,0.5">
+                                                                                    <LinearGradientBrush.GradientStops>
+                                                                                        <GradientStop Offset="0.164" Color="#FFF7F7F7" />
+                                                                                        <GradientStop Offset="0.802" Color="#FFC6C6C6" />
+                                                                                        <GradientStop Offset="1" Color="#FFC6C6C6" />
+                                                                                    </LinearGradientBrush.GradientStops>
+                                                                                </LinearGradientBrush>
+                                                                            </GeometryDrawing.Brush>
+                                                                        </GeometryDrawing>
+                                                                        <GeometryDrawing Geometry="F1 M 3.5072,77.7473L 77.7461,3.50574L 74.2403,0L 0,74.2395L 3.5072,77.7473 Z ">
+                                                                            <GeometryDrawing.Brush>
+                                                                                <LinearGradientBrush StartPoint="0.48743,0.474286" EndPoint="0.532542,0.519399">
+                                                                                    <LinearGradientBrush.GradientStops>
+                                                                                        <GradientStop Offset="0.164" Color="#FFF7F7F7" />
+                                                                                        <GradientStop Offset="0.802" Color="#FFC6C6C6" />
+                                                                                        <GradientStop Offset="1" Color="#FFC6C6C6" />
+                                                                                    </LinearGradientBrush.GradientStops>
+                                                                                </LinearGradientBrush>
+                                                                            </GeometryDrawing.Brush>
+                                                                        </GeometryDrawing>
+                                                                        <GeometryDrawing Geometry="F1 M 74.239,77.7473L 0,3.50574L 3.50589,0L 77.7461,74.2395L 74.239,77.7473 Z ">
+                                                                            <GeometryDrawing.Brush>
+                                                                                <LinearGradientBrush StartPoint="0.52973,0.474286" EndPoint="0.484616,0.519399">
+                                                                                    <LinearGradientBrush.GradientStops>
+                                                                                        <GradientStop Offset="0.164" Color="#FFF7F7F7" />
+                                                                                        <GradientStop Offset="0.802" Color="#FFC6C6C6" />
+                                                                                        <GradientStop Offset="1" Color="#FFC6C6C6" />
+                                                                                    </LinearGradientBrush.GradientStops>
+                                                                                </LinearGradientBrush>
+                                                                            </GeometryDrawing.Brush>
+                                                                        </GeometryDrawing>
+                                                                    </DrawingGroup.Children>
+                                                                </DrawingGroup>
+                                                            </DrawingBrush.Drawing>
+                                                        </DrawingBrush>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                            </Border>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </DockPanel>
+            <GridSplitter x:Name="ReferentialsGridSplitter"
+                          Grid.Row="1"
+                          Height="2"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Top"
+                          Style="{StaticResource horizontalGridSplitterStyle}" />
+            <Border Grid.Row="1" Margin="4">
+                <Border.Visibility>
+                    <MultiBinding Converter="{k:NegatedOrBooleansToVisibilityConverter}">
+                        <Binding Path="CurrentActionItem.IsGroup" />
+                        <Binding Path="CurrentActionItem.Action.IsLinkToProcess" />
+                    </MultiBinding>
+                </Border.Visibility>
+                <ScrollViewer BorderThickness="0"
+                              Style="{StaticResource BarsHiddenWhenDisabledScrollViewerStyle}"
+                              VerticalScrollBarVisibility="Auto"
+                              Visibility="{Binding CurrentActionItem, Converter={StaticResource NotNullToVisibilityConverter}}">
+                    <UniformGrid Grid.Row="4"
+                                 Grid.ColumnSpan="3"
+                                 Margin="0,-2,0,2"
+                                 Rows="1">
+                        <core:ReferentialPicker x:Name="Ref1ListBox"
+                                                ItemsSource="{Binding Ref1s}"
+                                                ReferentialId="Ref1" />
+                        <core:ReferentialPicker x:Name="Ref2ListBox"
+                                                ItemsSource="{Binding Ref2s}"
+                                                ReferentialId="Ref2" />
+                        <core:ReferentialPicker x:Name="Ref3ListBox"
+                                                ItemsSource="{Binding Ref3s}"
+                                                ReferentialId="Ref3" />
+                        <core:ReferentialPicker x:Name="Ref4ListBox"
+                                                ItemsSource="{Binding Ref4s}"
+                                                ReferentialId="Ref4" />
+                        <core:ReferentialPicker x:Name="Ref5ListBox"
+                                                ItemsSource="{Binding Ref5s}"
+                                                ReferentialId="Ref5" />
+                        <core:ReferentialPicker x:Name="Ref6ListBox"
+                                                ItemsSource="{Binding Ref6s}"
+                                                ReferentialId="Ref6" />
+                        <core:ReferentialPicker x:Name="Ref7ListBox"
+                                                ItemsSource="{Binding Ref7s}"
+                                                ReferentialId="Ref7" />
+                    </UniformGrid>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Orientation="Horizontal"
+                    Visibility="{Binding CanChange, Converter={StaticResource NegatedBooleanToVisibilityConverter}}">
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="4"
+                    Command="{k:CommandBinding ValidateCommand}"
+                    Content="{k:Localize Common_OK}"
+                    ToolTip="{k:Localize Common_OK,
+                                         Shortcut=Save}">
+                <i:Interaction.Behaviors>
+                    <core:DataStateBehavior Binding="{Binding CanChange}"
+                                            FalseState="ColorGreen"
+                                            TrueState="ColorDefault"
+                                            Value="true" />
+                </i:Interaction.Behaviors>
+            </Button>
+            <Button MinWidth="{StaticResource ValidationButtonMinWidth}"
+                    Margin="4"
+                    Command="{k:CommandBinding CancelCommand}"
+                    Content="{k:Localize Common_Cancel}"
+                    ToolTip="{k:Localize Common_Cancel,
+                                         Shortcut=Cancel}">
+                <i:Interaction.Behaviors>
+                    <core:DataStateBehavior Binding="{Binding CanChange}"
+                                            FalseState="ColorGreen"
+                                            TrueState="ColorDefault"
+                                            Value="true" />
+                </i:Interaction.Behaviors>
+            </Button>
+        </StackPanel>
+        <Border Grid.Row="1"
+                Grid.RowSpan="3"
+                Grid.Column="0"
+                Margin="0,64,2,0"
+                d:IsHidden="True"
+                Background="{DynamicResource CheckBoxInnerShadowBrush}"
+                Visibility="{Binding GridWaitVisibility}">
+            <Control Foreground="{DynamicResource ControlBackgroundOverOrange}"
+                     RenderTransformOrigin="0.5,0.5"
+                     Style="{StaticResource spinnerStyle}">
+                <Control.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="5" ScaleY="5" />
+                        <SkewTransform />
+                        <RotateTransform />
+                        <TranslateTransform />
+                    </TransformGroup>
+                </Control.RenderTransform>
+            </Control>
+        </Border>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup x:Name="InputModes">
+                <VisualState x:Name="VideoInput" />
+                <VisualState x:Name="ManualInput">
+                    <Storyboard>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="startTextBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="startTextBox" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="finishTextBlock" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="finishTextBox" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                        </ObjectAnimationUsingKeyFrames>
+                        <Int32AnimationUsingKeyFrames Storyboard.TargetName="durationTextBlock" Storyboard.TargetProperty="(Grid.Column)">
+                            <EasingInt32KeyFrame KeyTime="0" Value="0" />
+                        </Int32AnimationUsingKeyFrames>
+                        <Int32AnimationUsingKeyFrames Storyboard.TargetName="durationTextBox" Storyboard.TargetProperty="(Grid.Column)">
+                            <EasingInt32KeyFrame KeyTime="0" Value="1" />
+                        </Int32AnimationUsingKeyFrames>
+                        <ObjectAnimationUsingKeyFrames Storyboard.TargetName="onTheFlyInputCheckBox" Storyboard.TargetProperty="(UIElement.Visibility)">
+                            <DiscreteObjectKeyFrame KeyTime="0" Value="{x:Static Visibility.Collapsed}" />
+                        </ObjectAnimationUsingKeyFrames>
+                    </Storyboard>
+                </VisualState>
+            </VisualStateGroup>
+
+        </VisualStateManager.VisualStateGroups>
+    </Grid>
+</UserControl>
+
+

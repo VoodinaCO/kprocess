@@ -1,0 +1,167 @@
+﻿@using KProcess.KL2.WebAdmin.Models.NotificationSetting;
+@using KProcess.KL2.Languages;
+
+@model NotificationManageViewModel
+
+@{
+    var LocalizedStrings = (ILocalizationManager)ViewBag.LocalizedStrings;
+    ViewBag.Title = "Index";
+}
+
+<style>
+    .e-form-container {
+        width: 100%;
+    }
+
+    .innerContainer {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .innerHeader {
+        flex: 0 0 auto;
+        text-align: center;
+    }
+
+    .innerContent {
+        flex: 1;
+        min-height: 0px;
+        padding-top: 15px;
+    }
+</style>
+
+<div class="innerContainer">
+    <div class="innerHeader">
+    </div>
+    <div>
+        @(Html.EJS().Tab("NotificationsTab")
+            .Items(builder =>
+            {
+                builder.Header(header => header.Text(LocalizedStrings.GetString("Web_Notifications_Recipients")))
+                    .CssClass("Recipients")
+                    .Add();
+                builder.Header(header => header.Text(LocalizedStrings.GetString("Web_Notifications_Cc")))
+                    .CssClass("Cc")
+                    .Add();
+                builder.Header(header => header.Text(LocalizedStrings.GetString("Web_Notifications_Cci")))
+                    .CssClass("Cci")
+                    .Add();
+                builder.Header(header => header.Text(LocalizedStrings.GetString("Web_Notifications_SMTP")))
+                    .CssClass("SMTP")
+                    .Add();
+            })
+            .Selected("notifTabSelected")
+            .Render()
+        )
+    </div>
+    <div id="notifTabContainer" class="innerContent" style="padding-top: 15px;">
+    </div>
+</div>
+
+<script>
+    var type = @(Model.Type.HasValue ? Html.Raw(Model.Type.Value) : Html.Raw("null"));
+    var urlTo = @(Model.To.HasValue ? Html.Raw(Model.To) : Html.Raw("null"));
+
+    docReady(function () {
+        setHeader("@LocalizedStrings.GetString("Web_Menu_Administration")" + "/" + "@LocalizedStrings.GetString("Web_Menu_NotificationSettings")");
+
+        if (sessionStorage.getItem("isRefreshing") == "true") {
+            var notifTabs = document.getElementById('NotificationsTab').ej2_instances[0];
+            var indexToSelect = 0;
+            var classToSelect = "";
+            if (urlTo === null) {
+                classToSelect = "SMTP";
+            } else if (urlTo == 1) {
+                classToSelect = "Recipients";
+            } else if (urlTo == 2) {
+                classToSelect = "Cc";
+            } else if (urlTo == 3) {
+                classToSelect = "Cci";
+            }
+            for (var i = 0; i < notifTabs.items.length; i++) {
+                if (notifTabs.items[i].cssClass == classToSelect) {
+                    indexToSelect = i;
+                    break;
+                }
+            }
+            if (notifTabs.selectedItem == indexToSelect) {
+                loadNotifTab(notifTabs.items[indexToSelect].cssClass);
+            } else {
+                notifTabs.select(indexToSelect);
+            }
+        } else {
+            if (type === null) {
+                LoadPartial('/NotificationSetting/SMTP', '#notifTabContainer', null, null, -1);
+            } else {
+                LoadPartial('/NotificationSetting/Address?type=@Model.Type&to=@Model.To', '#notifTabContainer', null, null, -1);
+            }
+            setIsRefreshing(false);
+        }
+    });
+
+    function setLocationNotifTo(newUrlTo) {
+        var location = JSON.parse(sessionStorage.getItem('location'));
+        var splittedAction = location[0].action.split('?');
+        var splittedParams = splittedAction[1].split('&');
+        var params = splittedParams.map(function (p) {
+            var newP = p;
+            if (p.split('=')[0] == "to") {
+                newP = "to=" + newUrlTo;
+            }
+            return newP;
+        });
+        if (newUrlTo == null) {
+            params = params.filter(function (elt) { return elt.split('=')[0] != "to" && elt.split('=')[0] != "type"; });
+        }
+        else {
+            if (params.find(function (elt) { return elt.split('=')[0] == "to"; }) == null) {
+                params.push("to=" + newUrlTo);
+            }
+            if (params.find(function (elt) { return elt.split('=')[0] == "type"; }) == null) {
+                params.push("type=0");
+            }
+        }
+        params = params.reduce(function (a, b) { return a + "&" + b; });
+        location[0].action = splittedAction[0] + "?" + params;
+        sessionStorage.setItem('location', JSON.stringify(location));
+    }
+
+    function loadNotifTab(classNotif, wantedType) {
+        var finalType = 0;
+        if (wantedType) {
+            finalType = wantedType;
+        }
+        if (sessionStorage.getItem("isRefreshing") == "true") {
+            finalType = type;
+        }
+        if (classNotif == 'Recipients') {
+            LoadPartial('/NotificationSetting/Address?type=' + finalType + '&to=1', '#notifTabContainer', null, null, -1);
+            setLocationNotifTo("1");
+        } else if (classNotif == 'Cc') {
+            LoadPartial('/NotificationSetting/Address?type=' + finalType + '&to=2', '#notifTabContainer', null, null, -1);
+            setLocationNotifTo("2");
+        } else if (classNotif == 'Cci') {
+            LoadPartial('/NotificationSetting/Address?type=' + finalType + '&to=3', '#notifTabContainer', null, null, -1);
+            setLocationNotifTo("3");
+        } else if (classNotif == 'SMTP') {
+            LoadPartial('/NotificationSetting/SMTP', '#notifTabContainer', null, null, -1);
+            setLocationNotifTo(null);
+        }
+        setIsRefreshing(false);
+    }
+
+    function notifTabSelected(args) {
+        if (args.selectedItem.classList.contains('Recipients')) {
+            loadNotifTab('Recipients');
+        } else if (args.selectedItem.classList.contains('Cc')) {
+            loadNotifTab('Cc');
+        } else if (args.selectedItem.classList.contains('Cci')) {
+            loadNotifTab('Cci');
+        } else if (args.selectedItem.classList.contains('SMTP')) {
+            loadNotifTab('SMTP');
+        }
+    }
+</script>
+
+@Html.EJS().ScriptManager()

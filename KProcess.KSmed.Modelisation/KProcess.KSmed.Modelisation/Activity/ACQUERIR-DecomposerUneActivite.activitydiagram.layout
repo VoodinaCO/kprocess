@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ACQUERIR-DecomposerUneActivite">
+  <activityRootModelMoniker Id="677445bf-3007-4fa9-ad35-fac4ef406287" />
+  <nestedChildShapes>
+    <commentShape Id="eff01b33-e285-4f19-8c46-06e8092a6dae" absoluteBounds="0.5, 0.5, 2.75, 0.75" customColor="251, 247, 200">
+      <commentMoniker Id="77bd7944-4c95-4fa4-920a-32eb56d4c583" />
+      <relativeChildShapes />
+    </commentShape>
+    <initialNodeShape Id="6ed9a7e3-b76b-4bed-8114-544ef87a0a88" absoluteBounds="5.125, 1.375, 0.125, 0.125" customColor="89, 89, 89">
+      <initialNodeMoniker Id="ca48b7d6-86d1-41b9-a266-47ec2af19f0a" LastKnownName="Initial1" />
+    </initialNodeShape>
+    <actionShape Id="cf8ef390-afb2-49c3-8e7a-ecbe5e74d1cf" absoluteBounds="4.625, 1.875, 1.125, 0.375" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="746d2451-1435-44a6-9093-e70c749da142" LastKnownName="Décomposition" />
+    </actionShape>
+  </nestedChildShapes>
+</activityDiagram>

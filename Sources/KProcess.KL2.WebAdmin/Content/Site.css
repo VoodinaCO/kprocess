@@ -1,0 +1,104 @@
+﻿
+/* Override property used by SyncFusion on label inside external form
+    Max: 80px ...
+*/
+.e-grid .e-inlineformedit div > label, .e-grid .e-externalformedit div > label {
+    width: initial !important;
+}
+
+
+/*
+    Css used to setup SyncFusion grid header as diagonal
+*/
+.orientationcss .e-headercelldiv {
+    transform: rotate(305deg);
+}
+
+/*
+    Css used to display link of publication in black with bold (Inspection and Qualification view)
+*/
+
+a.linkPublication {
+    color: black;
+    font-weight: 500;
+}
+
+.imagePopUp {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.imagePopUp:hover {
+    opacity: 0.7;
+}
+
+/*
+    Grid cell background color
+
+*/
+.readCell {
+    background-color: lightgreen;
+}
+
+.notReadCell {
+    background-color: lightcoral;
+}
+
+.readCellPreviousVersion {
+    background-color: lightgreen;
+}
+
+.readCellPreviousMajorVersion {
+    background-color: #FFFF66;
+}
+
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow):hover .e-rowcell:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell).readCell {
+    background-color: lightgreen;
+    opacity: 0.7;
+}
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow) .e-rowcell.e-active:not(.e-updatedtd):not(.e-indentcell).readCell {
+    background-color: lightgreen;
+    opacity: 0.7;
+}
+
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow):hover .e-rowcell:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell).notReadCell {
+    background-color: lightcoral;
+    opacity: 0.7;
+}
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow) .e-rowcell.e-active:not(.e-updatedtd):not(.e-indentcell).notReadCell {
+    background-color: lightcoral;
+    opacity: 0.7;
+}
+
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow):hover .e-rowcell:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell).readCellPreviousVersion {
+    background-color: #FFFF66;
+    opacity: 0.7;
+}
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow) .e-rowcell.e-active:not(.e-updatedtd):not(.e-indentcell).readCellPreviousVersion {
+    background-color: #FFFF66;
+    opacity: 0.7;
+}
+
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow):hover .e-rowcell:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell).readCellPreviousMajorVersion {
+    background-color: #FFFF66;
+    opacity: 0.7;
+}
+
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow) .e-rowcell.e-active:not(.e-updatedtd):not(.e-indentcell).readCellPreviousMajorVersion {
+    background-color: #FFFF66;
+    opacity: 0.7;
+}
+
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow):hover .e-rowcell:not(.e-cellselectionbackground):not(.e-active):not(.e-updatedtd):not(.e-indentcell).notOK {
+    background-color: lightcoral;
+    opacity: 0.7;
+}
+.e-grid.e-gridhover tr[role='row']:not(.e-editedrow) .e-rowcell.e-active:not(.e-updatedtd):not(.e-indentcell).notOK {
+    background-color: lightcoral;
+    opacity: 0.7;
+}
+
+.insideTab {
+    z-index: 0 !important;
+    position: relative;
+}

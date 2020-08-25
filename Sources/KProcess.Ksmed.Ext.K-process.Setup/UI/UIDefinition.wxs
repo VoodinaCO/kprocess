@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+    <Property Id="RefProperty_UIDefinition" Value="1" />
+    <UI Id="GlobalUI">
+      <UIRef Id="WixUI_InstallDir" />
+      
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="VerifyReadyDlg">NOT PATCH</Publish>
+      <Publish Dialog="VerifyReadyDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="100">Not Installed</Publish>
+    </UI>
+	</Fragment>
+</Wix>

@@ -1,0 +1,815 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="0,0,1000,600" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FF002B7F">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,0,1000,600" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFCE1126">
+      <GeometryDrawing.Geometry>
+        <RectangleGeometry RadiusX="0" RadiusY="0" Rect="0,300,1000,300" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <DrawingGroup>
+      <DrawingGroup x:Name="half">
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M216.37706,122.2886L214.53882,184.7886 151.1197,184.7886C143.31716,169.62032 136.87338,156.73735 136.87338,139.29228 136.87338,124.69269 148.35647,113.09742 164.90647,113.09742 182.42619,113.09742 201.67512,119.001 216.37706,122.2886z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M144.45611,125.16084L144.45611,161.23621" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M149.54956,121.47933L149.54956,169.51333" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M154.64301,118.95176L154.64301,176.17693" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M159.73645,117.77081L159.73645,162.65201" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M164.82989,117.54815L164.82989,162.87466" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M169.92335,115.96463L169.92335,162.84973" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M175.01679,115.96463L175.01679,162.84973" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M180.11024,116.42419L180.11024,163.30929" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M185.20367,116.88375L185.20367,163.76885" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M190.29712,119.87088L190.29712,166.75598" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M195.39057,120.33044L195.39057,173.1898" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M200.48402,120.33044L200.48402,167.21554" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M205.57747,120.33044L205.57747,167.21554" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF000000">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M176.39544,117.92279C187.15891,119.69824 210.80151,130.75993 208.105,145.72611 204.28366,166.93537 191.89725,158.42373 175.47632,155.37684L163.06823,159.51287C158.62839,164.04466,152.09048,168.19641,147.67301,162.72978L140.32007,162.72978 140.32007,191.4522 221.66198,191.4522 221.66198,122.05882z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="212.8155,112.9826" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="201.713,110.3105" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="190.4497,107.4818" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="179.143,105.596" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="167.8362,104.4807" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="156.7493,105.1126" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="146.1795,108.7316" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="137.2755,115.2804" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="130.9566,124.4141" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="127.912,135.1563" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="128.0269,146.3006" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="130.1524,157.2151" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M214.99838,119.53125L214.53882,125.96507C202.24782,124.08194 184.82391,117.23346 168.58294,117.23346 153.57656,117.23346 141.92853,123.23616 141.92853,138.37316 141.92853,153.29163 148.24631,166.85838 156.63441,180.65257L147.90279,184.7886C140.10025,169.62032 133.65647,156.73735 133.65647,139.29228 133.65647,124.69269 145.13956,110.34007 164.90647,110.34007 182.42619,110.34007 200.29644,116.24365 214.99838,119.53125z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup Transform="-1,0,0,1,443.9375,0">
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M216.37706,122.2886L214.53882,184.7886 151.1197,184.7886C143.31716,169.62032 136.87338,156.73735 136.87338,139.29228 136.87338,124.69269 148.35647,113.09742 164.90647,113.09742 182.42619,113.09742 201.67512,119.001 216.37706,122.2886z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <DrawingGroup>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M144.45611,125.16084L144.45611,161.23621" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M149.54956,121.47933L149.54956,169.51333" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M154.64301,118.95176L154.64301,176.17693" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M159.73645,117.77081L159.73645,162.65201" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M164.82989,117.54815L164.82989,162.87466" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M169.92335,115.96463L169.92335,162.84973" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M175.01679,115.96463L175.01679,162.84973" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M180.11024,116.42419L180.11024,163.30929" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M185.20367,116.88375L185.20367,163.76885" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M190.29712,119.87088L190.29712,166.75598" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M195.39057,120.33044L195.39057,173.1898" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M200.48402,120.33044L200.48402,167.21554" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FFFFD83D">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M205.57747,120.33044L205.57747,167.21554" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+            <GeometryDrawing Brush="#FF000000">
+              <GeometryDrawing.Pen>
+                <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+              </GeometryDrawing.Pen>
+              <GeometryDrawing.Geometry>
+                <PathGeometry FillRule="Nonzero" Figures="M176.39544,117.92279C187.15891,119.69824 210.80151,130.75993 208.105,145.72611 204.28366,166.93537 191.89725,158.42373 175.47632,155.37684L163.06823,159.51287C158.62839,164.04466,152.09048,168.19641,147.67301,162.72978L140.32007,162.72978 140.32007,191.4522 221.66198,191.4522 221.66198,122.05882z" />
+              </GeometryDrawing.Geometry>
+            </GeometryDrawing>
+          </DrawingGroup>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="212.8155,112.9826" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="201.713,110.3105" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="190.4497,107.4818" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="179.143,105.596" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="167.8362,104.4807" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="156.7493,105.1126" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="146.1795,108.7316" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="137.2755,115.2804" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="130.9566,124.4141" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="127.912,135.1563" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="128.0269,146.3006" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="130.1524,157.2151" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M214.99838,119.53125L214.53882,125.96507C202.24782,124.08194 184.82391,117.23346 168.58294,117.23346 153.57656,117.23346 141.92853,123.23616 141.92853,138.37316 141.92853,153.29163 148.24631,166.85838 156.63441,180.65257L147.90279,184.7886C140.10025,169.62032 133.65647,156.73735 133.65647,139.29228 133.65647,124.69269 145.13956,110.34007 164.90647,110.34007 182.42619,110.34007 200.29644,116.24365 214.99838,119.53125z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+      </DrawingGroup>
+      <GeometryDrawing Brush="#FFFFD83D">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M221.96875,53.125L216.8125,62.78125 221.96875,72.40625 227.125,62.78125 221.96875,53.125z M221.96875,77.5L216.8125,87.125 221.96875,96.78125 227.125,87.125 221.96875,77.5z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFD83D">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M203.58731,74.953125L211.71883,80.109375 219.82403,74.953125 211.71883,69.796875 203.58731,74.953125z M224.11347,74.953125L232.21867,80.109375 240.35019,74.953125 232.21867,69.796875 224.11347,74.953125z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFD83D">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="3.9062" RadiusY="3.9062" Center="221.9688,75.0689" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFD83D">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <EllipseGeometry RadiusX="10.455" RadiusY="10.455" Center="221.9688,100" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing>
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M219.34375,89.875C219.34375,92.989438 219.32163,94.799139 219.3125,96.5 216.79207,96.611865 214.30676,96.876712 211.875,97.28125 M232.0625,97.28125C229.63074,96.876712 227.14543,96.611865 224.625,96.5 224.625,94.801655 224.625,92.997132 224.625,89.875 M211.84375,102.5625C215.13846,102.01215 218.51788,101.71875 221.96875,101.71875 225.41962,101.71875 228.79904,102.01215 232.09375,102.5625" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFD83D">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M211.75,117.6875C210.75812,134.76968,208.74143,152.16667,202.09375,164.8125L212.90625,160.4375C216.68272,146.10873,217.47609,127.59492,218.625,118.84375L211.75,117.6875z M232.1875,117.6875L225.3125,118.84375C226.4614,127.59492,227.25478,146.10873,231.03125,160.4375L241.84375,164.8125C235.19607,152.16667,233.17938,134.76968,232.1875,117.6875z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <GeometryDrawing Brush="#FFFFD83D">
+        <GeometryDrawing.Pen>
+          <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+        </GeometryDrawing.Pen>
+        <GeometryDrawing.Geometry>
+          <PathGeometry FillRule="Nonzero" Figures="M221.95313,154.6875C209.03974,154.6875 199.55398,160.77412 198.98438,176.28125 195.82773,170.72636 182.4742,153.25552 170.01563,155.59375 162.60576,156.98444 156.05854,167.25962 157.17188,179.03125 151.037,161.40135 133.06509,158.51225 119.95313,168.9375 131.59529,178.51001 136.77421,206.77225 146.57813,219.03125L221.95313,219.03125 297.32813,219.03125C307.13204,206.77225 312.34222,178.51001 323.98438,168.9375 310.87241,158.51225 292.90051,161.40135 286.76563,179.03125 287.87896,167.25962 281.3005,156.98444 273.89063,155.59375 261.43205,153.25552 248.10978,170.72636 244.95313,176.28125 244.38354,160.77412 234.86652,154.6875 221.95313,154.6875z" />
+        </GeometryDrawing.Geometry>
+      </GeometryDrawing>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FF000000">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M297.10662,219.02573C297.10662,224.60663 263.44486,230.74447 221.96875,230.74447 180.49265,230.74447 146.83089,224.60663 146.83089,219.02573 146.83089,213.44487 180.49265,210.5239 221.96875,210.5239 263.44486,210.5239 297.10662,213.44487 297.10662,219.02573z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="3.5041" RadiusY="3.5041" Center="221.9688,114.4446" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="3.7339" RadiusY="3.7339" Center="221.9688,122.0273" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.0786" RadiusY="4.0786" Center="221.9688,130.1845" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.653" RadiusY="4.653" Center="221.9688,139.2608" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="5.1126" RadiusY="5.1126" Center="221.9688,149.371" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FF000000">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M219.93751,159.20588C219.38456,159.19901 218.86165,159.6649 219.00001,160.54963 219.16297,161.59315 219.36706,163.54482 219.56251,164.86213 219.78339,166.35532 220.65373,165.99233 220.87501,164.83088 221.09631,163.66986 221.00709,162.925 221.06251,160.76838 221.09024,159.69029 220.49047,159.21276 219.93751,159.20588z M224.00001,159.20588C223.44705,159.21276 222.8473,159.69029 222.87501,160.76838 222.93043,162.925 222.84123,163.66986 223.06251,164.83088 223.28379,165.99233 224.15415,166.35532 224.37501,164.86213 224.57046,163.54482 224.77457,161.59315 224.93751,160.54963 225.07587,159.6649 224.55298,159.19901 224.00001,159.20588z M216.31251,159.76838C215.80668,159.83874 215.2822,160.34892 215.31251,160.89338 215.36753,161.88856 215.64291,163.0823 215.75001,164.58088 215.86046,166.12907 216.95166,165.52771 217.06251,164.64338 217.17296,163.75866 217.29793,162.45118 217.18751,160.73713 217.1461,160.09422 216.8653,159.8115 216.53126,159.76838 216.46168,159.75941 216.38477,159.75833 216.31251,159.76838z M227.40626,159.76838C227.07222,159.8115 226.79144,160.09422 226.75001,160.73713 226.63959,162.45118 226.76458,163.75866 226.87501,164.64338 226.98586,165.52771 228.07708,166.12907 228.18751,164.58088 228.29461,163.0823 228.57001,161.88856 228.62501,160.89338 228.65532,160.34892 228.13086,159.83874 227.62501,159.76838 227.55275,159.75833 227.47586,159.75941 227.40626,159.76838z M211.96876,161.51838C211.50567,161.63805 211.0804,162.19494 211.21876,162.83088 211.49507,164.10277 211.75001,165.50899 211.75001,166.79963 211.75002,167.90566 212.69459,167.511 212.75001,166.73713 212.80503,165.96284 212.90626,164.32364 212.90626,162.83088 212.90627,161.71632 212.43186,161.39872 211.96876,161.51838z M231.65626,161.51838C231.32747,161.60947 231.03126,161.99496 231.03126,162.83088 231.03126,164.32364 231.13251,165.96284 231.18751,166.73713 231.24293,167.511 232.18752,167.90566 232.18751,166.79963 232.18751,165.50899 232.44247,164.10277 232.71876,162.83088 232.85712,162.19494 232.43187,161.63805 231.96876,161.51838 231.85299,161.48846 231.76586,161.48802 231.65626,161.51838z M172.56251,161.68934C172.00845,161.67094 171.61973,162.42254 172.00001,163.25184 172.60804,164.57916 173.25407,165.41659 173.87501,166.84559 174.42803,168.11748 175.2763,167.32448 175.00001,166.43934 174.7233,165.55461 174.42308,164.56923 173.59376,162.68934 173.28263,161.98423 172.89495,161.70039 172.56251,161.68934z M271.37501,161.68934C271.04257,161.70039 270.65489,161.98423 270.34376,162.68934 269.51444,164.56923 269.21422,165.55461 268.93751,166.43934 268.66122,167.32448 269.50949,168.11748 270.06251,166.84559 270.68345,165.41659 271.32948,164.57916 271.93751,163.25184 272.31779,162.42254 271.92907,161.67094 271.37501,161.68934z M176.56251,161.75184C176.15469,161.8763 175.90747,162.39361 176.15626,163.00184 176.65427,164.21831 177.37284,165.46536 177.87501,166.78309 178.31718,167.94413 179.3009,167.61494 178.96876,166.56434 178.63704,165.51375 178.53846,164.89884 177.87501,162.90809 177.54309,161.91293 176.97034,161.62739 176.56251,161.75184z M267.06251,161.75184C266.71381,161.82629 266.31145,162.16172 266.06251,162.90809 265.39906,164.89884 265.30048,165.51375 264.96876,166.56434 264.63662,167.61494 265.62034,167.94413 266.06251,166.78309 266.56468,165.46536 267.28325,164.21831 267.78126,163.00184 268.03005,162.39361 267.78283,161.8763 267.37501,161.75184 267.27305,161.72073 267.17874,161.72702 267.06251,161.75184z M181.56251,162.72059C181.04838,162.81843 180.65026,163.60277 181.00001,164.56434 181.4426,165.78081 182.072,166.93202 182.62501,168.31434 183.17803,169.69667 184.0963,169.41781 183.87501,168.53309 183.65374,167.64836 183.38263,166.18221 182.71876,163.97059 182.42851,163.00283 181.9624,162.6445 181.56251,162.72059z M262.37501,162.72059C261.97512,162.6445 261.50901,163.00283 261.21876,163.97059 260.55489,166.18221 260.28378,167.64836 260.06251,168.53309 259.84122,169.41781 260.75949,169.69667 261.31251,168.31434 261.86552,166.93202 262.49492,165.78081 262.93751,164.56434 263.28726,163.60277 262.88914,162.81843 262.37501,162.72059z M169.18751,163.40809C168.63064,163.46496 168.12339,164.37333 168.46876,165.06434 169.0222,166.17037 169.37242,166.54665 169.90626,167.72059 170.45928,168.93706 171.06504,167.99489 170.84376,167.22059 170.62248,166.4463 170.33882,165.54493 170.06251,164.43934 169.85999,163.62937 169.52164,163.37397 169.18751,163.40809z M274.75001,163.40809C274.41588,163.37397 274.07753,163.62937 273.87501,164.43934 273.5987,165.54493 273.31504,166.4463 273.09376,167.22059 272.87248,167.99489 273.47824,168.93706 274.03126,167.72059 274.5651,166.54665 274.91532,166.17037 275.46876,165.06434 275.81413,164.37333 275.30688,163.46496 274.75001,163.40809z M207.71876,166.20588C207.13501,166.20536 206.51143,166.98024 206.71876,167.70588 207.05049,168.86734 207.56328,169.89687 207.93751,171.39338 208.26924,172.72029 209.21168,172.05937 209.15626,171.17463 209.10085,170.28991 208.94926,169.0862 208.56251,167.20588 208.41734,166.50092 208.06902,166.2062 207.71876,166.20588z M236.21876,166.20588C235.8685,166.2062 235.5202,166.50092 235.37501,167.20588 234.98826,169.0862 234.83669,170.28991 234.78126,171.17463 234.72584,172.05937 235.6683,172.72029 236.00001,171.39338 236.37424,169.89687 236.88705,168.86734 237.21876,167.70588 237.42609,166.98024 236.80253,166.20536 236.21876,166.20588z M221.96876,167.39338C221.24958,167.39339 221.15023,168.35899 221.12501,169.14338 221.04236,171.71466 219.97517,174.21192 219.06251,175.45588 218.15028,176.70025 216.80689,176.36933 215.56251,175.70588 214.31815,175.04245 213.5769,174.54522 212.25001,173.54963 210.9227,172.55448 209.91641,173.13633 211.50001,175.39338 216.11747,181.97369 221.12501,187.5982 221.12501,198.33088 221.12502,199.71862 221.36747,200.14338 221.96876,200.14338 222.57005,200.14338 222.84374,199.71862 222.84376,198.33088 222.84376,187.5982 227.82007,181.97369 232.43751,175.39338 234.02111,173.13633 233.01484,172.55448 231.68751,173.54963 230.36062,174.54522 229.61939,175.04245 228.37501,175.70588 227.13063,176.36933 225.78726,176.70025 224.87501,175.45588 223.96235,174.21192 222.89518,171.71466 222.81251,169.14338 222.78729,168.35899 222.68796,167.39339 221.96876,167.39338z M186.68751,165.78309C186.62459,165.78137 186.55597,165.79672 186.50001,165.81434 186.23143,165.89895 186.05249,166.22315 186.15626,166.78309 186.34172,167.78535 187.03621,169.7496 187.31251,170.68934 187.58924,171.62952 188.74506,171.42956 188.46876,170.15809 188.19206,168.88621 188.20674,168.50208 187.87501,167.06434 187.69361,166.27808 187.12805,165.79517 186.68751,165.78309z M257.25001,165.78309C256.80947,165.79517 256.24393,166.27808 256.06251,167.06434 255.73078,168.50208 255.74548,168.88621 255.46876,170.15809 255.19246,171.42956 256.3483,171.62952 256.62501,170.68934 256.90131,169.7496 257.5958,167.78535 257.78126,166.78309 257.88503,166.22315 257.70609,165.89895 257.43751,165.81434 257.38155,165.79672 257.31295,165.78137 257.25001,165.78309z M165.71876,166.18934C165.13997,166.23465 164.72491,166.96181 165.31251,168.03309 165.94637,169.18996 167.03368,170.64128 167.53126,171.47059 168.02886,172.29991 168.88969,171.74036 168.28126,170.68934 167.67324,169.63877 167.46889,168.4321 166.75001,166.93934 166.48045,166.37941 166.06604,166.16216 165.71876,166.18934z M278.21876,166.18934C277.87148,166.16216 277.45707,166.37941 277.18751,166.93934 276.46863,168.4321 276.26428,169.63877 275.65626,170.68934 275.04783,171.74036 275.90866,172.29991 276.40626,171.47059 276.90384,170.64128 277.99115,169.18996 278.62501,168.03309 279.21261,166.96181 278.79755,166.23465 278.21876,166.18934z M134.03126,169.51838C133.36345,169.4829 133.15409,170.68863 133.78126,171.48713 134.69393,172.64817 135.32901,173.26405 136.37501,174.20588 137.20474,174.95227 137.44592,173.98351 137.03126,173.23713 136.61662,172.49076 136.01682,171.7315 135.18751,170.48713 134.73288,169.80512 134.33481,169.53451 134.03126,169.51838z M309.90626,169.51838C309.60271,169.53451 309.20464,169.80512 308.75001,170.48713 307.9207,171.7315 307.3209,172.49076 306.90626,173.23713 306.4916,173.98351 306.73278,174.95227 307.56251,174.20588 308.60851,173.26405 309.24359,172.64817 310.15626,171.48713 310.78343,170.68863 310.57407,169.4829 309.90626,169.51838z M139.06251,170.51838C138.53029,170.52532 138.17911,170.91843 138.59376,171.83088 139.18763,173.13695 139.97076,174.61654 140.46876,175.61213 140.96636,176.60732 142.48303,176.94156 141.87501,175.39338 141.26659,173.84521 141.14677,173.04988 140.59376,171.61213 140.31726,170.89327 139.59474,170.51145 139.06251,170.51838z M304.87501,170.51838C304.34278,170.51145 303.62026,170.89327 303.34376,171.61213 302.79075,173.04988 302.67093,173.84521 302.06251,175.39338 301.45449,176.94156 302.97116,176.60732 303.46876,175.61213 303.96676,174.61654 304.74989,173.13695 305.34376,171.83088 305.75841,170.91843 305.40723,170.52532 304.87501,170.51838z M129.31251,170.86213C128.53874,170.87003 128.47208,171.6458 129.15626,172.14338 130.06892,172.80684 131.15649,173.54322 132.21876,174.39338 133.46273,175.38856 133.9447,174.4731 133.28126,173.64338 132.61782,172.81408 131.97153,171.9731 130.31251,171.14338 129.89776,170.93606 129.57043,170.8595 129.31251,170.86213z M314.62501,170.86213C314.36709,170.8595 314.03976,170.93606 313.62501,171.14338 311.96599,171.9731 311.3197,172.81408 310.65626,173.64338 309.99282,174.4731 310.47479,175.38856 311.71876,174.39338 312.78103,173.54322 313.86859,172.80684 314.78126,172.14338 315.46544,171.6458 315.39877,170.87003 314.62501,170.86213z M204.96876,171.58088C204.5358,171.64145 204.16235,172.13322 204.34376,172.76838 204.67549,173.92942 205.05205,175.15983 205.28126,176.36213 205.50256,177.52359 206.8463,177.53773 206.62501,176.48713 206.40415,175.43655 206.29299,174.12199 205.90626,172.51838 205.76109,171.91704 205.45795,171.62817 205.15626,171.58088 205.09342,171.57104 205.03061,171.57223 204.96876,171.58088z M238.78126,171.58088C238.47957,171.62817 238.17645,171.91704 238.03126,172.51838 237.64453,174.12199 237.53339,175.43655 237.31251,176.48713 237.09122,177.53773 238.43498,177.52359 238.65626,176.36213 238.88547,175.15983 239.26205,173.92942 239.59376,172.76838 239.77517,172.13322 239.40174,171.64145 238.96876,171.58088 238.90691,171.57223 238.84412,171.57104 238.78126,171.58088z M174.87501,169.59559C174.53504,169.68956 174.33942,170.33955 174.59376,171.25184 176.004,176.31148 176.4363,178.97621 176.18751,180.22059 175.93873,181.46457 175.256,181.63524 174.34376,181.22059 173.43153,180.80594 172.36056,180.20736 171.53126,179.62684 170.70196,179.04592 169.83939,179.74084 171.03126,180.72059 177.08606,185.69729 181.28306,191.38482 182.90626,198.28309 183.238,199.69294 184.12381,199.85878 183.87501,198.28309 182.5027,189.59329 182.23882,182.44969 184.31251,177.97059 185.09182,176.28738 184.30689,174.67095 183.06251,177.40809 182.23321,179.23301 180.89102,179.95295 179.81251,178.37684 178.7344,176.80116 176.5072,172.59717 175.84376,170.68934 175.59482,169.97391 175.28778,169.64292 175.03126,169.59559 174.97783,169.58574 174.92358,169.58217 174.87501,169.59559z M268.90626,169.59559C268.64974,169.64292 268.3427,169.97391 268.09376,170.68934 267.43032,172.59717 265.20312,176.80116 264.12501,178.37684 263.0465,179.95295 261.70431,179.23301 260.87501,177.40809 259.63063,174.67095 258.8457,176.28738 259.62501,177.97059 261.6987,182.44969 261.43482,189.59329 260.06251,198.28309 259.81371,199.85878 260.69952,199.69294 261.03126,198.28309 262.65446,191.38482 266.85146,185.69729 272.90626,180.72059 274.09813,179.74084 273.23556,179.04592 272.40626,179.62684 271.57696,180.20736 270.50599,180.80594 269.59376,181.22059 268.68152,181.63524 267.99879,181.46457 267.75001,180.22059 267.50122,178.97621 267.93352,176.31148 269.34376,171.25184 269.5981,170.33955 269.40248,169.68956 269.06251,169.59559 269.01394,169.58217 268.95969,169.58574 268.90626,169.59559z M144.43751,172.01838C143.89144,172.02532 143.43872,172.40782 143.68751,173.23713 144.08634,174.5657 144.91121,176.00157 145.18751,176.83088 145.46423,177.66021 146.35337,177.27317 146.18751,176.11213 146.02167,174.95111 145.94005,174.25902 145.71876,172.98713 145.60813,172.35141 144.98359,172.01145 144.43751,172.01838z M299.50001,172.01838C298.95393,172.01145 298.32939,172.35141 298.21876,172.98713 297.99747,174.25902 297.91585,174.95111 297.75001,176.11213 297.58415,177.27317 298.47329,177.66021 298.75001,176.83088 299.02631,176.00157 299.85118,174.5657 300.25001,173.23713 300.4988,172.40782 300.04608,172.02532 299.50001,172.01838z M163.21876,170.28309C162.58372,170.16913 162.49242,171.80734 163.03126,172.47059 163.75015,173.35576 164.74859,174.42538 165.75001,175.62684 166.57933,176.62244 167.09175,175.73741 166.59376,174.90809 166.09619,174.07837 165.35814,173.19678 164.03126,171.09559 163.69944,170.5703 163.43044,170.32108 163.21876,170.28309z M280.71876,170.28309C280.50708,170.32108 280.23808,170.5703 279.90626,171.09559 278.57938,173.19678 277.84133,174.07837 277.34376,174.90809 276.84577,175.73741 277.35819,176.62244 278.18751,175.62684 279.18893,174.42538 280.18737,173.35576 280.90626,172.47059 281.4451,171.80734 281.3538,170.16913 280.71876,170.28309z M148.71876,174.23713C148.32474,174.20948 147.9904,174.52908 148.15626,175.33088 148.38756,176.44733 148.7233,177.37403 149.00001,178.42463 149.27633,179.47524 150.00001,179.29522 150.00001,178.29963 150.00002,177.30446 149.82212,176.19398 149.65626,175.14338 149.57334,174.61809 149.11279,174.26479 148.71876,174.23713z M295.21876,174.23713C294.82473,174.26479 294.36418,174.61809 294.28126,175.14338 294.1154,176.19398 293.9375,177.30446 293.93751,178.29963 293.93751,179.29522 294.66119,179.47524 294.93751,178.42463 295.21422,177.37403 295.54996,176.44733 295.78126,175.33088 295.94712,174.52908 295.61278,174.20948 295.21876,174.23713z M161.81251,175.65809C161.19365,175.75159 160.6491,176.34985 161.37501,177.28309 162.53607,178.77584 163.80743,179.82383 164.25001,180.37684 164.69218,180.92987 165.81263,180.72579 165.09376,179.56434 164.35906,178.37789 163.2476,176.94908 162.75001,176.06434 162.56343,175.73257 162.18383,175.602 161.81251,175.65809z M281.87501,175.65809C281.60285,175.6867 281.32745,175.81551 281.18751,176.06434 280.68992,176.94908 279.57846,178.37789 278.84376,179.56434 278.12489,180.72579 279.24534,180.92987 279.68751,180.37684 280.13009,179.82383 281.40145,178.77584 282.56251,177.28309 283.28842,176.34985 282.74387,175.75159 282.12501,175.65809 282.03218,175.64407 281.96573,175.64855 281.87501,175.65809z M141.15626,179.83088C140.668,179.78654 140.49938,180.18047 141.15626,181.08088 142.64903,183.12666 144.29582,186.22273 144.40626,187.54963 144.51713,188.87695 143.86095,188.86213 143.25001,188.86213 141.42512,188.86215 140.53363,187.53012 138.87501,187.14338 137.21599,186.75625 136.97522,187.62865 138.15626,188.48713 144.23856,192.91082 150.33501,197.84636 152.78126,202.33088 153.77645,204.15578 155.12181,204.82284 154.37501,203.08088 152.08795,197.74371 151.53367,193.22426 152.03126,190.48713 152.52926,187.75001 153.20794,185.90698 153.12501,184.33088 153.0421,182.7552 152.1484,182.86271 151.78126,184.33088 151.53247,185.32648 151.05048,186.64538 150.71876,187.14338 150.38705,187.64099 149.05314,187.91993 147.78126,186.20588 146.50937,184.49186 143.30061,181.19144 142.25001,180.36213 141.85605,180.05115 141.44922,179.85749 141.15626,179.83088z M302.78126,179.83088C302.4883,179.85749 302.08147,180.05115 301.68751,180.36213 300.63691,181.19144 297.42815,184.49186 296.15626,186.20588 294.88438,187.91993 293.55047,187.64099 293.21876,187.14338 292.88704,186.64538 292.40505,185.32648 292.15626,184.33088 291.78912,182.86271 290.89542,182.7552 290.81251,184.33088 290.72958,185.90698 291.40826,187.75001 291.90626,190.48713 292.40385,193.22426 291.84957,197.74371 289.56251,203.08088 288.81571,204.82284 290.16107,204.15578 291.15626,202.33088 293.60251,197.84636 299.69896,192.91082 305.78126,188.48713 306.9623,187.62865 306.72153,186.75625 305.06251,187.14338 303.40389,187.53012 302.5124,188.86215 300.68751,188.86213 300.07657,188.86213 299.42039,188.87695 299.53126,187.54963 299.6417,186.22273 301.28849,183.12666 302.78126,181.08088 303.43814,180.18047 303.26952,179.78654 302.78126,179.83088z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M150.12687,212.65106L152.07661,218.82525 M154.13742,211.48082L155.86506,217.72081 M158.46968,210.7684L159.65672,217.1334 M162.48993,209.96408L163.7604,216.31295 M167.64553,209.45517L168.67848,215.84698 M173.13007,209.46186L174.24249,215.84031 M178.48383,207.65149L179.28735,214.07616 M183.52067,207.97645L184.32419,214.40112 M188.39503,207.32654L189.19855,213.75121 M193.28767,206.82164L193.72967,213.28125 M198.51623,206.81977L198.89973,213.28312 M203.25656,206.49325L203.58317,212.95973 M208.48353,206.16701L208.75481,212.63605 M214.49524,206.00453L214.76652,212.47357 M293.81064,212.65106L291.8609,218.82525 M289.80009,211.48082L288.07245,217.72081 M285.46783,210.7684L284.28079,217.1334 M281.44758,209.96408L280.17711,216.31295 M276.29198,209.45517L275.25903,215.84698 M270.80744,209.46186L269.69502,215.84031 M265.45368,207.65149L264.65016,214.07616 M260.41684,207.97645L259.61332,214.40112 M255.54248,207.32654L254.73896,213.75121 M250.64984,206.82164L250.20784,213.28125 M245.42128,206.81977L245.03778,213.28312 M240.68095,206.49325L240.35434,212.95973 M235.45398,206.16701L235.1827,212.63605 M229.44227,206.00453L229.17099,212.47357 M221.96876,205.58364L221.96876,212.7068" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+      <DrawingGroup>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M216.37706,122.2886L214.53882,184.7886 151.1197,184.7886C143.31716,169.62032 136.87338,156.73735 136.87338,139.29228 136.87338,124.69269 148.35647,113.09742 164.90647,113.09742 182.42619,113.09742 201.67512,119.001 216.37706,122.2886z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <DrawingGroup>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M144.45611,125.16084L144.45611,161.23621" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M149.54956,121.47933L149.54956,169.51333" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M154.64301,118.95176L154.64301,176.17693" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M159.73645,117.77081L159.73645,162.65201" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M164.82989,117.54815L164.82989,162.87466" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M169.92335,115.96463L169.92335,162.84973" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M175.01679,115.96463L175.01679,162.84973" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M180.11024,116.42419L180.11024,163.30929" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M185.20367,116.88375L185.20367,163.76885" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M190.29712,119.87088L190.29712,166.75598" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M195.39057,120.33044L195.39057,173.1898" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M200.48402,120.33044L200.48402,167.21554" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FFFFD83D">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M205.57747,120.33044L205.57747,167.21554" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+          <GeometryDrawing Brush="#FF000000">
+            <GeometryDrawing.Pen>
+              <Pen Brush="#FF000000" Thickness="1.5" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+            </GeometryDrawing.Pen>
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M176.39544,117.92279C187.15891,119.69824 210.80151,130.75993 208.105,145.72611 204.28366,166.93537 191.89725,158.42373 175.47632,155.37684L163.06823,159.51287C158.62839,164.04466,152.09048,168.19641,147.67301,162.72978L140.32007,162.72978 140.32007,191.4522 221.66198,191.4522 221.66198,122.05882z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="212.8155,112.9826" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="201.713,110.3105" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="190.4497,107.4818" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="179.143,105.596" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="167.8362,104.4807" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="156.7493,105.1126" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="146.1795,108.7316" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="137.2755,115.2804" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="130.9566,124.4141" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="127.912,135.1563" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="128.0269,146.3006" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <EllipseGeometry RadiusX="4.9403" RadiusY="4.9403" Center="130.1524,157.2151" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+        <GeometryDrawing Brush="#FFFFD83D">
+          <GeometryDrawing.Pen>
+            <Pen Brush="#FF000000" Thickness="2" StartLineCap="Round" EndLineCap="Round" LineJoin="Round" />
+          </GeometryDrawing.Pen>
+          <GeometryDrawing.Geometry>
+            <PathGeometry FillRule="Nonzero" Figures="M214.99838,119.53125L214.53882,125.96507C202.24782,124.08194 184.82391,117.23346 168.58294,117.23346 153.57656,117.23346 141.92853,123.23616 141.92853,138.37316 141.92853,153.29163 148.24631,166.85838 156.63441,180.65257L147.90279,184.7886C140.10025,169.62032 133.65647,156.73735 133.65647,139.29228 133.65647,124.69269 145.13956,110.34007 164.90647,110.34007 182.42619,110.34007 200.29644,116.24365 214.99838,119.53125z" />
+          </GeometryDrawing.Geometry>
+        </GeometryDrawing>
+      </DrawingGroup>
+    </DrawingGroup>
+  </DrawingGroup>
+</DrawingGroup>

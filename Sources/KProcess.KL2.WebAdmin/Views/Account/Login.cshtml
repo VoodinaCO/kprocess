@@ -1,0 +1,291 @@
+﻿@using KProcess.KL2.WebAdmin.Models
+@using Syncfusion.EJ2;
+
+@model LoginViewModel
+
+@{
+    ViewBag.Title = ViewBag.LocalizedStrings.GetString("SignIn");
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Html.Raw("KL² | Log in")</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @Styles.Render("~/Css")
+
+    <!-- Google Font -->
+    <link rel="stylesheet" href="~/Content/GoogleFonts/googlefonts.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/font-awesome/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/Content/Ionicons/css/ionicons.min.css">
+
+    @* Syncfusion Essential JS 2 Scripts *@
+    @Scripts.Render("~/Scripts/ej2/ej2KProcess.min.js")
+    @* Syncfusion Essential JS 2 Styles *@
+    @Styles.Render("~/Content/ej2/compatibility/material.css")
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .login-page {
+            background: #d2d6de;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .fabric .card-control-section.vertical_card_layout .e-card:hover,
+        .highcontrast .card-control-section.vertical_card_layout .e-card:hover {
+            border-width: 1px;
+            padding: 1px;
+        }
+
+        @@font-face {
+            font-family: 'LoginKL2';
+            src: url(data:application/x-font-ttf;charset=utf-8;base64,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) format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .cb-icons {
+            margin: auto;
+            font-family: 'LoginKL2';
+            speak: none;
+            width: 38px !important;
+            height: 38px !important;
+            font-size: 20px !important;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+        }
+
+        .e-web-icon.cb-icons::before {
+            content: '\e703';
+        }
+
+        .e-mail-icon.cb-icons::before {
+            content: '\e701';
+        }
+
+        .e-fb-icon.cb-icons::before {
+            content: '\e700';
+        }
+
+        .e-linkedin-icon.cb-icons::before {
+            content: '\e702';
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business.e-card .e-card-header .e-card-header-title,
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-header .e-card-header-title {
+            font-size: 18px;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-header {
+            text-align: left;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card > * {
+            height: 50%;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-header-caption .e-card-sub-title,
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-header-caption .e-card-header-title,
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-content table td {
+            color: #fff;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business.e-card {
+            justify-content: flex-end;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business.e-card,
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card {
+            text-align: center;
+            background-size: cover;
+            height: 300px;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business.e-card .e-card-header-caption .e-card-header-title,
+        .card-control-section.vertical_card_layout #vertical_business.e-card .e-card-header-caption .e-card-sub-title,
+        .card-control-section.vertical_card_layout #vertical_business.e-card .e-card-actions button {
+            color: #000;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business.e-card .e-card-actions,
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-actions {
+            justify-content: center;
+            padding-bottom: 40px;
+            padding-top: 22px;
+        }
+
+        .card-control-section.vertical_card_layout #vertical_business.e-card .e-card-actions button,
+        .card-control-section.vertical_card_layout #vertical_business_profile.e-card .e-card-actions button {
+            background-color: transparent;
+            text-transform: none;
+            border: none;
+        }
+
+        .highcontrast .card-control-section.vertical_card_layout .e-card.profile .e-card-header-image {
+            border-color: #fff;
+        }
+
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-header-caption.center,
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-content {
+            text-align: left;
+        }
+
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-btn {
+            height: 45px;
+            width: 50px;
+            background-color: transparent !important;
+            border: none;
+        }
+
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-actions button.e-card-btn:hover,
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-actions a:first-child:hover,
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-actions button.e-card-btn,
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-actions a:first-child {
+            background: #ffff
+        }
+
+        .card-control-section.vertical_card_layout .e-card .e-card-actions.center {
+            justify-content: center;
+            text-align: center;
+        }
+
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-actions.center {
+            background-color: transparent;
+            border: none;
+        }
+
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-header .e-card-header-caption .e-card-sub-title {
+            font-size: 14px;
+            font-weight: 400;
+            color: rgba(0, 0, 0, 0.8);
+        }
+
+        .card-control-section.vertical_card_layout .e-card.profile .e-card-header .e-card-header-caption .e-card-header-title {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .card-control-section.vertical_card_layout .col-xs-6.col-sm-6.col-lg-6.col-md-6 {
+            width: 100%;
+            padding: 10px;
+            padding-top: 40px;
+        }
+
+        .card-control-section.vertical_card_layout .card-layout {
+            margin: auto;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-page">
+        <div class="control-section card-control-section vertical_card_layout">
+            <div class="e-card-resize-container">
+                <div>
+                    <div class="row card-layout">
+                        <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                            <div tabindex="0" class="e-card profile" style="justify-content: flex-start;">
+                                <div class="e-card-header">
+                                    <img src="@Url.Content("~/Content/KL2.png")" width="60" alt="Logo KL2">
+                                </div>
+                                <div class="e-card-separator"></div>
+                                <div class="e-card-content">
+                                    <p class="login-box-msg">@ViewBag.LocalizedStrings.GetString("LoginHeader")</p>
+
+                                    @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                        <div class="e-float-input e-input-group">
+                                            <input id="Username" name="Username" required type="text" />
+                                            <span class="e-float-line"></span>
+                                            <label class="e-float-text">@ViewBag.LocalizedStrings.GetString("Username")</label>
+                                            <span class="e-input-group-icon fa fa-user" style="cursor: unset; font-size: initial"></span>
+                                        </div>
+                                        <div class="e-float-input e-input-group">
+                                            <input id="Password" name="Password" required type="password" />
+                                            <span class="e-float-line"></span>
+                                            <label class="e-float-text">@ViewBag.LocalizedStrings.GetString("Password")</label>
+                                            <span id="PasswordReveal" class="e-input-group-icon fa fa-eye" style="font-size: initial"></span>
+                                            <span class="e-input-group-icon fa fa-lock" style="cursor: unset; font-size: initial"></span>
+                                        </div>
+                                        <div style="height: 12px"></div>
+                                        <div>
+                                            @Html.EJS().CheckBoxFor(m => m.RememberMe).Label(ViewBag.LocalizedStrings.GetString("RememberMe")).Render()
+                                        </div>
+                                        <div style="height: 4px"></div>
+                                        <div>
+                                            @(Html.EJS().Button("SubmitButton")
+                                                .CssClass("e-primary")
+                                                .HtmlAttributes(new Dictionary<string, object> { ["style"] = "float: right" })
+                                                .Content(ViewBag.LocalizedStrings.GetString("SignIn"))
+                                                .Render())
+                                        </div>
+                                        <div style="height: 16px"></div>
+                                    }
+                                </div>
+                                <div class="e-card-actions center">
+                                    <button class="e-card-btn" title="Web" onclick="window.open('https://www.k-process.com/','_blank')">
+                                        <span class="e-web-icon cb-icons "></span>
+                                    </button>
+                                    <button class="e-card-btn" title="E-mail" onclick="window.location.href = 'mailto:contact@k-process.com'">
+                                        <span class="e-mail-icon cb-icons "></span>
+                                    </button>
+                                    @*<button class="e-card-btn" title="Facebook" onclick="window.open('https://www.facebook.com/pages/K-Process/265410527203814','_blank')">
+                                        <span class="e-fb-icon cb-icons "></span>
+                                    </button>*@
+                                    <button class="e-card-btn" title="LinkedIn" onclick="window.open('https://www.linkedin.com/company/k-process/','_blank')">
+                                        <span class="e-linkedin-icon cb-icons "></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @Scripts.Render("~/Js")
+
+    <script>
+        docReady(function () {
+            document.getElementById('PasswordReveal').onclick = function () {
+                var textObj = document.getElementById("Password");
+                var togglebtn = document.getElementById("PasswordReveal");
+                if (textObj.type == 'password') {
+                    textObj.type = "text";
+                    togglebtn.classList.remove('fa-eye');
+                    togglebtn.classList.add('fa-eye-slash');
+                } else {
+                    textObj.type = "password";
+                    togglebtn.classList.remove('fa-eye-slash');
+                    togglebtn.classList.add('fa-eye');
+                }
+            };
+        });
+    </script>
+</body>
+</html>
+
+@Html.EJS().ScriptManager()

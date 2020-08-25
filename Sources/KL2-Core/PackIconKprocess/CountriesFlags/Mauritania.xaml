@@ -1,0 +1,27 @@
+﻿<DrawingGroup xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <DrawingGroup x:Name="DrawingLayer">
+    <DrawingGroup.ClipGeometry>
+      <RectangleGeometry Rect="-72,-28,144,96" />
+    </DrawingGroup.ClipGeometry>
+    <GeometryDrawing Brush="#FFCD2A3E">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M-72,-28L72,-28 72,68 -72,68z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FF006233">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M-72,-13.6L72,-13.6 72,53.6 -72,53.6z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFFFC400">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M29.999999,2.9199999C29.919999,19.416 16.511999,32.76 -5.20000000392429E-07,32.76 -16.512001,32.76 -29.92,19.416 -30,2.9199999 -30.656,5.4319999 -31.008,8.056 -31.008,10.76 -31.008,27.88 -17.136001,41.768 -5.20000000392429E-07,41.768 17.135999,41.768 31.007999,27.896 31.007999,10.76 31.007999,8.056 30.655999,5.4159999 29.999999,2.9199999z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+    <GeometryDrawing Brush="#FFFFC400">
+      <GeometryDrawing.Geometry>
+        <PathGeometry FillRule="Nonzero" Figures="M-1E-06,-9.2399582L-2.694399,-0.948520200000001 -11.41264,-0.948202200000001 -4.359631,4.1765178 -7.053402,12.468159 -1.00000000102796E-06,7.3439738 7.053399,12.46816 4.359628,4.1765178 11.41264,-0.948202200000001 2.694397,-0.948520200000001z" />
+      </GeometryDrawing.Geometry>
+    </GeometryDrawing>
+  </DrawingGroup>
+</DrawingGroup>

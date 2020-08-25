@@ -1,0 +1,5178 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm4="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm5="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm9="http://schemas.microsoft.com/dsltools/UseCaseModel"
+  dslVersion="1.0.0.0"
+  Id="1eca1863-ca59-4dea-a652-7c2a37ddc7ab"
+  name="KProcess.KSmed.Modelisation" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <ownedCommentsInternal>
+    <comment
+      Id="7f7a7a9c-6ca0-4fca-8920-fa9444ed16bf">
+      <body>Objet Mark ? 
+Factorisation Tache et Action ?
+</body>
+    </comment>
+    <comment
+      Id="47ae41fa-c81d-4b89-b67a-41f82842d303">
+      <body>Download
+KSMED Update
+Gestion des clés de licences</body>
+    </comment>
+    <comment
+      Id="be864634-a971-4e9a-b9af-cc793d798e6e">
+      <body>PHASE ANALYSE
+
+Création du projet et définition du scenario initial</body>
+    </comment>
+    <comment
+      Id="872e96f8-3aef-4ffe-a64d-97f86d2f5f0d">
+      <body>Usecase identiquent à l'analyse</body>
+    </comment>
+    <comment
+      Id="44586c87-bebd-4b9a-8c06-c3286b034b7f">
+      <body>Usecase identiquent à l'analyse sauf pour la mesure</body>
+    </comment>
+    <comment
+      Id="e09dc7c8-7a17-4bf3-bf67-c2ef773cabce">
+      <body>Créer un nouveau projet KSMED
+</body>
+    </comment>
+    <comment
+      Id="7b812987-87b9-4ad5-9e21-b14076c2115b">
+      <body>ANALYSER
+Etape de décomposition</body>
+    </comment>
+    <comment
+      Id="d39a92ef-64e8-48d2-b815-8aa330b99dfd">
+      <body>Cinématique d'écran
+ général</body>
+    </comment>
+    <comment
+      Id="4a46e7fe-e4cf-43f4-80c9-074fea4a8feb">
+      <body>Principe d'enchainement des scénarios
+
+!!! A REFACTORER selon état de WORKFLO à QUALIFIER !!!</body>
+    </comment>
+  </ownedCommentsInternal>
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="a6065d45-b269-40a5-80f0-cda382be833b"
+        name="Tache"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="495a2881-0ddd-4458-8268-8d9b62ad7227"
+            isDerived="false"
+            sourceEndRoleName="Tache"
+            targetEndRoleName="Action"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="70f01248-9508-46a7-a236-dfcf38c9895b"
+              LastKnownName="Action"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c92fc8e6-ca25-47ee-b84d-e9b551fb3aad"
+                  name="Tache"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="496d33e0-bb32-4981-9cfb-4404fbc893af"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="09b37381-79c9-4458-8ac0-7b491ed53a0f"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="68a26e4b-48f2-41c6-84d7-ea14c91d79ce"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="e02207c7-3b9d-49d2-a06e-d186bde6fa93"
+            name="Libelle"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="e0e8ec95-9b40-44b9-80a4-671bcaaa134b"
+            name="Debut"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="4e16f5dd-fc73-4d55-aee7-7ee2d287c734"
+            name="Fin"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="70f01248-9508-46a7-a236-dfcf38c9895b"
+        name="Action"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="ba31403d-bdd8-4f58-81a1-28cae3873818"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Categorie"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="21ec9e32-f9bd-4998-a95d-fbc6e874de7d"
+              LastKnownName="Categorie"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c3073c84-3df3-4a2c-a88b-4f66f36f9e17"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1569a10f-1dde-4b8f-a706-406c9898b707"
+                  name="Categorie"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="d76c6394-f893-4229-acc1-b73533fedfea"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Lieu"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a07473fd-c8fa-4a91-ba24-227c1e4f267e"
+              LastKnownName="Lieu"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="bf2e858e-e76b-40cd-b7d6-0e4a11ade4e9"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="80a65709-e323-48b6-aa30-2e71f61b4a14"
+                  name="Lieu"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="a45f6bf5-2edc-48f9-ab81-5a9e5b24fa9f"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Outils"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="30b8508d-c5b8-481d-a933-323023401247"
+              LastKnownName="Outils"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d05ee0fb-d64f-4a95-beba-0159ebd5476a"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="39dcd41f-6b09-476a-ba59-c7ba963caf24"
+                  name="Outils"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4b654837-dd4b-4677-a7b3-ae0c2fa6b1f6"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Document"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="c73d4698-c8fd-4610-8295-259bbbf4d335"
+              LastKnownName="Document"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2afe6477-7176-462b-a6ea-bc54377aeb29"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="e4331909-7b48-47fb-8342-fc16c0c2691f"
+                  name="Document"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="ddb10cf5-41e2-4fc1-910f-885bbea7950c"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Consommable"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="d7bc1ea8-b1ff-460c-8dc4-af40d6eb0b1d"
+              LastKnownName="Consommable"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d788fc5d-453d-41ee-876c-3e51803bd5ca"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1ccee05b-a008-4175-9b13-aad5b87bc818"
+                  name="Consommable"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="4e2a2af1-c681-4ea9-a59b-a4d399439272"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Type d'action"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="98d4f9c5-b6ff-4e95-9c80-b2c9053b168d"
+              LastKnownName="Type d'action"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="506eaf42-3203-4101-8374-3c048241d63d"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="461da7d9-e0d4-4046-b364-77e40e4077b9"
+                  name="Type d'action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="2059fb80-93b7-4566-9d4d-1869d29bf4fd"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Action"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="70f01248-9508-46a7-a236-dfcf38c9895b"
+              LastKnownName="Action"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d6862090-999e-4921-a311-6d6b966833c2"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2caf8617-ba99-4a1c-ba51-9440cf5c294b"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="606f2040-5b01-43b5-acf0-913604a29b0b"
+            isDerived="false"
+            sourceEndRoleName="Action"
+            targetEndRoleName="Ressource"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="cbb09fed-fabc-49fb-ab57-c94dafc72057"
+              LastKnownName="Ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f5b088ca-62ce-432e-b9fc-472dae84bdbd"
+                  name="Action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="094eb95b-7847-4710-9893-c98e87c4698c"
+                  name="Ressource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="766d7563-f757-4155-b52a-c08ec7e91787"
+            name="Libelle"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="6ffded2a-f5d0-4735-9020-881f43ebf6d9"
+            name="Debut"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="4e4c6b3c-560e-4ac8-8844-7ac55c25ec9f"
+            name="Fin"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c31065e1-70a9-405e-8f76-e9a18fc096bb"
+            name="Est un alea"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="7e22b9e1-01c3-4f5f-9462-9d8be6373fc9"
+            name="Commentaire Alea"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="21ec9e32-f9bd-4998-a95d-fbc6e874de7d"
+        name="Categorie"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <description>Nettoyage, déplacement, Serrage,...</description>
+        <ownedAttributesInternal>
+          <property
+            Id="963cf188-987e-4ab1-b9c2-75a006a4a8f6"
+            name="Libelle"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a5c7b746-7540-443b-8dc7-490357b0fcc9"
+        name="Operateur"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="21b00e70-f3b4-4ae6-bd05-9ebe1338343a"
+            isSubstitutable="false">
+            <classMoniker
+              Id="cbb09fed-fabc-49fb-ab57-c94dafc72057"
+              LastKnownName="Ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="4690e1d0-9b46-4126-9b3f-9f446db002cc"
+        name="Video"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="9b597241-123b-422e-91eb-3f1ffbd150ad"
+            name="Uri"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="c5a34545-e7e2-477c-9cad-274bb99f8bb0"
+            name="Nom"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="cb3e44b6-a8e7-452d-bf6c-7ea3c9cb975c"
+            name="Description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="f567721f-9731-49fb-a45e-6dbb9eff997f"
+            name="Duree"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="8da4edba-8b39-4285-a68e-23c2dad2f63f"
+            name="Format"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="059b8f2e-4513-4149-b0c2-3300ce3315d6"
+            name="Fin"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="428c094d-b117-44a9-914f-a22ca57075ec"
+            name="Fin"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="3caebf3c-3c2b-418a-b09e-c2ed892acfd0"
+        name="Equipement"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <generalsInternal>
+          <generalization
+            Id="f1357319-bb43-481e-95a1-7d8dada2a3e9"
+            isSubstitutable="false">
+            <classMoniker
+              Id="cbb09fed-fabc-49fb-ab57-c94dafc72057"
+              LastKnownName="Ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5d5c03d9-f102-4b32-b117-dd5a266ce60e"
+        name="Scenario"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="5a9627b3-a998-4a34-ad29-908beb20d3b3"
+            isDerived="false"
+            sourceEndRoleName="Scenario"
+            targetEndRoleName="Activite"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="4293bd73-9e2b-4ea8-a864-2df6861d7d16"
+              LastKnownName="Activite"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7b8e495f-dff9-41fe-9442-92a71378d219"
+                  name="Scenario"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="8578173e-8312-41f9-8ece-821ed79f9e28"
+                  name="Activite"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="9b182f40-e602-4f1a-a883-bfaa4462f647"
+            name="Etat"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0b166b45-9f8d-426a-a72b-b9c861e839e8"
+        name="Type de scenario"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <description>INITAL, CONVERTI, REDUIT, REALISE</description>
+        <targetEnds>
+          <association
+            Id="0082a883-6c30-4176-b2fb-fb6d15636b2b"
+            isDerived="false"
+            sourceEndRoleName="Type de scenario"
+            targetEndRoleName="Scenario"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="5d5c03d9-f102-4b32-b117-dd5a266ce60e"
+              LastKnownName="Scenario"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ab5254ea-fe9d-4d8a-a8bb-ec3150e53edb"
+                  name="Type de scenario"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="01e9fb70-c01a-4197-94dc-c4fdde06edd2"
+                  name="Scenario"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="1151950e-e2b7-4d7e-bd45-4c8e66a6a25a"
+            name="libelle KSMED"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="ed5fe3e4-d15c-4671-b433-7d1b680e3757"
+            name="Libelle Client"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="cbb09fed-fabc-49fb-ab57-c94dafc72057"
+        name="Ressource"
+        isAbstract="true"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="ace5d457-908d-4dcf-b3f8-999ac6408977"
+            isDerived="false"
+            sourceEndRoleName="Ressource"
+            targetEndRoleName="Video"
+            isLeaf="false"
+            name="*"
+            isAbstract="false">
+            <classMoniker
+              Id="4690e1d0-9b46-4126-9b3f-9f446db002cc"
+              LastKnownName="Video"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="89016924-e709-4dcc-a3ca-029fa3b1ebcc"
+                  name="Ressource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="d3ce524f-4905-4f2e-a89b-4578d4327cfb"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="841a763a-744b-4a73-8d37-13c0cca0396f"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c4580b59-ebc0-4d6e-913d-9f45ecd11059"
+                  name="Video"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="a65fd209-15f5-4bec-98b1-fcc4bb366cd9"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="a2329b37-ddb7-4ec9-9aa9-7977a0acc02d"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="276e0be2-89dc-464a-a85d-7b1cd03063c0"
+            name="Jugement d'allure"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <description>coeficient de correction d'allure par rapport au sujet filmé</description>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c73c2efa-bac0-44fb-ad72-27404f2f9b94"
+        name="Projet"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="9979b1e0-cfee-4033-9a18-b7f90ff2d43a"
+            isDerived="false"
+            sourceEndRoleName="Projet"
+            targetEndRoleName="Objectif"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="8b20e304-7d68-486f-afd8-7ac77480d29c"
+              LastKnownName="Objectif"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="01263683-2062-4662-81a7-25f546f3314c"
+                  name="Projet"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a205ecaf-338a-4b14-acae-032b05af4e9c"
+                  name="Objectif"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="90dbf185-46ba-4c18-a2df-4117240644eb"
+            isDerived="false"
+            sourceEndRoleName="Projet"
+            targetEndRoleName="Groupe de Travail"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="b0b498eb-8dc9-44f3-94d7-62f219e1fcdc"
+              LastKnownName="Groupe de Travail"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="16d722b3-84c2-4168-a475-ba327cd9e632"
+                  name="Projet"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="d8c84c15-f88b-434d-a1f2-4ac31864b04c"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="f8a02b8b-6acd-42a4-873c-3ef9d6090139"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="3f7ebaed-1e68-4e6d-a5c4-67343aa056f4"
+                  name="Groupe de Travail"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="91fd36a9-1e6c-424b-bd6c-f492d35c6411"
+                      name="Lower"
+                      value="1" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="472f4908-f1af-444b-892a-dcd0bca36e6a"
+                      name="Upper"
+                      value="1" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="2222c1e5-a091-47e0-b149-0fa885ed276a"
+            name="Nom"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="b05c24e1-0d2e-4d94-9156-59937f46665a"
+            name="Description"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="d5fe1921-0386-4efd-99ea-053fa3abf24e"
+            name="Objectifs"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="e5a3d6c7-6fa1-417d-b7bf-64c1c845d505"
+            name="Libelle Objectif Autre"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="1bf8794d-d68a-4e9b-ae0b-904815bae6f0"
+            name="Localisation"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="7cdd5ea1-937a-46b3-9bea-8fc482f85ebc"
+        name="Administrateur KPROCESS"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="50ff926a-eccc-4e8e-81ab-1de743975d2d"
+            isDerived="false"
+            sourceEndRoleName="Administrateur KPROCESS"
+            targetEndRoleName="Extranet"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="a1365694-9797-4ef4-b80a-84d87585ff44"
+              LastKnownName="Extranet"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c0d1ef61-d587-4fd7-8f73-70404f6dda2c"
+                  name="Administrateur KPROCESS"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6b29651a-7e1f-4855-977d-5c7e8a9da61e"
+                  name="Extranet"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="535864a9-8497-4627-9e32-c1bb1b4ccb06"
+        name="Utilisateur "
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="8e821a32-6c9b-4bdb-a7f7-7cd33920f078"
+            isDerived="false"
+            sourceEndRoleName="Utilisateur "
+            targetEndRoleName="KSmed.ApplicationUseCase.usecasediagram"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="6fde41c9-48c7-40cd-97aa-f6cdeb3c50db"
+              LastKnownName="Application KSMED"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="7f42b468-7968-43e0-82eb-d474ca9efd53"
+                  name="Utilisateur "
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2500f256-7bac-4d05-b4e5-9138a64415f2"
+                  name="KSmed.ApplicationUseCase.usecasediagram"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="1e8be93f-344c-4e6d-831f-ed486e1a926a"
+        name="Administrateur KSMED"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="ca11fa3f-479d-41bd-8223-d2b16064dfef"
+            isDerived="false"
+            sourceEndRoleName="Administrateur KSMED"
+            targetEndRoleName="Extranet"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="a1365694-9797-4ef4-b80a-84d87585ff44"
+              LastKnownName="Extranet"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="469997e8-d76a-4ee6-af79-fe064a6a20d6"
+                  name="Administrateur KSMED"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="788bc808-8f07-4da5-a4ad-033050848b52"
+                  name="Extranet"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="86b49e9f-e96c-4442-bbc9-e892152fba36"
+            isDerived="false"
+            sourceEndRoleName="Administrateur KSMED"
+            targetEndRoleName="KSmed.ApplicationUseCase.usecasediagram"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="6fde41c9-48c7-40cd-97aa-f6cdeb3c50db"
+              LastKnownName="Application KSMED"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="b3ad6b52-8d8b-4694-800e-1249a24b5078"
+                  name="Administrateur KSMED"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f0217d3f-3723-4b73-ae75-c861e33f3a95"
+                  name="KSmed.ApplicationUseCase.usecasediagram"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="be3d4012-b317-4652-b21e-660fe950ef03"
+        name="Ouvrier"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="61300a15-1f69-4559-a0bd-c5d741a2236b"
+            isDerived="false"
+            sourceEndRoleName="Ouvrier"
+            targetEndRoleName="KSmed.ApplicationUseCase.usecasediagram"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="6fde41c9-48c7-40cd-97aa-f6cdeb3c50db"
+              LastKnownName="Application KSMED"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="52be7ea3-c42a-48b0-8124-b4599141a14b"
+                  name="Ouvrier"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="937e1f5c-d1bb-40b5-86c8-f803fad0cead"
+                  name="KSmed.ApplicationUseCase.usecasediagram"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="8613a428-bd6b-46c2-85dd-5e6630679b80"
+        name="Artifact1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="bedb422e-f900-4648-b0a3-e029c1c6dad8"
+        name="Subsystem1"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="2dc1bed6-d8f6-4ca0-af8c-a3f45b31e5b5"
+        name="Artifact2"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="6fde41c9-48c7-40cd-97aa-f6cdeb3c50db"
+        name="Application KSMED"
+        isAbstract="false"
+        isLeaf="false"
+        fileName="KProcess.KSmed.Modelisation\KSmed.ApplicationUseCase.usecasediagram" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="aa461272-e09d-4055-b5df-0acae30c1022"
+        name="Actor1"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="a1fb7468-91bd-4a1f-8743-5ab69f249b0d"
+        name="Actor2"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="8c5dff48-fbb6-4a50-af10-febb140f9705"
+        name="Analyste"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="4492ba1d-fc0b-4dcc-86fe-efa191920a58"
+            isDerived="false"
+            sourceEndRoleName="Utilisateur"
+            targetEndRoleName="S'authentifier"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="f59c06b1-4eff-4a13-b6f5-891b1f69a074"
+              LastKnownName="S'authentifier"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="eaa92bba-d7f2-475e-9720-60a27c78cb45"
+                  name="Utilisateur"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="dfa8b715-3fd5-4c29-8994-bf148b13e790"
+                  name="S'authentifier"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="34fb9f48-eea6-46ec-a6ff-9efba58507f0"
+        name="Utilisateur"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="2ee991e0-15eb-4410-9850-f6dfe5c558e2"
+        name="Subsystem2"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="43f4e1b8-bbc3-4adc-bd52-24757e3e5589"
+        name="ACQUERIR les activités du processus"
+        isAbstract="false"
+        isLeaf="false">
+        <suppliersInternal>
+          <dependency
+            Id="a68f9372-6f85-4383-9427-aef0ab7d6b4c">
+            <useCaseMoniker
+              Id="c31086a4-6f87-4f9f-85fd-1a7db683f898"
+              LastKnownName="CONSOLIDER la définition des actions du processus"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+        <additions>
+          <include
+            Id="a5fd1d6a-1c85-41aa-aa20-c4e49abecdcb">
+            <useCaseMoniker
+              Id="f102bad3-2f42-48f3-95df-8986bbfccfe7"
+              LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="3deb9506-fe6e-4317-b256-4643e3229196">
+            <useCaseMoniker
+              Id="50b95bc8-8243-4f19-af7e-343f97df0a61"
+              LastKnownName="DECOMPOSER une activité à partir d'une video VSM"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="c31086a4-6f87-4f9f-85fd-1a7db683f898"
+        name="CONSOLIDER la définition des actions du processus"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="5618f626-4c92-4b0c-bc56-06732e3171a5"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$228"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="3e16f810-c99a-49e8-b556-bd1db344ee0f">
+            <useCaseMoniker
+              Id="c93aaf9e-d5da-4947-a5fa-ee571384080c"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f102bad3-2f42-48f3-95df-8986bbfccfe7"
+        name="DECOMPOSER manuellement l'activité effectuées par une ressource"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="4e486ab6-e186-4c6a-ab43-0a240780c84c"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$79"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="ee67faf3-71fd-4c30-b26c-cc8353c3a6a9">
+            <useCaseMoniker
+              Id="179eb35e-1d18-4035-9383-e503b4f1ed46"
+              LastKnownName="Décomposer une activité"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include
+            Id="5702468e-30bc-47f6-a1c8-8a746b032bc8">
+            <useCaseMoniker
+              Id="b6de5901-311d-47e4-8d53-433f88977d67"
+              LastKnownName="Décomposer sans vidéo"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="75574b18-6a58-42f7-8c94-eca2fe5f49bf">
+            <useCaseMoniker
+              Id="0f6c6bc3-c83c-4012-bb99-4688932f91ef"
+              LastKnownName="Définir une catégorie"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="056c1430-bc80-40fe-b8fa-a331e1ca7caa">
+            <useCaseMoniker
+              Id="a56a5dd6-9d1b-4af3-be88-642aa88c6c00"
+              LastKnownName="Définir une vignette représentant l'action/tache"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="85340277-4caf-48f4-8434-2cd03db1edce"
+        name="DECOMPOSER selon équipement"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="f9f97f41-338d-40f1-a0ab-95bf98f63ceb"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$116"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <generalsInternal>
+          <generalization
+            Id="d06a3c4a-ee4c-40d8-87a4-072df4ed674b"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="f102bad3-2f42-48f3-95df-8986bbfccfe7"
+              LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="40c432df-8787-4024-8a5a-6d034fdc3cdb"
+        name="SYNCHRONISER les activités décomposées à l'aide d'un GANTT"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="6ffb16bd-b26d-42df-a3bf-fd055febc8cb"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$125"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="6b1fb926-b723-480e-ab7e-4616a32a343f">
+            <useCaseMoniker
+              Id="601cb4cc-8a5f-49b3-b24b-f4a6c2ff9948"
+              LastKnownName="Visualiser la durée totale de l'activité"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="e41c5151-934f-475c-8b7e-e70d4c1893a5">
+            <useCaseMoniker
+              Id="ca3751d7-339e-475d-96b3-9500415e1bb0"
+              LastKnownName="Visualiser les actions du chemin critique "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="c93aaf9e-d5da-4947-a5fa-ee571384080c"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="0f6c6bc3-c83c-4012-bb99-4688932f91ef"
+        name="Définir une catégorie"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="c6cad629-d3cd-42cf-b4d8-1898b155b0ef"
+        name="DEFINIR"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="bf1fbf87-edd1-408e-835d-323cae13846e"
+        name="CREER Un Projet"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="afad7e7e-be63-484d-93bf-8d715d899334"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$61"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="1c08c90e-90c0-476a-8cfa-0d920393c283">
+            <useCaseMoniker
+              Id="f8114e34-f226-4992-8d7e-29698c01d567"
+              LastKnownName="Renseigner les objectifs, le contexte, l'atelier"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="34b543ec-8dbb-4741-8138-0286cd1873cf"
+            isDerived="false"
+            sourceEndRoleName="CREER Un Projet"
+            targetEndRoleName="Artifact4"
+            isLeaf="false"
+            isAbstract="false">
+            <artifactMoniker
+              Id="94884dd8-dfd9-421b-9029-e6823867df14"
+              LastKnownName="Artifact4"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="20ce9637-631b-49b4-aa22-0a5edb57b64c"
+                  name="CREER Un Projet"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="427e178f-ec7e-4d62-bfd6-b3f74de667d7"
+                  name="Artifact4"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <additions>
+          <include
+            Id="3ff389d8-6190-4ac7-b139-a4735fde8852">
+            <useCaseMoniker
+              Id="f846a6ca-6ee3-49c8-95e8-d28dde00570e"
+              LastKnownName="Définir les membre du groupe projet et attibuer un rôle"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="3efa9784-04c5-49d6-9d70-35a3b447fbbf">
+            <useCaseMoniker
+              Id="7e1ea3ff-fce2-48b2-bce8-426848309f44"
+              LastKnownName="Associer des vidéos illustrant le processus"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="820e58dc-757e-4ded-b89e-ab7d4130069e">
+            <useCaseMoniker
+              Id="ae2807fd-bafa-4f37-bb00-e3a3ebd71257"
+              LastKnownName="Définit le libellé des customAttribut"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5314d409-922a-4ffb-a7a6-db694d95a9a8"
+        name="Procédure ???"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="8b20e304-7d68-486f-afd8-7ac77480d29c"
+        name="Objectif"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="411315df-823a-46c6-9729-fe5e2b1a79a4"
+            name="Libelle"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="b0b498eb-8dc9-44f3-94d7-62f219e1fcdc"
+        name="Groupe de Travail"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="f08c4719-6607-4f13-94de-0a2d34b531a7"
+            isDerived="false"
+            sourceEndRoleName="Groupe de Travail"
+            targetEndRoleName="Utilisateur"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="34fb9f48-eea6-46ec-a6ff-9efba58507f0"
+              LastKnownName="Utilisateur"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="33c5f352-397f-4cae-9655-cef6bd41b08e"
+                  name="Groupe de Travail"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Shared"
+                  isComposite="false"
+                  isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="860d18af-4e0f-4d45-8875-aea1ae764285"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="f51b8dcf-450d-4ace-a67d-a5bfdc5aba82"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="83cabe18-501d-4f51-9f63-0fa5ba526b48"
+                  name="Utilisateur"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false">
+                  <lowerValueInternal>
+                    <literalString
+                      Id="ae11104c-7422-4c77-b152-11bd711512c1"
+                      name="Lower"
+                      value="*" />
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString
+                      Id="51b0c190-618b-4a0c-ac88-22199a093035"
+                      name="Upper"
+                      value="*" />
+                  </upperValueInternal>
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="9a738893-34f9-457c-b5df-ac9654c80bd9"
+        name="P"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="4293bd73-9e2b-4ea8-a864-2df6861d7d16"
+        name="Activite"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="b369a214-ac78-4dae-b281-3cc64c24527a"
+            isDerived="false"
+            sourceEndRoleName="Activite"
+            targetEndRoleName="Tache"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="a6065d45-b269-40a5-80f0-cda382be833b"
+              LastKnownName="Tache"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="c9309ee6-47c0-4db7-bd68-93d33acfaa8a"
+                  name="Activite"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ee4d5c24-80e8-4666-883d-2bf57566dfc1"
+                  name="Tache"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property
+            Id="29dc3935-a519-4fb5-a37d-2a27aa9efc1b"
+            name="Libelle"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="54a6d1a6-6f43-4cde-8ec2-83cef208069a"
+            name="Debut"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="68babdc1-1aee-4ab2-8b79-dc0e30ff8601"
+            name="Fin"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="a07473fd-c8fa-4a91-ba24-227c1e4f267e"
+        name="Lieu"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="30b8508d-c5b8-481d-a933-323023401247"
+        name="Outils"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="c73d4698-c8fd-4610-8295-259bbbf4d335"
+        name="Document"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="d7bc1ea8-b1ff-460c-8dc4-af40d6eb0b1d"
+        name="Consommable"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="98d4f9c5-b6ff-4e95-9c80-b2c9053b168d"
+        name="Type d'action"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedAttributesInternal>
+          <property
+            Id="2a9292f7-7235-4d66-a0d6-30356e998447"
+            name="Libelle KSMED"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="37b634d7-e46c-4697-a8f1-45d16f6bee9e"
+            name="Libellle Client"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false" />
+          <property
+            Id="0e23b2cb-d25b-4b42-a5f8-747988846df0"
+            name="CODE Type Action"
+            isLeaf="false"
+            isStatic="false"
+            isReadOnly="false"
+            isUnique="false"
+            isDerived="false"
+            isDerivedUnion="false"
+            aggregation="None"
+            isComposite="false">
+            <description>Interne, Externe, Supprimée</description>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="a1365694-9797-4ef4-b80a-84d87585ff44"
+        name="Extranet"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+        name="PREPARER"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+        name="ANALYSER"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="fdf1c0df-a14f-4680-adac-177ca32ac86f"
+        name="SUIVRE"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="90855f8a-118e-4c2c-8145-a5a7ee39653a"
+        name="VALIDER"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <subsystem
+        Id="467bcd15-45b1-4af4-afda-9e10f13a8245"
+        name="CAPITALISER"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="277ac4e3-a5f6-4f2d-bc36-992f86dac9b7"
+        name="PARAMETRER L'application"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="0090866f-3551-41dd-9c21-665a3c001a2a">
+            <useCaseMoniker
+              Id="0e1509ca-39c2-47b7-9e05-bef9a009fdf4"
+              LastKnownName="Gérer les utilisateurs"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="c92ebded-fefa-47df-be28-c95e2c6e59b6">
+            <useCaseMoniker
+              Id="09087441-2b83-4940-86d8-3b371ce8890c"
+              LastKnownName="Choisir ma langue"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="73c5d516-2567-4d9d-a334-5ef86a73dae1">
+            <useCaseMoniker
+              Id="25147cc4-5936-4fd9-aa95-180a769570ea"
+              LastKnownName="Personnaliser les libellés"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="0319ba67-9167-48fe-8024-39c23deff3fd">
+            <useCaseMoniker
+              Id="98b5e791-b662-4530-9d31-4de69e2ac1dc"
+              LastKnownName="Gérer les autorisations des utilisateurs"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="ad2b5072-2be5-4ca7-b809-ea026575ee55">
+            <useCaseMoniker
+              Id="08210f92-8806-4c58-acf4-ae3f0b0581d9"
+              LastKnownName="Définir un chemin par défaut pour les vidéo"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="3b09e5d1-ebf3-40de-a0a8-53c504f36ced"
+        name="OUVRIR un projet Existant"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="885082af-e822-4eee-bd15-999804b77bb3"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$65"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7f75debc-d934-4ece-9a17-60b38e8b43b6"
+        name="GERER Référentiels  des projets "
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="48b412f7-1a22-4277-976d-dcda7895e16b"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$196"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <generalsInternal>
+          <generalization
+            Id="f56a132a-0979-4716-b792-29da37149801"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="20aa036f-584a-4b84-bfb9-d1ee5a94f8fb"
+              LastKnownName="Gérer Référentiels &quot;Standardisés&quot;"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association
+            Id="c387c757-37ab-4796-87a5-7f057a809e05"
+            isDerived="false"
+            sourceEndRoleName="GERER Référentiels  des projets "
+            targetEndRoleName="Promouvoir un items Projet vers un item &quot;Standard&quot;"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="011a9dcc-d61d-4afd-acf7-921c39bc4707"
+              LastKnownName="Promouvoir un items Projet vers un item &quot;Standard&quot;"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f6ed412a-7bdb-41b2-a0f4-95c805955f90"
+                  name="GERER Référentiels  des projets "
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4cc90da9-cd8f-4962-ba00-4cf8231ddb30"
+                  name="Promouvoir un items Projet vers un item &quot;Standard&quot;"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <extendedCases>
+          <extend
+            Id="0f7ea3b2-2826-48b5-990a-869bbd5176ac">
+            <useCaseMoniker
+              Id="8c53179b-633a-4f64-9f93-3434a51c2676"
+              LastKnownName="Fusionner deux éléments 2 d'un même projet"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include
+            Id="4e4acf33-086d-4e82-b4b6-ecb6a89c264d">
+            <useCaseMoniker
+              Id="20a1f569-eac2-4e9f-8e7d-f470948a066c"
+              LastKnownName="Importer un ou plusieurs éléments d'un projet vers un autre"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="33a5e80e-8f85-4e78-b44b-69763528b9fc"
+        name="GERER Bibliothèque de vidéo"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="d0f6f03f-cea5-4ed3-8c23-3c6e8e310ace">
+            <useCaseMoniker
+              Id="08210f92-8806-4c58-acf4-ae3f0b0581d9"
+              LastKnownName="Définir un chemin par défaut pour les vidéo"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e52a6b36-dc84-4d37-bd1d-bb87bd82b852"
+        name="GERER mes projets"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="d35b347b-17c4-4a1f-8d78-909938b96e21">
+            <useCaseMoniker
+              Id="bf1fbf87-edd1-408e-835d-323cae13846e"
+              LastKnownName="CREER Un Projet"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="db905677-0d40-4fe3-ace9-50548c86f535">
+            <useCaseMoniker
+              Id="3b09e5d1-ebf3-40de-a0a8-53c504f36ced"
+              LastKnownName="OUVRIR un projet Existant"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f8114e34-f226-4992-8d7e-29698c01d567"
+        name="Renseigner les objectifs, le contexte, l'atelier"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="e623d178-bf8e-45be-bc6e-79f15c875691"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$53"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f30d733c-b4f4-4d15-8ddd-6bf14755fd07"
+        name="Définir la ressource par défaut"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="f5f36b77-117a-421a-97a0-ebb2c7e06054"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$54$57"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="289d9b6b-8338-469f-b0bc-621d1b6076a6">
+            <useCaseMoniker
+              Id="fbfc047a-6b55-46c9-92a7-1dfe8731ec8f"
+              LastKnownName="Gérer les Ressources"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7e1ea3ff-fce2-48b2-bce8-426848309f44"
+        name="Associer des vidéos illustrant le processus"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="fa4ddce9-68fd-4817-b067-721163001cc5"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$55"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="dffc0aab-f639-443b-a992-c4855dc80795">
+            <useCaseMoniker
+              Id="f30d733c-b4f4-4d15-8ddd-6bf14755fd07"
+              LastKnownName="Définir la ressource par défaut"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include
+            Id="769dc5e4-0059-403a-871b-857cc91293d2">
+            <useCaseMoniker
+              Id="e89ec1ff-ecf8-4f55-8e02-db92590335c1"
+              LastKnownName="Définir la plage d'analyse"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e89ec1ff-ecf8-4f55-8e02-db92590335c1"
+        name="Définir la plage d'analyse"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f59c06b1-4eff-4a13-b6f5-891b1f69a074"
+        name="S'authentifier"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="9010772b-50f8-4bc7-b851-1d874c760cd7"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$66"
+            tag="Work Item Reference" />
+        </referencesInternal>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7585c753-965f-4c1e-ae09-4f06754d4dff"
+        name="Gérer les lieux"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="9555d5f8-6027-4a5f-8b5c-cbfc7ed99d54"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$60"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="2d872a08-3bff-4ff5-8dd4-ab5c1936c750">
+            <useCaseMoniker
+              Id="7f75debc-d934-4ece-9a17-60b38e8b43b6"
+              LastKnownName="GERER Référentiels  des projets "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a6386d44-25a8-47b9-a68e-1a187dade736"
+        name="Gérer les outils"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="fa0dec8c-7a8c-42cd-a803-0f2b8e07798e"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$75"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="b39a28f4-210d-40a3-bba2-8a4f664e5308">
+            <useCaseMoniker
+              Id="7f75debc-d934-4ece-9a17-60b38e8b43b6"
+              LastKnownName="GERER Référentiels  des projets "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="825fdb5a-0f8b-4153-bcb4-7427ada4f3e9"
+        name="Gérer les consommables"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="abf2577d-0d38-43dc-bab1-ddf9ae9c81c2"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$78"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="4c6788af-5e0c-4e94-af50-2e9e8449cc1f">
+            <useCaseMoniker
+              Id="7f75debc-d934-4ece-9a17-60b38e8b43b6"
+              LastKnownName="GERER Référentiels  des projets "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="980f5495-3edb-46a0-a0f9-c62a3fb68590"
+        name="Gérer les documents"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="7c42f39c-6c10-4312-8dec-8ad93641b82c"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$76"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="aa9dddf5-c8bc-4f34-93d7-44b20e45e13b">
+            <useCaseMoniker
+              Id="7f75debc-d934-4ece-9a17-60b38e8b43b6"
+              LastKnownName="GERER Référentiels  des projets "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="0e1509ca-39c2-47b7-9e05-bef9a009fdf4"
+        name="Gérer les utilisateurs"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="1ea48b6f-7045-432c-9c79-13511fb25bb6"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$72"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="2b2eb25c-cca2-4e4e-ae46-a0ccdbb2d937">
+            <useCaseMoniker
+              Id="f15e5d16-3ce0-4410-8e5d-e9260e6ea96a"
+              LastKnownName="Créér des utilisateurs Analyste "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+        <additions>
+          <include
+            Id="e3c084a2-2d1d-49d2-b602-9af8df23489b">
+            <useCaseMoniker
+              Id="e6024f64-4baa-48b8-9d8a-2cb0512541ad"
+              LastKnownName="Importer des utilisateur d'un annuaire d'entreprise"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="09087441-2b83-4940-86d8-3b371ce8890c"
+        name="Choisir ma langue"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="d8b8c8b1-7121-49a1-8a79-bb3134b4f3ae"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$70"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="25147cc4-5936-4fd9-aa95-180a769570ea"
+        name="Personnaliser les libellés"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="e41c41ea-6c05-4d88-ae75-2f8394a4ecc2"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$71"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b6de5901-311d-47e4-8d53-433f88977d67"
+        name="Décomposer sans vidéo"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="98987d2f-a26c-44ad-8c5b-fde829d25b5d"
+        name="Décomposer une activité effectuée par une ressource à partir de la vidéo POV"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="4f86339a-0790-45e1-9b64-e482e17a24fc"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$115"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="32f64f14-707f-468d-87a7-896ef83d6f28">
+            <useCaseMoniker
+              Id="f102bad3-2f42-48f3-95df-8986bbfccfe7"
+              LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="af5038c9-c8bc-4baa-ba13-b839a26c673d"
+        name="DECOMPOSER selon opérateur"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="b1179fce-fd78-4990-8db8-acee3d7a8cc3"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$117"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <generalsInternal>
+          <generalization
+            Id="ba7173cf-562d-4205-b567-d927feb64aaa"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="f102bad3-2f42-48f3-95df-8986bbfccfe7"
+              LastKnownName="DECOMPOSER manuellement l'activité effectuées par une ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="0c325334-4dff-482e-a33d-39d5fa11d250"
+        name="Visualiser la vidéo du chemin critique"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="8808f8f8-9bb3-4384-8a2c-99c2ce0bd835"
+        name="SIMULER des scenarios cibles"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="cb8f9c04-ffc3-4cee-b0a6-4dc10be7a9c6"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$260"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="eb914d22-633b-4cb4-ad19-28ed0db12eb1">
+            <useCaseMoniker
+              Id="743936ad-cd55-41f4-8391-487f6e7c2fc0"
+              LastKnownName="Créer un nouveau scenario d'optimisation  Cible"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="71c1648f-e159-4e4d-abfb-6d4b64152a09">
+            <useCaseMoniker
+              Id="7d621c36-6e3a-4c76-98e7-e244e631f10e"
+              LastKnownName="Valider Scénario Cible"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="41983283-711b-4d78-ad78-068fdf2bc2f4">
+            <useCaseMoniker
+              Id="73abaac0-9355-4b4d-b2c4-c4c94fa1f998"
+              LastKnownName="CONSTRUIRE le scénario "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="b180d198-b235-443c-97ce-8bc483fae8fb">
+            <useCaseMoniker
+              Id="b2c49b7e-dc08-4579-82dc-330f05166446"
+              LastKnownName="Convertir et Réduire le scenario d'origine"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="743936ad-cd55-41f4-8391-487f6e7c2fc0"
+        name="Créer un nouveau scenario d'optimisation  Cible"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="b77595dc-b4cd-46bb-acb0-b71e6161ce19"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$261"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ca3751d7-339e-475d-96b3-9500415e1bb0"
+        name="Visualiser les actions du chemin critique "
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="1be79b55-74b7-4177-bfad-3ea8adbda700"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$209"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d828871a-ef8b-412b-a5cb-a33861695335"
+        name="Gérer les catégories d'action"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="8fe331c9-c12c-4e55-a89b-23974f7667d6"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$59"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="d16793df-5dee-458a-895d-094bcc425df1">
+            <useCaseMoniker
+              Id="7f75debc-d934-4ece-9a17-60b38e8b43b6"
+              LastKnownName="GERER Référentiels  des projets "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include
+            Id="73d9cc51-39ee-4ae4-9dd6-b2bfb970e154">
+            <useCaseMoniker
+              Id="3141a5f8-4322-461b-8e4f-59b3f4a676f3"
+              LastKnownName="Définir un type d'action par défaut {Interne,Externe, Supprimé}"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="e738a622-0648-46a7-97aa-20aba2502dc6">
+            <useCaseMoniker
+              Id="15d349f2-b450-436a-b164-397911617a36"
+              LastKnownName="Définir la valorisation de la categorie d'action  {VA,NVA,BNVA}"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="3141a5f8-4322-461b-8e4f-59b3f4a676f3"
+        name="Définir un type d'action par défaut {Interne,Externe, Supprimé}"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="844a4017-5029-407f-838c-aec60967a1f3"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$73"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="15d349f2-b450-436a-b164-397911617a36"
+        name="Définir la valorisation de la categorie d'action  {VA,NVA,BNVA}"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="c48e9d57-c995-4a4e-ac20-f5feaeb894ef"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$74"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="8c53179b-633a-4f64-9f93-3434a51c2676"
+        name="Fusionner deux éléments 2 d'un même projet"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="568162a5-6f10-4c6b-ab30-67bb8767eb79"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$67"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f927b800-7ca7-4d5e-b526-9a107016997a"
+        name="Exporter  vers Excel"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="601cb4cc-8a5f-49b3-b24b-f4a6c2ff9948"
+        name="Visualiser la durée totale de l'activité"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="31375255-eab2-46ac-953c-2498f4c497ee"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$210"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="68295a33-7ee2-41de-aeeb-43a76f41a97b"
+        name="Dé"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="12162d09-d17a-42f9-8396-238bcf559f1b"
+        name="VALIDER le scenario "
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="12daf468-629f-41f8-93b1-77c8873d4136"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$257"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7d621c36-6e3a-4c76-98e7-e244e631f10e"
+        name="Valider Scénario Cible"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="3b58a68d-c595-4030-bc26-c34975137ebb"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$262"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="b89b04b4-db56-48ba-97b1-8c37440f2104"
+        name="KSmedBusinessActivity"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="3e17a1ff-eb8d-4336-b0b1-27500e55d40c"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="650673bd-c8f8-454f-aeeb-6e08afb6900b"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="dfa5fb6d-f166-4599-af6e-84fce89ca151"
+                  LastKnownName="Créer un nouveau projet"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction
+            Id="dfa5fb6d-f166-4599-af6e-84fce89ca151"
+            name="Créer un nouveau projet"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="446a2338-f014-4e50-a4c1-2c82a88e3bb9"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="92d18524-e613-4e9d-90b9-df6ff77ce9d2"
+                  LastKnownName="Définir les ressources"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="92d18524-e613-4e9d-90b9-df6ff77ce9d2"
+            name="Définir les ressources"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="4af68cc8-e72a-49da-a523-5279e34e3eae"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="e8314337-1804-4e46-a577-a4020c0a1460"
+                  LastKnownName="Décomposer l'activité pour chaque ressource"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="e8314337-1804-4e46-a577-a4020c0a1460"
+            name="Décomposer l'activité pour chaque ressource"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="4d5d6da3-aab0-46d2-bcad-255cf995d2a8"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="065bbd59-a35f-4ec4-a6cb-201f7e47ea4b"
+                  LastKnownName="Synchronisation des activités"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="75574cce-9035-4b39-8429-2bf7f3b34934"
+            name="Valider le scenario initial"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="5d0e5240-f28b-44a7-8b72-f709f1f994c2"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="e1def937-2f5d-45ce-a8b0-bd12298b2ec0"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="72de992d-153f-41e4-9535-61f914a481bc"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="8bde5aab-ef8b-45ba-a650-b0cdc131d65f"
+                  LastKnownName="Scenario Initial Validé"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="8bde5aab-ef8b-45ba-a650-b0cdc131d65f"
+            name="Scenario Initial Validé"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="3b6e81a6-fb9d-4bed-a255-cc7c4223fca4"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <activityFinalNode
+            Id="e1def937-2f5d-45ce-a8b0-bd12298b2ec0"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="065bbd59-a35f-4ec4-a6cb-201f7e47ea4b"
+            name="Synchronisation des activités"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="75a359ee-bb97-4a71-82c9-7d4942693c53"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="75574cce-9035-4b39-8429-2bf7f3b34934"
+                  LastKnownName="Valider le scenario initial"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="650fbfae-50de-4391-9ed1-87718246d77c"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="b36b1bef-308c-401f-b655-22245e80d911"
+                  LastKnownName="Chemin Critique du processus"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="b36b1bef-308c-401f-b655-22245e80d911"
+            name="Chemin Critique du processus"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="b26da95b-8ee2-4fc5-ab74-20a115170c2a"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="8f4d9f49-4553-4501-b41c-c5561b78b573"
+        name="Visualiser graphiquement  la répartition des temps d'occupation par ressources"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="13ac3060-d2e4-4e5a-b802-878d7bc43172"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$564"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="1f524779-9a14-4f12-aadc-8bebcf2eb57e">
+            <useCaseMoniker
+              Id="570e4d03-24b1-473c-9790-1681d093e63e"
+              LastKnownName="Visualiser à partir d'un histogramme"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="cd01b9de-6eaa-4cc6-8e73-2747fdef5633">
+            <useCaseMoniker
+              Id="d3b0d903-3b9d-4bbf-9ac2-7e245f9885d0"
+              LastKnownName="Visualiser à partir d'un dotnut 3D"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="09129ad8-a1ef-4435-bf7f-0d29cb587d46">
+            <useCaseMoniker
+              Id="7a41fa4d-bd38-4c10-9f06-f235c714aacf"
+              LastKnownName="Visualisation simplifiée de la répartition des temps par ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="570e4d03-24b1-473c-9790-1681d093e63e"
+        name="Visualiser à partir d'un histogramme"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="52e7bff9-699c-4327-bb54-1c8d36ae8075"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$565"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="d3b0d903-3b9d-4bbf-9ac2-7e245f9885d0"
+        name="Visualiser à partir d'un dotnut 3D"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1bf0d4f4-79a4-42a6-8e54-ea39c0adfc8b"
+        name="Visualiser la vidéo d'un scénario"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="467bcd15-45b1-4af4-afda-9e10f13a8245"
+            LastKnownName="CAPITALISER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a61bc33d-7807-4f2c-b50a-2b1695df1f75"
+        name="Animer une présentation Video + détails"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="467bcd15-45b1-4af4-afda-9e10f13a8245"
+            LastKnownName="CAPITALISER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="30885052-19a2-4c8e-b425-e85f4a731a66"
+        name="Administrateur de KSMED"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="565c1829-23a5-4132-8e78-2b33bb0c76a3"
+            isDerived="false"
+            sourceEndRoleName="Administrateur de KSMED"
+            targetEndRoleName="PARAMETRER L'application"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="277ac4e3-a5f6-4f2d-bc36-992f86dac9b7"
+              LastKnownName="PARAMETRER L'application"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="a9b365a1-e762-4689-a5d2-affb8fc08cdb"
+                  name="Administrateur de KSMED"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="4bd7b2a1-9d73-4ff7-a84c-7803278537ce"
+                  name="PARAMETRER L'application"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+          <association
+            Id="ff5e71be-e27c-4def-bfa0-b15010e4b2ce"
+            isDerived="false"
+            sourceEndRoleName="Administrateur de KSMED"
+            targetEndRoleName="Gérer Référentiels &quot;Standardisés&quot;"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="20aa036f-584a-4b84-bfb9-d1ee5a94f8fb"
+              LastKnownName="Gérer Référentiels &quot;Standardisés&quot;"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="0787449e-cc62-4cee-88ef-e733d67f34d4"
+                  name="Administrateur de KSMED"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="6f0970fa-dde6-4cf7-baa8-c11aa7327f10"
+                  name="Gérer Référentiels &quot;Standardisés&quot;"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </actor>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="8ed0faee-c1df-44d1-9928-f4a88d428b1b"
+        name="Contributeur"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="7593d966-c4d0-409c-93d4-08f76c5066d9"
+        name="Technicien"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="0feb0cd8-1d79-4ca3-9130-2c26de048c28"
+        name="Responsable"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f846a6ca-6ee3-49c8-95e8-d28dde00570e"
+        name="Définir les membre du groupe projet et attibuer un rôle"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="79b24432-dfbe-49b0-8f42-365617a75e04"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$51"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f15e5d16-3ce0-4410-8e5d-e9260e6ea96a"
+        name="Créér des utilisateurs Analyste "
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="8c5cb2bf-a28d-4c25-9628-e6b9501f04df"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$52"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="e6024f64-4baa-48b8-9d8a-2cb0512541ad"
+        name="Importer des utilisateur d'un annuaire d'entreprise"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="bf7503bb-984e-47cd-8820-6fb6ce86b968"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$62"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="fbfc047a-6b55-46c9-92a7-1dfe8731ec8f"
+        name="Gérer les Ressources"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="e5585c53-8a48-4df7-b897-49b798ee3e92"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$58"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <extendedCases>
+          <extend
+            Id="f4cb961a-b228-402f-b288-81d91456664c">
+            <useCaseMoniker
+              Id="7f75debc-d934-4ece-9a17-60b38e8b43b6"
+              LastKnownName="GERER Référentiels  des projets "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <additions>
+          <include
+            Id="9b408e7f-ea01-457a-83e6-80906d8ec45e">
+            <useCaseMoniker
+              Id="7701b43c-5d30-455a-9b4d-b03d29af31f4"
+              LastKnownName="Gérer les opérateurs"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="5c7b6bdb-57d3-4868-a47e-dfcd1ef9b55d">
+            <useCaseMoniker
+              Id="b57b2aac-ba40-481c-ab98-2a74dda8994f"
+              LastKnownName="Gérer les équipements"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="54994f15-d6a2-432f-84ab-683470c805d9"
+        name="RESTITUER"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="59f34e5c-2b72-4455-9fe6-153c0d9fd00f">
+            <useCaseMoniker
+              Id="9856ccbd-c7ce-4793-b4bc-ba314fec22a4"
+              LastKnownName="Visualiser graphiquement  la répartition des temps par ressources"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="fdf54e45-cd21-4985-bf88-9c34713f91dd">
+            <useCaseMoniker
+              Id="5d2e3081-b635-476b-9ccc-1546e7eb18ea"
+              LastKnownName="Visualiser la video du chemin critique"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="979ddb78-cf73-4b4a-8cc7-b71344ac7b06">
+            <useCaseMoniker
+              Id="84d4ce8d-bcb6-4038-976e-6a17e60e6ec3"
+              LastKnownName="Visualiser le contenu de la caisse à outil"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="1a0b32bf-858e-4edb-ba38-ed9c442d8087">
+            <useCaseMoniker
+              Id="3a21f602-41cb-4ea3-afb9-f3fc44a8e08e"
+              LastKnownName="Visualiser les consommables"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="c9d61b13-8509-494d-8bf4-e2470ce724ae">
+            <useCaseMoniker
+              Id="9df5fab9-ce2c-4ef2-ac58-490f210f1634"
+              LastKnownName="Temps d'occupation des ressources par processus"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="44fa6b32-89e7-4227-bdea-7a5eb523031b">
+            <useCaseMoniker
+              Id="29765347-19f0-486e-b991-d0fe9d41a4af"
+              LastKnownName="Déplacement entre les lieux"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="e1a25ad5-5ae5-4a88-981f-0987f4e6fc05">
+            <useCaseMoniker
+              Id="2f8bc63f-2517-45a4-ac82-375f12638757"
+              LastKnownName="Temps d'occupation global par catégorie par type de ressources"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="3dd95631-2ce2-4b5f-a23c-fbf73a74a2ea">
+            <useCaseMoniker
+              Id="8f4d9f49-4553-4501-b41c-c5561b78b573"
+              LastKnownName="Visualiser graphiquement  la répartition des temps d'occupation par ressources"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="aec9c2d2-72a0-4070-8172-5a45f50cc176">
+            <useCaseMoniker
+              Id="605f3a40-5678-4388-8e44-9cf6a687252b"
+              LastKnownName="Visualiser les séquences vidéo de toutes les ressources en //"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="024002eb-b103-4b17-bfa5-e57bc5ed1e3a">
+            <useCaseMoniker
+              Id="f1b50a14-8c09-47d9-a604-364b9bc298b8"
+              LastKnownName="Visualiser la liste des solutions"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="adbb0bc9-513f-4b19-97fc-063a0dec0eae">
+            <useCaseMoniker
+              Id="68be0635-c42a-47d1-90ec-546b661f3108"
+              LastKnownName="Liste des lieux"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9856ccbd-c7ce-4793-b4bc-ba314fec22a4"
+        name="Visualiser graphiquement  la répartition des temps par ressources"
+        isAbstract="false"
+        isLeaf="false">
+        <targetEnds>
+          <association
+            Id="b514b0e7-04b6-4700-88d0-804a55cf0f5a"
+            isDerived="false"
+            sourceEndRoleName="Visualiser l'activité des ressource"
+            targetEndRoleName="Visualiser graphiquement  la répartition des temps par ressources"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="8f4d9f49-4553-4501-b41c-c5561b78b573"
+              LastKnownName="Visualiser graphiquement  la répartition des temps d'occupation par ressources"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="2a11c785-a2b7-4bc0-89a1-cda9dea319d7"
+                  name="Visualiser l'activité des ressource"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f074acbc-fb13-45df-b375-08cad9ea5935"
+                  name="Visualiser graphiquement  la répartition des temps par ressources"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="9df5fab9-ce2c-4ef2-ac58-490f210f1634"
+        name="Temps d'occupation des ressources par processus"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="29765347-19f0-486e-b991-d0fe9d41a4af"
+        name="Déplacement entre les lieux"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="afaf2bf5-01e6-4b68-8429-33fde29e155b"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$574"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="84d4ce8d-bcb6-4038-976e-6a17e60e6ec3"
+        name="Visualiser le contenu de la caisse à outil"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="13ae9dce-c32c-4ff9-bb0a-8e5b8e445e39"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$556"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="2f8bc63f-2517-45a4-ac82-375f12638757"
+        name="Temps d'occupation global par catégorie par type de ressources"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="37de289f-2c13-46c4-868e-e04fae7d9259"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$571"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="2cdd28de-12dd-4cc7-95e8-187d6ef588a2"
+        name="Evaluer  investissement sur le gain (en durée) total et interne"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="1ca1e8b9-e025-4949-bdc4-ed31d4923527"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$554"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="3a21f602-41cb-4ea3-afb9-f3fc44a8e08e"
+        name="Visualiser les consommables"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="86f2458c-0750-4ad6-83dd-a8ff77c95405"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$562"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="5d2e3081-b635-476b-9ccc-1546e7eb18ea"
+        name="Visualiser la video du chemin critique"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="9a77e66d-488b-480a-90e0-0ac43c39d02b"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$211"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="1990256c-c56d-4fcd-a42c-155db03b4dde"
+        name="Att"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="98b5e791-b662-4530-9d31-4de69e2ac1dc"
+        name="Gérer les autorisations des utilisateurs"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="559c2db4-76ae-4c70-ad2c-07438d2eb216"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$63"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="90209cea-1aa7-4dcb-a467-6157080b4e69"
+        name="Artifact3"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <artifact
+        Id="94884dd8-dfd9-421b-9029-e6823867df14"
+        name="Artifact4"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="08d65d70-d104-4d73-b1a4-9ee40c95e67c"
+        name="CreerUnNouveauProjet"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="574bd60d-d632-4af4-bdd1-a6870eea3808"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="d0fc3f7d-c58a-4884-8acd-df52abef7828"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="7656f020-6ccb-4270-875e-a55647346412"
+                  LastKnownName="Renseigner les infos du projets"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction
+            Id="7656f020-6ccb-4270-875e-a55647346412"
+            name="Renseigner les infos du projets"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="fcb2d827-f042-4815-9730-b40a1b3323a1"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="7c457be7-610d-4e9d-b9a6-31f3c940b315"
+                  LastKnownName="Associer des vidéos"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="7c457be7-610d-4e9d-b9a6-31f3c940b315"
+            name="Associer des vidéos"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="b504d6f4-5ae4-45c8-b630-9a395254f655"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="900a5aa8-1cd3-4ea2-813b-ff79a471031b"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="c5c6c641-e305-4c01-a2a7-e609c8da6223"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="3809da34-63c0-42d3-9d9a-b60944a8690b"
+                  LastKnownName="Ajouter des utilisateurs"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="3809da34-63c0-42d3-9d9a-b60944a8690b"
+            name="Ajouter des utilisateurs"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="c1fdcdd7-6c98-4564-b239-263a77ba3ea2"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="caf26d02-ef45-4f63-8e2b-4fddb76b270c"
+                  LastKnownName="Attribuer un rôle"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="2a5755ad-8b57-42b3-b2c4-63edaca77d81"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="351d729d-0cdc-4171-aab2-87518794bc52"
+                  LastKnownName="Projet Prêt pour phase d'analyse"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="900a5aa8-1cd3-4ea2-813b-ff79a471031b"
+            name="Decision1"
+            isLeaf="false">
+            <description>Nature ?</description>
+            <flowNodeTargets>
+              <controlFlow
+                Id="5f4a9955-7022-4077-9d24-e7e00c34ce7d"
+                guard="si POV sélectionné"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="8faa1f9e-92bb-4a1b-8ce4-82e22d335fcb"
+                  LastKnownName="Définir une ressource par défaut"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="3e48930f-312a-4f30-86d7-702214d175a2"
+                guard="Si VSM"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="7c457be7-610d-4e9d-b9a6-31f3c940b315"
+                  LastKnownName="Associer des vidéos"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="8faa1f9e-92bb-4a1b-8ce4-82e22d335fcb"
+            name="Définir une ressource par défaut"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="3ae957d2-b16c-4d5e-837b-326a472df7dc"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="7c457be7-610d-4e9d-b9a6-31f3c940b315"
+                  LastKnownName="Associer des vidéos"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="caf26d02-ef45-4f63-8e2b-4fddb76b270c"
+            name="Attribuer un rôle"
+            isLeaf="false" />
+          <activityFinalNode
+            Id="9b4a1536-fc82-496c-b6a9-8daaf36a9131"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <objectNode
+            Id="351d729d-0cdc-4171-aab2-87518794bc52"
+            name="Projet Prêt pour phase d'analyse"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="0e610e7a-5a8b-440a-9611-33a42576ffe8"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <activityFinalNodeMoniker
+                  Id="9b4a1536-fc82-496c-b6a9-8daaf36a9131"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+            <upperBound>
+              <literalInteger
+                Id="97559a72-36ed-45a7-b5bf-dd8e39903057"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7701b43c-5d30-455a-9b4d-b03d29af31f4"
+        name="Gérer les opérateurs"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="1fa5a362-6cda-406e-a16f-a7b487973a42"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$68"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b57b2aac-ba40-481c-ab98-2a74dda8994f"
+        name="Gérer les équipements"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="74aec6ef-51b3-4e98-9657-576cc25a307f"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$69"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a5f3fc1d-f269-4d9d-b6f9-0f65fd095c16"
+        name="A"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="4586c26c-30c7-4396-8415-e8ac111076ae"
+        name="Evaluer le rapport Difficulté*Cout sur Gain"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="c391e3af-4919-4837-ad00-e16f24a2e656"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$555"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ea2a2f66-47a6-4392-8d30-8ae525d0dc54"
+        name="Evaluer le taux Investissement et solutions"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="a838624c-d1bc-442f-a19f-4887d3acd742"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$563"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="e59d42aa-368f-4a2b-a932-15da13fb98b8">
+            <useCaseMoniker
+              Id="2cdd28de-12dd-4cc7-95e8-187d6ef588a2"
+              LastKnownName="Evaluer  investissement sur le gain (en durée) total et interne"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="aa778ab1-7d7f-4824-98b6-ca98b0f5856c">
+            <useCaseMoniker
+              Id="4586c26c-30c7-4396-8415-e8ac111076ae"
+              LastKnownName="Evaluer le rapport Difficulté*Cout sur Gain"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="096d3480-ed1f-469a-844e-2e3ea4ce2f61"
+        name="ACQUERIR-DecomposerUneActivite"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="7b8e258c-a6cc-4ce9-b617-064c7d1f2312"
+            name="Initial1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="419b05e6-e284-41a4-9f5b-649d09225e40"
+            name="Décomposition"
+            isLeaf="false" />
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="50b95bc8-8243-4f19-af7e-343f97df0a61"
+        name="DECOMPOSER une activité à partir d'une video VSM"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="646543f5-beb7-4c0c-960c-9f8c18df3ec2"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$118"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <generalsInternal>
+          <generalization
+            Id="12e9f761-6c73-49f5-9a1e-2e5490e213fd"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="98987d2f-a26c-44ad-8c5b-fde829d25b5d"
+              LastKnownName="Décomposer une activité effectuée par une ressource à partir de la vidéo POV"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+        <extendedCases>
+          <extend
+            Id="504141ea-c086-4c0b-a028-7f9b60734f6a">
+            <useCaseMoniker
+              Id="179eb35e-1d18-4035-9383-e503b4f1ed46"
+              LastKnownName="Décomposer une activité"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </extend>
+        </extendedCases>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="179eb35e-1d18-4035-9383-e503b4f1ed46"
+        name="Décomposer une activité"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="73abaac0-9355-4b4d-b2c4-c4c94fa1f998"
+        name="CONSTRUIRE le scénario "
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="2aec7227-17be-4613-a56e-69b7c2b3c46f"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$226"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="51dacd50-965d-4a24-b4a2-d786378a6677">
+            <useCaseMoniker
+              Id="40c432df-8787-4024-8a5a-6d034fdc3cdb"
+              LastKnownName="SYNCHRONISER les activités décomposées à l'aide d'un GANTT"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="a656958f-1b11-4f56-845e-0655f59a6103">
+            <useCaseMoniker
+              Id="c31086a4-6f87-4f9f-85fd-1a7db683f898"
+              LastKnownName="CONSOLIDER la définition des actions du processus"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="2905a5f0-61e6-44d0-883a-73e6dfc23e52">
+            <useCaseMoniker
+              Id="7a41fa4d-bd38-4c10-9f06-f235c714aacf"
+              LastKnownName="Visualisation simplifiée de la répartition des temps par ressource"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="70120788-8a86-4ee9-8e63-87b3181f6f79">
+            <useCaseMoniker
+              Id="12162d09-d17a-42f9-8396-238bcf559f1b"
+              LastKnownName="VALIDER le scenario "
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="20a1f569-eac2-4e9f-8e7d-f470948a066c"
+        name="Importer un ou plusieurs éléments d'un projet vers un autre"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="2eb60cee-d056-46d9-910b-0fcf40079b11"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$149"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="cb63adce-46e3-40cc-9616-af7dd56884a3"
+        name="CinematiqueEcran"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="13337561-5702-4f92-9a38-3e22cb434b85"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="c189eec6-389c-4f96-8391-0796fbd9dfe0"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="ec798a87-8d4d-4a24-8ad2-a00dc39866b5"
+                  LastKnownName="Se connecter"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction
+            Id="ec798a87-8d4d-4a24-8ad2-a00dc39866b5"
+            name="Se connecter"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="0bf289d5-e5de-440f-b346-836b3b0be0c1"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="d3c67094-029a-434f-89e8-970a15a2857c"
+                  LastKnownName="Créér un nouveau projet"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="7d02b457-b5de-45f4-a947-8e6b531939b6"
+            name="Ouvrir un projet parmi la liste"
+            isLeaf="false" />
+          <opaqueAction
+            Id="d3c67094-029a-434f-89e8-970a15a2857c"
+            name="Créér un nouveau projet"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="f5914701-65c2-4965-8bca-6b1aa1044b22"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="e8d60eb0-f427-4ed1-a521-54871ec224b4"
+                  LastKnownName="Décomposer"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="8b913c92-9599-4520-bdd4-a89a881b433d"
+            name="Copier un projet"
+            isLeaf="false" />
+          <opaqueAction
+            Id="e8d60eb0-f427-4ed1-a521-54871ec224b4"
+            name="Décomposer"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="cd4e7d48-7b48-45de-92b2-a85609ccd63b"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="27fd2285-dcc9-4662-b443-2b3d840d8fdc"
+                  LastKnownName="Construire"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="27fd2285-dcc9-4662-b443-2b3d840d8fdc"
+            name="Construire"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="9e287d5e-44dc-4848-96e1-95e7fce18bee"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="e8d60eb0-f427-4ed1-a521-54871ec224b4"
+                  LastKnownName="Décomposer"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="83703cb1-a6f0-4598-af86-0262a51989f4"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="97e5b941-76ca-455f-9cd5-5565004bab30"
+                  LastKnownName="Valider"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="0391ccf1-7112-40fe-ae4d-4ff6b39a439c"
+            name="Simuler"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="e407959e-91c1-458a-9506-a70e70adefbd"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="2819b4bb-def1-4b7d-9191-7f28b58a57f6"
+                  LastKnownName="Restituer"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="6560dd50-eec0-4387-8849-e5f21f2df099"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="bf6894d6-8c71-41ea-838d-2791b91e853e"
+                  LastKnownName="Simulations de scénario cible"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="2819b4bb-def1-4b7d-9191-7f28b58a57f6"
+            name="Restituer"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="d3371dcd-6ffe-4e03-a065-504b55e09788"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="a70390c7-3d93-492c-8d7f-5c05a0aeb878"
+                  LastKnownName="Valider"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="a70390c7-3d93-492c-8d7f-5c05a0aeb878"
+            name="Valider"
+            isLeaf="false">
+            <objectFlowTargets>
+              <objectFlow
+                Id="9823252f-fb37-4fed-8cfe-890f71852290"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="35834b8d-2524-46a7-a734-d62623251ddc"
+                  LastKnownName="Scénario Cible Validé"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="97e5b941-76ca-455f-9cd5-5565004bab30"
+            name="Valider"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="7d2933f6-e2b3-4b52-8628-a33eaf31e3a0"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="0391ccf1-7112-40fe-ae4d-4ff6b39a439c"
+                  LastKnownName="Simuler"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="38827cb5-0ab5-4887-9496-abed4ea1763d"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="aa92b958-fe85-4d40-a49f-ed96a2940547"
+                  LastKnownName="Scénario Initial validé"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="aa92b958-fe85-4d40-a49f-ed96a2940547"
+            name="Scénario Initial validé"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="0b315ef1-5e07-4803-8fea-09be5a4eb50b"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="35834b8d-2524-46a7-a734-d62623251ddc"
+            name="Scénario Cible Validé"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="e40b5f60-4248-4872-be27-9091db84f69f"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="bf6894d6-8c71-41ea-838d-2791b91e853e"
+            name="Simulations de scénario cible"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="c638e97e-3fe1-4d5c-b508-2f3d30e67874"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="08210f92-8806-4c58-acf4-ae3f0b0581d9"
+        name="Définir un chemin par défaut pour les vidéo"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="3039f000-ed0d-475e-88de-d6b53009a774"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$224"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="7a41fa4d-bd38-4c10-9f06-f235c714aacf"
+        name="Visualisation simplifiée de la répartition des temps par ressource"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="21290a01-5d48-4dbd-a22d-9420e20113c5"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$258"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="605f3a40-5678-4388-8e44-9cf6a687252b"
+        name="Visualiser les séquences vidéo de toutes les ressources en //"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="4630d954-ad73-46a8-a166-c4c5c11ca5ce"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$126"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ae2807fd-bafa-4f37-bb00-e3a3ebd71257"
+        name="Définit le libellé des customAttribut"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="c4d6dcb2-b23b-46b2-bf3c-889b6c6689e6"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$127"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="20aa036f-584a-4b84-bfb9-d1ee5a94f8fb"
+        name="Gérer Référentiels &quot;Standardisés&quot;"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="1db6dbb0-0871-4f2b-b807-63c9c805f5b4"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$195"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="4ea8aa53-e37a-40de-af1b-957ec7133389">
+            <useCaseMoniker
+              Id="011a9dcc-d61d-4afd-acf7-921c39bc4707"
+              LastKnownName="Promouvoir un items Projet vers un item &quot;Standard&quot;"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+          <include
+            Id="0e6b6dff-952c-4f70-8fca-ac74384d792f">
+            <useCaseMoniker
+              Id="080c5b16-d6cd-4db2-afe4-50aabf17605b"
+              LastKnownName="Importer un référentiel d'un KSMED à un autre"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="011a9dcc-d61d-4afd-acf7-921c39bc4707"
+        name="Promouvoir un items Projet vers un item &quot;Standard&quot;"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="fb719054-875b-43aa-b13a-2c408eceda59"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$194"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="080c5b16-d6cd-4db2-afe4-50aabf17605b"
+        name="Importer un référentiel d'un KSMED à un autre"
+        isAbstract="false"
+        isLeaf="false">
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <actor
+        Id="cf1070c1-6728-47f7-be58-455566f9bc48"
+        name="Actor3"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="f1b50a14-8c09-47d9-a604-364b9bc298b8"
+        name="Visualiser la liste des solutions"
+        isAbstract="false"
+        isLeaf="false">
+        <additions>
+          <include
+            Id="c2d1a5f6-745b-4c9c-a6d2-36ec62b50eae">
+            <useCaseMoniker
+              Id="ea2a2f66-47a6-4392-8d30-8ae525d0dc54"
+              LastKnownName="Evaluer le taux Investissement et solutions"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="155f608c-fcb0-41ff-8b90-43dda2ca5692"
+        name="VALIDER le scenario Cible"
+        isAbstract="false"
+        isLeaf="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="031c4c95-7b44-4c7f-a385-e76afec543f6"
+        name="Se déconnecter "
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="cba4912e-13cb-45be-8122-ff8d6c261433"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$223"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="e887ebda-824a-472a-84c3-21679b87fce2">
+            <useCaseMoniker
+              Id="f59c06b1-4eff-4a13-b6f5-891b1f69a074"
+              LastKnownName="S'authentifier"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <activity
+        Id="50399be2-9d10-4665-b41f-c030628d83ac"
+        name="EnchainementDesScenarios"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false"
+        isReentrant="false"
+        isReadOnly="false"
+        isSingleExecution="false">
+        <nodes>
+          <initialNode
+            Id="6e189cab-aeb8-4e20-9498-fcdba310052b"
+            name="Initial1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="42454bbf-4b97-4d48-8b5d-072907873678"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="10bea1a7-ec25-4f42-86be-5c6aed9707d2"
+                  LastKnownName="Acquérir"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction
+            Id="10bea1a7-ec25-4f42-86be-5c6aed9707d2"
+            name="Acquérir"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="f4052585-4089-4ae9-8394-a7fc15a54e82"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="6d8dccb9-3059-47c3-8636-777426e01ef0"
+                  LastKnownName="Construire"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="d231df37-641e-4d16-bbed-3daefda7a437"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="84f203bd-acb8-49a0-a203-a78a6503932d"
+                  LastKnownName="Scenario Initial Brut"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="13742464-c579-4b9b-b960-be6f7f668850"
+            name="Scenario Initial Synchronisé (Draft)"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="77c4c24a-d74d-414b-bcd4-dee4d42ddf2e"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <opaqueAction
+            Id="6d8dccb9-3059-47c3-8636-777426e01ef0"
+            name="Construire"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="136ac3df-b3d8-4b09-baf2-6d3958ceafda"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="1ef172fd-f316-46ad-9f9f-d3b0a4657188"
+                  LastKnownName="Valider"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="0ab580d8-2cc6-47e1-b254-0ad12fd00400"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="13742464-c579-4b9b-b960-be6f7f668850"
+                  LastKnownName="Scenario Initial Synchronisé (Draft)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="84f203bd-acb8-49a0-a203-a78a6503932d"
+            name="Scenario Initial Brut"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="429b44f4-d171-4634-be9e-f8ef55150006"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <decisionNode
+            Id="1ef172fd-f316-46ad-9f9f-d3b0a4657188"
+            name="Valider"
+            isLeaf="false">
+            <description>Valider</description>
+            <flowNodeTargets>
+              <controlFlow
+                Id="3ab1594c-8042-4f96-9069-91087a92cd31"
+                guard="Besoin d'affiner"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="10bea1a7-ec25-4f42-86be-5c6aed9707d2"
+                  LastKnownName="Acquérir"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="2048204a-9343-429f-adaf-caf545d340e2"
+                guard="Scénario prêt"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="cd4610d3-a5e2-4ab1-8ce3-abad5b9ac91c"
+                  LastKnownName="Valider"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="cd4610d3-a5e2-4ab1-8ce3-abad5b9ac91c"
+            name="Valider"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="da7b1c3e-f506-4e54-8565-363f10e7e9d9"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="a286c3ae-f717-4519-978f-81ad29076e9e"
+                  LastKnownName="Decision2"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="2fcb90eb-9552-4d01-b48c-cbe3f44f927c"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="75053627-3404-4547-ab63-bba457ee307e"
+                  LastKnownName="Scenario Initial Synchronisé (Validé)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="75053627-3404-4547-ab63-bba457ee307e"
+            name="Scenario Initial Synchronisé (Validé)"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="7f482c8b-1873-4cda-a50b-09c0513c8c63"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <opaqueAction
+            Id="0e010e86-9a5e-4ccc-9c15-dabb4af74f61"
+            name="Créér un scenario cible (simulation) à partir du scenario Initial Validé"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="a32eda3a-c298-4c9c-9dc2-97d9c68c4c7d"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="6e7d0252-86ea-4773-9cb9-3e2e5f724260"
+                  LastKnownName="Construire (Simuler)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="90f75e2d-9fc4-48a3-a6ff-3033efa8d334"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="af68dbb2-7f24-46af-8066-d3f372eb3155"
+                  LastKnownName="Scenario Cible (Simualtion)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="6e7d0252-86ea-4773-9cb9-3e2e5f724260"
+            name="Construire (Simuler)"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="630c583c-569f-43ba-9eda-b6c82cd93294"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c781ea31-e887-4d47-8d1c-3a2159a58921"
+                  LastKnownName="Simuler (Comparer)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction
+            Id="c781ea31-e887-4d47-8d1c-3a2159a58921"
+            name="Simuler (Comparer)"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="78df16ed-523c-4fad-a59b-8205498e6117"
+                isLeaf="false">
+                <decisionNodeMoniker
+                  Id="15469671-7aa3-43fa-8994-27175f3e71a7"
+                  LastKnownName="Decision1"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="15469671-7aa3-43fa-8994-27175f3e71a7"
+            name="Decision1"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="fca41b45-bfe7-4e05-a138-4c1f7fc56487"
+                guard="Besoin d'affiner le scenario initial"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="f3e5973b-ed02-486c-aa1e-95cb82635a3d"
+                  LastKnownName="Invalider"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="c347bd32-abc0-4660-88ef-92bc52d1c44b"
+                guard="Scenario cible à valider"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="c76f887c-e02f-4b96-a53a-2d36dbca92de"
+                  LastKnownName="Valider"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction
+            Id="f3e5973b-ed02-486c-aa1e-95cb82635a3d"
+            name="Invalider"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="0d3b6006-616d-46a0-9ab5-47a7faba8a94"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="10bea1a7-ec25-4f42-86be-5c6aed9707d2"
+                  LastKnownName="Acquérir"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="7e98c174-9c23-4fdd-b477-fa3845b2d2f2"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="2c6d1319-6a35-4457-84e0-d1e642b4e541"
+                  LastKnownName="Scenario Initial Synchronisé (Modifié)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="2c6d1319-6a35-4457-84e0-d1e642b4e541"
+            name="Scenario Initial Synchronisé (Modifié)"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="24334131-e93c-4232-9e0b-4be91e239b3f"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <opaqueAction
+            Id="c76f887c-e02f-4b96-a53a-2d36dbca92de"
+            name="Valider"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="e185c7db-6282-4e8d-99b8-bcc85a5cf4b7"
+                isLeaf="false">
+                <activityFinalNodeMoniker
+                  Id="86a5c739-0836-4d9f-94cb-50b1cc9a9e55"
+                  LastKnownName="ActivityFinal1"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+            <objectFlowTargets>
+              <objectFlow
+                Id="d0b47af1-bac3-4a2a-ac70-5b197971e962"
+                isLeaf="false"
+                isMulticast="false"
+                isMultireceive="false">
+                <objectNodeMoniker
+                  Id="225b654c-7d73-4980-99ef-0f81f2607ab4"
+                  LastKnownName="Scenario Cible (Validé)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </objectFlow>
+            </objectFlowTargets>
+          </opaqueAction>
+          <objectNode
+            Id="225b654c-7d73-4980-99ef-0f81f2607ab4"
+            name="Scenario Cible (Validé)"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="5fa83aaa-a590-40f6-a792-28367958895a"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <objectNode
+            Id="af68dbb2-7f24-46af-8066-d3f372eb3155"
+            name="Scenario Cible (Simualtion)"
+            isLeaf="false"
+            ordering="Unordered"
+            isControlType="false">
+            <upperBound>
+              <literalInteger
+                Id="2f52f4f0-ee03-4086-9390-9e03659e807d"
+                name="2147483647"
+                value="2147483647" />
+            </upperBound>
+          </objectNode>
+          <activityFinalNode
+            Id="86a5c739-0836-4d9f-94cb-50b1cc9a9e55"
+            name="ActivityFinal1"
+            isLeaf="false" />
+          <opaqueAction
+            Id="70292fbc-4926-445e-9115-5916bc951fcb"
+            name="Synchroniser modification (si possible, sinon recréer un scenario de simulation)"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="ece782f6-8856-4b4c-b9b4-8f6b6ce60024"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="6e7d0252-86ea-4773-9cb9-3e2e5f724260"
+                  LastKnownName="Construire (Simuler)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <decisionNode
+            Id="a286c3ae-f717-4519-978f-81ad29076e9e"
+            name="Decision2"
+            isLeaf="false">
+            <flowNodeTargets>
+              <controlFlow
+                Id="e40409e9-b738-45c7-b478-ef36f652c7ae"
+                guard="Nouveau scenario initial Validé"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="0e010e86-9a5e-4ccc-9c15-dabb4af74f61"
+                  LastKnownName="Créér un scenario cible (simulation) à partir du scenario Initial Validé"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+              <controlFlow
+                Id="158afe93-4785-480b-96a7-516c4c23475a"
+                guard="Scénario initial modifié et revalider"
+                isLeaf="false">
+                <opaqueActionMoniker
+                  Id="70292fbc-4926-445e-9115-5916bc951fcb"
+                  LastKnownName="Synchroniser modification (si possible, sinon recréer un scenario de simulation)"
+                  LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+        </nodes>
+      </activity>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="b2c49b7e-dc08-4579-82dc-330f05166446"
+        name="Convertir et Réduire le scenario d'origine"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="e7c90723-d310-45bc-af61-84b418efa7f0"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$537"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <additions>
+          <include
+            Id="56235151-8b77-4045-bfa6-111274648939">
+            <useCaseMoniker
+              Id="06c497dc-d943-4d3b-ad70-42c6f0397593"
+              LastKnownName="Définir Investissement, Coût et difficulté de la solution"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </include>
+        </additions>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="06c497dc-d943-4d3b-ad70-42c6f0397593"
+        name="Définir Investissement, Coût et difficulté de la solution"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="cbddb9d2-602c-4264-ac41-4ebf7c4296ca"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$553"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="68be0635-c42a-47d1-90ec-546b661f3108"
+        name="Liste des lieux"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="4925b00e-a43e-4a0c-babe-8a74a5ce3b31"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$575"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="a56a5dd6-9d1b-4af3-be88-642aa88c6c00"
+        name="Définir une vignette représentant l'action/tache"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="78378c9f-b9a9-495c-a0c2-cec5827dd5c6"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$613"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <targetEnds>
+          <association
+            Id="8bec58ae-5cb6-479d-a8f5-a94493fa2462"
+            isDerived="false"
+            sourceEndRoleName="Définir une vignette représentant l'action"
+            targetEndRoleName="Décomposer une activité effectuée par une ressource à partir de la vidéo POV"
+            isLeaf="false"
+            isAbstract="false">
+            <useCaseMoniker
+              Id="98987d2f-a26c-44ad-8c5b-fde829d25b5d"
+              LastKnownName="Décomposer une activité effectuée par une ressource à partir de la vidéo POV"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="44244f83-dc6f-4c1d-9aef-ba5f7a5c452a"
+                  name="Définir une vignette représentant l'action"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="1dbc1d39-ee3a-4f47-a9d4-d8b88b460e10"
+                  name="Décomposer une activité effectuée par une ressource à partir de la vidéo POV"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <subjects>
+          <subsystemMoniker
+            Id="9a0f42fa-51b0-4359-833f-930e203ab0ae"
+            LastKnownName="ANALYSER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="10ab793d-4ff9-42af-8fe3-743d491859d8"
+        name="Exporter un scenario"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="bcbbf93b-6d8c-4b88-a066-fe3fd4c8afd3"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$614"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <generalsInternal>
+          <generalization
+            Id="53ab320e-a0cf-44e4-95d6-bad1ba9f509a"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="f927b800-7ca7-4d5e-b526-9a107016997a"
+              LastKnownName="Exporter  vers Excel"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <useCase
+        Id="ff745ac0-26da-408c-8c11-34188eed53a8"
+        name="Exporter un scenario avec vignette"
+        isAbstract="false"
+        isLeaf="false">
+        <referencesInternal>
+          <reference
+            Id="49624f06-879f-4686-a974-d0633b7b4eca"
+            handle="%tfs\Clients#563435fd-2dae-42f3-ac4f-18af406ec529$615"
+            tag="Work Item Reference" />
+        </referencesInternal>
+        <suppliersInternal>
+          <dependency
+            Id="941393c7-0de1-4592-9699-818760c725e6">
+            <useCaseMoniker
+              Id="a56a5dd6-9d1b-4af3-be88-642aa88c6c00"
+              LastKnownName="Définir une vignette représentant l'action/tache"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </dependency>
+        </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="74d3c844-09cf-4a54-b30c-599d113cb5dc"
+            isSubstitutable="false">
+            <useCaseMoniker
+              Id="10ab793d-4ff9-42af-8fe3-743d491859d8"
+              LastKnownName="Exporter un scenario"
+              LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+          </generalization>
+        </generalsInternal>
+        <subjects>
+          <subsystemMoniker
+            Id="dd569413-d7b5-4405-a2e7-21c7cd5da050"
+            LastKnownName="PREPARER"
+            LastKnownLocation="KProcess.KSmed.Modelisation.uml" />
+        </subjects>
+      </useCase>
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>

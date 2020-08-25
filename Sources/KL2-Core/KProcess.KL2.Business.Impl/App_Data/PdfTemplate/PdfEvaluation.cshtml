@@ -1,0 +1,172 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+    <div class="text-center panel panel-default">
+        <div class="panel-body">
+            <h1>Compte-rendu d'évaluation - @DateTime.Now.ToShortDateString()</h1>
+        </div>
+    </div>
+    <div style="margin-left:45px;margin-right:45px;">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Formation évaluée
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.ProcessLabel
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Date début formation
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.StartDate.ToShortDateString()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Nom de l'évalué
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.EvaluatedName
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Date fin formation
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.EndDate.ToShortDateString()
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Situation de l'évalué
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.EvaluatedTenured
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Nom du référent
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @Model.ReferentName
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Equipe
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @string.Join(",", Model.Teams)
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="col-md-3">
+                    Nom(s) évaluateur(s)
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    @string.Join(",", Model.QualifiersName)
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-12 panel panel-primary">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-3">
+                            <label>Résultat de l'évaluation</label>
+                        </div>
+                        <div class="col-md-1">:</div>
+                        <div class="col-md-2">
+                            <label>@Model.Result</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-3">
+                            <label>Décision finale</label>
+                        </div>
+                        <div class="col-md-1">:</div>
+                        <div class="col-md-2">
+                            <label>@Model.Decision</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="col-md-3">
+                            <label>Commentaire général</label>
+                        </div>
+                        <div class="col-md-1">:</div>
+                        <div class="col-md-8">
+                            <label>@Model.Comment</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-lg-12 panel panel-info">
+                <h3 class="text-center panel-heading">Observations (NOK)</h3>
+                <table class="table table-striped panel-body">
+                    <thead>
+                        <tr>
+                            <th class="col-md-1 text-center">ID</th>
+                            <th class="col-md-2 text-center">Connaissance</th>
+                            <th class="col-md-3 text-center">Question</th>
+                            <th class="col-md-3 text-center">Commentaires</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @foreach (var observation in Model.Observations)
+                        {
+                            <tr>
+                                <td>@observation.WBS</td>
+                                <td>@observation.Action</td>
+                                <td>@observation.Question</td>
+                                <td>@observation.Comment</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
